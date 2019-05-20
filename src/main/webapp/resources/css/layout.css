@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.sidebar-logo {
+	position: fixed;
+	bottom: 0;
+	background-color: #222d32;
+}
+.sidebar-logo>.image>img {
+	width: 100%;
+	max-width: 230px;
+	height: auto;
+}

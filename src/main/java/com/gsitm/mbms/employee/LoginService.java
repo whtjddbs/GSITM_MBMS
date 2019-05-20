@@ -1,0 +1,14 @@
+package com.gsitm.mbms.employee;
+
+import java.util.Map;
+
+/**
+ * @주제 : 
+ * @작성일 : 2019. 5. 3.
+ * @작성자 : 조성윤
+ */
+public interface LoginService {
+	public EmployeeDTO login(Map<String, String> map);
+	
+	public EmployeeDTO getEmployee(String emp_no);
+}

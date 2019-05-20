@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="employeeMapper">
+	<!-- 한명의 사원정보 조회 -->
+	<select id="getEmployee" parameterType="String" resultType="employee">
+		select * from employee where emp_no=#{emp_no}
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="login" parameterType="java.util.Map" resultType="employee">
+		select * from employee where emp_no=#{emp_no} and emp_pw=#{emp_pw}
+	</select> 
+</mapper>
