@@ -37,7 +37,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">로그인 정보는 e-HR 정보와 동일합니다.</p>
+    <p class="login-box-msg">로그인 정보는 e-HR 정보와 동일합니다. </p>
 
     <form action="/logincheck" method="post">
       <div class="form-group has-feedback">
