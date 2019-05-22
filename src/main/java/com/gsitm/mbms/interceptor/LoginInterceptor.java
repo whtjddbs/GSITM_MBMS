@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
 
-import com.gsitm.mbms.employee.EmployeeDAO;
 import com.gsitm.mbms.employee.EmployeeDTO;
+import com.gsitm.mbms.employee.LoginService;
 
 /**
  * @주제 : 
@@ -21,7 +21,7 @@ import com.gsitm.mbms.employee.EmployeeDTO;
 @Component
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
-	private EmployeeDAO EmployeeDAO;
+	private LoginService loginService;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -30,22 +30,22 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		Object login = session.getAttribute("login");
 		
 		//로그인 세션 없을 때
-		/*if(login == null) {
+		if(login == null) {
 			System.out.println("LoginInterceptor : "+request.getServletPath());
 			
-			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			/*Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 			if(loginCookie != null) {
 				String id = loginCookie.getValue();
-				EmployeeDTO employeeDTO = EmployeeDAO.getEmployee(id);
+				EmployeeDTO employeeDTO = loginService.getEmployee(id);
 				if(employeeDTO != null) {
 					session.setAttribute("employeeDTO", employeeDTO);
 					return true;
 				}
-			}
+			}*/
 			
 			//로그인이 안되어 있는 상태 - 로그인 폼으로 돌려 보냄
 			response.sendRedirect("/login");
-		}*/
+		}
 		
 		return true;
 	}
