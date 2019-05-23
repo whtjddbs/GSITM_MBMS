@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+빌딩리스트 화면 ㅎㅎ
 
 </body>
 </html>
