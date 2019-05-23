@@ -20,8 +20,8 @@
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="username" value="gsitm" />
-		<property name="password" value="gsitm" />
+		<property name="username" value="mbms" />
+		<property name="password" value="mbms" />
 	</bean>
 	
 	<!-- Connection을 생성하고, 처리하는 SqlSessionFactory 등록 -->	
