@@ -12,5 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/reserve")
 public class ReserveController {
 
-	
+	@RequestMapping("/roomList")
+	public String roomList() {
+		return "room/roomList";
+	}
 }
