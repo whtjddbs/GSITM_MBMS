@@ -5,9 +5,7 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>
-			회의실 소개
-		</h1>
+		<h1>회의실 소개</h1>
 		<ol class="breadcrumb">
 			<li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li class="active">RoomList</li>
@@ -441,11 +439,12 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>Rendering engine</th>
-									<th>Browser</th>
-									<th>Platform(s)</th>
-									<th>Engine version</th>
-									<th>CSS grade</th>
+									<th>회의실 사진</th>
+									<th>회의실명</th>
+									<th>주요시설</th>
+									<th>수용인원</th>
+									<th>요금</th>
+									<th>비고</th>
 								</tr>
 							</tfoot>
 						</table>
