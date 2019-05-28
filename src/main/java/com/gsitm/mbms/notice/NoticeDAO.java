@@ -16,12 +16,12 @@ public interface NoticeDAO {
 	public void insert(NoticeDTO noticeDTO) throws Exception;
 	
 	//읽기
-	public NoticeDTO selectByNoticeNo(int noticeNo) throws Exception;
+	public NoticeDTO selectByNoticeNo(int notice_no) throws Exception;
 	
 	//수정
-	public void update(int noticeDTO) throws Exception;
+	public void update(NoticeDTO noticeDTO) throws Exception;
 	
 	//삭제
-	public void delete(int noticeNo) throws Exception;
+	public void delete(int notice_no) throws Exception;
 
 }

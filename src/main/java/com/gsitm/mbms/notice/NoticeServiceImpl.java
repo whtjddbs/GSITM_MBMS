@@ -29,18 +29,18 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	// 읽기
-	public NoticeDTO selectByNoticeNo(int noticeNo) throws Exception {
-		return dao.selectByNoticeNo(noticeNo);
+	public NoticeDTO selectByNoticeNo(int notice_no) throws Exception {
+		return dao.selectByNoticeNo(notice_no);
 	}
 	
 	// 수정
-	public void update(int noticeDTO) throws Exception {
+	public void update(NoticeDTO noticeDTO) throws Exception {
 		dao.update(noticeDTO);
 	}
 	
 	// 삭제
-	public void delete(int noticeNo) throws Exception {
-		dao.delete(noticeNo);
+	public void delete(int notice_no) throws Exception {
+		dao.delete(notice_no);
 	}
 
 

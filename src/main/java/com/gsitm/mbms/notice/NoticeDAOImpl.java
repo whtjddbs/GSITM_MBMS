@@ -37,7 +37,7 @@ public class NoticeDAOImpl implements NoticeDAO {
 	}
 
 	// 수정
-	public void update(int noticeDTO) throws Exception {
+	public void update(NoticeDTO noticeDTO) throws Exception {
 		sqlSession.update(namespace + "update", noticeDTO);
 	}
 
