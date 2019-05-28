@@ -4,5 +4,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="noticeMapper">
-	
+
+	<select id="selectAll" resultType="notice">
+        SELECT * FROM Notice ORDER BY notice_no DESC
+	</select>
+
+	<insert id="insert">
+		Insert into MBMS.NOTICE (notice_no, notice_subject, notice_content, writer_emp_no, notice_date)
+		values (Notice_SEQ.NEXTVAL , #{notice_subject},  #{notice_content} ,  #{writer_emp_no} , SYSDATE)
+	</insert>
+
+
+	<select id="selectByNoticeNo" resultType="notice">
+		SELECT * FROM Notice WHERE notice_no = #{notice_no}
+	</select>
+
+
+	<delete id="delete">
+		DELETE FROM Notice WHERE notice_no = #{notice_nonotice_no}
+	</delete>
+
+
+	<update id="update">
+		UPDATE Notice SET
+			notice_no=#{notice_no},
+			notice_subject=#{notice_subject},
+			notice_content=#{notice_content},
+			writer_emp_no=#{writer_emp_no},
+			notice_date=#{notice_date}
+		WHERE notice_no = #{notice_no}
+	</update>
 </mapper>
