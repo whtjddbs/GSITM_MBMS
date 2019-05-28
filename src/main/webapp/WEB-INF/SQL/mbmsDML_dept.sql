@@ -1,13 +1,13 @@
 --------------------------------------------------------
---  ÆÄÀÏÀÌ »ý¼ºµÊ - È­¿äÀÏ-5¿ù-21-2019   
+--  íŒŒì¼ì´ ìƒì„±ë¨ - í™”ìš”ì¼-5ì›”-21-2019   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table DEPARTMENT
-Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (10,'SI»ç¾÷ºÎ','IT1010',0);
-Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (11,'ICT»ç¾÷ÆÀ','IT1011',10);
-Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (12,'SI»ç¾÷ÆÀ','IT1012',10);
-Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (13,'CommerceÆÄÆ®','IT1013',12);
-Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (14,'CRMÆÄÆ®','IT1014',12);
-Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (15,'µ¥ÀÌÅÍ»ç¾÷ÆÄÆ®','IT1015',12);
-Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (16,'À¯Åë/¹°·ùÆÄÆ®','IT1016',12);
 Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (0,'GSITM','CEO',0);
+Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (10,'SIì‚¬ì—…ë¶€','IT1010',0);
+Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (11,'ICTì‚¬ì—…íŒ€','IT1011',10);
+Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (12,'SIì‚¬ì—…íŒ€','IT1012',10);
+Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (13,'CommerceíŒŒíŠ¸','IT1013',12);
+Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (14,'CRMíŒŒíŠ¸','IT1014',12);
+Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (15,'ë°ì´í„°ì‚¬ì—…íŒŒíŠ¸','IT1015',12);
+Insert into MBMS.DEPARTMENT (DEPT_NO,DEPT_NAME,BOSS_NO,MGR_DEPT_NO) values (16,'ìœ í†µ/ë¬¼ë¥˜íŒŒíŠ¸','IT1016',12);
