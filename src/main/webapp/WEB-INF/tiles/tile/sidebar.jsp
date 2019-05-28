@@ -34,11 +34,11 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="layout/top-nav.html"><i class="fa fa-circle-o"></i> 
+					<li><a href="/reserve/roomList"><i class="fa fa-circle-o"></i> 
 							회의실 소개</a></li>
-					<li><a href="layout/boxed.html"><i class="fa fa-circle-o"></i>
+					<li><a href="/reserve/roomSearchForm"><i class="fa fa-circle-o"></i>
 							회의실 검색</a></li>
-					<li><a href="layout/fixed.html"><i class="fa fa-circle-o"></i>
+					<li><a href="/reserve/Calendar"><i class="fa fa-circle-o"></i>
 							회의실 예약</a></li>
 				</ul></li>
 			<!-- 마이페이지 -->
