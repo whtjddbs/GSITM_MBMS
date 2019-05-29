@@ -2,6 +2,7 @@
 --GRANT CONNECT, RESOURCE, DBA TO mbms;
 
 DROP SEQUENCE Department_SEQ;
+DROP SEQUENCE Employee_SEQ;
 DROP SEQUENCE Building_SEQ;
 DROP SEQUENCE Room_SEQ;
 DROP SEQUENCE Reserve_history_SEQ;
@@ -34,19 +35,19 @@ INCREMENT BY 1;
 /
 
 
-COMMENT ON TABLE Department IS 'ºÎ¼­'
+COMMENT ON TABLE Department IS 'ë¶€ì„œ'
 /
 
-COMMENT ON COLUMN Department.dept_no IS 'ºÎ¼­¹øÈ£'
+COMMENT ON COLUMN Department.dept_no IS 'ë¶€ì„œë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Department.dept_name IS 'ºÎ¼­¸í'
+COMMENT ON COLUMN Department.dept_name IS 'ë¶€ì„œëª…'
 /
 
-COMMENT ON COLUMN Department.boss_no IS 'ºÎ¼­Àå'
+COMMENT ON COLUMN Department.boss_no IS 'ë¶€ì„œì¥'
 /
 
-COMMENT ON COLUMN Department.mgr_dept_no IS '»óÀ§ºÎ¼­¹øÈ£'
+COMMENT ON COLUMN Department.mgr_dept_no IS 'ìƒìœ„ë¶€ì„œë²ˆí˜¸'
 /
 
 ALTER TABLE Department
@@ -70,31 +71,35 @@ CREATE TABLE Employee
 )
 /
 
-COMMENT ON TABLE Employee IS '»ç¿ø'
+CREATE SEQUENCE Employee_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+COMMENT ON TABLE Employee IS 'ì‚¬ì›'
 /
 
-COMMENT ON COLUMN Employee.emp_no IS '»ç¿ø¹øÈ£'
+COMMENT ON COLUMN Employee.emp_no IS 'ì‚¬ì›ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Employee.emp_pw IS 'ºñ¹Ğ¹øÈ£'
+COMMENT ON COLUMN Employee.emp_pw IS 'ë¹„ë°€ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Employee.emp_name IS 'ÀÌ¸§'
+COMMENT ON COLUMN Employee.emp_name IS 'ì´ë¦„'
 /
 
-COMMENT ON COLUMN Employee.emp_position IS 'Á÷±Ş'
+COMMENT ON COLUMN Employee.emp_position IS 'ì§ê¸‰'
 /
 
-COMMENT ON COLUMN Employee.emp_email IS 'ÀÌ¸ŞÀÏ'
+COMMENT ON COLUMN Employee.emp_email IS 'ì´ë©”ì¼'
 /
 
-COMMENT ON COLUMN Employee.cell_phone IS 'ÇÚµåÆù¹øÈ£'
+COMMENT ON COLUMN Employee.cell_phone IS 'í•¸ë“œí°ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Employee.office_phone IS '»ç¹«½Ç¹øÈ£'
+COMMENT ON COLUMN Employee.office_phone IS 'ì‚¬ë¬´ì‹¤ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Employee.dept_no IS 'ºÎ¼­¹øÈ£'
+COMMENT ON COLUMN Employee.dept_no IS 'ë¶€ì„œë²ˆí˜¸'
 /
 
 ALTER TABLE Employee
@@ -122,19 +127,19 @@ INCREMENT BY 1;
 
 
 
-COMMENT ON TABLE Building IS '°Ç¹°'
+COMMENT ON TABLE Building IS 'ê±´ë¬¼'
 /
 
-COMMENT ON COLUMN Building.build_no IS '°Ç¹°¹øÈ£'
+COMMENT ON COLUMN Building.build_no IS 'ê±´ë¬¼ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Building.build_name IS '°Ç¹°¸í'
+COMMENT ON COLUMN Building.build_name IS 'ê±´ë¬¼ëª…'
 /
 
-COMMENT ON COLUMN Building.build_addr IS 'ÁÖ¼Ò'
+COMMENT ON COLUMN Building.build_addr IS 'ì£¼ì†Œ'
 /
 
-COMMENT ON COLUMN Building.build_post IS '¿ìÆí¹øÈ£'
+COMMENT ON COLUMN Building.build_post IS 'ìš°í¸ë²ˆí˜¸'
 /
 
 
@@ -166,40 +171,40 @@ INCREMENT BY 1;
 
 
 
-COMMENT ON TABLE Room IS '´ë¿©Àå¼Ò(È¸ÀÇ½Ç,±³À°½Ç)'
+COMMENT ON TABLE Room IS 'ëŒ€ì—¬ì¥ì†Œ(íšŒì˜ì‹¤,êµìœ¡ì‹¤)'
 /
 
-COMMENT ON COLUMN Room.room_no IS 'È¸ÀÇ½Ç¹øÈ£'
+COMMENT ON COLUMN Room.room_no IS 'íšŒì˜ì‹¤ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Room.build_no IS '°Ç¹°¹øÈ£'
+COMMENT ON COLUMN Room.build_no IS 'ê±´ë¬¼ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Room.room_name IS 'È¸ÀÇ½Ç¸í'
+COMMENT ON COLUMN Room.room_name IS 'íšŒì˜ì‹¤ëª…'
 /
 
-COMMENT ON COLUMN Room.room_space IS '±Ô¸ğ'
+COMMENT ON COLUMN Room.room_space IS 'ê·œëª¨'
 /
 
-COMMENT ON COLUMN Room.room_num_emp IS '¼ö¿ëÀÎ¿ø'
+COMMENT ON COLUMN Room.room_num_emp IS 'ìˆ˜ìš©ì¸ì›'
 /
 
-COMMENT ON COLUMN Room.mgr_emp_no IS '´ã´çÀÚ¹øÈ£'
+COMMENT ON COLUMN Room.mgr_emp_no IS 'ë‹´ë‹¹ìë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Room.room_img IS 'È¸ÀÇ½Ç»çÁø'
+COMMENT ON COLUMN Room.room_img IS 'íšŒì˜ì‹¤ì‚¬ì§„'
 /
 
-COMMENT ON COLUMN Room.room_price IS '½Ã°£´çºñ¿ë'
+COMMENT ON COLUMN Room.room_price IS 'ì‹œê°„ë‹¹ë¹„ìš©'
 /
 
-COMMENT ON COLUMN Room.network_yn IS 'N/W»ç¿ë¿©ºÎ'
+COMMENT ON COLUMN Room.network_yn IS 'N/Wì‚¬ìš©ì—¬ë¶€'
 /
 
-COMMENT ON COLUMN Room.room_floor IS 'È¸ÀÇ½ÇÀ§Ä¡'
+COMMENT ON COLUMN Room.room_floor IS 'íšŒì˜ì‹¤ìœ„ì¹˜'
 /
 
-COMMENT ON COLUMN Room.room_type IS 'Àå¼ÒÀ¯Çü'
+COMMENT ON COLUMN Room.room_type IS 'ì¥ì†Œìœ í˜•'
 /
 
 ALTER TABLE Room
@@ -247,67 +252,67 @@ INCREMENT BY 1;
 
 
 
-COMMENT ON TABLE Reserve_history IS '¿¹¾à³»¿ª'
+COMMENT ON TABLE Reserve_history IS 'ì˜ˆì•½ë‚´ì—­'
 /
 
-COMMENT ON COLUMN Reserve_history.reserve_no IS '¿¹¾à¹øÈ£'
+COMMENT ON COLUMN Reserve_history.reserve_no IS 'ì˜ˆì•½ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Reserve_history.room_no IS 'È¸ÀÇ½Ç¹øÈ£'
+COMMENT ON COLUMN Reserve_history.room_no IS 'íšŒì˜ì‹¤ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Reserve_history.reserve_emp_no IS '¿¹¾àÀÚ¹øÈ£'
+COMMENT ON COLUMN Reserve_history.reserve_emp_no IS 'ì˜ˆì•½ìë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Reserve_history.start_date IS '»ç¿ë½ÃÀÛÀÏ'
+COMMENT ON COLUMN Reserve_history.start_date IS 'ì‚¬ìš©ì‹œì‘ì¼'
 /
 
-COMMENT ON COLUMN Reserve_history.end_date IS '»ç¿ëÁ¾·áÀÏ'
+COMMENT ON COLUMN Reserve_history.end_date IS 'ì‚¬ìš©ì¢…ë£Œì¼'
 /
 
-COMMENT ON COLUMN Reserve_history.approval1_yn IS '1Â÷°áÀç¿©ºÎ'
+COMMENT ON COLUMN Reserve_history.approval1_yn IS '1ì°¨ê²°ì¬ì—¬ë¶€'
 /
 
-COMMENT ON COLUMN Reserve_history.approval1_emp_no IS '1Â÷°áÀçÀÚ»ç¿ø¹øÈ£'
+COMMENT ON COLUMN Reserve_history.approval1_emp_no IS '1ì°¨ê²°ì¬ìì‚¬ì›ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Reserve_history.approval1_date IS '1Â÷°áÀçÀÏ'
+COMMENT ON COLUMN Reserve_history.approval1_date IS '1ì°¨ê²°ì¬ì¼'
 /
 
-COMMENT ON COLUMN Reserve_history.approval2_yn IS '2Â÷°áÀç¿©ºÎ'
+COMMENT ON COLUMN Reserve_history.approval2_yn IS '2ì°¨ê²°ì¬ì—¬ë¶€'
 /
 
-COMMENT ON COLUMN Reserve_history.approval2_emp_no IS '2Â÷°áÀçÀÚ»ç¿ø¹øÈ£'
+COMMENT ON COLUMN Reserve_history.approval2_emp_no IS '2ì°¨ê²°ì¬ìì‚¬ì›ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Reserve_history.approval2_date IS '2Â÷°áÀçÀÏ'
+COMMENT ON COLUMN Reserve_history.approval2_date IS '2ì°¨ê²°ì¬ì¼'
 /
 
-COMMENT ON COLUMN Reserve_history.payment_yn IS 'ºñ¿ë°áÁ¦¿©ºÎ'
+COMMENT ON COLUMN Reserve_history.payment_yn IS 'ë¹„ìš©ê²°ì œì—¬ë¶€'
 /
 
-COMMENT ON COLUMN Reserve_history.payment_date IS 'ºñ¿ë°áÁ¦ÀÏ'
+COMMENT ON COLUMN Reserve_history.payment_date IS 'ë¹„ìš©ê²°ì œì¼'
 /
 
-COMMENT ON COLUMN Reserve_history.reserve_date IS '¿¹¾à½ÅÃ»ÀÏ'
+COMMENT ON COLUMN Reserve_history.reserve_date IS 'ì˜ˆì•½ì‹ ì²­ì¼'
 /
 
-COMMENT ON COLUMN Reserve_history.reserve_price IS '°áÁ¦±İ¾×'
+COMMENT ON COLUMN Reserve_history.reserve_price IS 'ê²°ì œê¸ˆì•¡'
 /
 
-COMMENT ON COLUMN Reserve_history.purpose IS 'È¸ÀÇ¸ñÀû'
+COMMENT ON COLUMN Reserve_history.purpose IS 'íšŒì˜ëª©ì '
 /
 
-COMMENT ON COLUMN Reserve_history.category IS 'È¸ÀÇ±¸ºĞ'
+COMMENT ON COLUMN Reserve_history.category IS 'íšŒì˜êµ¬ë¶„'
 /
 
-COMMENT ON COLUMN Reserve_history.priority IS 'Áß¿äµµ'
+COMMENT ON COLUMN Reserve_history.priority IS 'ì¤‘ìš”ë„'
 /
 
-COMMENT ON COLUMN Reserve_history.emp_count IS 'Âü¼®ÀÎ¿ø¼ö'
+COMMENT ON COLUMN Reserve_history.emp_count IS 'ì°¸ì„ì¸ì›ìˆ˜'
 /
 
-COMMENT ON COLUMN Reserve_history.snack_yn IS '°£½ÄÁØºñ¿©ºÎ'
+COMMENT ON COLUMN Reserve_history.snack_yn IS 'ê°„ì‹ì¤€ë¹„ì—¬ë¶€'
 /
 
 ALTER TABLE Reserve_history
@@ -332,19 +337,19 @@ CREATE TABLE Room_Equipment
 )
 /
 
-COMMENT ON TABLE Room_Equipment IS '´ë¿©Àå¼Ò_ºñÇ°ÇöÈ²'
+COMMENT ON TABLE Room_Equipment IS 'ëŒ€ì—¬ì¥ì†Œ_ë¹„í’ˆí˜„í™©'
 /
 
-COMMENT ON COLUMN Room_Equipment.room_no IS 'È¸ÀÇ½Ç¹øÈ£'
+COMMENT ON COLUMN Room_Equipment.room_no IS 'íšŒì˜ì‹¤ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Room_Equipment.eq_no IS 'ºñÇ°¹øÈ£'
+COMMENT ON COLUMN Room_Equipment.eq_no IS 'ë¹„í’ˆë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Room_Equipment.eq_name IS 'ºñÇ°¸í'
+COMMENT ON COLUMN Room_Equipment.eq_name IS 'ë¹„í’ˆëª…'
 /
 
-COMMENT ON COLUMN Room_Equipment.eq_count IS '¼ö·®'
+COMMENT ON COLUMN Room_Equipment.eq_count IS 'ìˆ˜ëŸ‰'
 /
 
 ALTER TABLE Room_Equipment
@@ -373,22 +378,22 @@ INCREMENT BY 1;
 
 
 
-COMMENT ON TABLE Notice IS '°øÁö»çÇ×'
+COMMENT ON TABLE Notice IS 'ê³µì§€ì‚¬í•­'
 /
 
-COMMENT ON COLUMN Notice.notice_no IS '°øÁö»çÇ×¹øÈ£'
+COMMENT ON COLUMN Notice.notice_no IS 'ê³µì§€ì‚¬í•­ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Notice.notice_subject IS 'Á¦¸ñ'
+COMMENT ON COLUMN Notice.notice_subject IS 'ì œëª©'
 /
 
-COMMENT ON COLUMN Notice.notice_content IS '³»¿ë'
+COMMENT ON COLUMN Notice.notice_content IS 'ë‚´ìš©'
 /
 
-COMMENT ON COLUMN Notice.writer_emp_no IS 'ÀÛ¼ºÀÚ»ç¿ø¹øÈ£'
+COMMENT ON COLUMN Notice.writer_emp_no IS 'ì‘ì„±ìì‚¬ì›ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Notice.notice_date IS 'ÀÛ¼ºÀÏ'
+COMMENT ON COLUMN Notice.notice_date IS 'ì‘ì„±ì¼'
 /
 
 ALTER TABLE Notice
@@ -407,16 +412,16 @@ CREATE TABLE Meeting_member_list
 )
 /
 
-COMMENT ON TABLE Meeting_member_list IS 'È¸ÀÇº°Âü¼®ÀÚ¸í´Ü'
+COMMENT ON TABLE Meeting_member_list IS 'íšŒì˜ë³„ì°¸ì„ìëª…ë‹¨'
 /
 
-COMMENT ON COLUMN Meeting_member_list.reserve_no IS '¿¹¾à¹øÈ£'
+COMMENT ON COLUMN Meeting_member_list.reserve_no IS 'ì˜ˆì•½ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Meeting_member_list.emp_no IS '»ç¿ø¹øÈ£'
+COMMENT ON COLUMN Meeting_member_list.emp_no IS 'ì‚¬ì›ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Meeting_member_list.dept_name IS 'ºÎ¼­¸í'
+COMMENT ON COLUMN Meeting_member_list.dept_name IS 'ë¶€ì„œëª…'
 /
 
 ALTER TABLE Meeting_member_list
@@ -439,16 +444,16 @@ CREATE TABLE Meeting_Equipment_list
 )
 /
 
-COMMENT ON TABLE Meeting_Equipment_list IS 'È¸ÀÇº°ºñÇ°»ç¿ë³»¿ª'
+COMMENT ON TABLE Meeting_Equipment_list IS 'íšŒì˜ë³„ë¹„í’ˆì‚¬ìš©ë‚´ì—­'
 /
 
-COMMENT ON COLUMN Meeting_Equipment_list.reserve_no IS '¿¹¾à¹øÈ£'
+COMMENT ON COLUMN Meeting_Equipment_list.reserve_no IS 'ì˜ˆì•½ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Meeting_Equipment_list.eq_no IS 'ºñÇ°¹øÈ£'
+COMMENT ON COLUMN Meeting_Equipment_list.eq_no IS 'ë¹„í’ˆë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Meeting_Equipment_list.eq_count IS '¼ö·®'
+COMMENT ON COLUMN Meeting_Equipment_list.eq_count IS 'ìˆ˜ëŸ‰'
 /
 
 ALTER TABLE Meeting_Equipment_list
@@ -468,19 +473,19 @@ CREATE TABLE Dept_payment
 )
 /
 
-COMMENT ON TABLE Dept_payment IS 'ºÎ¼­º°ºñ¿ë'
+COMMENT ON TABLE Dept_payment IS 'ë¶€ì„œë³„ë¹„ìš©'
 /
 
-COMMENT ON COLUMN Dept_payment.reserve_no IS '¿¹¾à¹øÈ£'
+COMMENT ON COLUMN Dept_payment.reserve_no IS 'ì˜ˆì•½ë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Dept_payment.dept_no IS 'ºÎ¼­¹øÈ£'
+COMMENT ON COLUMN Dept_payment.dept_no IS 'ë¶€ì„œë²ˆí˜¸'
 /
 
-COMMENT ON COLUMN Dept_payment.dept_reserve_price IS '°áÁ¦±İ¾×'
+COMMENT ON COLUMN Dept_payment.dept_reserve_price IS 'ê²°ì œê¸ˆì•¡'
 /
 
-COMMENT ON COLUMN Dept_payment.dept_payment_yn IS 'ºñ¿ë°áÁ¦¿©ºÎ'
+COMMENT ON COLUMN Dept_payment.dept_payment_yn IS 'ë¹„ìš©ê²°ì œì—¬ë¶€'
 /
 
 ALTER TABLE Dept_payment
