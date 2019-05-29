@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @작성자 : 김원빈
  */
 
-/*
+
 @Repository
 public class BuildingDAOImpl implements BuildingDAO{
 
@@ -26,4 +26,4 @@ public class BuildingDAOImpl implements BuildingDAO{
 	}
 	
 	
-}*/
+}
