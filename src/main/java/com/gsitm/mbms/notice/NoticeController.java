@@ -48,25 +48,25 @@ public class NoticeController {
 
 	// 공지사항 글 상세보기---------------------------------------------------------------------------------------
 	@RequestMapping(value = "/noticeDetail", method = RequestMethod.GET)
-	public void noticeDetail(@RequestParam("notice_no") int notice_no, Model model) throws Exception {
+	public void noticeDetail(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
 		
-		model.addAttribute("noticeDTO", service.selectByNoticeNo(notice_no));
+		model.addAttribute("noticeDTO", service.selectByNoticeNo(noticeNo));
 	}
 
 	// delete----------------------------------------------------------------------------------------------------
 	// 글삭제
 	@RequestMapping(value = "/noticeDelete", method = RequestMethod.POST)
-	public String noticeDelete(@RequestParam("notice_no") int notice_no, Model model) throws Exception {
+	public String noticeDelete(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
 		
-		service.delete(notice_no);
+		service.delete(noticeNo);
 		return "redirect:/notice/noticeList";
 	}
 
 	// update-----------------------------------------------------------------------------------------------------
 	// 글 수정 폼 보기
 	@RequestMapping(value = "/noticeUpdateForm", method = RequestMethod.POST)
-	public void noticeUpdateForm(@RequestParam("notice_no") int notice_no,  Model model) throws Exception {
-		model.addAttribute("noticeDTO", service.selectByNoticeNo(notice_no));
+	public void noticeUpdateForm(@RequestParam("noticeNo") int noticeNo,  Model model) throws Exception {
+		model.addAttribute("noticeDTO", service.selectByNoticeNo(noticeNo));
 	}
 
 	// 글 수정 submit

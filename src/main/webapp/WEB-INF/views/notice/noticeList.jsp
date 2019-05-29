@@ -79,11 +79,11 @@
 									<tr>
 										
 										
-											<td>${noticeDTO.notice_no}</td>
-											<td>${noticeDTO.writer_emp_no}</td>
-											<td><a href='noticeDetail?notice_no=${noticeDTO.notice_no}'>${noticeDTO.notice_subject}</a></td>
+											<td>${noticeDTO.noticeNo}</td>
+											<td>${noticeDTO.writerEmpNo}</td>
+											<td><a href='noticeDetail?noticeNo=${noticeDTO.noticeNo}'>${noticeDTO.noticeSubject}</a></td>
 											<td>미구현</td>
-											<td>${noticeDTO.notice_date}</td>
+											<td>${noticeDTO.noticeDate}</td>
 										
 										
 									</tr>
