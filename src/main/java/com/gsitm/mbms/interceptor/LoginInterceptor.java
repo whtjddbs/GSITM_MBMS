@@ -26,7 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-/*		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 		Object login = session.getAttribute("login");
 		
 		//로그인 세션 없을 때
@@ -38,14 +38,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				String id = loginCookie.getValue();
 				EmployeeDTO employeeDTO = loginService.getEmployee(id);
 				if(employeeDTO != null) {
-					session.setAttribute("employeeDTO", employeeDTO);
-					return true;
+					session.setAttribute("login", employeeDTO);
+					response.sendRedirect("/");
+					return false;
 				}
 			}
 			
 			//로그인이 안되어 있는 상태 - 로그인 폼으로 돌려 보냄
 			response.sendRedirect("/login");
-		}*/
+		}
 		
 		return true;
 	}

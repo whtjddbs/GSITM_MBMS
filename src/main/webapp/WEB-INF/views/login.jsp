@@ -53,7 +53,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox" id="loginChk"> Remember Me
+              <input type="checkbox" id="loginChk" name="autoLoginCheck" value="true"> Remember Me
             </label>
           </div>
         </div>
