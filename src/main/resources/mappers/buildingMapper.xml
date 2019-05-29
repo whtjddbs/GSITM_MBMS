@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="buildingMapper">
 	<!-- BuildingDTO 컬럼명 매핑 -->
 	<resultMap type="building" id="BuildingDTO">
-		<result column="build_no" property="buildingNo"/>
+		<result column="build_no" property="buildNo"/>
 		<result column="build_name" property="buildName"/>
 		<result column="build_addr" property="buildAddr"/>
 		<result column="build_post" property="buildPost"/>

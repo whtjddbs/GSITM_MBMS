@@ -25,14 +25,16 @@
 					<div class="box-body">
 						<div class="row">
 							<div class="col-sm-6">
-								<select>
+								<select name="buildingSelect" id="buildingSelect">
 									<option value="">전체</option>
-									<option value="삼환빌딩">삼환빌딩</option>
-									<option value="GS강남타워">GS강남타워</option>
+									<c:forEach var="building" items="${buildings }">
+										<option value="${building.buildNo }">${building.buildName }</option>
+									</c:forEach>
 								</select>
-								<select>
-									<option>몰디브</option>
-									<option>1층교육장</option>
+								<select name="buildingTypeSelect" id="roomTypeSelect">
+									<option value="">전체</option>
+									<option value="회의실">회의실</option>
+									<option value="교육실">교육실</option>
 								</select>
 							</div>
 							<div class="col-sm-6"></div>
@@ -105,6 +107,60 @@
 			'autoWidth' : true,
 			'order' : [ [ 1, "desc" ] ],
 			"pagingType" : "full_numbers"
-		})
+		});
+		
+		//조건별 회의실 검색
+		$(document).on('change', '#buildingSelect, #roomTypeSelect', function(){
+			$.ajax({
+				type : "POST",
+				url : "/reserve/roomSearch",
+				data : {"buildNo" : $('#buildingSelect').val(),
+						"roomType" : $('#roomTypeSelect').val()},
+				dataType : "json",
+				success : function(data) {
+					alert(JSON.stringify(data));
+					
+					/* $.each(data.rooms, function(index,item){
+						$('<li/>').append($('<div/>',{
+							class : 'item_review'
+						}).append($('<div/>').append($('<input/>',{
+							type : 'checkbox',
+							name : 'seqSerial',
+							class : 'check',
+							id : 'seqSerial',
+							value : item.SEQ+","+item.SERIAL
+						}))).append($('<div/>',{
+							text : item.SERIAL
+						})).append($('<div/>',{
+							text : item.ID
+						})).append($('<div/>',{
+							text : item.MAIN_CODENAME
+						})).append($('<div/>',{
+							text : item.NAME
+						})).append($('<div/>',{
+							class : 'item_comments',
+							text : item.COMMENTS
+						})).append($('<div/>',{
+							text : item.ITEM_IMAGE==null ? '-':item.ITEM_IMAGE
+						})).append($('<div/>',{
+							id : 'sysdate',
+							text : jsonDateFormat(new Date(item.LOGTIME))
+						}))).append($('<div/>').append($('<input/>',{
+							type : 'button',
+							class : 'btn_black',
+							id : 'reviewOneDeleteBtn',
+							style : 'margin-left : 15px; width : 60px;',
+							value : '삭제'
+						}))).appendTo($('.itemControll ul'));
+					});
+					
+					$('#roomListTable tbody').html(data.paging.pagingHTML); */
+				},
+				error : function(data) {
+					alert('error');
+				}
+			});
+		});
+		
 	})
 </script>

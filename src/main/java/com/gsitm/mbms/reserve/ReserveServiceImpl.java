@@ -1,6 +1,7 @@
 package com.gsitm.mbms.reserve;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,11 @@ public class ReserveServiceImpl implements ReserveService {
 	public List<RoomDTO> selectAllRoom() {
 		return reserveDAO.selectAllRoom();
 	}
+
+	@Override
+	public List<RoomDTO> selectRoomBySearch(Map<String, String> map) {
+		return reserveDAO.selectRoomBySearch(map);
+	}
+	
 	
 }

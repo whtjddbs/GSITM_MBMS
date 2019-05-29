@@ -37,6 +37,14 @@
         <beans:property name="order" value="1" />
     </beans:bean>
     
+    <!-- jsonView -->
+	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<beans:property name="contentType" value="text/html;charwet=UTF-8" />
+	</beans:bean>
+	<beans:bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0" />
+	</beans:bean>
+    
     <!-- Controller -->
 	<context:component-scan base-package="com.gsitm.mbms" />
 	

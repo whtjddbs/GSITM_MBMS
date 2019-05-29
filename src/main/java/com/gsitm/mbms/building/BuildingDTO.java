@@ -5,7 +5,7 @@ package com.gsitm.mbms.building;
  * @작성자 : 김원빈
  */
 public class BuildingDTO {
-	int buildingNo;
+	int buildNo;
 	String buildName;
 	String buildAddr;
 	String buildPost;
@@ -14,19 +14,19 @@ public class BuildingDTO {
 		super();
 	}
 	
-	public BuildingDTO(int buildingNo, String buildName, String buildAddr, String buildPost) {
+	public BuildingDTO(int buildNo, String buildName, String buildAddr, String buildPost) {
 		super();
-		this.buildingNo = buildingNo;
+		this.buildNo = buildNo;
 		this.buildName = buildName;
 		this.buildAddr = buildAddr;
 		this.buildPost = buildPost;
 	}
 	
-	public int getBuildingNo() {
-		return buildingNo;
+	public int getBuildNo() {
+		return buildNo;
 	}
-	public void setBuildingNo(int buildingNo) {
-		this.buildingNo = buildingNo;
+	public void setBuildNo(int buildNo) {
+		this.buildNo = buildNo;
 	}
 	public String getBuildName() {
 		return buildName;
@@ -48,7 +48,7 @@ public class BuildingDTO {
 	}
 	@Override
 	public String toString() {
-		return "BuildingDTO [buildingNo=" + buildingNo + ", buildName=" + buildName + ", buildAddr=" + buildAddr
+		return "BuildingDTO [buildNo=" + buildNo + ", buildName=" + buildName + ", buildAddr=" + buildAddr
 				+ ", buildPost=" + buildPost + "]";
 	}
 }
