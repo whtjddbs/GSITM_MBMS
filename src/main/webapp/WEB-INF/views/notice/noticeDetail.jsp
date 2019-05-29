@@ -25,7 +25,7 @@
               <h3 class="box-title">공지사항 상세보기</h3>
 
               <div class="box-tools pull-right">
-                <a href='noticeDetail?notice_no=${noticeDTO.notice_no -1}' class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"> 이전글(현재 처음글이면 비활성화해야) </i></a>
+                <a href='noticeDetail?notice_no=${noticeDTO.notice_no -1}' class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"> </i> 이전글(현재 처음글이면 비활성화해야)</a>
                 <a href='noticeDetail?notice_no=${noticeDTO.notice_no +1}' class="btn btn-box-tool" data-toggle="tooltip" title="Next"> 다음글(현재 최신글이면 비활성화해야) <i class="fa fa-chevron-right"></i></a>
               </div>
             </div>

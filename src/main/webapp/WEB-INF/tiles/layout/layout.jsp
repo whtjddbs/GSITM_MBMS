@@ -48,9 +48,17 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet" href="/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+<!-- 푸른전남체 CDN -->
+<link href='//cdn.rawgit.com/young-ha/webfont-archive/master/css/PureunJeonnam.css' rel='stylesheet' type='text/css'>
+
+
 <!-- 사용자 정의 CSS -->
 <link rel="stylesheet" href="/resources/css/layout.css">
-<style>
+<style type="text/css">
+
     .example-modal .modal {
       position: relative;
       top: auto;
@@ -64,6 +72,15 @@
     .example-modal .modal {
       background: transparent !important;
     }
+    
+
+	/* 민기 폰트 */
+	body, div, h1, h2, h3, h4, h5, h6, a , b{
+	   font-family: 'PureunJeonnam', 'Sans-serif';
+	}
+
+    
+    
 </style>
 
 <!-- jQuery 3 -->
