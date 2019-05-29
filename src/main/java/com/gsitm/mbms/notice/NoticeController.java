@@ -20,27 +20,62 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @작성자 : 송민기
  */
 
-
 @Controller
 @RequestMapping("/notice")
 public class NoticeController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
-	
+
 	@Inject
 	private NoticeService service;
-	
-	/** 공지사항 목록------------------------------------------------------------------------------------- 
-	 * @throws Exception */
-	
-	// 공지사항 글 보기 이동
+
+	/**
+	 * 공지사항
+	 * 목록-------------------------------------------------------------------------------------
+	 * 
+	 * @throws Exception
+	 */
+
+	// 공지사항 리스트 전체보기-----------------------------------------------------------------------------------
 	@RequestMapping(value = "/noticeList", method = RequestMethod.GET)
-	public String noticeList( Model model, HttpServletRequest request) throws Exception {
-		
+	public String noticeList(Model model, HttpServletRequest request) throws Exception {
+
 		List<NoticeDTO> noticeList = service.selectAll();
-		//System.out.println(noticeList.get(1));
 		model.addAttribute("noticeList", noticeList);
-		
+
 		return "notice/noticeList";
 	}
+
+	// 공지사항 글 상세보기---------------------------------------------------------------------------------------
+	@RequestMapping(value = "/noticeDetail", method = RequestMethod.GET)
+	public void noticeDetail(@RequestParam("notice_no") int notice_no, Model model) throws Exception {
+		
+		model.addAttribute("noticeDTO", service.selectByNoticeNo(notice_no));
+	}
+
+	// delete----------------------------------------------------------------------------------------------------
+	// 글삭제
+	@RequestMapping(value = "/noticeDelete", method = RequestMethod.POST)
+	public String noticeDelete(@RequestParam("notice_no") int notice_no, Model model) throws Exception {
+		
+		service.delete(notice_no);
+		return "redirect:/notice/noticeList";
+	}
+
+	// update-----------------------------------------------------------------------------------------------------
+	// 글 수정 폼 보기
+	@RequestMapping(value = "/noticeUpdateForm", method = RequestMethod.POST)
+	public void noticeUpdateForm(@RequestParam("notice_no") int notice_no,  Model model) throws Exception {
+		model.addAttribute("noticeDTO", service.selectByNoticeNo(notice_no));
+	}
+
+	// 글 수정 submit
+	@RequestMapping(value = "/updateSubmit", method = RequestMethod.POST)
+	public String updateSubmit(NoticeDTO noticeDTO,  Model model) throws Exception {
+
+		service.update(noticeDTO);
+
+		return "notice/noticeList";
+	}
+
 }
