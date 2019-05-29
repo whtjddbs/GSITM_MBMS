@@ -14,15 +14,14 @@ import com.gsitm.mbms.employee.EmployeeDAO;
 @Service
 public class BuildingServiceImpl implements BuildingService{
 	
-	@Autowired
+/*	@Autowired
 	private BuildingDAO buildingDAO;
 	
 	@Override
 	public List<BuildingDTO> SelectAll() {
 		// TODO Auto-generated method stub
-		System.out.println("서비스 : "+ buildingDAO.SelectAll().size());
 		return buildingDAO.SelectAll();
 	}
-
+*/
 	
 }
