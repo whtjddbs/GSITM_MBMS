@@ -44,7 +44,7 @@
 						<form>
 							<div class="form-group">
 								<label for="noticetitle">제목<br></label> <input type="email"
-									class="form-control" id="exampleInputEmail1" value="${noticeDTO.noticeSubject}"
+									class="form-control" id="exampleInputEmail1" 
 									placeholder="공지 제목을 입력하세요.">
 							</div>
 							<!-- 제목 폼그룹 -->
