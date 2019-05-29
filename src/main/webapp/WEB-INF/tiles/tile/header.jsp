@@ -75,7 +75,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default pull-left" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary">확인</button>
+				<button type="button" class="btn btn-primary" id="logout-confirm-ok">확인</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -83,3 +83,18 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<script>
+	$(function(){
+		$('#logout-confirm-ok').click(function(){
+			$.ajax({
+				type : 'GET',
+				url : '/logout',
+				dataType : 'text',
+				success : function(data){
+					document.location.href = '/login'; 
+				}
+			});
+		});
+	});
+</script>
