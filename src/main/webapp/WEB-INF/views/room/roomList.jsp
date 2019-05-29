@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -47,6 +48,7 @@
 								</tr>
 							</thead>
 							<tbody>
+								
 								<tr>
 									<td><img src='/resources/img/room/room001.jpg' style="width: 300px;"></td>
 									<td>1층 교육장</td>

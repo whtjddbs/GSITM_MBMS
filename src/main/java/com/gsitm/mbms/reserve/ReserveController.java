@@ -14,6 +14,8 @@ public class ReserveController {
 
 	@RequestMapping("/roomList")
 	public String roomList() {
+		
+		
 		return "room/roomList";
 	}
 }
