@@ -14,7 +14,7 @@ import com.gsitm.mbms.employee.EmployeeDAO;
 @Service
 public class BuildingServiceImpl implements BuildingService{
 	
-/*	@Autowired
+	@Autowired
 	private BuildingDAO buildingDAO;
 	
 	@Override
@@ -22,6 +22,6 @@ public class BuildingServiceImpl implements BuildingService{
 		// TODO Auto-generated method stub
 		return buildingDAO.SelectAll();
 	}
-*/
+
 	
 }
