@@ -1,6 +1,5 @@
 package com.gsitm.mbms.building;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 import java.util.List;
 
@@ -35,5 +34,17 @@ public class BuildingController {
 		List<BuildingDTO> list = service.SelectAll();
 		model.addAttribute("list",list);
 		return "/building/buildingList";//test
+	}
+	
+	@RequestMapping(value="/buildingInsertForm", method=RequestMethod.GET)
+	public String buildingInsertForm() {
+		logger.info("Building Insert Form!");
+		return "/building/buildingInsertForm";
+	}
+	
+	@RequestMapping(value="/buildingInsert", method=RequestMethod.GET)
+	public String buildingInsert() {
+		logger.info("Building InsertAction");
+		return "redirect:/building/buildingList";
 	}
 }
