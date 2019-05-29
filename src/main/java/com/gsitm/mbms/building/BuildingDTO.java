@@ -5,50 +5,50 @@ package com.gsitm.mbms.building;
  * @작성자 : 김원빈
  */
 public class BuildingDTO {
-	int bulildingNo;
-	String bulidName;
-	String bulidAddr;
-	String bulidPost;
+	int buildingNo;
+	String buildName;
+	String buildAddr;
+	String buildPost;
 	
-	
-	public BuildingDTO(int bulildingNo, String bulidName, String bulidAddr, String bulidPost) {
+	public BuildingDTO() {
 		super();
-		this.bulildingNo = bulildingNo;
-		this.bulidName = bulidName;
-		this.bulidAddr = bulidAddr;
-		this.bulidPost = bulidPost;
 	}
 	
-	public int getBulildingNo() {
-		return bulildingNo;
+	public BuildingDTO(int buildingNo, String buildName, String buildAddr, String buildPost) {
+		super();
+		this.buildingNo = buildingNo;
+		this.buildName = buildName;
+		this.buildAddr = buildAddr;
+		this.buildPost = buildPost;
 	}
-	public void setBulildingNo(int bulildingNo) {
-		this.bulildingNo = bulildingNo;
+	
+	public int getBuildingNo() {
+		return buildingNo;
 	}
-	public String getBulidName() {
-		return bulidName;
+	public void setBuildingNo(int buildingNo) {
+		this.buildingNo = buildingNo;
 	}
-	public void setBulidName(String bulidName) {
-		this.bulidName = bulidName;
+	public String getBuildName() {
+		return buildName;
 	}
-	public String getBulidAddr() {
-		return bulidAddr;
+	public void setBuildName(String buildName) {
+		this.buildName = buildName;
 	}
-	public void setBulidAddr(String bulidAddr) {
-		this.bulidAddr = bulidAddr;
+	public String getBuildAddr() {
+		return buildAddr;
 	}
-	public String getBulidPost() {
-		return bulidPost;
+	public void setBuildAddr(String buildAddr) {
+		this.buildAddr = buildAddr;
 	}
-	public void setBulidPost(String bulidPost) {
-		this.bulidPost = bulidPost;
+	public String getBuildPost() {
+		return buildPost;
 	}
-
+	public void setBuildPost(String buildPost) {
+		this.buildPost = buildPost;
+	}
 	@Override
 	public String toString() {
-		return "BuildingDTO [bulildingNo=" + bulildingNo + ", bulidName=" + bulidName + ", bulidAddr=" + bulidAddr
-				+ ", bulidPost=" + bulidPost + "]";
+		return "BuildingDTO [buildingNo=" + buildingNo + ", buildName=" + buildName + ", buildAddr=" + buildAddr
+				+ ", buildPost=" + buildPost + "]";
 	}
-	
-	
 }

@@ -7,5 +7,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.gsitm.mbms.employee.EmployeeDTO" alias="employee"/>
 		<typeAlias type="com.gsitm.mbms.employee.DepartmentDTO" alias="department"/>
 		<typeAlias type="com.gsitm.mbms.notice.NoticeDTO" alias="notice"/>
+		<typeAlias type="com.gsitm.mbms.building.BuildingDTO" alias="building"/>
 	</typeAliases>
 </configuration>

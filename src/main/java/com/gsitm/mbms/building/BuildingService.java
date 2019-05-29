@@ -9,5 +9,5 @@ import com.gsitm.mbms.employee.EmployeeDTO;
  * @작성자 : 김원빈
  */
 public interface BuildingService {
-	/*public List<BuildingDTO> SelectAll();*/
+	public List<BuildingDTO> SelectAll();
 }
