@@ -4,8 +4,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="buildingMapper">
-	<select id="allBuilding" resultType="com.gsitm.mbms.building.BuildingDTO">
-		select build_no as buildingNo, build_name as buildName, build_addr as buildAddr, build_post as buildPost  
-		from building
+	<!-- BuildingDTO 컬럼명 매핑 -->
+	<resultMap type="building" id="BuildingDTO">
+		<result column="build_no" property="buildingNo"/>
+		<result column="build_name" property="buildName"/>
+		<result column="build_addr" property="buildAddr"/>
+		<result column="build_post" property="buildPost"/>
+	</resultMap>
+	
+	<select id="allBuilding" resultMap="BuildingDTO">
+		select * from building
 	</select>
 </mapper>
