@@ -9,140 +9,153 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class EmployeeDTO {
-	private String emp_no; 
-	private String emp_pw;
-	private String emp_name;
-	private String emp_position;
-	private String emp_email;
-	private String cell_phone;
-	private String office_phone;
-	private int dept_no;
-	private char permission_yn;
-
-	/**생성자*/
+	private String empNo; 
+	private String empPw;
+	private String empName;
+	private String empPosition;
+	private String empEmail;
+	private String cellPhone;
+	private String officePhone;
+	private int deptNo;
+	private char permissionYn;
+	/**
+	 * 
+	 */
 	public EmployeeDTO() {
 		super();
+		
 	}
-	public EmployeeDTO(String emp_no, String emp_pw, String emp_name, String emp_position, String emp_email,
-			String cell_phone, String office_phone, int dept_no, char permission_yn) {
+	/**
+	 * @param empNo
+	 * @param empPw
+	 * @param empName
+	 * @param empPosition
+	 * @param empEmail
+	 * @param cellPhone
+	 * @param officePhone
+	 * @param deptNo
+	 * @param permissionYn
+	 */
+	public EmployeeDTO(String empNo, String empPw, String empName, String empPosition, String empEmail,
+			String cellPhone, String officePhone, int deptNo, char permissionYn) {
 		super();
-		this.emp_no = emp_no;
-		this.emp_pw = emp_pw;
-		this.emp_name = emp_name;
-		this.emp_position = emp_position;
-		this.emp_email = emp_email;
-		this.cell_phone = cell_phone;
-		this.office_phone = office_phone;
-		this.dept_no = dept_no;
-		this.permission_yn = permission_yn;
+		this.empNo = empNo;
+		this.empPw = empPw;
+		this.empName = empName;
+		this.empPosition = empPosition;
+		this.empEmail = empEmail;
+		this.cellPhone = cellPhone;
+		this.officePhone = officePhone;
+		this.deptNo = deptNo;
+		this.permissionYn = permissionYn;
 	}
 	/**
-	 * @return the emp_no
+	 * @return the empNo
 	 */
-	public String getEmp_no() {
-		return emp_no;
+	public String getEmpNo() {
+		return empNo;
 	}
 	/**
-	 * @param emp_no the emp_no to set
+	 * @param empNo the empNo to set
 	 */
-	public void setEmp_no(String emp_no) {
-		this.emp_no = emp_no;
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
 	}
 	/**
-	 * @return the emp_pw
+	 * @return the empPw
 	 */
-	public String getEmp_pw() {
-		return emp_pw;
+	public String getEmpPw() {
+		return empPw;
 	}
 	/**
-	 * @param emp_pw the emp_pw to set
+	 * @param empPw the empPw to set
 	 */
-	public void setEmp_pw(String emp_pw) {
-		this.emp_pw = emp_pw;
+	public void setEmpPw(String empPw) {
+		this.empPw = empPw;
 	}
 	/**
-	 * @return the emp_name
+	 * @return the empName
 	 */
-	public String getEmp_name() {
-		return emp_name;
+	public String getEmpName() {
+		return empName;
 	}
 	/**
-	 * @param emp_name the emp_name to set
+	 * @param empName the empName to set
 	 */
-	public void setEmp_name(String emp_name) {
-		this.emp_name = emp_name;
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
 	/**
-	 * @return the emp_position
+	 * @return the empPosition
 	 */
-	public String getEmp_position() {
-		return emp_position;
+	public String getEmpPosition() {
+		return empPosition;
 	}
 	/**
-	 * @param emp_position the emp_position to set
+	 * @param empPosition the empPosition to set
 	 */
-	public void setEmp_position(String emp_position) {
-		this.emp_position = emp_position;
+	public void setEmpPosition(String empPosition) {
+		this.empPosition = empPosition;
 	}
 	/**
-	 * @return the emp_email
+	 * @return the empEmail
 	 */
-	public String getEmp_email() {
-		return emp_email;
+	public String getEmpEmail() {
+		return empEmail;
 	}
 	/**
-	 * @param emp_email the emp_email to set
+	 * @param empEmail the empEmail to set
 	 */
-	public void setEmp_email(String emp_email) {
-		this.emp_email = emp_email;
+	public void setEmpEmail(String empEmail) {
+		this.empEmail = empEmail;
 	}
 	/**
-	 * @return the cell_phone
+	 * @return the cellPhone
 	 */
-	public String getCell_phone() {
-		return cell_phone;
+	public String getCellPhone() {
+		return cellPhone;
 	}
 	/**
-	 * @param cell_phone the cell_phone to set
+	 * @param cellPhone the cellPhone to set
 	 */
-	public void setCell_phone(String cell_phone) {
-		this.cell_phone = cell_phone;
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 	/**
-	 * @return the office_phone
+	 * @return the officePhone
 	 */
-	public String getOffice_phone() {
-		return office_phone;
+	public String getOfficePhone() {
+		return officePhone;
 	}
 	/**
-	 * @param office_phone the office_phone to set
+	 * @param officePhone the officePhone to set
 	 */
-	public void setOffice_phone(String office_phone) {
-		this.office_phone = office_phone;
+	public void setOfficePhone(String officePhone) {
+		this.officePhone = officePhone;
 	}
 	/**
-	 * @return the dept_no
+	 * @return the deptNo
 	 */
-	public int getDept_no() {
-		return dept_no;
+	public int getDeptNo() {
+		return deptNo;
 	}
 	/**
-	 * @param dept_no the dept_no to set
+	 * @param deptNo the deptNo to set
 	 */
-	public void setDept_no(int dept_no) {
-		this.dept_no = dept_no;
+	public void setDeptNo(int deptNo) {
+		this.deptNo = deptNo;
 	}
 	/**
-	 * @return the permission_yn
+	 * @return the permissionYn
 	 */
-	public char getPermission_yn() {
-		return permission_yn;
+	public char getPermissionYn() {
+		return permissionYn;
 	}
 	/**
-	 * @param permission_yn the permission_yn to set
+	 * @param permissionYn the permissionYn to set
 	 */
-	public void setPermission_yn(char permission_yn) {
-		this.permission_yn = permission_yn;
+	public void setPermissionYn(char permissionYn) {
+		this.permissionYn = permissionYn;
 	}
-	
+
 }

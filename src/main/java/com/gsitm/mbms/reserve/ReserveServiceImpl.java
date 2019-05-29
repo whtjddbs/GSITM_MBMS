@@ -1,6 +1,11 @@
 package com.gsitm.mbms.reserve;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.gsitm.mbms.room.RoomDTO;
 
 /**
  * @주제 : 
@@ -9,5 +14,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReserveServiceImpl implements ReserveService {
-
+	
+	@Autowired
+	private ReserveDAO reserveDAO;
+	
+	@Override
+	public List<RoomDTO> selectAllRoom() {
+		return reserveDAO.selectAllRoom();
+	}
+	
 }

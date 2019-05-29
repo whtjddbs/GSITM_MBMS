@@ -1,6 +1,12 @@
 package com.gsitm.mbms.reserve;
 
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.gsitm.mbms.room.RoomDTO;
 
 /**
  * @주제 : 
@@ -9,5 +15,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ReserveDAOImpl implements ReserveDAO {
+
+	@Autowired
+	private SqlSession session;
+	
+	@Override
+	public List<RoomDTO> selectAllRoom() {
+		return session.selectList("roomMapper.selectAllRoom");
+	}
 
 }
