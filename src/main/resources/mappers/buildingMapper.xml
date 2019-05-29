@@ -3,5 +3,9 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="buildingMapper">
+<mapper namespace="buildingMapper" >
+	<select id="allBuilding" resultType="com.gsitm.mbms.building.BuildingDTO">
+		select build_no as buildingNo, build_name as buildName, build_addr as buildAddr, build_post as buildPost  
+		from building
+	</select>
 </mapper>

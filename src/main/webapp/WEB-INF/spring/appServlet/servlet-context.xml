@@ -52,4 +52,7 @@
     	</interceptor>
   	</interceptors>
 	
+<context:component-scan base-package="com.gsitm.mbms"/>
 </beans:beans>
+
+
