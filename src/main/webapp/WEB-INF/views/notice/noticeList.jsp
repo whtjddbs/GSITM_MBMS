@@ -81,7 +81,7 @@
 										
 											<td>${noticeDTO.notice_no}</td>
 											<td>${noticeDTO.writer_emp_no}</td>
-											<td><a href='view?notice_no=${noticeDTO.notice_no}'>${noticeDTO.notice_subject}</a></td>
+											<td><a href='noticeDetail?notice_no=${noticeDTO.notice_no}'>${noticeDTO.notice_subject}</a></td>
 											<td>미구현</td>
 											<td>${noticeDTO.notice_date}</td>
 										
