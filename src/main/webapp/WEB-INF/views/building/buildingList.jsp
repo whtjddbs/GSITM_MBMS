@@ -42,7 +42,7 @@
 									<th>건물이름</th>
 									<th>주소</th>
 									<th>우편번호</th>
-									<th>삭제하기</th>
+									<th>비고</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -52,7 +52,13 @@
 										<td>${building.buildName }</td>
 										<td>${building.buildAddr }</td>
 										<td>${building.buildPost }</td>
-										<td><input type="button" class="btn btn-danger btn-sm" value="삭제하기" id = "buildingDeleteBtn"></td>
+										<td>
+											<input type="button" class="btn btn-danger btn-sm" value="삭제하기" id ="${building.buildNo }_delBtn" 
+											onclick="location.href='/building/buildingDelete?buildNo=${building.buildNo}'">
+											<input type="button" class="btn btn-warning btn-sm" value="수정하기" id ="${building.buildNo }_updateBtn" 
+											onclick="location.href='/building/buildingUpdateForm?buildNo=${building.buildNo}'">
+										</td>
+										
 									</tr>
 								</c:forEach>
 
@@ -91,8 +97,7 @@
 			'ordering' : true,
 			'info' : true,
 			'autoWidth' : false
-		})
-		
+		})		
 	})
 
 </script>
