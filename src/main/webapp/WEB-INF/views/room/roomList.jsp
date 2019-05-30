@@ -19,18 +19,23 @@
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
-						<h3 class="box-title">지사명</h3>
+						<h3 class="box-title">전체</h3>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
 						<div class="row">
-							<div class="col-sm-6">
-								<select name="buildingSelect" id="buildingSelect">
+							<div class="col-sm-3">
+								<label for="buildingSelect">지사</label>
+								<select name="buildingSelect" id="buildingSelect" class="form-control">
 									<option value="">전체</option>
 									<c:forEach var="building" items="${buildings }">
 										<option value="${building.buildNo }">${building.buildName }</option>
 									</c:forEach>
-								</select> <select name="buildingTypeSelect" id="roomTypeSelect">
+								</select>
+							</div>
+							<div class="col-sm-3">
+								<label for="roomTypeSelect">구분</label>
+								 <select name="buildingTypeSelect" id="roomTypeSelect" class="form-control">
 									<option value="">전체</option>
 									<option value="회의실">회의실</option>
 									<option value="교육실">교육실</option>
@@ -63,7 +68,7 @@
 									</tr>
 								</c:forEach>
 								<!-- Sample -->
-								<tr>
+								<!-- <tr>
 									<td><img src='/resources/img/room/room001.jpg'
 										style="width: 300px;"></td>
 									<td>1층 교육장</td>
@@ -73,7 +78,7 @@
 									<td>시간당 10,000원</td>
 									<td><input type="button" class="btn btn-danger btn-sm"
 										value="예약 하기"></td>
-								</tr>
+								</tr> -->
 							</tbody>
 							<tfoot>
 								<tr>
@@ -145,6 +150,7 @@
 	                  }))).appendTo($('#roomListTable tbody'));
 	               });
 	               
+	               $('.box-title').text($('#buildingSelect :selected').text());
 	            },
 	            error : function(data) {
 	               alert('error');

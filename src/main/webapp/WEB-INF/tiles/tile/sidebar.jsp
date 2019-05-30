@@ -36,7 +36,7 @@
 				<ul class="treeview-menu">
 					<li><a href="/reserve/roomList"><i class="fa fa-circle-o"></i> 
 							회의실 소개</a></li>
-					<li><a href="/reserve/roomSearchForm"><i class="fa fa-circle-o"></i>
+					<li><a href="/reserve/reserveSearchForm"><i class="fa fa-circle-o"></i>
 							회의실 검색</a></li>
 					<li><a href="/reserve/Calendar"><i class="fa fa-circle-o"></i>
 							회의실 예약</a></li>
@@ -98,3 +98,16 @@
 	</section>
 	<!-- /.sidebar -->
 </aside>
+
+<script>
+	$(function(){
+		
+		var treeviewmenu = $('a[href="'+location.pathname+'"]').parent().parent();
+		var treeview = $('a[href="'+location.pathname+'"]').parent().parent().parent();
+		$('.treeview').removeClass('menu-open');
+		treeview.addClass('menu-open');
+		treeviewmenu.css('display', 'block');
+		$('a[href="'+location.pathname+'"]').parent().addClass('active');
+		
+	});
+</script>
