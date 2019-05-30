@@ -1,9 +1,16 @@
+$ git rm -r --cached .
+$ git add .
+$ git commit -m "fixed untracked files”
+
+
+
 # Created by https://www.gitignore.io/api/java-web
 # Edit at https://www.gitignore.io/?templates=java-web
 
 ### Java-Web ###
 ## ignoring target file
 target/
+
 
 # End of https://www.gitignore.io/api/java-web
 /.metadata/
