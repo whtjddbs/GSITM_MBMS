@@ -46,7 +46,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			
 			//로그인이 안되어 있는 상태 - 로그인 폼으로 돌려 보냄
 			response.sendRedirect("/login");
-		} 
+		}
 		
 		return true;
 	}
