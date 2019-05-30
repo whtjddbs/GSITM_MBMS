@@ -58,7 +58,7 @@ public class EmployeeController {
 		}
 
 		if (map.get("useCookie").equals("true")) {
-			Cookie cookie = new Cookie("loginCookie", employeeDTO.getEmp_no());
+			Cookie cookie = new Cookie("loginCookie", employeeDTO.getEmpNo());
 			cookie.setPath("/");
 			int amount = 60 * 60 * 24 * 7;
 			cookie.setMaxAge(amount); // 단위는 (초)임으로 7일정도로 유효시간을 설정해 준다.

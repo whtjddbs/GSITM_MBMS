@@ -4,13 +4,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="employeeMapper">
+	<!-- Employee 테이블 매핑 -->
+	<resultMap type="employee" id="EmployeeDTO">
+		<result column="emp_no" property="empNo"/>
+		<result column="emp_pw" property="empPw"/>
+		<result column="emp_name" property="empName"/>
+		<result column="emp_position" property="empPosition"/>
+		<result column="emp_email" property="empEmail"/>
+		<result column="cell_phone" property="cellPhone"/>
+		<result column="office_phone" property="officePhone"/>
+		<result column="dept_no" property="deptNo"/>
+		<result column="permission_yn" property="permissionYn"/>
+	</resultMap>
+	
 	<!-- 한명의 사원정보 조회 -->
-	<select id="getEmployee" parameterType="String" resultType="employee">
+	<select id="getEmployee" parameterType="String" resultMap="EmployeeDTO">
 		select * from employee where emp_no=#{emp_no}
 	</select>
 	
 	<!-- 로그인 -->
-	<select id="login" parameterType="java.util.Map" resultType="employee">
+	<select id="login" parameterType="java.util.Map" resultMap="EmployeeDTO">
 		select * from employee where emp_no=#{emp_no} and emp_pw=#{emp_pw}
 	</select> 
 </mapper>

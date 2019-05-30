@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -24,13 +25,15 @@
 					<div class="box-body">
 						<div class="row">
 							<div class="col-sm-6">
-								<select>
-									<option>삼환빌딩</option>
-									<option>GS강남타워</option>
-								</select>
-								<select>
-									<option>몰디브</option>
-									<option>1층교육장</option>
+								<select name="buildingSelect" id="buildingSelect">
+									<option value="">전체</option>
+									<c:forEach var="building" items="${buildings }">
+										<option value="${building.buildNo }">${building.buildName }</option>
+									</c:forEach>
+								</select> <select name="buildingTypeSelect" id="roomTypeSelect">
+									<option value="">전체</option>
+									<option value="회의실">회의실</option>
+									<option value="교육실">교육실</option>
 								</select>
 							</div>
 							<div class="col-sm-6"></div>
@@ -47,45 +50,29 @@
 								</tr>
 							</thead>
 							<tbody>
+								<c:forEach items="${rooms }" var="room" varStatus="status">
+									<tr role='row'>
+										<td><img src='${room.roomImg }' style="width: 300px;"></td>
+										<td>${room.roomName }</td>
+										<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기
+										</td>
+										<td>${room.roomNumEmp }명</td>
+										<td>시간당 ${room.roomPrice }원</td>
+										<td><input type="button" class="btn btn-danger btn-sm"
+											value="예약 하기"></td>
+									</tr>
+								</c:forEach>
+								<!-- Sample -->
 								<tr>
-									<td><img src='/resources/img/room/room001.jpg' style="width: 300px;"></td>
+									<td><img src='/resources/img/room/room001.jpg'
+										style="width: 300px;"></td>
 									<td>1층 교육장</td>
-									<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기</td>
+									<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기
+									</td>
 									<td>00명</td>
 									<td>시간당 10,000원</td>
-									<td><input type="button" class="btn btn-danger btn-sm" value="예약 하기"></td>
-								</tr>
-								<tr>
-									<td>Trident</td>
-									<td>Internet Explorer 5.0</td>
-									<td>Win 95+</td>
-									<td>5</td>
-									<td>C</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Trident</td>
-									<td>Internet Explorer 5.5</td>
-									<td>Win 95+</td>
-									<td>5.5</td>
-									<td>A</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Trident</td>
-									<td>Internet Explorer 6</td>
-									<td>Win 98+</td>
-									<td>6</td>
-									<td>A</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Trident</td>
-									<td>Internet Explorer 7</td>
-									<td>Win XP SP2+</td>
-									<td>7</td>
-									<td>A</td>
-									<td></td>
+									<td><input type="button" class="btn btn-danger btn-sm"
+										value="예약 하기"></td>
 								</tr>
 							</tbody>
 							<tfoot>
@@ -124,6 +111,46 @@
 			'autoWidth' : true,
 			'order' : [ [ 1, "desc" ] ],
 			"pagingType" : "full_numbers"
-		})
+		});
+		
+		//조건별 회의실 검색
+	      $(document).on('change', '#buildingSelect, #roomTypeSelect', function(){
+	         $.ajax({
+	            type : "POST",
+	            url : "/reserve/roomSearch",
+	            data : {"buildNo" : $('#buildingSelect').val(),
+	                  "roomType" : $('#roomTypeSelect').val()},
+	            dataType : "json",
+	            success : function(data) {
+				//alert(JSON.stringify(data));
+	               
+	               $('#roomListTable tbody').empty();
+	               
+	               $.each(data.rooms, function(index,item){
+	                  $('<tr/>').append($('<td/>').append($('<img/>', {
+	                     src : item.roomImg,
+	                     style : 'width: 300px'
+	                  }))).append($('<td/>', {
+	                     text : item.roomName
+	                  })).append($('<td/>', {
+	                     html : '1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기</td>'
+	                  })).append($('<td/>', {
+	                     text : item.roomNumEmp+"명"
+	                  })).append($('<td/>', {
+	                     text : '시간당 '+item.roomPrice+'원'
+	                  })).append($('<td/>').append($('<input/>', {
+	                     type : 'button',
+	                     'class' : 'btn btn-danger btn-sm',
+	                     value : '예약 하기'
+	                  }))).appendTo($('#roomListTable tbody'));
+	               });
+	               
+	            },
+	            error : function(data) {
+	               alert('error');
+	            }
+	         });
+	      });
+		
 	})
 </script>
