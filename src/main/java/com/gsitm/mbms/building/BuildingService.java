@@ -10,4 +10,12 @@ import com.gsitm.mbms.employee.EmployeeDTO;
  */
 public interface BuildingService {
 	public List<BuildingDTO> SelectAll();
+
+	public void buildingInsert(BuildingDTO dto);
+
+	public void buildingDelete(int buildNo);
+	
+	public BuildingDTO buildingUpdateForm(int buildNo);
+
+	public void buildingUpdate(BuildingDTO dto);
 }
