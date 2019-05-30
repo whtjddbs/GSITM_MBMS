@@ -18,19 +18,22 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="box">
+
+
+
 					<!-- /.box-header -->
 					<div class="box-body">
-						<form role="form" action="/building/buildingInsert" method="post">
+						<form role="form" action="/building/buildingInsert" method="get">
 							<!-- text input -->
 							<div class="form-group">
-								<label>근무지이름</label> <input type="text" class="form-control" name="buildName"
+								<label>근무지이름</label> <input type="text" class="form-control"
 									placeholder="Enter ...">
 							</div>
 							
 							<label>우편 번호</label>
 							<div class="row">
 								<div class="col-xs-3">
-									<input type="text" class="form-control" name="buildPost">
+									<input type="text" class="form-control">
 								</div>
 								<div class="col-xs-4">
 									<input type="button" class="btn btn-default" value="검색하기">
@@ -41,10 +44,13 @@
 								<label>근무지 주소</label>
 								<div class="row">
 									<div class="col-xs-7">
-										<input type="text" class="form-control" name="buildAddr">
+										<input type="text" class="form-control">
 									</div>
 								</div>
 							</div>
+
+
+
 
 							<div class="form-group" align=center>
 								<input type="submit" class='btn btn-success' value="등록완료">

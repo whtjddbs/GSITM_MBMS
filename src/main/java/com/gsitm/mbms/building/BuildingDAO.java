@@ -10,12 +10,4 @@ import java.util.List;
 public interface BuildingDAO {
 
 	public List<BuildingDTO> SelectAll();
-
-	public void buildingInsert(BuildingDTO dto);
-
-	public void buildingDelete(int buildNo);
-
-	public BuildingDTO buildingSelect(int buildNo);
-	
-	public void buildingUpdate(BuildingDTO dto);
 }
