@@ -44,11 +44,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="update">
 		UPDATE Notice SET
-			notice_no=#{noticeNo},
 			notice_subject=#{noticeSubject},
-			notice_content=#{noticContent},
-			writer_emp_no=#{writerEmpNo},
-			notice_date=#{noticeDate}
+			notice_content=#{noticeContent},
+			writer_emp_no=#{writerEmpNo}
 		WHERE notice_no = #{noticeNo}
 	</update>
 </mapper>

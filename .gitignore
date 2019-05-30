@@ -7,3 +7,7 @@ target/
 
 # End of https://www.gitignore.io/api/java-web
 /.metadata/
+
+.classpath
+
+.settings/

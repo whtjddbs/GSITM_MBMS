@@ -70,12 +70,12 @@ public class NoticeController {
 	}
 
 	// 글 수정 submit
-	@RequestMapping(value = "/updateSubmit", method = RequestMethod.POST)
+	@RequestMapping(value = "/noticeUpdate", method = RequestMethod.POST)
 	public String updateSubmit(NoticeDTO noticeDTO,  Model model) throws Exception {
 
 		service.update(noticeDTO);
 
-		return "notice/noticeList";
+		return "redirect:/notice/noticeList";
 	}
 
 }
