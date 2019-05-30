@@ -28,6 +28,18 @@
 <link rel="stylesheet" href="/resources/dist/css/skins/_all-skins.min.css">
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet" href="/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<!-- Bootstrap time Picker -->
+<link rel="stylesheet" href="/resources/plugins/timepicker/bootstrap-timepicker.min.css">
+<!-- Select2 -->
+<link rel="stylesheet" href="/resources/bower_components/select2/dist/css/select2.min.css">
+<!-- daterange picker -->
+<link rel="stylesheet" href="/resources/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<!-- bootstrap datepicker -->
+<link rel="stylesheet" href="/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<!-- iCheck -->
+<link rel="stylesheet" href="/resources/plugins/iCheck/square/blue.css">
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="/resources/plugins/iCheck/all.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -92,7 +104,15 @@
 <!-- DataTables -->
 <script src="/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
+<!-- date-range-picker -->
+<script src="/resources/bower_components/moment/min/moment.min.js"></script>
+<script src="/resources/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="/resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="/resources/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- iCheck -->
+<script src="/resources/plugins/iCheck/icheck.min.js"></script>
 </head>
 
 

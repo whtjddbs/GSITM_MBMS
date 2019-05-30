@@ -22,4 +22,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from room
 	</select>
 	
+	<select id="selectRoomBySearch" parameterType="java.util.Map" resultMap="RoomDTO">
+		select * from room 
+		where build_no like '%${buildNo}%' and room_type like '%${roomType}%'
+	</select>
+	
 </mapper>
