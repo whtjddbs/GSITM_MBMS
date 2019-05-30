@@ -63,7 +63,7 @@
 										</td>
 										<td>${room.roomNumEmp }명</td>
 										<td>시간당 ${room.roomPrice }원</td>
-										<td><input type="button" class="btn btn-danger btn-sm"
+										<td><input type="button" class="btn btn-danger btn-sm reserveBtn" id="${room.roomNo }"
 											value="예약 하기"></td>
 									</tr>
 								</c:forEach>
@@ -104,10 +104,16 @@
 </div>
 <!-- /.content-wrapper -->
 
+<form action="/reserve/reserveForm" method="post" id="reserveListForm">
+	<input type="hidden" id="selectedRoomNo" name="roomNo">
+</form>
+
 <!-- page script -->
 <script>
 	$(function() {
-		var table = $('#roomListTable').DataTable({
+		var table;
+		
+		table = $('#roomListTable').DataTable({
 			'paging' : true,
 			'lengthChange' : false,
 			'searching' : false,
@@ -115,6 +121,7 @@
 			'info' : true,
 			'autoWidth' : true,
 			'order' : [ [ 1, "desc" ] ],
+			"destroy": true,
 			"pagingType" : "full_numbers"
 		});
 		
@@ -130,6 +137,7 @@
 				//alert(JSON.stringify(data));
 	               
 	               $('#roomListTable tbody').empty();
+					table.clear().destroy();
 	               
 	               $.each(data.rooms, function(index,item){
 	                  $('<tr/>').append($('<td/>').append($('<img/>', {
@@ -151,12 +159,30 @@
 	               });
 	               
 	               $('.box-title').text($('#buildingSelect :selected').text());
+	               
+	               table = $('#roomListTable').DataTable({
+	       			'paging' : true,
+	       			'lengthChange' : false,
+	       			'searching' : false,
+	       			'ordering' : true,
+	       			'info' : true,
+	       			'autoWidth' : true,
+	       			'order' : [ [ 1, "desc" ] ],
+	       			"destroy": true,
+	       			"pagingType" : "full_numbers"
+	       		});
 	            },
 	            error : function(data) {
 	               alert('error');
 	            }
 	         });
 	      });
+		
+		//예약하기 버튼 클릭
+		$('.content').on('click', '.reserveBtn', function(){
+			$('#selectedRoomNo').val(this.id);
+			$('#reserveListForm').submit();
+		});
 		
 	})
 </script>

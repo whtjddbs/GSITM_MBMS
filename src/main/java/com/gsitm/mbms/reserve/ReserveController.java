@@ -63,4 +63,13 @@ public class ReserveController {
 		return "reserve/reserveSearchForm";
 	}
 	
+	/** 회의실 예약 양식**/
+	@RequestMapping("/reserveForm")
+	public String reserveForm(ReserveHistoryDTO reserveHistoryDTO, Model model) {
+		
+		model.addAttribute("roomNo", reserveHistoryDTO.getRoomNo());
+		
+		return "reserve/reserveForm";
+	}
+	
 }

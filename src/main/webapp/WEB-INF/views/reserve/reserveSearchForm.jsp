@@ -98,7 +98,7 @@
 			              	</div>
 			            </div>
 			            
-			            <input type="button" class="btn  btn-info col-sm-12" value="검색">
+			            <input type="button" class="btn  btn-info col-sm-12" id="availableRoomSearchBtn" value="검색">
 
 					</div>
 					<!-- /.box-body -->
@@ -300,6 +300,11 @@
 	    $('input[type="radio"].minimal').iCheck({
 	      radioClass   : 'iradio_minimal-blue'
 	    })
+	    
+	    //검색 버튼 클릭
+	    $('#availableRoomSearchBtn').click(function(){
+	    	alert($('##reservationtime').val());
+	    });
 	    
 	})
 </script>
