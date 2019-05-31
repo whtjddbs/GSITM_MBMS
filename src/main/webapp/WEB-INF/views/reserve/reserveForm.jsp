@@ -6,10 +6,10 @@
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>회의실 검색</h1>
+		<h1>회의실 예약</h1>
 		<ol class="breadcrumb">
 			<li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Calendar</li>
+			<li class="active">reserve</li>
 		</ol>
 	</section>
 
@@ -19,65 +19,79 @@
 			<div class="col-md-8">
 				<div class="box box-primary">
 					<div class="box-header">
-						<h3 class="box-title">조건 검색</h3>
+						<h3 class="box-title">회의실 예약</h3>
 					</div>
 					<div class="box-body">
 						<!-- 지사 선택 -->
-						<div class="form-group">
-							<label for="buildingSelect">지사</label> <select
-								name="buildingSelect" id="buildingSelect" class="form-control">
-								<option value="">전체</option>
-								<c:forEach var="building" items="${buildings }">
-									<option value="${building.buildNo }">${building.buildName }</option>
-								</c:forEach>
-							</select>
-						</div>
-
-						<!-- 장소유형 선택 -->
-						<div class="form-group">
-							<label>장소유형</label> <select name="roomTypeSelect"
-								id="roomTypeSelect" class="form-control">
-								<option value="">전체</option>
-								<option value="회의실">회의실</option>
-								<option value="교육실">교육실</option>
-							</select>
-						</div>
-
-						<!-- Date and time range -->
-						<div class="form-group">
-							<label>예약 날짜</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-clock-o"></i>
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="col-sm-6">
+								<label for="buildingSelect">지사</label> 
+									<select name="buildingSelect" id="buildingSelect" class="form-control">
+										<option value="">전체</option>
+										<c:forEach var="building" items="${buildings }">
+											<option value="${building.buildNo }">${building.buildName }</option>
+										</c:forEach>
+									</select>
 								</div>
-								<input type="text" class="form-control pull-right"
-									id="reservationtime">
+								<div class="col-sm-6">
+									<label for="roomSelect">회의실</label> 
+									<select name="roomSelect" id="roomSelect" class="form-control">
+										<option value="">전체</option>
+									</select>
+								</div>
+	
+								<!-- 회의유형 선택 -->
+								<div class="col-sm-12">
+									<label>회의구분</label> 
+									<select name="category" id="meetingCategory" class="form-control">
+										<option value="고객미팅">고객미팅</option>
+									</select>
+								</div>
+							
+								<!-- Date and time range -->
+								<div class="col-sm-12">
+									<label>예약 날짜</label>
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-clock-o"></i>
+										</div>
+										<input type="text" class="form-control pull-right"
+											id="reservationtime" readonly>
+									</div>
+									<!-- /.input group -->
+								</div>
 							</div>
-							<!-- /.input group -->
-						</div>
 
-						<!-- 회의실 규모 -->
-						<div class="input-group form-group">
-							<span class="input-group-addon">참석인원</span> <input type="number"
-								placeholder="최대인원 (명)" class="form-control input-sm">
-						</div>
-						<!-- 네트워크 사용 유무 -->
-						<div class="form-group">
-							<div class="input-group col-sm-12">
+							<!-- 참석인원 -->
+							<div class="col-sm-12">
+								<label>참석인원 및 명단</label>
+								<div class="input-group">
+									<span class="input-group-addon">참석인원</span> 
+									<input type="number" placeholder="최대인원 (명)" class="form-control">
+									<span class="input-group-addon"><i class="fa fa-users"></i></span>
+									<input type="text" class="form-control" placeholder="참석자 명단">
+									<div class="input-group-btn">
+										<button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 네트워크 사용 유무 -->
+							<div class="col-sm-12">
 								<label class="control-label">네트워크 유/무</label>
 								<div class="col-sm-12">
-									<label class="col-sm-6"> <input type="radio"
-										name="networkYn" class="minimal" checked> Yes
-									</label> <label class="col-sm-6"> <input type="radio"
-										name="networkYn" class="minimal"> No
+									<label class="col-sm-6"> 
+										<input type="radio" name="networkYn" class="minimal" checked> Yes
+									</label>
+									<label class="col-sm-6">
+										<input type="radio" name="networkYn" class="minimal"> No
 									</label>
 								</div>
 							</div>
-						</div>
-
-						<!-- 네트워크 사용 유무 -->
-						<div class="form-group">
-							<div class="input-group col-sm-12">
+	
+							<!-- 다과준비 유무 -->
+							<div class="col-sm-12">
 								<label class="control-label">다과준비 유/무</label>
 								<div class="col-sm-12">
 									<label class="col-sm-6"> <input type="radio"
@@ -87,13 +101,14 @@
 									</label>
 								</div>
 							</div>
+	
+							<input type="button" class="btn  btn-info col-sm-12"
+								id="availableRoomSearchBtn" value="검색">
+
 						</div>
-
-						<input type="button" class="btn  btn-info col-sm-12"
-							id="availableRoomSearchBtn" value="검색">
-
+						<!-- /.box-body -->
 					</div>
-					<!-- /.box-body -->
+					<!-- /.col-md-12 -->
 				</div>
 				<!-- /.box -->
 			</div>
@@ -105,3 +120,130 @@
 	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<script>
+	$(function(){
+		if('${roomDTO.roomNo}==0') {
+			$('#buildingSelect').val('${roomDTO.buildNo}');
+			setRoomListInBuilding();
+		}
+		
+		function setRoomListInBuilding(selectIndex) {
+			$.ajax({
+	            type : "POST",
+	            url : "/reserve/roomSearch",
+	            data : {"buildNo" : $('#buildingSelect').val(),
+	                  "roomType" : ""},
+	            dataType : "json",
+	            success : function(data) {
+	            	$('#roomSelect').empty();
+	            	
+	               $.each(data.rooms, function(index,item){
+	                  $('<option/>', {
+	                	  value : item.roomNo,
+	                	  text : item.roomName
+	                  }).appendTo($('#roomSelect'));
+	               });
+	               
+	               $('#roomSelect').val('${roomDTO.roomNo}');
+	               $('#roomSelect option:eq('+selectIndex+')').prop("selected", true);
+	            },
+	            error : function(data) {
+	               alert('error');
+	            }
+	        });
+		}
+		
+		$('#buildingSelect').change(function(){
+			setRoomListInBuilding(0);
+		});
+		
+		//회의실 선택 시 관련 정보를 가져온다
+		$('#roomSelect').change(function(){
+			$.ajax({
+	            type : "POST",
+	            url : "/reserve/roomSearch",
+	            data : {"buildNo" : $('#buildingSelect').val(),
+	                  "roomType" : ""},
+	            dataType : "json",
+	            success : function(data) {
+	            	
+	            },
+	            error : function(data) {
+	               alert('roomSelect click error!');
+	            }
+	        });
+		});
+		
+		/** DatePicker **/
+		//Date range picker with time picker
+		$('#reservationtime').daterangepicker({
+			timePicker : true,
+			timePickerIncrement : 30,
+			timePicker24Hour : true,
+			format : 'YYYY/MM/DD HH:mm',
+			minDate : new Date(),
+			locale: {
+		    	format: 'YYYY/MM/DD HH:mm'
+		    },
+		    isInvalidDate: function(arg){
+		         console.log(arg);
+
+		         // Prepare the date comparision
+		         var thisMonth = arg._d.getMonth()+1;   // Months are 0 based
+		         if (thisMonth<10){
+		             thisMonth = "0"+thisMonth; // Leading 0
+		         }
+		         var thisDate = arg._d.getDate();
+		         if (thisDate<10){
+		             thisDate = "0"+thisDate; // Leading 0
+		         }
+		         var thisYear = arg._d.getYear()+1900;   // Years are 1900 based
+		         
+		         var thisHour = arg._d.getHours();
+		         if (thisHour<10){
+		        	 thisHour = "0"+thisHour; // Leading 0
+		         }
+		         
+		         var thisMinute = arg._d.getMinutes();
+		         if (thisHour<10){
+		        	 thisMinute = "0"+thisMinute; // Leading 0
+		         }
+
+		         var thisCompare = thisYear+"/"+thisMonth +"/"+ thisDate+"/"+thisHour+"/"+thisMinute;
+		         console.log(thisCompare);
+
+		         if($.inArray(thisCompare,disabledArr)!=-1){
+		             return true;
+		         }
+		     }
+		})
+		
+		var disabledArr = ["2019-06-27", "2019-06-28"];
+		
+		//datepicker 날짜 생성 전 실행할 함수
+		function disableSomeDay(date) {
+			var month = date.getMonth();
+			var dates = date.getDate();
+			var year = date.getFullYear();
+			
+			for(i=0; i < disabledDays.length; i++) {
+				if($.inArray(year+'-'+(month+1)+'-'+dates, disabledDays) != -1) {
+					return [false];
+				}
+			}
+			return [true];
+		}
+		
+		//날짜선택 시 이벤트
+		$('#reservationtime').on('apply.daterangepicker, hide.daterangepicker', function(ev, picker) {
+		      console.log(picker.startDate.format('YYYY/MM/DD HH:mm') + ' - ' + picker.endDate.format('YYYY/MM/DD HH:mm'));
+		  });
+		
+		//iCheck for checkbox and radio inputs
+	    $('input[type="radio"].minimal').iCheck({
+	      radioClass   : 'iradio_minimal-blue'
+	    })
+	    
+	});
+</script>

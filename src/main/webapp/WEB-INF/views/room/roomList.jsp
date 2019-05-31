@@ -67,29 +67,7 @@
 											value="예약 하기"></td>
 									</tr>
 								</c:forEach>
-								<!-- Sample -->
-								<!-- <tr>
-									<td><img src='/resources/img/room/room001.jpg'
-										style="width: 300px;"></td>
-									<td>1층 교육장</td>
-									<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기
-									</td>
-									<td>00명</td>
-									<td>시간당 10,000원</td>
-									<td><input type="button" class="btn btn-danger btn-sm"
-										value="예약 하기"></td>
-								</tr> -->
 							</tbody>
-							<tfoot>
-								<tr>
-									<th>회의실 사진</th>
-									<th>회의실명</th>
-									<th>주요시설</th>
-									<th>수용인원</th>
-									<th>요금</th>
-									<th>비고</th>
-								</tr>
-							</tfoot>
 						</table>
 					</div>
 					<!-- /.box-body -->
@@ -153,7 +131,8 @@
 	                     text : '시간당 '+item.roomPrice+'원'
 	                  })).append($('<td/>').append($('<input/>', {
 	                     type : 'button',
-	                     'class' : 'btn btn-danger btn-sm',
+	                     'class' : 'btn btn-danger btn-sm reserveBtn',
+	                     id : item.roomNo,
 	                     value : '예약 하기'
 	                  }))).appendTo($('#roomListTable tbody'));
 	               });
