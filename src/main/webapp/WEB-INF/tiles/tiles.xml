@@ -11,10 +11,11 @@
    <definition name="empty" template="/WEB-INF/tiles/layout/empty.jsp">
    
    </definition>
-   
+    
    <definition name="login" extends="empty"> 
       <put-attribute name="content" value="/WEB-INF/views/login.jsp"/>
    </definition>
+
    
 <!--    <definition name="*.do" extends="layout">  -->
 <!--       <put-attribute name="content" value="/WEB-INF/views/{1}.jsp"/> -->
