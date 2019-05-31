@@ -77,6 +77,20 @@
 								</div>
 							</div>
 							
+							<!-- 비품 신청 -->
+							<div class="col-sm-12">
+								<label>비품신청</label>
+								<div class="input-group">
+									<span class="input-group-addon">비품명</span> 
+									<input type="text" placeholder="비품명" class="form-control" readonly>
+									<span class="input-group-addon">수량</span>
+									<input type="number" class="form-control" placeholder="수량" readonly>
+									<div class="input-group-btn">
+										<button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
+									</div>
+								</div>
+							</div>
+							
 							<!-- 네트워크 사용 유무 -->
 							<div class="col-sm-12">
 								<label class="control-label">네트워크 유/무</label>
@@ -101,9 +115,22 @@
 									</label>
 								</div>
 							</div>
+							
+							<!-- 사용 목적 -->
+							<div class="col-sm-12">
+								<div class="form=group">
+									<label class="control-label">사용 목적</label>
+									<textarea class="form-control" rows="5" ></textarea>
+								</div>
+								<br>
+							</div>
 	
-							<input type="button" class="btn  btn-info col-sm-12"
-								id="availableRoomSearchBtn" value="검색">
+							<div class="col-sm-12">
+								<input type="button" class="btn  btn-info col-sm-12"
+									id="availableRoomSearchBtn" value="검색">
+							</div>
+								
+							
 
 						</div>
 						<!-- /.box-body -->
@@ -186,7 +213,12 @@
 			locale: {
 		    	format: 'YYYY/MM/DD HH:mm'
 		    },
-		    isInvalidDate: function(arg){
+		    isInvalidDate:function(date) {
+		        var disabled_start = moment('2019/06/06/10/30', 'YYYY/MM/DD/HH/mm');
+		        var disabled_end = moment('2019/06/07/19/30', 'YYYY/MM/DD/HH/mm');
+		        return date.isAfter(disabled_start) && date.isBefore(disabled_end);
+		      } 
+		    	/* function(arg){
 		         console.log(arg);
 
 		         // Prepare the date comparision
@@ -216,7 +248,7 @@
 		         if($.inArray(thisCompare,disabledArr)!=-1){
 		             return true;
 		         }
-		     }
+		     }*/
 		})
 		
 		var disabledArr = ["2019-06-27", "2019-06-28"];
