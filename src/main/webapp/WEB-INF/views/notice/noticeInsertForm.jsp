@@ -18,12 +18,13 @@
 
 
 
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			공지사항 <small>${noticeDTO.noticeNo}번 게시물</small>
+			공지사항 <small>새 게시물</small>
 		</h1>
 		<!-- <ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -38,14 +39,12 @@
 			<div class="col-md-12">
 				<div class="box box-info">
 					<div class="box-header">
-						<h3 class="box-title">공지사항 수정 <small>기존 공지사항 내용을 수정하세요.<br /></small><br>
+						<h3 class="box-title">공지사항 작성 <small>새로운 공지사항 내용을 작성하세요.<br /></small><br>
 						</h3>
 						
-						<form>
+						<form action=noticeInsert method="post">
 							<div class="form-group">
-								<label for="noticetitle">제목<br></label> <input type="email"
-									class="form-control" id="exampleInputEmail1" 
-									placeholder="공지 제목을 입력하세요.">
+								<label for="noticetitle">제목<br></label> <input type="text" class="form-control" id="exampleInputEmail1" name ="noticeSubject"  placeholder="공지 제목을 입력하세요.">
 							</div>
 							<!-- 제목 폼그룹 -->
 
@@ -71,27 +70,32 @@
 								<label for="noticetitle">내용</label>
 
 								<!-- 에디터 -->
-								<textarea id="editor1" name="editor1" rows="10" cols="80"
+								<textarea id="editor1" name="noticeContent" rows="10" cols="80"
 									placeholder="공지할 내용을 입력하세요."></textarea>
 
 							</div><!-- /. 에디터 폼그룹 -->
 
 							<div class="form-group">
-								<label for="exampleInputFile">File input</label> <input
-									type="file" id="exampleInputFile">
+								<label for="exampleInputFile">File input</label> <input type="file" id="exampleInputFile"  name="uploadfile" placeholder="파일이 첨부되지 않았습니다.">
 
 								<p class="help-block">파일을 첨부하세요.</p>
 							</div>
+							<!-- <!--  --> -->
+							
+<!-- <!--  --> -->
 							<!-- 첨부 폼그룹 -->
 
 
 
 							<div class="box-footer"><!-- 줄긋기 --></div>
-								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="submit" class="btn btn-primary">등록</button>
 							
 
 						</form>
-
+						<form action="fileupload" method="post" enctype="multipart/form-data">
+						    <input type="file" name="uploadedfile" placeholder="파일 선택" /><br/>
+						    <input type="submit" value="업로드">
+						</form>
 
 					</div>
 					<!-- /.box -->
@@ -162,8 +166,9 @@
  // 3. CKEditor5를 생성할 textarea 지정
     ClassicEditor
         .create( document.querySelector( '#editor1' ) )
-        .catch( error => {
-            console.error( error );
+        /* .catch( error => {
+            console.error( error ) */
+            ;
         });
 
 </script>
