@@ -41,11 +41,11 @@
 						<h3 class="box-title">공지사항 수정 <small>기존 공지사항 내용을 수정하세요.<br /></small><br>
 						</h3>
 						
-						<form>
+						<form action=noticeUpdate method="post">
+						<input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
+						<input type="hidden" name="writerEmpNo" value="${noticeDTO.writerEmpNo}">
 							<div class="form-group">
-								<label for="noticetitle">제목<br></label> <input type="text"
-									class="form-control" id="exampleInputEmail1" value="${noticeDTO.noticeSubject}"
-									placeholder="공지 제목을 입력하세요.">
+								<label for="noticetitle">제목<br></label> <input type="text" class="form-control" id="exampleInputEmail1" name ="noticeSubject" value="${noticeDTO.noticeSubject}" placeholder="공지 제목을 입력하세요.">
 							</div>
 							<!-- 제목 폼그룹 -->
 
@@ -71,7 +71,7 @@
 								<label for="noticetitle">내용</label>
 
 								<!-- 에디터 -->
-								<textarea id="editor1" name="editor1" rows="10" cols="80"
+								<textarea id="editor1" name="noticeContent" rows="10" cols="80"
 									placeholder="공지할 내용을 입력하세요.">${noticeDTO.noticeContent}</textarea>
 
 							</div><!-- /. 에디터 폼그룹 -->

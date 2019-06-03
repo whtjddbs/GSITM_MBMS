@@ -57,11 +57,23 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="box">
+					
 					<div class="box-header">
 						<h3 class="box-title">MBMS 공지사항</h3>
+						<div class="pull-right box-tools">
+							<form action="noticeInsertForm" method="post">
+								<button type="submit" class="btn btn-primary">
+		                 		 	<i class="fa fa-plus"></i>　공지 작성
+		                 		</button>
+	                 		</form>
+	                	</div>
 					</div>
+					
+					
+	                
 					<!-- /.box-header -->
 					<div class="box-body">
+						
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 							
