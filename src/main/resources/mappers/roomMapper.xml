@@ -27,4 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where build_no like '%${buildNo}%' and room_type like '%${roomType}%'
 	</select>
 	
+	<select id="selectOneRoomByRoomNo" parameterType="int" resultMap="RoomDTO">
+		select * from room
+		where room_no = #{roomNo}
+	</select>
+	
 </mapper>

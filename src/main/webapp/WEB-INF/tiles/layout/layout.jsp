@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="/resources/bower_components/select2/dist/css/select2.min.css">
 <!-- daterange picker -->
 <link rel="stylesheet" href="/resources/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/resources/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
 <!-- bootstrap datepicker -->
 <link rel="stylesheet" href="/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 <!-- iCheck -->
@@ -109,6 +110,7 @@
 <script src="/resources/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap datepicker -->
 <script src="/resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/resources/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <!-- bootstrap time picker -->
 <script src="/resources/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- iCheck -->

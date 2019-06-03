@@ -8,12 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gsitm.mbms.building.BuildingDTO;
 import com.gsitm.mbms.building.BuildingService;
 import com.gsitm.mbms.room.RoomDTO;
+import com.gsitm.mbms.room.RoomService;
 
 /**
  * @주제 : 
@@ -27,6 +27,8 @@ public class ReserveController {
 	private ReserveService reserveService;
 	@Autowired
 	private BuildingService buildingService;
+	@Autowired
+	private RoomService roomService;
 
 	/** 회의실 소개 페이지 **/
 	@RequestMapping("/roomList")
@@ -61,6 +63,25 @@ public class ReserveController {
 		model.addAttribute("buildings", buildings);
 		
 		return "reserve/reserveSearchForm";
+	}
+	
+	/** 회의실 예약 양식**/
+	@RequestMapping("/reserveForm")
+	public String reserveForm(ReserveHistoryDTO reserveHistoryDTO, Model model) {
+		List<BuildingDTO> buildings = buildingService.SelectAll();
+		int roomNo = reserveHistoryDTO.getRoomNo();
+
+		if(roomNo!=0) {
+			RoomDTO roomDTO = roomService.selectOneRoomByRoomNo(roomNo);
+			List<ReserveHistoryDTO> reservationList = reserveService.getReservationListByRoomNo(roomNo);
+			model.addAttribute("roomDTO", roomDTO);
+			model.addAttribute("reservationList", reservationList);
+		}
+		
+		model.addAttribute("reserveHistoryDTO", reserveHistoryDTO);
+		model.addAttribute("buildings", buildings);
+		
+		return "reserve/reserveForm";
 	}
 	
 }

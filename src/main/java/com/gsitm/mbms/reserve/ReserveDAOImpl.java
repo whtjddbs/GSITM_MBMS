@@ -30,4 +30,9 @@ public class ReserveDAOImpl implements ReserveDAO {
 		return session.selectList("roomMapper.selectRoomBySearch", map);
 	}
 
+	@Override
+	public List<ReserveHistoryDTO> getReservationListByRoomNo(int roomNo) {
+		return session.selectList("reserveHistoryMapper.getReservationListByRoomNo", roomNo);
+	}
+
 }
