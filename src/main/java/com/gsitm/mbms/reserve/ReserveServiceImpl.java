@@ -33,6 +33,11 @@ public class ReserveServiceImpl implements ReserveService {
 	public List<ReserveHistoryDTO> getReservationListByRoomNo(int roomNo) {
 		return reserveDAO.getReservationListByRoomNo(roomNo);
 	}
+
+	@Override
+	public List<ReserveHistoryDTO> getReservationList(Map<String, Object> map) {
+		return reserveDAO.getReservationList(map);
+	}
 	
 	
 }

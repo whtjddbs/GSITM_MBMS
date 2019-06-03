@@ -84,4 +84,31 @@ public class ReserveController {
 		return "reserve/reserveForm";
 	}
 	
+	/** 회의실 정보 및 예약목록 JSON으로 반환 **/
+	@RequestMapping("/getReservationInfo")
+	public ModelAndView getReservationInfo(@RequestParam Map<String, String> map) {
+		int roomNo = Integer.parseInt(map.get("roomNo"));
+		
+		RoomDTO roomDTO = roomService.selectOneRoomByRoomNo(roomNo);
+		List<ReserveHistoryDTO> reservationList = reserveService.getReservationListByRoomNo(roomNo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("roomDTO", roomDTO);
+		mav.addObject("reservationList", reservationList);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/** 예약 목록 조회 **/
+	@RequestMapping("/getReservationList")
+	public ModelAndView getReservationList(@RequestParam Map<String, Object> map) {
+		
+		List<ReserveHistoryDTO> reservationList = reserveService.getReservationList(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reservationList", reservationList);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
 }

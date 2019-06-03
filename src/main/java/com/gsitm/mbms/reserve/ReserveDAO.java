@@ -19,4 +19,7 @@ public interface ReserveDAO {
 
 	/** 회의실번호로 예약내역 조회 **/
 	public List<ReserveHistoryDTO> getReservationListByRoomNo(int roomNo);
+
+	/** 회의실 예약 : 지사, 회의실구분별 예약목록 조회 **/
+	public List<ReserveHistoryDTO> getReservationList(Map<String, Object> map);
 }
