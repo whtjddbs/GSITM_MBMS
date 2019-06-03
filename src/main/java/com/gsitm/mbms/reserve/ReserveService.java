@@ -16,4 +16,7 @@ public interface ReserveService {
 	
 	/** 조건에 의한 회의실 검색 **/
 	public List<RoomDTO> selectRoomBySearch(Map<String, String> map);
+
+	/** 회의실번호로 예약내역 조회 **/
+	public List<ReserveHistoryDTO> getReservationListByRoomNo(int roomNo);
 }
