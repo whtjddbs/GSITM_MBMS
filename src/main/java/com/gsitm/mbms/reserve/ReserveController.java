@@ -73,7 +73,9 @@ public class ReserveController {
 
 		if(roomNo!=0) {
 			RoomDTO roomDTO = roomService.selectOneRoomByRoomNo(roomNo);
+			List<ReserveHistoryDTO> reservationList = reserveService.getReservationListByRoomNo(roomNo);
 			model.addAttribute("roomDTO", roomDTO);
+			model.addAttribute("reservationList", reservationList);
 		}
 		
 		model.addAttribute("reserveHistoryDTO", reserveHistoryDTO);

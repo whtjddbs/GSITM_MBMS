@@ -61,6 +61,29 @@
 									</div>
 									<!-- /.input group -->
 								</div>
+								
+								<div class="col-sm-12">
+									<label>시작일</label>
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-clock-o"></i>
+										</div>
+										<input type="text" class="form-control pull-right"
+											id="reservationStartDate" readonly>
+									</div>
+									<!-- /.input group -->
+								</div>
+								<div class="col-sm-12">
+									<label>종료일</label>
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-clock-o"></i>
+										</div>
+										<input type="text" class="form-control pull-right"
+											id="reservationEndDate" readonly>
+									</div>
+									<!-- /.input group -->
+								</div>
 							</div>
 
 							<!-- 참석인원 -->
@@ -148,8 +171,11 @@
 </div>
 <!-- /.content-wrapper -->
 
+
 <script>
 	$(function(){
+		console.log('${reservationList}');
+		
 		if('${roomDTO.roomNo}==0') {
 			$('#buildingSelect').val('${roomDTO.buildNo}');
 			setRoomListInBuilding();
@@ -204,21 +230,36 @@
 		
 		/** DatePicker **/
 		//Date range picker with time picker
+		$('#reservationStartDate').datetimepicker({
+			minuteStep : 30,
+			daysOfWeekDisabled: [0, 6],
+		});
+		
+		$('#reservationEndDate').datetimepicker({
+			minuteStep : 30,
+			daysOfWeekDisabled: [0, 6],
+			useCurrent: false
+		});
+		
+		$("#reservationStartDate").on("changeDate", function (e) {
+            $('#reservationEndDate').data('setEndDate', e.date);
+        });
+	
 		$('#reservationtime').daterangepicker({
 			timePicker : true,
 			timePickerIncrement : 30,
 			timePicker24Hour : true,
-			format : 'YYYY/MM/DD HH:mm',
+			format : 'YYYY/MM/DD/HH/mm',
 			minDate : new Date(),
 			locale: {
 		    	format: 'YYYY/MM/DD HH:mm'
 		    },
-		    isInvalidDate:function(date) {
+		    isInvalidDate:/* function(date) {
 		        var disabled_start = moment('2019/06/06/10/30', 'YYYY/MM/DD/HH/mm');
 		        var disabled_end = moment('2019/06/07/19/30', 'YYYY/MM/DD/HH/mm');
 		        return date.isAfter(disabled_start) && date.isBefore(disabled_end);
-		      } 
-		    	/* function(arg){
+		      }  */
+		    	function(arg){
 		         console.log(arg);
 
 		         // Prepare the date comparision
@@ -248,7 +289,7 @@
 		         if($.inArray(thisCompare,disabledArr)!=-1){
 		             return true;
 		         }
-		     }*/
+		     }
 		})
 		
 		var disabledArr = ["2019-06-27", "2019-06-28"];
