@@ -134,33 +134,24 @@
 	        <span aria-hidden="true">&times;</span></button>
 	      <h4 class="modal-title">Default Modal</h4>
 	    </div>
-	    <div class="modal-body">
+	    <div class="modal-body" style="display: inline-block">
 	    	<!-- 모달 내용 -->
 	    	<!-- 지사 선택 -->
 			<div class="col-md-12">
 				<div class="form-group">
 					<div class="col-sm-6">
-					<label for="buildingSelect">지사</label>
-						<select name="buildingSelect" id="buildingSelect" class="form-control">
-							<option value="">전체</option>
-							<c:forEach var="building" items="${buildings }">
-								<option value="${building.buildNo }">${building.buildName }</option>
-							</c:forEach>
-						</select>
+						<label for="buildingSelect">지사</label>
+						<input type="text" id="modal-buildName" class="form-control" disabled>
 					</div>
 					<div class="col-sm-6">
 						<label for="roomSelect">회의실</label> 
-						<select name="roomSelect" id="roomSelect" class="form-control">
-							<option value="">전체</option>
-						</select>
+						<input type="text" id="modal-roomName" class="form-control" disabled>
 					</div>
 
 					<!-- 회의유형 선택 -->
 					<div class="col-sm-12">
 						<label>회의구분</label> 
-						<select name="category" id="meetingCategory" class="form-control">
-							<option value="고객미팅">고객미팅</option>
-						</select>
+						<input type="text" id="modal-meetingCategory" class="form-control" disabled>
 					</div>
 					
 					<div class="col-sm-12">
@@ -169,12 +160,11 @@
 							<div class="input-group-addon">
 								<i class="fa fa-calendar-o"></i>
 							</div>
-							<input type="text" class="form-control pull-right"
-								id="reservationStartDate" readonly>
+							<input type="text" class="form-control pull-right" id="modal-reservationStartDate" disabled>
 							<div class="input-group-addon">
 		                    	<i class="fa fa-clock-o"></i>
 		                    </div>
-		                    <input type="text" id="reservationStartTime" class="form-control timepicker" readonly>
+		                    <input type="text" id="modal-reservationStartTime" class="form-control timepicker" disabled>
 						</div>
 						<!-- /.input group -->
 					</div>
@@ -184,12 +174,11 @@
 							<div class="input-group-addon">
 								<i class="fa fa-calendar-o"></i>
 							</div>
-							<input type="text" class="form-control pull-right"
-								id="reservationEndDate" readonly>
+							<input type="text" class="form-control pull-right" id="modal-reservationEndDate" disabled>
 							<div class="input-group-addon">
 		                    	<i class="fa fa-clock-o"></i>
 		                    </div>
-		                    <input type="text" id="reservationEndTime" class="form-control timepicker" readonly>
+		                    <input type="text" id="modal-reservationEndTime" class="form-control timepicker" disabled>
 						</div>
 						<!-- /.input group -->
 					</div>
@@ -201,9 +190,9 @@
 					<label>참석인원 및 명단</label>
 					<div class="input-group">
 						<span class="input-group-addon">참석인원</span> 
-						<input type="number" placeholder="최대인원 (명)" class="form-control">
+						<input type="number" placeholder="최대인원 (명)" class="form-control" id="modal-empCount" disabled>
 						<span class="input-group-addon"><i class="fa fa-users"></i></span>
-						<input type="text" class="form-control" placeholder="참석자 명단">
+						<input type="text" class="form-control" placeholder="참석자 명단" disabled>
 						<div class="input-group-btn">
 							<button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
 						</div>
@@ -215,9 +204,9 @@
 					<label>비품신청</label>
 					<div class="input-group">
 						<span class="input-group-addon">비품명</span> 
-						<input type="text" placeholder="비품명" class="form-control" readonly>
+						<input type="text" placeholder="비품명" class="form-control" disabled>
 						<span class="input-group-addon">수량</span>
-						<input type="number" class="form-control" placeholder="수량" readonly>
+						<input type="number" class="form-control" placeholder="수량" disabled>
 						<div class="input-group-btn">
 							<button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
 						</div>
@@ -226,13 +215,13 @@
 				
 				<!-- 네트워크 사용 유무 -->
 				<div class="col-sm-12">
-					<label class="control-label">네트워크 유/무</label>
+					<label class="control-label">네트워크 사용 유/무</label>
 					<div class="col-sm-12">
 						<label class="col-sm-6"> 
-							<input type="radio" name="networkYn" class="minimal" checked> Yes
+							<input type="radio" name="modal-networkYn" class="minimal" value="Y" checked disabled> Yes
 						</label>
 						<label class="col-sm-6">
-							<input type="radio" name="networkYn" class="minimal"> No
+							<input type="radio" name="modal-networkYn" class="minimal" value="N" disabled> No
 						</label>
 					</div>
 				</div>
@@ -242,20 +231,19 @@
 					<label class="control-label">다과준비 유/무</label>
 					<div class="col-sm-12">
 						<label class="col-sm-6"> <input type="radio"
-							name="snackYn" class="minimal" checked> Yes
+							name="modal-snackYn" class="minimal" value="Y" checked disabled> Yes
 						</label> <label class="col-sm-6"> <input type="radio"
-							name="snackYn" class="minimal"> No
+							name="modal-snackYn" class="minimal" value="N" disabled> No
 						</label>
 					</div>
 				</div>
 				
 				<!-- 사용 목적 -->
 				<div class="col-sm-12">
-					<div class="form=group">
+					<div class="form-group">
 						<label class="control-label">사용 목적</label>
-						<textarea class="form-control" rows="5" ></textarea>
+						<textarea id="modal-purpose" class="form-control" rows="5" disabled></textarea>
 					</div>
-					<br>
 				</div>
 				
 			</div>
@@ -321,50 +309,32 @@
 				day : 'day'
 			},
 			eventClick: function(event){
+				console.log(event);
 				$('#fullcalendar-event-detail-modal .modal-title').text(event.title);
+				$('#modal-buildName').val(event.buildName);
+				$('#modal-roomName').val(event.roomName);
+				$('#modal-meetingCategory').val(event.category);
+				$('#modal-reservationStartDate').val(moment(event.startDate).format("YYYY-MM-DD"));
+				$('#modal-reservationEndDate').val(moment(event.endDate).format("YYYY-MM-DD"));
+				$('#modal-reservationStartTime').val(moment(event.startDate).format("HH:mm"));
+				$('#modal-reservationEndTime').val(moment(event.endDate).format("HH:mm"));
+				$('#modal-empCount').val(event.empCount);
+				$('input:radio[name=modal-networkYn]:input[value="'+event.networkYn+'"]').iCheck('check');
+				$('input:radio[name=modal-snackYn]:input[value="'+event.snackYn+'"]').iCheck('check');
+				$('#modal-purpose').text(event.purpose);
 				
 				$('#fullcalendar-event-detail-modal').modal('show');
-			}
+			},
+			contentHeight: "auto"
 			//Random default events
-			/* events : [ {
-				title : 'All Day Event',
-				start : new Date(y, m, 1),
+			/* 
 				backgroundColor : '#f56954', //red
-				borderColor : '#f56954' //red
-			}, {
-				title : 'Long Event',
-				start : new Date(y, m, d - 5),
-				end : new Date(y, m, d - 2),
 				backgroundColor : '#f39c12', //yellow
-				borderColor : '#f39c12' //yellow
-			}, {
-				title : 'Meeting',
-				start : new Date(y, m, d, 10, 30),
-				allDay : false,
 				backgroundColor : '#0073b7', //Blue
-				borderColor : '#0073b7' //Blue
-			}, {
-				title : 'Lunch',
-				start : new Date(y, m, d, 12, 0),
-				end : new Date(y, m, d, 14, 0),
-				allDay : false,
 				backgroundColor : '#00c0ef', //Info (aqua)
-				borderColor : '#00c0ef' //Info (aqua)
-			}, {
-				title : 'Birthday Party',
-				start : new Date(y, m, d + 1, 19, 0),
-				end : new Date(y, m, d + 1, 22, 30),
-				allDay : false,
 				backgroundColor : '#00a65a', //Success (green)
-				borderColor : '#00a65a' //Success (green)
-			}, {
-				title : 'Click for Google',
-				start : new Date(y, m, 28),
-				end : new Date(y, m, 29),
-				url : 'http://google.com/',
 				backgroundColor : '#3c8dbc', //Primary (light-blue)
-				borderColor : '#3c8dbc' //Primary (light-blue)
-			} ] */
+			*/
 		});
 		
 		//회의실 예약 : 지사, 회의실구분별 예약목록 조회
@@ -376,22 +346,35 @@
 	            		"roomType" : $('#roomTypeSelect').val()},
 	            dataType : "json",
 	            success : function(data) {
-	            	var month = [];
+	            	var events = [];
 	            	
 	            	$.each(data.reservationList, function(index, item) {
-	            		var monthSource = new Object();
-	            		monthSource.id = item.RESERVENO;
-	            	    monthSource.title = item.PURPOSE;
-	            	    monthSource.start = new Date(item.STARTDATE);
-	            	    monthSource.end = new Date(item.ENDDATE);
-	            	    monthSource.backgroundColor = '#3c8dbc';
-						monthSource.borderColor = '#3c8dbc';
-						monthSource.roomName = item.ROOMNAME;
-	            	    month[index] = monthSource;
+	            		var oneEvent = new Object();
+	            		oneEvent.id = item.RESERVENO;
+	            		oneEvent.title = item.PURPOSE;
+	            		oneEvent.start = new Date(item.STARTDATE);
+	            		oneEvent.end = new Date(item.ENDDATE);
+	            		oneEvent.backgroundColor = '#3c8dbc';
+	            		oneEvent.borderColor = '#3c8dbc';
+	            		//추가정보
+	            		oneEvent.roomName = item.ROOMNAME;
+	            		oneEvent.roomNo = item.ROOMNO;
+	            		oneEvent.networkYn = item.NETWORKYN;
+	            		oneEvent.buildNo = item.BUILDNO;
+	            		oneEvent.buildName = item.BUILDNAME;
+	            		oneEvent.reserveNo = item.RESERVENO;
+	            		oneEvent.startDate = item.STARTDATE;
+	            		oneEvent.endDate = item.ENDDATE;
+	            		oneEvent.purpose = item.PURPOSE;
+	            		oneEvent.category = item.CATEGORY;
+	            		oneEvent.empCount = item.EMPCOUNT;
+	            		oneEvent.snackYn = item.SNACKYN;
+	            		//이벤트 목록에 추가
+	            		events[index] = oneEvent;
 	            	});
 	            	
 	            	$('#calendar').fullCalendar('removeEvents');
-        		    $('#calendar').fullCalendar('addEventSource', month);
+        		    $('#calendar').fullCalendar('addEventSource', events);
 	            },
 	            error : function(data) {
 	               alert('roomSelect click error!');

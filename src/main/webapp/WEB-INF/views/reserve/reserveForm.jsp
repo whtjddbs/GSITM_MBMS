@@ -150,7 +150,7 @@
 							
 							<!-- 사용 목적 -->
 							<div class="col-sm-12">
-								<div class="form=group">
+								<div class="form-group">
 									<label class="control-label">사용 목적</label>
 									<textarea class="form-control" rows="5" ></textarea>
 								</div>

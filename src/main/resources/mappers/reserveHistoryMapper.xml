@@ -45,12 +45,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT 
 			    r.room_name AS roomName,
 			    r.room_no AS roomNo,
+			    r.network_yn AS networkYn, 
 			    b.build_no AS buildNo,
 			    b.build_name AS buildName,
 			    rh.reserve_no AS reserveNo,
 			    rh.start_date AS startDate,
 			    rh.end_date AS endDate,
-			    rh.purpose AS purpose
+			    rh.purpose AS purpose,
+			    rh.category AS category,
+			    rh.emp_count AS empCount,
+			    rh.snack_yn AS snackYn
 			FROM reserve_history rh, room r, building b
 			WHERE rh.room_no = r.room_no
 			    AND r.build_no = b.build_no
