@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<style>
+figure img {max-width:600px; height:auto;}
+</style>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
