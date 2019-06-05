@@ -66,10 +66,14 @@
 									<label>시작일</label>
 									<div class="input-group">
 										<div class="input-group-addon">
-											<i class="fa fa-clock-o"></i>
+											<i class="fa fa-calendar-o"></i>
 										</div>
 										<input type="text" class="form-control pull-right"
 											id="reservationStartDate" readonly>
+										<div class="input-group-addon">
+					                    	<i class="fa fa-clock-o"></i>
+					                    </div>
+					                    <input type="text" id="reservationStartTime" class="form-control timepicker" readonly>
 									</div>
 									<!-- /.input group -->
 								</div>
@@ -77,13 +81,18 @@
 									<label>종료일</label>
 									<div class="input-group">
 										<div class="input-group-addon">
-											<i class="fa fa-clock-o"></i>
+											<i class="fa fa-calendar-o"></i>
 										</div>
 										<input type="text" class="form-control pull-right"
 											id="reservationEndDate" readonly>
+										<div class="input-group-addon">
+					                    	<i class="fa fa-clock-o"></i>
+					                    </div>
+					                    <input type="text" id="reservationEndTime" class="form-control timepicker" readonly>
 									</div>
 									<!-- /.input group -->
 								</div>
+					             
 							</div>
 
 							<!-- 참석인원 -->
@@ -141,7 +150,7 @@
 							
 							<!-- 사용 목적 -->
 							<div class="col-sm-12">
-								<div class="form=group">
+								<div class="form-group">
 									<label class="control-label">사용 목적</label>
 									<textarea class="form-control" rows="5" ></textarea>
 								</div>
@@ -176,6 +185,7 @@
 	$(function(){
 		console.log('${reservationList}');
 		
+		//예약할 회의실 번호를 가지고 들어왔으면 초기세팅 
 		if('${roomDTO.roomNo}==0') {
 			$('#buildingSelect').val('${roomDTO.buildNo}');
 			setRoomListInBuilding();
@@ -215,12 +225,13 @@
 		$('#roomSelect').change(function(){
 			$.ajax({
 	            type : "POST",
-	            url : "/reserve/roomSearch",
+	            url : "/reserve/getReservationInfo",
 	            data : {"buildNo" : $('#buildingSelect').val(),
-	                  "roomType" : ""},
+	            		"roomNo" : $('#roomSelect').val(),
+	            		"roomType" : ""},
 	            dataType : "json",
 	            success : function(data) {
-	            	
+	            	alert(JSON.stringify(data));
 	            },
 	            error : function(data) {
 	               alert('roomSelect click error!');
@@ -230,15 +241,17 @@
 		
 		/** DatePicker **/
 		//Date range picker with time picker
-		$('#reservationStartDate').datetimepicker({
+		$('#reservationStartDate').datepicker({
 			minuteStep : 30,
-			daysOfWeekDisabled: [0, 6],
+			daysOfWeekDisabled : [0, 6],
+			minDate : new Date()
 		});
 		
-		$('#reservationEndDate').datetimepicker({
+		$('#reservationEndDate').datepicker({
 			minuteStep : 30,
 			daysOfWeekDisabled: [0, 6],
-			useCurrent: false
+			useCurrent: false,
+			disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23, 24]
 		});
 		
 		$("#reservationStartDate").on("changeDate", function (e) {
@@ -317,6 +330,13 @@
 	    $('input[type="radio"].minimal').iCheck({
 	      radioClass   : 'iradio_minimal-blue'
 	    })
+	    
+	    $('.timepicker').timepicker({
+	    	interval : 30,
+	    	startTime: '09:00',
+	    	endTime: '18:00',
+	    	showInputs : false
+	    });
 	    
 	});
 </script>

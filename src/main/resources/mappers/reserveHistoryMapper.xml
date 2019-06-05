@@ -38,4 +38,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM Reserve_history 
 		WHERE room_no = #{roomNo} AND start_date &gt; sysdate
 	</select>
+	
+	<!-- 회의실 예약 : 지사, 회의실구분별 예약목록 조회  -->
+	<select id="getReservationList" parameterType="java.util.Map" resultType="map">
+		<![CDATA[
+			SELECT 
+			    r.room_name AS roomName,
+			    r.room_no AS roomNo,
+			    r.network_yn AS networkYn, 
+			    b.build_no AS buildNo,
+			    b.build_name AS buildName,
+			    rh.reserve_no AS reserveNo,
+			    rh.start_date AS startDate,
+			    rh.end_date AS endDate,
+			    rh.purpose AS purpose,
+			    rh.category AS category,
+			    rh.emp_count AS empCount,
+			    rh.snack_yn AS snackYn
+			FROM reserve_history rh, room r, building b
+			WHERE rh.room_no = r.room_no
+			    AND r.build_no = b.build_no
+			    AND rh.start_date > sysdate
+			    AND b.build_no like '%${buildNo}%'
+			    AND r.room_type like '%${roomType}%'
+		]]>	
+	</select>
 </mapper>
