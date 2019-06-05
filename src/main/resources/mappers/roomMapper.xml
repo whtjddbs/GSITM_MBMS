@@ -32,4 +32,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where room_no = #{roomNo}
 	</select>
 	
+	<select id="selectAvailableRoom" parameterType="java.util.Map" resultMap="RoomDTO">
+		SELECT r.* FROM room r, building b
+			WHERE r.build_no = b.build_no
+			    AND r.network_yn = 'Y'
+			    AND r.room_type like '%${roomTypeSelect}%'
+			    <if test="!buildingSelect.equals('')">
+			    AND b.build_no = #{buildingSelect}
+			    </if>
+			    AND r.room_num_emp >= #{empCount}
+			    AND r.room_no NOT IN (
+			        SELECT DISTINCT r.room_no FROM reserve_history rh, building b, room r
+			        WHERE rh.room_no = r.room_no
+			            AND r.build_no = b.build_no
+			            AND ( TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') BETWEEN rh.start_date AND rh.end_date
+			            	OR TO_DATE(#{endDate}, 'yyyy/mm/dd hh24:mi') BETWEEN rh.start_date AND rh.end_date )
+			    )
+	</select>
+	
 </mapper>

@@ -24,84 +24,86 @@
 					<div class="box-header">
 						<h3 class="box-title">조건 검색</h3>
 					</div>
-					<div class="box-body">
-						<!-- 지사 선택 -->
-						<div class="form-group">
-							<label for="buildingSelect">지사</label>
-							<select name="buildingSelect" id="buildingSelect" class="form-control">
-								<option value="">전체</option>
-								<c:forEach var="building" items="${buildings }">
-									<option value="${building.buildNo }">${building.buildName }</option>
-								</c:forEach>
-							</select>
-						</div>
-						
-						<!-- 장소유형 선택 -->
-						<div class="form-group">
-							<label>장소유형</label>
-							<select name="roomTypeSelect" id="roomTypeSelect" class="form-control">
-								<option value="">전체</option>
-								<option value="회의실">회의실</option>
-								<option value="교육실">교육실</option>
-							</select>
-						</div>
-						
-						<!-- Date and time range -->
-						<div class="form-group">
-							<label>예약 날짜</label>
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="fa fa-clock-o"></i>
-								</div>
-								<input type="text" class="form-control pull-right"
-									id="reservationtime">
+					<form id="availableRoomList" method="post" action="availableRoomList">
+						<div class="box-body">
+							<!-- 지사 선택 -->
+							<div class="form-group">
+								<label for="buildingSelect">지사</label>
+								<select name="buildingSelect" id="buildingSelect" class="form-control">
+									<option value="">전체</option>
+									<c:forEach var="building" items="${buildings }">
+										<option value="${building.buildNo }">${building.buildName }</option>
+									</c:forEach>
+								</select>
 							</div>
-							<!-- /.input group -->
-						</div>
-						
-						<!-- 회의실 규모 -->
-						<div class="input-group form-group">
-    						<span class="input-group-addon">참석인원</span>
-							<input type="number" placeholder="최대인원 (명)" class="form-control input-sm">
-						</div>
-						<!-- 네트워크 사용 유무 -->
-						<div class="form-group">
-							<div class="input-group">
-								<label class="control-label">네트워크 유/무</label>
-								<div class="col-sm-12">
-				            	<label class="col-sm-6">
-				                	<input type="radio" name="networkYn" class="minimal" checked>
-				                 	Yes
-				                </label>
-				                <label class="col-sm-6">
-				                	<input type="radio" name="networkYn" class="minimal">
-				                	No
-				              	</label>
+							
+							<!-- 장소유형 선택 -->
+							<div class="form-group">
+								<label>장소유형</label>
+								<select name="roomTypeSelect" id="roomTypeSelect" class="form-control">
+									<option value="">전체</option>
+									<option value="회의실">회의실</option>
+									<option value="교육실">교육실</option>
+								</select>
+							</div>
+							
+							<!-- Date and time range -->
+							<div class="form-group">
+								<label>예약 날짜</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-clock-o"></i>
+									</div>
+									<input type="text" class="form-control pull-right" name="reservationtime"
+										id="reservationtime">
+								</div>
+								<!-- /.input group -->
+							</div>
+							
+							<!-- 회의실 규모 -->
+							<div class="input-group form-group">
+	    						<span class="input-group-addon">참석인원</span>
+								<input type="number" name="empCount" placeholder="최대인원 (명)" class="form-control input-sm">
+							</div>
+							<!-- 네트워크 사용 유무 -->
+							<div class="form-group">
+								<div class="input-group">
+									<label class="control-label">네트워크 유/무</label>
+									<div class="col-sm-12">
+					            	<label class="col-sm-6">
+					                	<input type="radio" name="networkYn" class="minimal" checked>
+					                 	Yes
+					                </label>
+					                <label class="col-sm-6">
+					                	<input type="radio" name="networkYn" class="minimal">
+					                	No
+					              	</label>
+					              	</div>
 				              	</div>
-			              	</div>
-			            </div>
-						
-						<!-- 네트워크 사용 유무 -->
-						<div class="form-group">
-							<div class="input-group">
-								<label class="control-label">다과준비 유/무</label>
-								<div class="col-sm-12">
-				            	<label class="col-sm-6">
-				                	<input type="radio" name="snackYn" class="minimal" checked>
-				                 	Yes
-				                </label>
-				                <label class="col-sm-6">
-				                	<input type="radio" name="snackYn" class="minimal">
-				                	No
-				              	</label>
+				            </div>
+							
+							<!-- 네트워크 사용 유무 -->
+							<div class="form-group">
+								<div class="input-group">
+									<label class="control-label">다과준비 유/무</label>
+									<div class="col-sm-12">
+					            	<label class="col-sm-6">
+					                	<input type="radio" name="snackYn" class="minimal" checked>
+					                 	Yes
+					                </label>
+					                <label class="col-sm-6">
+					                	<input type="radio" name="snackYn" class="minimal">
+					                	No
+					              	</label>
+					              	</div>
 				              	</div>
-			              	</div>
-			            </div>
-			            
-			            <input type="button" class="btn  btn-info col-sm-12" id="availableRoomSearchBtn" value="검색">
-
-					</div>
-					<!-- /.box-body -->
+				            </div>
+				            
+				            <input type="button" class="btn  btn-info col-sm-12" id="availableRoomSearchBtn" value="검색">
+	
+						</div>
+						<!-- /.box-body -->
+					</form>
 				</div>
 				<!-- /.box -->
 			</div>
@@ -259,6 +261,7 @@
 </div>
 <!-- /.modal -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/gcal.js"></script>
 <!-- Page specific script -->
 <script>
 	$(function() {
@@ -298,7 +301,7 @@
 		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear()
 		$('#calendar').fullCalendar({
 			header : {
-				left : 'prev,next today',
+				left : 'prev,next today reserveBtn',
 				center : 'title',
 				right : 'month,agendaWeek,agendaDay'
 			},
@@ -307,6 +310,14 @@
 				month : 'month',
 				week : 'week',
 				day : 'day'
+			},
+			customButtons: {
+				reserveBtn: {
+					text: '예약하기',
+					click: function() {
+						alert('clicked custom button 1!');
+					}
+				}
 			},
 			eventClick: function(event){
 				console.log(event);
@@ -325,7 +336,12 @@
 				
 				$('#fullcalendar-event-detail-modal').modal('show');
 			},
-			contentHeight: "auto"
+			dayClick: function(event) {
+				alert('dayClick');
+			},
+			contentHeight: "auto",
+			googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE" // Google API KEY
+
 			//Random default events
 			/* 
 				backgroundColor : '#f56954', //red
@@ -372,9 +388,16 @@
 	            		//이벤트 목록에 추가
 	            		events[index] = oneEvent;
 	            	});
+
+	            	var holiday = new Object();
+	            	holiday.googleCalendarId = "ko.south_korea#holiday@group.v.calendar.google.com";
+	            	holiday.className = "koHolidays";
+	            	holiday.color = "#FF0000";
+	            	holiday.textColor = "#FFFFFF";
 	            	
 	            	$('#calendar').fullCalendar('removeEvents');
         		    $('#calendar').fullCalendar('addEventSource', events);
+        		    $('#calendar').fullCalendar('addEventSource', holiday);
 	            },
 	            error : function(data) {
 	               alert('roomSelect click error!');
@@ -395,7 +418,12 @@
 		$('#reservationtime').daterangepicker({
 			timePicker : true,
 			timePickerIncrement : 30,
-			format : 'MM/DD/YYYY h:mm A'
+			timePicker24Hour: true,
+			minDate : new Date(),
+			format : 'YYYY/MM/DD HH:mm',
+			locale : {
+				format : 'YYYY/MM/DD HH:mm'
+			}
 		})
 		
 		//iCheck for checkbox and radio inputs
@@ -405,8 +433,9 @@
 	    
 	    //검색 버튼 클릭
 	    $('#availableRoomSearchBtn').click(function(){
-	    	alert($('#reservationtime').val());
-	    	getReservationList();
+	    	let picker = $('#reservationtime').data('daterangepicker');
+	    	console.log(moment(picker.startDate).format('YYYY/MM/DD HH:mm') + " - " + moment(picker.endDate).format('YYYY/MM/DD HH:mm'));
+	    	$('#availableRoomList').submit();
 	    });
 	    
 	})

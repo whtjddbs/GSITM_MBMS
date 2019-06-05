@@ -3,6 +3,8 @@ package com.gsitm.mbms.reserve;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +57,7 @@ public class ReserveController {
 		return mav;
 	}
 	
-	/** 회의실 검색 **/
+	/** 회의실 검색 페이지 **/
 	@RequestMapping("/reserveSearchForm")
 	public String reserveSearchForm(Model model) {
 		
@@ -65,7 +67,30 @@ public class ReserveController {
 		return "reserve/reserveSearchForm";
 	}
 	
-	/** 회의실 예약 양식**/
+	/** 회의실 검색을 통한 예약가능한 회의실 리스트 조회 페이지 **/
+	@RequestMapping("/availableRoomList")
+	public String availableRoomList(@RequestParam Map<String,Object> map, Model model, HttpSession session) {
+		System.out.println(map.toString());
+		
+		String dateRange = (String) map.get("reservationtime");
+		String dates[] = dateRange.split("-");
+		map.put("startDate", dates[0].trim());
+		map.put("endDate", dates[1].trim());
+		map.put("empCount", (String) map.get("empCount") == "" ? 0 : map.get("empCount"));
+		
+		//회의실 검색 정보 저장
+		session.setAttribute("reservationInfo", map);
+		
+		List<RoomDTO> rooms = reserveService.selectAvailableRoom(map);
+		List<BuildingDTO> buildings = buildingService.SelectAll();
+		
+		model.addAttribute("rooms", rooms);
+		model.addAttribute("buildings", buildings);
+		
+		return "room/roomList";
+	}
+	
+	/** 회의실 예약 양식 페이지 **/
 	@RequestMapping("/reserveForm")
 	public String reserveForm(ReserveHistoryDTO reserveHistoryDTO, Model model) {
 		List<BuildingDTO> buildings = buildingService.SelectAll();

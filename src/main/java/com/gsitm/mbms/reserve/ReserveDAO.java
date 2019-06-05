@@ -22,4 +22,7 @@ public interface ReserveDAO {
 
 	/** 회의실 예약 : 지사, 회의실구분별 예약목록 조회 **/
 	public List<ReserveHistoryDTO> getReservationList(Map<String, Object> map);
+
+	/** 회의실 검색 : 조건에 해당하는 이용가능한 회의실 목록 조회 **/
+	public List<RoomDTO> selectAvailableRoom(Map<String, Object> map);
 }

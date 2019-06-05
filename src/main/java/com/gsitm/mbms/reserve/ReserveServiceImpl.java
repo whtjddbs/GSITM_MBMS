@@ -38,6 +38,11 @@ public class ReserveServiceImpl implements ReserveService {
 	public List<ReserveHistoryDTO> getReservationList(Map<String, Object> map) {
 		return reserveDAO.getReservationList(map);
 	}
+
+	@Override
+	public List<RoomDTO> selectAvailableRoom(Map<String, Object> map) {
+		return reserveDAO.selectAvailableRoom(map);
+	}
 	
 	
 }
