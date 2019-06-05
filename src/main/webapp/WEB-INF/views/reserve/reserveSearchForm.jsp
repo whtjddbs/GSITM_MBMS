@@ -265,35 +265,6 @@
 <!-- Page specific script -->
 <script>
 	$(function() {
-
-		/* initialize the external events
-		 -----------------------------------------------------------------*/
-		function init_events(ele) {
-			ele.each(function() {
-
-				// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-				// it doesn't need to have a start or end
-				var eventObject = {
-					title : $.trim($(this).text())
-				// use the element's text as the event title
-				}
-
-				// store the Event Object in the DOM element so we can get to it later
-				$(this).data('eventObject', eventObject)
-
-				// make the event draggable using jQuery UI
-				$(this).draggable({
-					zIndex : 1070,
-					revert : true, // will cause the event to go back to its
-					revertDuration : 0
-				//  original position after the drag
-				})
-
-			})
-		}
-
-		init_events($('#external-events div.external-event'))
-
 		/* initialize the calendar
 		 -----------------------------------------------------------------*/
 		//Date for the calendar events (dummy data)
@@ -319,6 +290,7 @@
 					}
 				}
 			},
+			selectable: true,
 			eventClick: function(event){
 				console.log(event);
 				$('#fullcalendar-event-detail-modal .modal-title').text(event.title);
@@ -336,8 +308,10 @@
 				
 				$('#fullcalendar-event-detail-modal').modal('show');
 			},
-			dayClick: function(event) {
-				alert('dayClick');
+			dayClick: function(date, event, view) {
+				console.log(moment(date).format('YYYY/MM/DD HH:mm'));
+				console.log(event);
+				console.log(view);
 			},
 			contentHeight: "auto",
 			googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE" // Google API KEY
@@ -396,8 +370,10 @@
 	            	holiday.textColor = "#FFFFFF";
 	            	
 	            	$('#calendar').fullCalendar('removeEvents');
+	            	$('#calendar').fullCalendar('removeEvents', 'koHolidays');
         		    $('#calendar').fullCalendar('addEventSource', events);
         		    $('#calendar').fullCalendar('addEventSource', holiday);
+        		    $('#calendar').fullCalendar('rerenderEvents');
 	            },
 	            error : function(data) {
 	               alert('roomSelect click error!');

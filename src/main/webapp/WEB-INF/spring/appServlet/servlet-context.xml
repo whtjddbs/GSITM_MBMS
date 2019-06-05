@@ -43,7 +43,6 @@
 	</beans:bean>
 	<beans:bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0" />
-		
 	</beans:bean>
     
     <!-- Controller -->

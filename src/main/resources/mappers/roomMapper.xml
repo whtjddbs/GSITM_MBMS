@@ -45,8 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			        SELECT DISTINCT r.room_no FROM reserve_history rh, building b, room r
 			        WHERE rh.room_no = r.room_no
 			            AND r.build_no = b.build_no
-			            AND ( TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') BETWEEN rh.start_date AND rh.end_date
-			            	OR TO_DATE(#{endDate}, 'yyyy/mm/dd hh24:mi') BETWEEN rh.start_date AND rh.end_date )
+			            AND (
+			            	rh.start_date BETWEEN TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') AND TO_DATE(#{endDate}, 'yyyy/mm/dd hh24:mi')
+			            	OR rh.end_date BETWEEN ( TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') AND TO_DATE(#{endDate}, 'yyyy/mm/dd hh24:mi')
+			            )
 			    )
 	</select>
 	
