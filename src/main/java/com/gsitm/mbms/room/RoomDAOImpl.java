@@ -28,4 +28,11 @@ public class RoomDAOImpl implements RoomDAO {
 		return session.selectList("roomMapper.selectAllRoom");
 	}
 
+	@Override
+	public void roomInsert(RoomDTO dto) {
+		// TODO Auto-generated method stub
+		System.out.println("잠시만~");
+		
+	}
+
 }

@@ -52,22 +52,46 @@
 									<th>주요시설</th>
 									<th>수용인원</th>
 									<th>요금</th>
+									<th>지사</th>
+									<th>구분</th>
 									<th>비고</th>
 								</tr>
 							</thead>
 							<tbody>
+								<tr>
+										<td>test Data 보헌 회의실</td>
+										<td>2</td>
+										<td>나와라</td>
+										<td>원빈</td>
+										<td>2</td>
+										<td>강서 136</td>
+										<td>회의실</td>
+										<td>버튼들</td>
+									</tr>
+										
+									<tr  >
+										<td>testData 보헌 교육장</td>
+										<td>3</td>
+										<td>2</td>
+										<td>빈</td>
+										<td>3</td>
+										<td>강서 136</td>
+										<td>교육실</td>
+										<td>버튼들</td>
+									</tr>
 								<c:forEach items="${rooms }" var="room" varStatus="status">
 									<tr role='row'>
-										<td><img src='${room.roomImg }' style="width: 300px;"></td>
+										<td><img src='${room.roomImg }' style="width: 300px;">?</td>
 										<td>${room.roomName }</td>
-										<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기
-										</td>
+										<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기</td>
 										<td>${room.roomNumEmp }명</td>
 										<td>시간당 ${room.roomPrice }원</td>
+										<td>${room.buildNo}</td>
+										<td>${room.roomType}</td>
 										<td>
 											<input type="button" class="btn btn-info btn-sm infoBtn"
 												data-toggle="modal" id="roomView_${room.roomNo }"
-												data-target="#modal-info_${building.buildNo }" value="회의실정보">
+												data-target="#modal-info_${building.buildNo }" value="상세보기">
 											
 												
 											<input type="button" class="btn btn-warning btn-sm updateBtn"
@@ -87,7 +111,7 @@
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
-													<h4 class="modal-title">${building.buildName } 회의실내역</h4>
+													<h4 class="modal-title">${building.buildName } 비품내역</h4>
 												</div>
 												<div class="modal-body">
 													<p>준비중 <br>준비중<bR>준비중 <br>&hellip;</p>
@@ -104,7 +128,7 @@
 									</div>
 
 
-											<div class="modal modal-danger fade"
+											 <div class="modal modal-danger fade"
 												id="roomDelete_${room.roomNo}_modal">
 												<!-- 삭제 modal div -->
 												<!-- Modal Div -->
@@ -141,6 +165,8 @@
 									<th>Browser</th>
 									<th>Platform(s)</th>
 									<th>Engine version</th>
+									<th >원빈</th>
+									<th >원빈</th>
 									<th>Platform</th>
 									<th><input type="button" class="btn btn-primary"
 										value="회의실 등록하기" id="roomInsertBtn"
@@ -180,77 +206,24 @@
 			'autoWidth' : true,
 			'order' : [ [ 1, "desc" ] ],
 			"destroy": true,
-			"pagingType" : "full_numbers"
+			"pagingType" : "full_numbers",
+			"columnDefs" : [ {
+				"targets" : [ 5 ],
+				"visible" : false,
+				"searchable" : true
+				}, {
+				"targets" : [ 6 ],
+				"visible" : false,
+				"searchable":true
+				} ]
 		});
 		
 		//조건별 회의실 검색
 	      $(document).on('change', '#buildingSelect, #roomTypeSelect', function(){
-	         $.ajax({
-	            type : "POST",
-	            url : "/reserve/roomSearch",
-	            data : {"buildNo" : $('#buildingSelect').val(),
-	                  "roomType" : $('#roomTypeSelect').val()},
-	            dataType : "json",
-	            success : function(data) {
-	               
-	               $('#roomListTable tbody').empty();
-					table.clear().destroy();
-	               
-	               $.each(data.rooms, function(index,item){
-	                  $('<tr/>').append($('<td/>').append($('<img/>', {
-	                     src : item.roomImg,
-	                     style : 'width: 300px'
-	                  }))).append($('<td/>', {
-	                     text : item.roomName
-	                  })).append($('<td/>', {
-	                     html : '1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기</td>'
-	                  })).append($('<td/>', {
-	                     text : item.roomNumEmp+"명"
-	                  })).append($('<td/>', {
-	                     text : '시간당 '+item.roomPrice+'원'
-	                  })).append($('<td/>').append($('<input/>', {
-	                     type : 'button',
-	                     'class' : 'btn btn-info btn-sm infoBtn',
-	                     id : "roomView_"+item.roomNo,
-	                     value : '회의실정보'
-	                  })).append($('<input/>',{
-	                	  type : 'button',
-		                  'class' : 'btn btn-warning btn-sm updateBtn',
-		                  id : "roomUpdate_"+item.roomNo,
-		                  value : '수정하기'
-	                  })).append($('<input/>',{
-	                	  type : 'button',
-		                  'class' : 'btn btn-danger btn-sm deleteBtn',
-		                  id : "roomDelete_"+item.roomNo,
-		                  value : '삭제하기'
-	                  }))).appendTo($('#roomListTable tbody'));
-	               });
-	               
-	               $('.box-title').text($('#buildingSelect :selected').text());
-	               
-	               table = $('#roomListTable').DataTable({
-	       			'paging' : true,
-	       			'lengthChange' : false,
-	       			'searching' : true,
-	       			'ordering' : true,
-	       			'info' : true,
-	       			'autoWidth' : true,
-	       			'order' : [ [ 1, "desc" ] ],
-	       			"destroy": true,
-	       			"pagingType" : "full_numbers"
-	       		});
-	            },
-	            error : function(data) {
-	               alert('error');
-	            }
-	         });
+	         $("input[type='search']").val($("#buildingSelect").val()+" "+$("#roomTypeSelect").val());
+	         $("input[type='search']").trigger('keyup');
 	      });
 		
-/* 		//예약하기 버튼 클릭
-		$('.content').on('click', '.reserveBtn', function(){
-			$('#selectedRoomNo').val(this.id);
-			$('#reserveListForm').submit();
-		}); */
 		$('.content').on('click','.infoBtn',function(){
 			alert(this.id);
 			let id = "#"+this.id+"_modal";
@@ -268,5 +241,17 @@
 			$(id).modal();
 		})
 		
+/* 	$('#roomListTable').DataTable({
+			"columnDefs" : [ {
+				"targets" : [ 5 ],
+				"visible" : false,
+				"searchable" : true
+			}, {
+				"targets" : [ 6 ],
+				"visible" : false,
+				"searchable":true
+			} ]
+		}); */
+
 	})
 </script>
