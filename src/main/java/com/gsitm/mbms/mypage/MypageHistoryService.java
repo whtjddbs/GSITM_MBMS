@@ -1,5 +1,7 @@
 package com.gsitm.mbms.mypage;
 
+import java.util.List;
+
 /**
  * @작성일 : 2019. 5. 28.
  * @작성자 : 이주현
@@ -7,4 +9,6 @@ package com.gsitm.mbms.mypage;
 
 public interface MypageHistoryService {
 
+	 public List<MypageHistoryDTO> selectAll() throws Exception;
+	 
 }
