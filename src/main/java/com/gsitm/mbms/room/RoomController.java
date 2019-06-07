@@ -53,4 +53,12 @@ public class RoomController {
 		return "/room/roomInsertForm";	
 	}
 	
+	//Room 등록
+		@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
+		public String roomInsert(RoomDTO dto) {
+			logger.info("Room Insert Action!");
+			roomService.roomInsert(dto);
+			return "redirect:/room/roomManageList";	
+		}
+	
 }

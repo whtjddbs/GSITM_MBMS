@@ -27,4 +27,12 @@ public class RoomServiceImpl implements RoomService {
 		System.out.println(roomDAO.selectAll().toString());
 		return roomDAO.selectAll();
 	}
+
+	@Override
+	public void roomInsert(RoomDTO dto) {
+		// TODO Auto-generated method stub
+		System.out.println(dto.toString());
+		roomDAO.roomInsert(dto);
+		
+	}
 }
