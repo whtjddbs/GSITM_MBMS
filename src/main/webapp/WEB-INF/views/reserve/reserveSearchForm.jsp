@@ -261,6 +261,12 @@
 </div>
 <!-- /.modal -->
 
+<!-- fullCalendar customizing -->
+<style>
+	.fc-day-top.fc-sat > .fc-day-number { color:#0000FF; }     /* 토요일 */
+    .fc-day-top.fc-sun > .fc-day-number { color:#FF0000; }    /* 일요일 */
+    .fc-reserveBtn-button {background: '#3c8dbc'; }
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/gcal.js"></script>
 <!-- Page specific script -->
 <script>
@@ -268,9 +274,11 @@
 		/* initialize the calendar
 		 -----------------------------------------------------------------*/
 		//Date for the calendar events (dummy data)
-		var date = new Date()
-		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear()
-		$('#calendar').fullCalendar({
+		var date = new Date();
+		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear();
+		var selectedStart;
+		var selectedEnd;
+		var calendar = $('#calendar').fullCalendar({
 			header : {
 				left : 'prev,next today reserveBtn',
 				center : 'title',
@@ -285,12 +293,27 @@
 			customButtons: {
 				reserveBtn: {
 					text: '예약하기',
-					click: function() {
-						alert('clicked custom button 1!');
+					color : '#3c8dbc',
+					click: function(event) {
+						console.log(selectedStart +" - "+ selectedEnd);
+						$('#availableRoomList').submit();
 					}
 				}
 			},
 			selectable: true,
+			selectAllow: function(selectInfo) {
+				//주말 선택 금지
+				if(moment(selectInfo.start).format('E')==6 || moment(selectInfo.start).format('E')==7) return false;
+				//과거일 선택 금지
+				if(moment(selectInfo.start).format('YYYY-MM-DD') < moment(new Date()).format('YYYY-MM-DD')) return false;
+				return true;				
+			},
+			select: function(startDate, endDate, jsEvent, view, resource) {
+				selectedStart = startDate.format('YYYY-MM-DD HH:mm');
+				selectedEnd = endDate.format('YYYY-MM-DD HH:mm');
+				$('#reservationtime').data('daterangepicker').setStartDate(selectedStart);
+				$('#reservationtime').data('daterangepicker').setEndDate(selectedEnd);
+			},
 			eventClick: function(event){
 				console.log(event);
 				$('#fullcalendar-event-detail-modal .modal-title').text(event.title);
