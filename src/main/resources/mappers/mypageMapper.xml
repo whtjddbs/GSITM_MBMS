@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mypageMapper">
+<!--  
+	<resultMap id="MypageHistoryDTO" type="mypage">
+
+      <result column="reserve_no" property="reserveNo" />
+      <result column="room_no" property="roomNo" />
+      <result column="reserve_emp_no" property="reserveEmpNo" />
+      <result column="start_date" property="startDate" />
+      <result column="end_date" property="endDate" />
+      <result column="approval1_yn" property="approval1Yn" />
+      <result column="approval1_emp_no" property="approval1EmpNo" />
+      <result column="approval1_date" property="approval1Date" />
+      <result column="approval2_yn" property="approval2Yn" />
+      <result column="approval2_emp_no" property="approval2EmpNo" />
+      
+      <result column="approval2_date" property="approval2Date" />
+      <result column="payment_yn" property="paymentYn" />
+      <result column="payment_date" property="paymentDate" />
+      <result column="reserve_date" property="reserveDate" />
+      <result column="reserve_price" property="reservePrice" />
+      <result column="purpose" property="purpose" />
+      <result column="category" property="category" />
+      <result column="priority" property="priority" />
+      <result column="emp_count" property="empCount" />
+      <result column="snack_yn" property="snackYn" />
+      
+   </resultMap>
+   
+	<select id="selectAll" resultMap="MypageHistoryResult">
+        SELECT * FROM RESERVE_HISTORY ORDER BY RESERVE_NO DESC
+	</select>
+	-->
+</mapper>
+
