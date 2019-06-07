@@ -70,7 +70,7 @@
 				<ul class="treeview-menu">
 					<li><a href="/building/buildingList"><i class="fa fa-circle-o"></i> 
 							근무지 관리</a></li>
-					<li><a href="layout/boxed.html"><i class="fa fa-circle-o"></i>
+					<li><a href="/room/roomManageList"><i class="fa fa-circle-o"></i>
 							회의실 관리</a></li>
 					<li><a href="layout/fixed.html"><i class="fa fa-circle-o"></i>
 							비품 관리</a></li>

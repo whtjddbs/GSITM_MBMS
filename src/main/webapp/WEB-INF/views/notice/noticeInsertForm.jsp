@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<script
-	src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
+<script src="https://example.com/ckfinder/ckfinder.js"></script>
+<!-- <script type='text/javascript'>
+	window.parent.CKEDITOR.tools.callFunction('${CKEditorFuncNum}', '${file_path}', '파일 전송 완료.');
+	</script> -->
+
+
 <style>
 .ck.ck-editor {
 	/* max-width: 500px; */
@@ -42,7 +47,7 @@
 						<h3 class="box-title">공지사항 작성 <small>새로운 공지사항 내용을 작성하세요.<br /></small><br>
 						</h3>
 						
-						<form action=noticeInsert method="post">
+						<form action=noticeInsert method="post" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="noticetitle">제목<br></label> <input type="text" class="form-control" id="exampleInputEmail1" name ="noticeSubject"  placeholder="공지 제목을 입력하세요.">
 							</div>
@@ -50,7 +55,7 @@
 
 
 							<!-- tools box -->
-							<!-- <div class="pull-right box-tools">
+					                                                                                                                                                                                                                                                                                                                                                                                                          		<!-- <div class="pull-right box-tools">
                 <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
                         title="Remove">
                   <i class="fa fa-plus"></i> 업로드</button>
@@ -80,22 +85,20 @@
 
 								<p class="help-block">파일을 첨부하세요.</p>
 							</div>
-							<!-- <!--  --> -->
-							
-<!-- <!--  --> -->
+							 
 							<!-- 첨부 폼그룹 -->
 
 
 
 							<div class="box-footer"><!-- 줄긋기 --></div>
-								<button type="submit" class="btn btn-primary">등록</button>
+							<button type="submit" class="btn btn-primary">등록</button>
 							
 
 						</form>
-						<form action="fileupload" method="post" enctype="multipart/form-data">
+			<!-- 			<form action="fileupload" method="post" enctype="multipart/form-data">
 						    <input type="file" name="uploadedfile" placeholder="파일 선택" /><br/>
 						    <input type="submit" value="업로드">
-						</form>
+						</form> -->
 
 					</div>
 					<!-- /.box -->
@@ -164,13 +167,60 @@
 
 <script>
  // 3. CKEditor5를 생성할 textarea 지정
-    ClassicEditor
+/*      ClassicEditor
         .create( document.querySelector( '#editor1' ) )
-        /* .catch( error => {
-            console.error( error ) */
+         .catch( error => {
+            console.error( error )
             ;
-        });
+        }); 
+ */
 
+     ClassicEditor
+     .create( document.querySelector( '#editor1' ), {
+    	 ckfinder: {
+             // Upload the images to the server using the CKFinder QuickUpload command.
+             uploadUrl: 'file_upload'
+				/* filebrowserUploadUrl: '${pageContext.request.contextPath }/adm/fileupload.do' */
+
+             // Define the CKFinder configuration (if necessary).
+             /* options: {
+                 resourceType: 'Images'
+             } */
+             
+         }
+     } )
+     /* .catch( error => {
+            console.error( error )
+            ; */
+ 
+ 
+ 
+ 
+ 
+   /*  ClassicEditor
+    .create( document.querySelector( '#editor1' ), {
+        plugins: [ 'CKFinder' ],
+
+        // Enable the CKFinder button in the toolbar.
+        toolbar: [ 'ckfinder','imageUpload'],
+
+        ckfinder: {
+            // Upload the images to the server using the CKFinder QuickUpload command.
+            uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
+
+            // Define the CKFinder configuration (if necessary).
+            options: {
+                resourceType: 'Images',
+                	openerMethod: 'popup'
+            }
+        }
+    } ) *//* 
+    .then( ... ) */
+    /* .catch( error => {
+            console.error( error )
+            ; */
+ 
+ 
 </script>
 
 

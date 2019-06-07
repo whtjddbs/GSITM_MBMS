@@ -22,17 +22,6 @@
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
-						<div class="row">
-							<div class="col-sm-6">
-								지역구 <select>
-									<option>종로구</option>
-									<option>영등포구</option>
-									<option>강남구</option>
-									<option>용산구</option>
-								</select>
-							</div>
-							<div class="col-sm-6"></div>
-						</div>
 						<table id="buildingListTable"
 							class="table table-bordered table-hover">
 							<thead>

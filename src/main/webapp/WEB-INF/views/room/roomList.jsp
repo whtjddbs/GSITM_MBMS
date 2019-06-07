@@ -63,33 +63,11 @@
 										</td>
 										<td>${room.roomNumEmp }명</td>
 										<td>시간당 ${room.roomPrice }원</td>
-										<td><input type="button" class="btn btn-danger btn-sm"
+										<td><input type="button" class="btn btn-danger btn-sm reserveBtn" id="${room.roomNo }"
 											value="예약 하기"></td>
 									</tr>
 								</c:forEach>
-								<!-- Sample -->
-								<!-- <tr>
-									<td><img src='/resources/img/room/room001.jpg'
-										style="width: 300px;"></td>
-									<td>1층 교육장</td>
-									<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기
-									</td>
-									<td>00명</td>
-									<td>시간당 10,000원</td>
-									<td><input type="button" class="btn btn-danger btn-sm"
-										value="예약 하기"></td>
-								</tr> -->
 							</tbody>
-							<tfoot>
-								<tr>
-									<th>회의실 사진</th>
-									<th>회의실명</th>
-									<th>주요시설</th>
-									<th>수용인원</th>
-									<th>요금</th>
-									<th>비고</th>
-								</tr>
-							</tfoot>
 						</table>
 					</div>
 					<!-- /.box-body -->
@@ -104,10 +82,16 @@
 </div>
 <!-- /.content-wrapper -->
 
+<form action="/reserve/reserveForm" method="post" id="reserveListForm">
+	<input type="hidden" id="selectedRoomNo" name="roomNo">
+</form>
+
 <!-- page script -->
 <script>
 	$(function() {
-		var table = $('#roomListTable').DataTable({
+		var table;
+		
+		table = $('#roomListTable').DataTable({
 			'paging' : true,
 			'lengthChange' : false,
 			'searching' : false,
@@ -115,6 +99,7 @@
 			'info' : true,
 			'autoWidth' : true,
 			'order' : [ [ 1, "desc" ] ],
+			"destroy": true,
 			"pagingType" : "full_numbers"
 		});
 		
@@ -130,6 +115,7 @@
 				//alert(JSON.stringify(data));
 	               
 	               $('#roomListTable tbody').empty();
+					table.clear().destroy();
 	               
 	               $.each(data.rooms, function(index,item){
 	                  $('<tr/>').append($('<td/>').append($('<img/>', {
@@ -145,18 +131,37 @@
 	                     text : '시간당 '+item.roomPrice+'원'
 	                  })).append($('<td/>').append($('<input/>', {
 	                     type : 'button',
-	                     'class' : 'btn btn-danger btn-sm',
+	                     'class' : 'btn btn-danger btn-sm reserveBtn',
+	                     id : item.roomNo,
 	                     value : '예약 하기'
 	                  }))).appendTo($('#roomListTable tbody'));
 	               });
 	               
 	               $('.box-title').text($('#buildingSelect :selected').text());
+	               
+	               table = $('#roomListTable').DataTable({
+	       			'paging' : true,
+	       			'lengthChange' : false,
+	       			'searching' : false,
+	       			'ordering' : true,
+	       			'info' : true,
+	       			'autoWidth' : true,
+	       			'order' : [ [ 1, "desc" ] ],
+	       			"destroy": true,
+	       			"pagingType" : "full_numbers"
+	       		});
 	            },
 	            error : function(data) {
 	               alert('error');
 	            }
 	         });
 	      });
+		
+		//예약하기 버튼 클릭
+		$('.content').on('click', '.reserveBtn', function(){
+			$('#selectedRoomNo').val(this.id);
+			$('#reserveListForm').submit();
+		});
 		
 	})
 </script>
