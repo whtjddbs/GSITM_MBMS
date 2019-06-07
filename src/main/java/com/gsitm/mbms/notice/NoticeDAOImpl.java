@@ -32,8 +32,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 	}
 
 	// 읽기
-	public NoticeDTO selectByNoticeNo(int notice_no) throws Exception {
-		return sqlSession.selectOne(namespace + "selectByNoticeNo", notice_no);
+	public NoticeDTO selectByNoticeNo(int noticeNo) throws Exception {
+		return sqlSession.selectOne(namespace + "selectByNoticeNo", noticeNo);
 	}
 
 	// 수정
@@ -42,8 +42,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 	}
 
 	// 삭제
-	public void delete(int notice_no) throws Exception {
-		sqlSession.delete(namespace + "delete", notice_no);
+	public void delete(int noticeNo) throws Exception {
+		sqlSession.delete(namespace + "delete", noticeNo);
 
 	}
 

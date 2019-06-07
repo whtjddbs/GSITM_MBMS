@@ -36,7 +36,7 @@
 				<ul class="treeview-menu">
 					<li><a href="/reserve/roomList"><i class="fa fa-circle-o"></i> 
 							회의실 소개</a></li>
-					<li><a href="/reserve/roomSearchForm"><i class="fa fa-circle-o"></i>
+					<li><a href="/reserve/reserveSearchForm"><i class="fa fa-circle-o"></i>
 							회의실 검색</a></li>
 					<li><a href="/reserve/Calendar"><i class="fa fa-circle-o"></i>
 							회의실 예약</a></li>
@@ -48,16 +48,16 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="charts/chartjs.html"><i class="fa fa-circle-o"></i> 
+					<li><a href="/mypage/mypageStatusList"><i class="fa fa-circle-o"></i> 
 							예약 현황</a></li>
-					<li><a href="charts/morris.html"><i class="fa fa-circle-o"></i>
+					<li><a href="/mypage/mypageHistoryList"><i class="fa fa-circle-o"></i>
 							예약 이력</a></li>
 			</ul></li>
 			
 			<!-- 상위결재자 -->
 			<li class="header">DEPARTMENT HEAD</li>
 			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
-			<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>결제 관리</span></a></li>
+			<li><a href="/payment/paymentList"><i class="fa fa-circle-o text-yellow"></i> <span>결제 관리</span></a></li>
 			
 			<!-- 관리자 -->
 			<li class="header">MANAGER</li>
@@ -70,7 +70,7 @@
 				<ul class="treeview-menu">
 					<li><a href="/building/buildingList"><i class="fa fa-circle-o"></i> 
 							근무지 관리</a></li>
-					<li><a href="layout/boxed.html"><i class="fa fa-circle-o"></i>
+					<li><a href="/room/roomManageList"><i class="fa fa-circle-o"></i>
 							회의실 관리</a></li>
 					<li><a href="layout/fixed.html"><i class="fa fa-circle-o"></i>
 							비품 관리</a></li>
@@ -98,3 +98,16 @@
 	</section>
 	<!-- /.sidebar -->
 </aside>
+
+<script>
+	$(function(){
+		
+		var treeviewmenu = $('a[href="'+location.pathname+'"]').parent().parent();
+		var treeview = $('a[href="'+location.pathname+'"]').parent().parent().parent();
+		$('.treeview').removeClass('menu-open');
+		treeview.addClass('menu-open');
+		treeviewmenu.css('display', 'block');
+		$('a[href="'+location.pathname+'"]').parent().addClass('active');
+		
+	});
+</script>

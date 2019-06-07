@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -18,19 +19,26 @@
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
-						<h3 class="box-title">지사명</h3>
+						<h3 class="box-title">전체</h3>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
 						<div class="row">
-							<div class="col-sm-6">
-								<select>
-									<option>삼환빌딩</option>
-									<option>GS강남타워</option>
+							<div class="col-sm-3">
+								<label for="buildingSelect">지사</label>
+								<select name="buildingSelect" id="buildingSelect" class="form-control">
+									<option value="">전체</option>
+									<c:forEach var="building" items="${buildings }">
+										<option value="${building.buildNo }">${building.buildName }</option>
+									</c:forEach>
 								</select>
-								<select>
-									<option>몰디브</option>
-									<option>1층교육장</option>
+							</div>
+							<div class="col-sm-3">
+								<label for="roomTypeSelect">구분</label>
+								 <select name="buildingTypeSelect" id="roomTypeSelect" class="form-control">
+									<option value="">전체</option>
+									<option value="회의실">회의실</option>
+									<option value="교육실">교육실</option>
 								</select>
 							</div>
 							<div class="col-sm-6"></div>
@@ -47,57 +55,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><img src='/resources/img/room/room001.jpg' style="width: 300px;"></td>
-									<td>1층 교육장</td>
-									<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기</td>
-									<td>00명</td>
-									<td>시간당 10,000원</td>
-									<td><input type="button" class="btn btn-danger btn-sm" value="예약 하기"></td>
-								</tr>
-								<tr>
-									<td>Trident</td>
-									<td>Internet Explorer 5.0</td>
-									<td>Win 95+</td>
-									<td>5</td>
-									<td>C</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Trident</td>
-									<td>Internet Explorer 5.5</td>
-									<td>Win 95+</td>
-									<td>5.5</td>
-									<td>A</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Trident</td>
-									<td>Internet Explorer 6</td>
-									<td>Win 98+</td>
-									<td>6</td>
-									<td>A</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Trident</td>
-									<td>Internet Explorer 7</td>
-									<td>Win XP SP2+</td>
-									<td>7</td>
-									<td>A</td>
-									<td></td>
-								</tr>
+								<c:forEach items="${rooms }" var="room" varStatus="status">
+									<tr role='row'>
+										<td><img src='${room.roomImg }' style="width: 300px;"></td>
+										<td>${room.roomName }</td>
+										<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기
+										</td>
+										<td>${room.roomNumEmp }명</td>
+										<td>시간당 ${room.roomPrice }원</td>
+										<td><input type="button" class="btn btn-danger btn-sm reserveBtn" id="${room.roomNo }"
+											value="예약 하기"></td>
+									</tr>
+								</c:forEach>
 							</tbody>
-							<tfoot>
-								<tr>
-									<th>회의실 사진</th>
-									<th>회의실명</th>
-									<th>주요시설</th>
-									<th>수용인원</th>
-									<th>요금</th>
-									<th>비고</th>
-								</tr>
-							</tfoot>
 						</table>
 					</div>
 					<!-- /.box-body -->
@@ -112,10 +82,16 @@
 </div>
 <!-- /.content-wrapper -->
 
+<form action="/reserve/reserveForm" method="post" id="reserveListForm">
+	<input type="hidden" id="selectedRoomNo" name="roomNo">
+</form>
+
 <!-- page script -->
 <script>
 	$(function() {
-		var table = $('#roomListTable').DataTable({
+		var table;
+		
+		table = $('#roomListTable').DataTable({
 			'paging' : true,
 			'lengthChange' : false,
 			'searching' : false,
@@ -123,7 +99,69 @@
 			'info' : true,
 			'autoWidth' : true,
 			'order' : [ [ 1, "desc" ] ],
+			"destroy": true,
 			"pagingType" : "full_numbers"
-		})
+		});
+		
+		//조건별 회의실 검색
+	      $(document).on('change', '#buildingSelect, #roomTypeSelect', function(){
+	         $.ajax({
+	            type : "POST",
+	            url : "/reserve/roomSearch",
+	            data : {"buildNo" : $('#buildingSelect').val(),
+	                  "roomType" : $('#roomTypeSelect').val()},
+	            dataType : "json",
+	            success : function(data) {
+				//alert(JSON.stringify(data));
+	               
+	               $('#roomListTable tbody').empty();
+					table.clear().destroy();
+	               
+	               $.each(data.rooms, function(index,item){
+	                  $('<tr/>').append($('<td/>').append($('<img/>', {
+	                     src : item.roomImg,
+	                     style : 'width: 300px'
+	                  }))).append($('<td/>', {
+	                     text : item.roomName
+	                  })).append($('<td/>', {
+	                     html : '1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기</td>'
+	                  })).append($('<td/>', {
+	                     text : item.roomNumEmp+"명"
+	                  })).append($('<td/>', {
+	                     text : '시간당 '+item.roomPrice+'원'
+	                  })).append($('<td/>').append($('<input/>', {
+	                     type : 'button',
+	                     'class' : 'btn btn-danger btn-sm reserveBtn',
+	                     id : item.roomNo,
+	                     value : '예약 하기'
+	                  }))).appendTo($('#roomListTable tbody'));
+	               });
+	               
+	               $('.box-title').text($('#buildingSelect :selected').text());
+	               
+	               table = $('#roomListTable').DataTable({
+	       			'paging' : true,
+	       			'lengthChange' : false,
+	       			'searching' : false,
+	       			'ordering' : true,
+	       			'info' : true,
+	       			'autoWidth' : true,
+	       			'order' : [ [ 1, "desc" ] ],
+	       			"destroy": true,
+	       			"pagingType" : "full_numbers"
+	       		});
+	            },
+	            error : function(data) {
+	               alert('error');
+	            }
+	         });
+	      });
+		
+		//예약하기 버튼 클릭
+		$('.content').on('click', '.reserveBtn', function(){
+			$('#selectedRoomNo').val(this.id);
+			$('#reserveListForm').submit();
+		});
+		
 	})
 </script>

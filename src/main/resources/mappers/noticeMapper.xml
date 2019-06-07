@@ -5,33 +5,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="noticeMapper">
 
-	<select id="selectAll" resultType="notice">
+   <resultMap id="NoticeResult" type="notice">
+
+      <result column="notice_no" property="noticeNo" />
+
+      <result column="notice_subject" property="noticeSubject" />
+
+      <result column="notice_content" property="noticeContent" />
+
+      <result column="writer_emp_no" property="writerEmpNo" />   
+
+	  <result column="notice_date" property="noticeDate" />   
+		
+   </resultMap>
+
+
+
+
+	<select id="selectAll" resultMap="NoticeResult">
         SELECT * FROM Notice ORDER BY notice_no DESC
 	</select>
 
-	<insert id="insert">
+ 	<insert id="insert">
 		Insert into MBMS.NOTICE (notice_no, notice_subject, notice_content, writer_emp_no, notice_date)
-		values (Notice_SEQ.NEXTVAL , #{notice_subject},  #{notice_content} ,  #{writer_emp_no} , SYSDATE)
+		values (Notice_SEQ.NEXTVAL , #{noticeSubject},  #{noticeContent} ,  #{writerEmpNo} , SYSDATE)
 	</insert>
 
 
-	<select id="selectByNoticeNo" resultType="notice">
-		SELECT * FROM Notice WHERE notice_no = #{notice_no}
+	<select id="selectByNoticeNo" resultMap="NoticeResult">
+		SELECT * FROM Notice WHERE notice_no = #{noticeNo}
 	</select>
 
 
 	<delete id="delete">
-		DELETE FROM Notice WHERE notice_no = #{notice_nonotice_no}
+		DELETE FROM Notice WHERE notice_no = #{noticeNo}
 	</delete>
 
 
 	<update id="update">
 		UPDATE Notice SET
-			notice_no=#{notice_no},
-			notice_subject=#{notice_subject},
-			notice_content=#{notice_content},
-			writer_emp_no=#{writer_emp_no},
-			notice_date=#{notice_date}
-		WHERE notice_no = #{notice_no}
+			notice_subject=#{noticeSubject},
+			notice_content=#{noticeContent},
+			writer_emp_no=#{writerEmpNo}
+		WHERE notice_no = #{noticeNo}
 	</update>
 </mapper>

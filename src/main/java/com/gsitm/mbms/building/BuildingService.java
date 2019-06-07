@@ -9,5 +9,18 @@ import com.gsitm.mbms.employee.EmployeeDTO;
  * @작성자 : 김원빈
  */
 public interface BuildingService {
+	/** 모든 건물 조회 **/
 	public List<BuildingDTO> SelectAll();
+	
+	/** 건물 등록 **/
+	public void buildingInsert(BuildingDTO dto);
+
+	/** 건물 삭제 **/
+	public void buildingDelete(int buildNo);
+	
+	/** 건물 수정을 위한 건물 조회 **/
+	public BuildingDTO buildingUpdateForm(int buildNo);
+
+	/** 건물 수정 **/
+	public void buildingUpdate(BuildingDTO dto);
 }

@@ -24,6 +24,29 @@ public class BuildingDAOImpl implements BuildingDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("buildingMapper.allBuilding");
 	}
-	
+
+	@Override
+	public void buildingInsert(BuildingDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.insert("buildingMapper.buildingInsert", dto);
+	}
+
+	@Override
+	public void buildingDelete(int buildNo) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("buildingMapper.buildingDelete", buildNo);
+	}
+
+	@Override
+	public BuildingDTO buildingSelect(int buildNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("buildingMapper.buildingSelect",buildNo);
+	}
+
+	@Override
+	public void buildingUpdate(BuildingDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("buildingMapper.buildingUpdate", dto);
+	}
 	
 }

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<style>
+figure img {max-width:600px; height:auto;}
+</style>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -25,23 +28,23 @@
               <h3 class="box-title">공지사항 상세보기</h3>
 
               <div class="box-tools pull-right">
-                <a href='noticeDetail?notice_no=${noticeDTO.notice_no -1}' class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"> </i> 이전글(현재 처음글이면 비활성화해야)</a>
-                <a href='noticeDetail?notice_no=${noticeDTO.notice_no +1}' class="btn btn-box-tool" data-toggle="tooltip" title="Next"> 다음글(현재 최신글이면 비활성화해야) <i class="fa fa-chevron-right"></i></a>
+                <a href='noticeDetail?noticeNo=${noticeDTO.noticeNo -1}' class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"> </i> 이전글(현재 처음글이면 비활성화해야)</a>
+                <a href='noticeDetail?noticeNo=${noticeDTO.noticeNo +1}' class="btn btn-box-tool" data-toggle="tooltip" title="Next"> 다음글(현재 최신글이면 비활성화해야) <i class="fa fa-chevron-right"></i></a>
               </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <div class="mailbox-read-info">
-                <h3>${noticeDTO.notice_subject}</h3>
-                <h5>작성자: ${noticeDTO.writer_emp_no}
-                  <span class="mailbox-read-time pull-right">작성일 : ${noticeDTO.notice_date}</span>
+                <h3>${noticeDTO.noticeSubject}</h3>
+                <h5>작성자: ${noticeDTO.writerEmpNo}
+                  <span class="mailbox-read-time pull-right">작성일 : ${noticeDTO.noticeDate}</span>
                 </h5>
               </div>
               <!-- /.mailbox-read-info -->
 
               <div class="mailbox-read-message">
 
-                <p>${noticeDTO.notice_content}</p>
+                <p>${noticeDTO.noticeContent}</p>
 
               </div>
               <!-- /.mailbox-read-message -->
@@ -81,12 +84,12 @@
               <div class="pull-right">
               
               <form action="noticeDelete" method="post">
-              	<input type="hidden" name="notice_no" value="${noticeDTO.notice_no}">
+              	<input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
 	            <button type="submit" class="btn btn-default"><i class="fa fa-trash-o"></i> 삭제(당사자랑 운영자만 활성화)</button>
               </form>
               
               <form action="noticeUpdateForm" method="post">
-              	<input type="hidden" name="notice_no" value="${noticeDTO.notice_no}">
+              	<input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
 	            <button type="submit" class="btn btn-default"><i class="fa fa-print"></i> 수정(아이콘바꾸기)(당사자랑 운영자만 활성화)</button>
               </form>
                 

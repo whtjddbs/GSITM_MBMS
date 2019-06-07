@@ -49,11 +49,8 @@
 						</li>
 						<!-- Menu Footer-->
 						<li class="footer">
-							<div class="pull-left">
-								<a href="#" class="btn btn-default btn-flat">Profile</a>
-							</div>
 							<div class="pull-right">
-								<a href="#logoutModal" id="logoutBtn" class="btn btn-default btn-flat" data-toggle="modal"> Logout</a>
+								<a href="#logoutModal" id="logoutBtn" class="btn btn-danger btn-flat" data-toggle="modal"> Logout</a>
 							</div>
 						</li>
 					</ul></li>

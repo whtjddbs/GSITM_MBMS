@@ -7,72 +7,64 @@ package com.gsitm.mbms.notice;
  */
 
 public class NoticeDTO {
-	private String notice_no;
-	private String notice_subject;
-	private String notice_content;
-	private String writer_emp_no;
-	private String notice_date;
+	private String noticeNo;
+	private String noticeSubject;
+	private String noticeContent;
+	private String writerEmpNo;
+	private String noticeDate;
 
 	public NoticeDTO() {
 
 	}
 
-	public NoticeDTO(String notice_no, String notice_subject, String notice_content, String writer_emp_no,
-			String notice_date) {
+	public NoticeDTO(String noticeNo, String noticeSubject, String noticeContent, String writerEmpNo,
+			String noticeDate) {
 		super();
-		this.notice_no = notice_no;
-		this.notice_subject = notice_subject;
-		this.notice_content = notice_content;
-		this.writer_emp_no = writer_emp_no;
-		this.notice_date = notice_date;
+		this.noticeNo = noticeNo;
+		this.noticeSubject = noticeSubject;
+		this.noticeContent = noticeContent;
+		this.writerEmpNo = writerEmpNo;
+		this.noticeDate = noticeDate;
 	}
 
-	public String getNotice_no() {
-		return notice_no;
+	public String getNoticeNo() {
+		return noticeNo;
 	}
 
-	public void setNotice_no(String notice_no) {
-		this.notice_no = notice_no;
+	public void setNoticeNo(String noticeNo) {
+		this.noticeNo = noticeNo;
 	}
 
-	public String getNotice_subject() {
-		return notice_subject;
+	public String getNoticeSubject() {
+		return noticeSubject;
 	}
 
-	public void setNotice_subject(String notice_subject) {
-		this.notice_subject = notice_subject;
+	public void setNoticeSubject(String noticeSubject) {
+		this.noticeSubject = noticeSubject;
 	}
 
-	public String getNotice_content() {
-		return notice_content;
+	public String getNoticeContent() {
+		return noticeContent;
 	}
 
-	public void setNotice_content(String notice_content) {
-		this.notice_content = notice_content;
+	public void setNoticeContent(String noticeContent) {
+		this.noticeContent = noticeContent;
 	}
 
-	public String getWriter_emp_no() {
-		return writer_emp_no;
+	public String getWriterEmpNo() {
+		return writerEmpNo;
 	}
 
-	public void setWriter_emp_no(String writer_emp_no) {
-		this.writer_emp_no = writer_emp_no;
+	public void setWriterEmpNo(String writerEmpNo) {
+		this.writerEmpNo = writerEmpNo;
 	}
 
-	public String getNotice_date() {
-		return notice_date;
+	public String getNoticeDate() {
+		return noticeDate;
 	}
 
-	public void setNotice_date(String notice_date) {
-		this.notice_date = notice_date;
+	public void setNoticeDate(String noticeDate) {
+		this.noticeDate = noticeDate;
 	}
 
-	@Override
-	public String toString() {
-		return "NoticeDTO [notice_no=" + notice_no + ", notice_subject=" + notice_subject + ", notice_content="
-				+ notice_content + ", writer_emp_no=" + writer_emp_no + ", notice_date=" + notice_date + "]";
-	}
-
-	
-	
 }
