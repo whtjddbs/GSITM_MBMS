@@ -1,5 +1,7 @@
 package com.gsitm.mbms.reserve;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import java.util.List;
 import java.util.Map;
 
@@ -92,7 +94,14 @@ public class ReserveController {
 	
 	/** 회의실 예약 양식 페이지 **/
 	@RequestMapping("/reserveForm")
-	public String reserveForm(ReserveHistoryDTO reserveHistoryDTO, Model model) {
+	public String reserveForm(ReserveHistoryDTO reserveHistoryDTO, Model model, HttpSession session) {
+		Map<String, Object> map = (Map<String,Object>)session.getAttribute("reservationInfo");
+		System.out.println("reserveForm -> map : "+map);
+		
+		if(map!=null) {
+			model.addAttribute("reservationInfo", map);
+		}
+		
 		List<BuildingDTO> buildings = buildingService.SelectAll();
 		int roomNo = reserveHistoryDTO.getRoomNo();
 

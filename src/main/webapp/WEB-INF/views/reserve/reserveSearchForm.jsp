@@ -24,7 +24,7 @@
 					<div class="box-header">
 						<h3 class="box-title">조건 검색</h3>
 					</div>
-					<form id="availableRoomList" method="post" action="availableRoomList">
+					<form id="availableRoomList" method="post" action="/reserve/availableRoomList">
 						<div class="box-body">
 							<!-- 지사 선택 -->
 							<div class="form-group">

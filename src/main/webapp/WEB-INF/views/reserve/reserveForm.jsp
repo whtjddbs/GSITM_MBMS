@@ -190,7 +190,6 @@
 			$('#buildingSelect').val('${roomDTO.buildNo}');
 			setRoomListInBuilding();
 		}
-		
 		function setRoomListInBuilding(selectIndex) {
 			$.ajax({
 	            type : "POST",
@@ -216,7 +215,6 @@
 	            }
 	        });
 		}
-		
 		$('#buildingSelect').change(function(){
 			setRoomListInBuilding(0);
 		});
@@ -244,7 +242,9 @@
 		$('#reservationStartDate').datepicker({
 			minuteStep : 30,
 			daysOfWeekDisabled : [0, 6],
-			minDate : new Date()
+			dateFormat : 'YYYY-MM-DD',
+			minDate : new Date(),
+			disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23, 24]
 		});
 		
 		$('#reservationEndDate').datepicker({
@@ -257,53 +257,61 @@
 		$("#reservationStartDate").on("changeDate", function (e) {
             $('#reservationEndDate').data('setEndDate', e.date);
         });
+		
+		//회의실 검색에서 저장한 예약정보 설정
+		var reservationtime = '${reservationInfo.reservationtime}';
+		var reservationtimes = reservationtime.split('-');
+		var startDate = moment(reservationtimes[0].trim());
+		var endDate = moment(reservationtimes[1].trim());
+		
+		
 	
-		$('#reservationtime').daterangepicker({
-			timePicker : true,
-			timePickerIncrement : 30,
-			timePicker24Hour : true,
-			format : 'YYYY/MM/DD/HH/mm',
-			minDate : new Date(),
-			locale: {
-		    	format: 'YYYY/MM/DD HH:mm'
-		    },
-		    isInvalidDate:/* function(date) {
-		        var disabled_start = moment('2019/06/06/10/30', 'YYYY/MM/DD/HH/mm');
-		        var disabled_end = moment('2019/06/07/19/30', 'YYYY/MM/DD/HH/mm');
-		        return date.isAfter(disabled_start) && date.isBefore(disabled_end);
-		      }  */
-		    	function(arg){
-		         console.log(arg);
+// 		$('#reservationtime').daterangepicker({
+// 			timePicker : true,
+// 			timePickerIncrement : 30,
+// 			timePicker24Hour : true,
+// 			format : 'YYYY/MM/DD/HH/mm',
+// 			minDate : new Date(),
+// 			locale: {
+// 		    	format: 'YYYY/MM/DD HH:mm'
+// 		    },
+// 		    isInvalidDate:/* function(date) {
+// 		        var disabled_start = moment('2019/06/06/10/30', 'YYYY/MM/DD/HH/mm');
+// 		        var disabled_end = moment('2019/06/07/19/30', 'YYYY/MM/DD/HH/mm');
+// 		        return date.isAfter(disabled_start) && date.isBefore(disabled_end);
+// 		      }  */
+// 		    	function(arg){
+// 		         console.log(arg);
 
-		         // Prepare the date comparision
-		         var thisMonth = arg._d.getMonth()+1;   // Months are 0 based
-		         if (thisMonth<10){
-		             thisMonth = "0"+thisMonth; // Leading 0
-		         }
-		         var thisDate = arg._d.getDate();
-		         if (thisDate<10){
-		             thisDate = "0"+thisDate; // Leading 0
-		         }
-		         var thisYear = arg._d.getYear()+1900;   // Years are 1900 based
+// 		         // Prepare the date comparision
+// 		         var thisMonth = arg._d.getMonth()+1;   // Months are 0 based
+// 		         if (thisMonth<10){
+// 		             thisMonth = "0"+thisMonth; // Leading 0
+// 		         }
+// 		         var thisDate = arg._d.getDate();
+// 		         if (thisDate<10){
+// 		             thisDate = "0"+thisDate; // Leading 0
+// 		         }
+// 		         var thisYear = arg._d.getYear()+1900;   // Years are 1900 based
 		         
-		         var thisHour = arg._d.getHours();
-		         if (thisHour<10){
-		        	 thisHour = "0"+thisHour; // Leading 0
-		         }
+// 		         var thisHour = arg._d.getHours();
+// 		         if (thisHour<10){
+// 		        	 thisHour = "0"+thisHour; // Leading 0
+// 		         }
 		         
-		         var thisMinute = arg._d.getMinutes();
-		         if (thisHour<10){
-		        	 thisMinute = "0"+thisMinute; // Leading 0
-		         }
+// 		         var thisMinute = arg._d.getMinutes();
+// 		         if (thisHour<10){
+// 		        	 thisMinute = "0"+thisMinute; // Leading 0
+// 		         }
 
-		         var thisCompare = thisYear+"/"+thisMonth +"/"+ thisDate+"/"+thisHour+"/"+thisMinute;
-		         console.log(thisCompare);
+// 		         var thisCompare = thisYear+"/"+thisMonth +"/"+ thisDate+"/"+thisHour+"/"+thisMinute;
+// 		         console.log(thisCompare);
 
-		         if($.inArray(thisCompare,disabledArr)!=-1){
-		             return true;
-		         }
-		     }
-		})
+// 		         if($.inArray(thisCompare,disabledArr)!=-1){
+// 		             return true;
+// 		         }
+// 		     }
+// 		})
 		
 		var disabledArr = ["2019-06-27", "2019-06-28"];
 		
