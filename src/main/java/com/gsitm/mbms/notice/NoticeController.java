@@ -1,5 +1,7 @@
 package com.gsitm.mbms.notice;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -97,7 +99,41 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeDetail", method = RequestMethod.GET)
 	public void noticeDetail(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
 		
-		model.addAttribute("noticeDTO", service.selectByNoticeNo(noticeNo));
+		//해당 게시글 정보 가져오기
+		NoticeDTO noticeDTO = service.selectByNoticeNo(noticeNo);
+		model.addAttribute("noticeDTO", noticeDTO);
+		
+		//리스트 가져오기
+		List<NoticeDTO> noticeList = service.selectAll();
+
+		//첫 게시물, 마지막 게시물 번호 가져오기(다음글, 이전글 끝부분 막기 용)
+		int latestNoticeNo = Integer.parseInt(    noticeList.get(0).getNoticeNo()      ); //최근글
+		int firstNoticeNo = Integer.parseInt(   noticeList.get(noticeList.size()-1).getNoticeNo()     ); //처음글
+		boolean isLatestNo = noticeDTO.getNoticeNo().equals(latestNoticeNo+"");
+		boolean isFirstNo = noticeDTO.getNoticeNo().equals(firstNoticeNo+"");
+		model.addAttribute("isLatestNo", isLatestNo);
+		model.addAttribute("isFirstNo", isFirstNo);
+
+		//리스트에서의 현재글 인덱스(글번호 아님) 찾기 : 다음글 이전글 할때 필요함
+		int currentIndex = 0;
+		for (int i = 0; i < noticeList.size(); i++) { // 리스트 포문돌려서 현재인덱스 찾아내는것
+			if (noticeList.get(i).getNoticeNo().equals(noticeDTO.getNoticeNo())) {
+				currentIndex = i;
+				break;
+			}
+		}
+		
+		//다음글 이전글 번호 가져오기
+		if (!isLatestNo) { //최신글에서 다음글하면 에러나니까
+			int nextNoticeNo = Integer.parseInt(    noticeList.get(currentIndex-1).getNoticeNo()      ); //다음글
+			model.addAttribute("nextNoticeNo", nextNoticeNo);
+		}
+		if (!isFirstNo) { //처음글에서 이전글하면 에러나니까
+			int prevNoticeNo = Integer.parseInt(    noticeList.get(currentIndex+1).getNoticeNo()        ); //이전글
+			model.addAttribute("prevNoticeNo", prevNoticeNo);
+		}
+		
+		
 	}
 
 	// delete----------------------------------------------------------------------------------------------------
