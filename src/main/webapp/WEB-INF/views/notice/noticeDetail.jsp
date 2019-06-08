@@ -4,9 +4,7 @@
 <style>
 figure img {max-width:600px; height:auto;}
 
-.floatleft{
-float:left;
-}
+.btn_del_upd {display: inline-block;}
 
 </style>
 
@@ -92,14 +90,13 @@ float:left;
             <div class="box-footer">
               <div class="pull-right">
               
-              <form action="noticeDelete" method="post">
+              <form action="noticeDelete" method="post" class = "btn_del_upd">
               	<input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
 	            <button type="submit" class="btn btn-default"><i class="fa fa-trash-o"></i> 삭제(운영자만 활성화)</button>
               </form>
+             
               
-              <div class = "floatleft"></div>
-              
-              <form action="noticeUpdateForm" method="post">
+              <form action="noticeUpdateForm" method="post" class = "btn_del_upd">
               	<input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
 	            <button type="submit" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> 수정(운영자만 활성화)</button>
               </form>
