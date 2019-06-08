@@ -76,12 +76,12 @@
 
 							</div><!-- /. 에디터 폼그룹 -->
 
-							<div class="form-group">
+						<!-- 	<div class="form-group">
 								<label for="exampleInputFile">File input</label> <input
 									type="file" id="exampleInputFile">
 
 								<p class="help-block">파일을 첨부하세요.</p>
-							</div>
+							</div> -->
 							<!-- 첨부 폼그룹 -->
 
 
@@ -158,13 +158,29 @@
 
 
 
-<script>
+<!-- <script>
  // 3. CKEditor5를 생성할 textarea 지정
     ClassicEditor
         .create( document.querySelector( '#editor1' ) )
         .catch( error => {
             console.error( error );
         });
+
+</script> -->
+
+<script>
+
+
+     ClassicEditor
+     .create( document.querySelector( '#editor1' ), {
+    	 ckfinder: {
+             uploadUrl: 'file_upload'
+
+             
+         }
+     } )
+
+ 
 
 </script>
 
