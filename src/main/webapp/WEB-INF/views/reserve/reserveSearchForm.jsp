@@ -24,7 +24,7 @@
 					<div class="box-header">
 						<h3 class="box-title">조건 검색</h3>
 					</div>
-					<form id="availableRoomList" method="post" action="/reserve/availableRoomList">
+					<form id="availableRoomListForm" method="post" action="/reserve/availableRoomList">
 						<div class="box-body">
 							<!-- 지사 선택 -->
 							<div class="form-group">
@@ -63,7 +63,7 @@
 							<!-- 회의실 규모 -->
 							<div class="input-group form-group">
 	    						<span class="input-group-addon">참석인원</span>
-								<input type="number" name="empCount" placeholder="최대인원 (명)" class="form-control input-sm">
+								<input type="number" name="empCount" placeholder="최대인원 (명)" min="1" value="1" class="form-control input-sm">
 							</div>
 							<!-- 네트워크 사용 유무 -->
 							<div class="form-group">
@@ -71,11 +71,11 @@
 									<label class="control-label">네트워크 유/무</label>
 									<div class="col-sm-12">
 					            	<label class="col-sm-6">
-					                	<input type="radio" name="networkYn" class="minimal" checked>
+					                	<input type="radio" name="networkYn" value="Y" class="minimal" checked>
 					                 	Yes
 					                </label>
 					                <label class="col-sm-6">
-					                	<input type="radio" name="networkYn" class="minimal">
+					                	<input type="radio" name="networkYn" value="N" class="minimal">
 					                	No
 					              	</label>
 					              	</div>
@@ -83,7 +83,7 @@
 				            </div>
 							
 							<!-- 네트워크 사용 유무 -->
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<div class="input-group">
 									<label class="control-label">다과준비 유/무</label>
 									<div class="col-sm-12">
@@ -97,7 +97,7 @@
 					              	</label>
 					              	</div>
 				              	</div>
-				            </div>
+				            </div> -->
 				            
 				            <input type="button" class="btn  btn-info col-sm-12" id="availableRoomSearchBtn" value="검색">
 	
@@ -128,6 +128,7 @@
 </div>
 <!-- /.content-wrapper -->
 
+<!-- modal -->
 <div class="modal fade" id="fullcalendar-event-detail-modal">
 	<div class="modal-dialog">
 	  <div class="modal-content">
@@ -296,7 +297,7 @@
 					color : '#3c8dbc',
 					click: function(event) {
 						console.log(selectedStart +" - "+ selectedEnd);
-						$('#availableRoomList').submit();
+						$('#availableRoomListForm').submit();
 					}
 				}
 			},
@@ -428,13 +429,13 @@
 		//iCheck for checkbox and radio inputs
 	    $('input[type="radio"].minimal').iCheck({
 	      radioClass   : 'iradio_minimal-blue'
-	    })
+	    });
 	    
 	    //검색 버튼 클릭
 	    $('#availableRoomSearchBtn').click(function(){
 	    	let picker = $('#reservationtime').data('daterangepicker');
 	    	console.log(moment(picker.startDate).format('YYYY/MM/DD HH:mm') + " - " + moment(picker.endDate).format('YYYY/MM/DD HH:mm'));
-	    	$('#availableRoomList').submit();
+	    	$('#availableRoomListForm').submit();
 	    });
 	    
 	})
