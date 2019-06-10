@@ -49,19 +49,6 @@
 									</select>
 								</div>
 							
-								<!-- Date and time range -->
-								<div class="col-sm-12">
-									<label>예약 날짜</label>
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="fa fa-clock-o"></i>
-										</div>
-										<input type="text" class="form-control pull-right"
-											id="reservationtime" readonly>
-									</div>
-									<!-- /.input group -->
-								</div>
-								
 								<div class="col-sm-12">
 									<label>시작일</label>
 									<div class="input-group">
@@ -180,7 +167,8 @@
 </div>
 <!-- /.content-wrapper -->
 
-
+<link rel="stylesheet" href="/resources/plugins/datetimepicker/jquery.datetimepicker.css">
+<script src="/resources/plugins/datetimepicker/jquery.datetimepicker.full.js"></script>
 <script>
 	$(function(){
 		console.log('${reservationList}');
@@ -239,79 +227,30 @@
 		
 		/** DatePicker **/
 		//Date range picker with time picker
-		$('#reservationStartDate').datepicker({
-			minuteStep : 30,
-			daysOfWeekDisabled : [0, 6],
-			dateFormat : 'YYYY-MM-DD',
-			minDate : new Date(),
-			disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23, 24]
-		});
+// 		$('#reservationStartDate').datepicker({
+// 			minuteStep : 30,
+// 			daysOfWeekDisabled : [0, 6],
+// 			dateFormat : 'YYYY-MM-DD',
+// 			minDate : new Date(),
+// 			disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23, 24]
+// 		});
 		
-		$('#reservationEndDate').datepicker({
-			minuteStep : 30,
-			daysOfWeekDisabled: [0, 6],
-			useCurrent: false,
-			disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23, 24]
-		});
+// 		$('#reservationEndDate').datepicker({
+// 			minuteStep : 30,
+// 			daysOfWeekDisabled: [0, 6],
+// 			useCurrent: false,
+// 			disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23, 24]
+// 		});
 		
-		$("#reservationStartDate").on("changeDate", function (e) {
-            $('#reservationEndDate').data('setEndDate', e.date);
-        });
+// 		$("#reservationStartDate").on("changeDate", function (e) {
+//             $('#reservationEndDate').data('setEndDate', e.date);
+//         });
 		
 		//회의실 검색에서 저장한 예약정보 설정
-		var reservationtime = '${reservationInfo.reservationtime}';
-		var reservationtimes = reservationtime.split('-');
-		var startDate = moment(reservationtimes[0].trim());
-		var endDate = moment(reservationtimes[1].trim());
+		var startDate = moment('${reservationInfo.startDate}');
+		var endDate = moment('${reservationInfo.endDate}');
+		console.log(startDate + " - " + endDate);
 		
-		
-	
-// 		$('#reservationtime').daterangepicker({
-// 			timePicker : true,
-// 			timePickerIncrement : 30,
-// 			timePicker24Hour : true,
-// 			format : 'YYYY/MM/DD/HH/mm',
-// 			minDate : new Date(),
-// 			locale: {
-// 		    	format: 'YYYY/MM/DD HH:mm'
-// 		    },
-// 		    isInvalidDate:/* function(date) {
-// 		        var disabled_start = moment('2019/06/06/10/30', 'YYYY/MM/DD/HH/mm');
-// 		        var disabled_end = moment('2019/06/07/19/30', 'YYYY/MM/DD/HH/mm');
-// 		        return date.isAfter(disabled_start) && date.isBefore(disabled_end);
-// 		      }  */
-// 		    	function(arg){
-// 		         console.log(arg);
-
-// 		         // Prepare the date comparision
-// 		         var thisMonth = arg._d.getMonth()+1;   // Months are 0 based
-// 		         if (thisMonth<10){
-// 		             thisMonth = "0"+thisMonth; // Leading 0
-// 		         }
-// 		         var thisDate = arg._d.getDate();
-// 		         if (thisDate<10){
-// 		             thisDate = "0"+thisDate; // Leading 0
-// 		         }
-// 		         var thisYear = arg._d.getYear()+1900;   // Years are 1900 based
-		         
-// 		         var thisHour = arg._d.getHours();
-// 		         if (thisHour<10){
-// 		        	 thisHour = "0"+thisHour; // Leading 0
-// 		         }
-		         
-// 		         var thisMinute = arg._d.getMinutes();
-// 		         if (thisHour<10){
-// 		        	 thisMinute = "0"+thisMinute; // Leading 0
-// 		         }
-
-// 		         var thisCompare = thisYear+"/"+thisMonth +"/"+ thisDate+"/"+thisHour+"/"+thisMinute;
-// 		         console.log(thisCompare);
-
-// 		         if($.inArray(thisCompare,disabledArr)!=-1){
-// 		             return true;
-// 		         }
-// 		     }
-// 		})
 		
 		var disabledArr = ["2019-06-27", "2019-06-28"];
 		
@@ -339,12 +278,40 @@
 	      radioClass   : 'iradio_minimal-blue'
 	    })
 	    
-	    $('.timepicker').timepicker({
-	    	interval : 30,
-	    	startTime: '09:00',
-	    	endTime: '18:00',
-	    	showInputs : false
-	    });
+		$('#reservationStartDate').datetimepicker({
+			lang: 'ko',
+			step: 30,
+			minDate: 0,
+			minTime: settingMinute(new Date),
+			maxTime: '18:00',
+			onSelectDate: function(ct) {
+				$('#reservationStartDate').val(moment(ct).format('YYYY/MM/DD')+" 00:00");
+			}
+		});
+		
+		$('#reservationEndDate').datetimepicker({
+			step: 30,
+			minDate: 0
+		});
+		
+		function settingMinute(oneDate) {
+			let hour = moment(oneDate).format('HH');
+			let min = moment(oneDate).format('mm');
+			let minute = parseInt(min/30+1)*30;
+			
+			return hour+':'+minute;
+		}
+	    
+// 	    $(".timepicker").timeselect({
+// 			disableTimes: ["09:00", "10:00"]
+// 		});
+		
+// 	    $('.timepicker').timepicker({
+// 	    	interval : 30,
+// 	    	startTime: '09:00',
+// 	    	endTime: '18:00',
+// 	    	showInputs : false
+// 	    });
 	    
 	});
 </script>
