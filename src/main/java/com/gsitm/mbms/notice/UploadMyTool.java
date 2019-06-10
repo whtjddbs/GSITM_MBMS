@@ -1,4 +1,4 @@
-package com.gsitm.mbms.notice;
+/*package com.gsitm.mbms.notice;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,11 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
+*//**
  * @주제 :
  * @작성일 : 2019. 5. 16.
  * @작성자 : 송민기
- */
+ *//*
 
 public class UploadMyTool {
 	
@@ -52,3 +52,4 @@ public class UploadMyTool {
 	
 	
 }
+*/
