@@ -240,7 +240,7 @@ public class NoticeController {
 	@RequestMapping(value="file_upload", method=RequestMethod.POST)
 	@ResponseBody
 	public String fileUpload(HttpServletRequest req, HttpServletResponse resp, MultipartHttpServletRequest multiFile) throws Exception {
-		logger.info("1");
+		
 		JsonObject json = new JsonObject();
 		PrintWriter printWriter = null;
 		OutputStream out = null;
@@ -255,7 +255,7 @@ public class NoticeController {
 						File uploadFile = new File(uploadPath);
 						if(!uploadFile.exists()){
 							uploadFile.mkdirs();
-						}logger.info("2");
+						}
 						fileName = UUID.randomUUID().toString();
 						uploadPath = uploadPath + "/" + fileName;
 						out = new FileOutputStream(new File(uploadPath));
@@ -263,7 +263,7 @@ public class NoticeController {
                         
                         printWriter = resp.getWriter();
                         resp.setContentType("text/html");
-                        logger.info(req.getContextPath());
+                        
                         String fileUrl = req.getContextPath() + "/resources/uploadfiles/" + fileName;
                         
                         // json 데이터로 등록
@@ -272,7 +272,7 @@ public class NoticeController {
                         json.addProperty("uploaded", 1);
                         json.addProperty("fileName", fileName);
                         json.addProperty("url", fileUrl);
-                        logger.info(fileUrl);
+                        
                         printWriter.println(json);
                     }catch(IOException e){
                         e.printStackTrace();

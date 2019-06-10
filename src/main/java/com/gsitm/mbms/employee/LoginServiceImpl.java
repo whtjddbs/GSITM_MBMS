@@ -24,5 +24,7 @@ public class LoginServiceImpl implements LoginService {
 	public EmployeeDTO getEmployee(String emp_no) {
 		return employeeDAO.getEmployee(emp_no);
 	}
+	
+	
 
 }
