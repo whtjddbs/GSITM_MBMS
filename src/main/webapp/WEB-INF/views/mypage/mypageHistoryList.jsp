@@ -48,6 +48,7 @@
 			<div class="col-md-9">
 				<div class="box box-primary">
 <!-- /.content-wrapper -->	
+
 	<section class="content">
 		<div class="row">
 			<div class="col-xs-12">
@@ -93,6 +94,7 @@
 	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
 				</div>	
 				<!-- /. box -->	
 			</div>

@@ -10,5 +10,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.gsitm.mbms.building.BuildingDTO" alias="building"/>
 		<typeAlias type="com.gsitm.mbms.room.RoomDTO" alias="room"/>
 		<typeAlias type="com.gsitm.mbms.reserve.ReserveHistoryDTO" alias="reserveHistory"/>
+		<typeAlias type="com.gsitm.mbms.payment.PaymentDTO" alias="payment"/>
 	</typeAliases>
 </configuration>
