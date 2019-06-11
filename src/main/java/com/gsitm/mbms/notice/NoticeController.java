@@ -45,23 +45,45 @@ public class NoticeController {
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 
 	@Inject
-	private NoticeService service;
-
+	private NoticeService noticeService;
+	
+	@Inject
+	private LoginService loginService;
+	
 	/**
-	 * 공지사항
-	 * 목록-------------------------------------------------------------------------------------
+	 * 공지사항 목록-------------------------------------------------------------------------------------
 	 * 
 	 * @throws Exception
 	 */
 
+	
+	
+	
 	// 공지사항 리스트
 	// 전체보기-----------------------------------------------------------------------------------
 	@RequestMapping(value = "/noticeList", method = RequestMethod.GET)
-	public String noticeList(Model model, HttpServletRequest request) throws Exception {
+	public String noticeList(Model model, HttpServletRequest request, HttpSession session) throws Exception {
 
-		List<NoticeDTO> noticeList = service.selectAll();
+		//공지리스트 가져오기 및 모델에 추가
+		List<NoticeDTO> noticeList = noticeService.selectAll();
 		model.addAttribute("noticeList", noticeList);
 
+		//세션정보 가져오기
+		EmployeeDTO employeeDTO = (EmployeeDTO)session.getAttribute("login");
+
+		//운영자리스트 가져오기
+		List<EmployeeDTO> adminList = loginService.selectAllAdmin();
+		
+		//운영자인지 판별 및 모델에 추가
+		boolean isAdmin =  false;
+		for (int i = 0; i < adminList.size(); i++) {
+			if(adminList.get(i).getEmpNo().equals(employeeDTO.getEmpNo())) {
+				isAdmin=true;
+				break;
+			}
+		}
+		model.addAttribute("isAdmin", isAdmin);
+		
 		return "notice/noticeList";
 	}
 
@@ -91,20 +113,20 @@ public class NoticeController {
 		
 		noticeDTO.setattach(UPLOAD_PATH+"\\"+uploadedfile);
 		*/
-		service.insert(noticeDTO);
+		noticeService.insert(noticeDTO);
 		return "redirect:/notice/noticeList";
 	}
 
 	// 공지사항 글 상세보기-----------------------------------------------------------------------------
 	@RequestMapping(value = "/noticeDetail", method = RequestMethod.GET)
-	public void noticeDetail(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
+	public void noticeDetail(@RequestParam("noticeNo") int noticeNo, Model model, HttpSession session) throws Exception {
 		
 		//해당 게시글 정보 가져오기
-		NoticeDTO noticeDTO = service.selectByNoticeNo(noticeNo);
+		NoticeDTO noticeDTO = noticeService.selectByNoticeNo(noticeNo);
 		model.addAttribute("noticeDTO", noticeDTO);
 		
-		//리스트 가져오기
-		List<NoticeDTO> noticeList = service.selectAll();
+		//게시물 전체 리스트 가져오기
+		List<NoticeDTO> noticeList = noticeService.selectAll();
 
 		//첫 게시물, 마지막 게시물 번호 가져오기(다음글, 이전글 끝부분 막기 용)
 		int latestNoticeNo = Integer.parseInt(    noticeList.get(0).getNoticeNo()      ); //최근글
@@ -134,6 +156,22 @@ public class NoticeController {
 		}
 		
 		
+		//세션정보 가져오기
+		EmployeeDTO employeeDTO = (EmployeeDTO)session.getAttribute("login");
+
+		//운영자리스트 가져오기
+		List<EmployeeDTO> adminList = loginService.selectAllAdmin();
+				
+		// 운영자인지 판별 및 모델에 추가
+		boolean isAdmin = false;
+		for (int i = 0; i < adminList.size(); i++) {
+			if (adminList.get(i).getEmpNo().equals(employeeDTO.getEmpNo())) {
+				isAdmin = true;
+				break;
+			}
+		}
+		model.addAttribute("isAdmin", isAdmin);
+		
 	}
 
 	// delete----------------------------------------------------------------------------------------------------
@@ -141,7 +179,7 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeDelete", method = RequestMethod.POST)
 	public String noticeDelete(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
 
-		service.delete(noticeNo);
+		noticeService.delete(noticeNo);
 		return "redirect:/notice/noticeList";
 	}
 
@@ -149,19 +187,20 @@ public class NoticeController {
 	// 글 수정 폼 보기
 	@RequestMapping(value = "/noticeUpdateForm", method = RequestMethod.POST)
 	public void noticeUpdateForm(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
-		model.addAttribute("noticeDTO", service.selectByNoticeNo(noticeNo));
+		model.addAttribute("noticeDTO", noticeService.selectByNoticeNo(noticeNo));
 	}
 
 	// 글 수정 submit
 	@RequestMapping(value = "/noticeUpdate", method = RequestMethod.POST)
 	public String updateSubmit(NoticeDTO noticeDTO, Model model) throws Exception {
 
-		service.update(noticeDTO);
+		noticeService.update(noticeDTO);
 
 		return "redirect:/notice/noticeList";
 	}
 	
 	
+
 	
 	
 	
