@@ -43,6 +43,11 @@ public class ReserveServiceImpl implements ReserveService {
 	public List<RoomDTO> selectAvailableRoom(Map<String, Object> map) {
 		return reserveDAO.selectAvailableRoom(map);
 	}
+
+	@Override
+	public List<Map<String, String>> getTimeByDate(Map<String, String> map) {
+		return reserveDAO.getTimeByDate(map);
+	}
 	
 	
 }

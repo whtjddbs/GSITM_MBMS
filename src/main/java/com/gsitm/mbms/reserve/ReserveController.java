@@ -144,4 +144,16 @@ public class ReserveController {
 		return mav;
 	}
 	
+	/** 예약날짜의 예약시간목록 조회 **/
+	@RequestMapping("/getTimeByDate")
+	public ModelAndView getTimeByDate(@RequestParam Map<String, String> map) {
+		
+		List<Map<String,String>> reservationTimes = reserveService.getTimeByDate(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reservationList", reservationTimes);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
 }

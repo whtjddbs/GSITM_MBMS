@@ -45,4 +45,9 @@ public class ReserveDAOImpl implements ReserveDAO {
 		return session.selectList("roomMapper.selectAvailableRoom", map);
 	}
 
+	@Override
+	public List<Map<String, String>> getTimeByDate(Map<String, String> map) {
+		return session.selectList("reserveHistoryMapper.getTimeByDate", map);
+	}
+
 }
