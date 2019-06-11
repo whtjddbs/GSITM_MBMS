@@ -1,5 +1,6 @@
 package com.gsitm.mbms.employee;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -25,5 +26,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public EmployeeDTO login(Map<String, String> map) {
 		return sqlSession.selectOne("employeeMapper.login", map);
+	}
+	
+	/**민기 : 회의실 관리자 명단 뽑아오기-----------------------------*/
+	@Override
+	public List<EmployeeDTO> selectAllAdmin() {
+		return sqlSession.selectList("employeeMapper.selectAllAdmin");
 	}
 }

@@ -1,5 +1,6 @@
 package com.gsitm.mbms.employee;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,4 +12,7 @@ public interface LoginService {
 	public EmployeeDTO login(Map<String, String> map);
 	
 	public EmployeeDTO getEmployee(String emp_no);
+
+	/**민기 : 회의실 관리자 명단 뽑아오기-----------------------------*/
+	public List<EmployeeDTO> selectAllAdmin();
 }

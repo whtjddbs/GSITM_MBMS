@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
 import com.gsitm.mbms.employee.EmployeeDTO;
+import com.gsitm.mbms.employee.LoginService;
 
 /**
  * @주제 :
@@ -45,8 +46,11 @@ public class NoticeController {
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 
 	@Inject
-	private NoticeService service;
-
+	private NoticeService noticeService;
+	
+	@Inject
+	private LoginService loginService;
+	
 	/**
 	 * 공지사항
 	 * 목록-------------------------------------------------------------------------------------
@@ -59,9 +63,16 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeList", method = RequestMethod.GET)
 	public String noticeList(Model model, HttpServletRequest request) throws Exception {
 
-		List<NoticeDTO> noticeList = service.selectAll();
+		List<NoticeDTO> noticeList = noticeService.selectAll();
 		model.addAttribute("noticeList", noticeList);
 
+		//emp에서 잘 가져오나 테스트코드
+		List<EmployeeDTO> adminList = loginService.selectAllAdmin();
+		for (int i = 0; i < adminList.size(); i++) {
+			logger.info(adminList.get(i)+"");
+		}
+		
+		
 		return "notice/noticeList";
 	}
 
@@ -91,7 +102,7 @@ public class NoticeController {
 		
 		noticeDTO.setattach(UPLOAD_PATH+"\\"+uploadedfile);
 		*/
-		service.insert(noticeDTO);
+		noticeService.insert(noticeDTO);
 		return "redirect:/notice/noticeList";
 	}
 
@@ -100,11 +111,11 @@ public class NoticeController {
 	public void noticeDetail(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
 		
 		//해당 게시글 정보 가져오기
-		NoticeDTO noticeDTO = service.selectByNoticeNo(noticeNo);
+		NoticeDTO noticeDTO = noticeService.selectByNoticeNo(noticeNo);
 		model.addAttribute("noticeDTO", noticeDTO);
 		
 		//리스트 가져오기
-		List<NoticeDTO> noticeList = service.selectAll();
+		List<NoticeDTO> noticeList = noticeService.selectAll();
 
 		//첫 게시물, 마지막 게시물 번호 가져오기(다음글, 이전글 끝부분 막기 용)
 		int latestNoticeNo = Integer.parseInt(    noticeList.get(0).getNoticeNo()      ); //최근글
@@ -141,7 +152,7 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeDelete", method = RequestMethod.POST)
 	public String noticeDelete(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
 
-		service.delete(noticeNo);
+		noticeService.delete(noticeNo);
 		return "redirect:/notice/noticeList";
 	}
 
@@ -149,19 +160,20 @@ public class NoticeController {
 	// 글 수정 폼 보기
 	@RequestMapping(value = "/noticeUpdateForm", method = RequestMethod.POST)
 	public void noticeUpdateForm(@RequestParam("noticeNo") int noticeNo, Model model) throws Exception {
-		model.addAttribute("noticeDTO", service.selectByNoticeNo(noticeNo));
+		model.addAttribute("noticeDTO", noticeService.selectByNoticeNo(noticeNo));
 	}
 
 	// 글 수정 submit
 	@RequestMapping(value = "/noticeUpdate", method = RequestMethod.POST)
 	public String updateSubmit(NoticeDTO noticeDTO, Model model) throws Exception {
 
-		service.update(noticeDTO);
+		noticeService.update(noticeDTO);
 
 		return "redirect:/notice/noticeList";
 	}
 	
 	
+
 	
 	
 	
@@ -290,8 +302,6 @@ public class NoticeController {
 		
 		return null;
 	}	
-	
-	
 	
 	
 	
