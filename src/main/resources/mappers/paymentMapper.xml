@@ -32,5 +32,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM Reserve_history
 	</select>
 	
-	
+	<!-- 총 결제 비용 관련 조회 -->
+	<select id="sumPayment" resultMap="PaymentDTO">
+		SELECT SUM(reserve_price) FROM Reserve_history
+	</select>
+
 </mapper>

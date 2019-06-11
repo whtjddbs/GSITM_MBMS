@@ -15,5 +15,10 @@ public class PaymentDAOImpl implements PaymentDAO {
 	public List<PaymentDTO> selectAllPayment() {
 		return session.selectList("paymentMapper.selectAllPayment");
 	}
+	
+	@Override
+	public List<PaymentDTO> sumPayment() {
+		return session.selectList("paymentMapper.sumPayment");
+	}
 
 }

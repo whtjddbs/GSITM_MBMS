@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -13,7 +12,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
         <li><a href="#">DEPARTMENT HEAD</a></li>
-        <li class="active">결제 관리</li>
+        <li class="active">비용 결제 관리</li>
       </ol>
     </section>
 
@@ -33,39 +32,46 @@
                 
                 <thead>
                 <tr>
-                  <th><input type="checkbox" name="_selected_all_"></th>
                   <th>예약 일자</th>
                   <th>회의 구분</th>
                   <th>예약자</th>
-                  <th>비용(원)</th>
-                  <th>결제 상태</th>                  
+                  <th>결제 상태</th> 
+                  <th>결제 날짜</th> 
+                  <th>비용(원)</th>       
                 </tr>
                 </thead>
                                 
                 <tbody>
-				<c:forEach var="ReserveHistoryDTO" items="${paymentList}">
+				<c:forEach var="PaymentDTO" items="${paymentList}">
 					<tr>
-					<td><input type="checkbox" name="_selected_" value="ROW_1"></td>
-						<td>${ReserveHistoryDTO.startDate}</td>
-						<td>${ReserveHistoryDTO.category}</td>
-						<td>${ReserveHistoryDTO.reserveEmpNo}</td>
-						<td>${ReserveHistoryDTO.reservePrice}</td>
-						<td>${ReserveHistoryDTO.paymentYn}</td>	
+						<td>${PaymentDTO.startDate}</td>
+						<td>${PaymentDTO.category}</td>
+						<td>${PaymentDTO.reserveEmpNo}</td>
+						<c:if test="${PaymentDTO.paymentYn == 0 }">
+							<td>미결제</td>
+						</c:if>
+						<c:if test="${PaymentDTO.paymentYn == 1 }">
+							<td>결제완료</td>
+						</c:if>
+						<td>${PaymentDTO.paymentDate}</td>
+						<td>${PaymentDTO.reservePrice}</td>
 					</tr>
 				</c:forEach>
 				</tbody>
 				
-                <tfoot>
-                <tr>
-                  <th><input type="checkbox" name="_selected_all_"></th>
-                  <th>예약 일자</th>
-                  <th>회의 구분</th>
-                  <th>예약자</th>
-                  <th>비용(원)</th>
-                  <th>결제 상태</th>
-                </tr>
-                </tfoot>
-                
+				<tfoot>
+				<tr>
+				<th>총 실결제금액</th>
+					<th></th><th></th><th></th><th></th>
+					<c:set var = "sum" value = "0" />
+					<c:forEach var="PaymentDTO" items="${paymentList}">
+					<c:if test="${PaymentDTO.paymentYn == 1 }">
+					<c:set var= "sum" value="${sum + PaymentDTO.reservePrice}"/>
+					</c:if>
+					</c:forEach>
+					<th> <c:out value="${sum}"/> </th>
+				</tfoot>  
+				      
               </table>
               </div>
             </div>
@@ -74,21 +80,10 @@
           </div>
           <!-- /.box -->
        	</div>
+       </section>
         <!-- /.col -->
       </div>
       <!-- /.row -->
-  
-  
-  
-<script>
-//전체선택 및 해제 기능
-$('input[name=_selected_all_]').on('change', function(){
-$('input[name=_selected_]').prop('checked', this.checked);
-});
-
-//선택한 Checkbox 값 가져오기
-var arr = $('input[name=_selected_]:checked').serializeArray().map(function(item) { return item.value });
-</script>
 
 <script>
 	$(function() {
@@ -102,6 +97,7 @@ var arr = $('input[name=_selected_]:checked').serializeArray().map(function(item
 		})
 	})
 </script>
+
 
 <script>
 //엑셀로 내보내기

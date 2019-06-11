@@ -7,4 +7,7 @@ public interface PaymentDAO {
 	
 	public List<PaymentDTO> selectAllPayment();
 	
+	public List<PaymentDTO> sumPayment();
+
+	
 }

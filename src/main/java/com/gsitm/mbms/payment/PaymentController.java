@@ -25,8 +25,6 @@ public class PaymentController {
 	
 	@Autowired
 	private PaymentService paymentService;
-	@Autowired
-	//private LoginService loginService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 	
@@ -36,11 +34,16 @@ public class PaymentController {
 		logger.info("payment ListPage!");
 		
 		List<PaymentDTO> paymentList = paymentService.selectAllPayment();
-		//List<EmployeeDTO> employeeList = loginService.getEmployee();
-
 		model.addAttribute("paymentList", paymentList);
-		//model.addAttribute("employeeList", employeeList);
-
 		return "/payment/paymentList";
 	}	
+	
+	/** 총 결제 비용 */
+	@RequestMapping(value = "/sumPayment", method = RequestMethod.GET)
+	public String sumPayment(Model model, HttpServletRequest request) throws Exception {
+		
+		List<PaymentDTO> sumPayment = paymentService.sumPayment();
+		model.addAttribute("sumPayment", sumPayment);
+		return "/payment/paymentList";
+	}		
 }
