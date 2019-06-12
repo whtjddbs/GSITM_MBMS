@@ -150,10 +150,8 @@
 	
 							<div class="col-sm-12">
 								<input type="button" class="btn  btn-info col-sm-12"
-									id="availableRoomSearchBtn" value="검색">
+									id="availableRoomSearchBtn" value="예약">
 							</div>
-								
-							
 
 						</div>
 						<!-- /.box-body -->
@@ -227,8 +225,9 @@
 	            dataType : "json",
 	            success : function(data) {
 	            	//회의실 변경 시 예약일 초기화
+	            	initDatetimePicker();
 	            	
-	            	alert(JSON.stringify(data));
+	            	alert("roomSelect success : "+JSON.stringify(data));
 	            },
 	            error : function(data) {
 	               alert('roomSelect click error!');
@@ -236,73 +235,64 @@
 	        });
 		});
 		
-		/** DatePicker **/
-		//Date range picker with time picker
-// 		$('#reservationStartDate').datepicker({
-// 			minuteStep : 30,
-// 			daysOfWeekDisabled : [0, 6],
-// 			dateFormat : 'YYYY-MM-DD',
-// 			minDate : new Date(),
-// 			disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23, 24]
-// 		});
-		
-// 		$('#reservationEndDate').datepicker({
-// 			minuteStep : 30,
-// 			daysOfWeekDisabled: [0, 6],
-// 			useCurrent: false,
-// 			disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23, 24]
-// 		});
-		
-// 		$("#reservationStartDate").on("changeDate", function (e) {
-//             $('#reservationEndDate').data('setEndDate', e.date);
-//         });
-		
 		//회의실 검색에서 저장한 예약정보 설정
 		var startDate = moment('${reservationInfo.startDate}');
 		var endDate = moment('${reservationInfo.endDate}');
 		console.log(startDate + " - " + endDate);
 		
-		//날짜선택 시 이벤트
-		$('#reservationtime').on('apply.daterangepicker, hide.daterangepicker', function(ev, picker) {
-		      console.log(picker.startDate.format('YYYY/MM/DD HH:mm') + ' - ' + picker.endDate.format('YYYY/MM/DD HH:mm'));
-		  });
+		// 선택한 회의실의 시작일 선택가능한 시간설정 
+		function settingStartDateAllowTimes(dateString) {
+			$.ajax({
+	            type : "POST",
+	            url : "/reserve/getTimeByDate",
+	            data : {"buildNo" : $('#buildingSelect').val(),
+	            		"roomNo" : $('#roomSelect').val(),
+	            		"startDate" : $('#reservationStartDate').val()},
+	            dataType : "json",
+	            success : function(data) {
+	            	console.log(JSON.stringify(data.reservationList));
+	            	$('#reservationStartDate').datetimepicker('setOptions', {
+	            		allowTimes: getAllowTimeList(dateString, data.reservationList)
+	            	});
+	            }
+			});
+		}
+				
+	    function initDatetimePicker() {
+	    	$('#reservationStartDate').datetimepicker('reset');
+	    	$('#reservationEndDate').datetimepicker('reset');
+	    	$('#reservationStartDate').datetimepicker('destroy');
+	    	$('#reservationEndDate').datetimepicker('destroy');
+	    	
+	    	$('#reservationStartDate').datetimepicker({
+				lang: 'ko',
+				step: 30,
+				minDate: 0,
+				defaultDate: new Date(),
+				defaultTime: settingMinute(new Date()),
+				minTime: '09:00',
+				maxTime: '18:00',
+				disabledWeekDays: [0, 6],
+				onSelectDate: function(ct) {
+					settingStartDateAllowTimes($('#reservationStartDate').val());
+				},
+				onSelectTime: function(ct) {
+					// 예약 종료일
+					$('#reservationEndDate').datetimepicker('reset');
+					$('#reservationEndDate').datetimepicker('destroy');
+	            	$('#reservationEndDate').datetimepicker({
+	        			step: 30,
+	        			defaultDate : moment($('#reservationStartDate').val(), 'YYYY/MM/DD HH:mm').format('YYYY/MM/DD'),
+	        			minDate: moment($('#reservationStartDate').val(), 'YYYY/MM/DD HH:mm').format('YYYY/MM/DD')
+	        		});
+	            	$('#reservationEndDate').datetimepicker('show');
+				}
+			});
+	    	
+	    	settingStartDateAllowTimes(moment().format('YYYY/MM/DD HH:mm'));
+		}
 		
-		//iCheck for checkbox and radio inputs
-	    $('input[type="radio"].minimal').iCheck({
-	      radioClass   : 'iradio_minimal-blue'
-	    })
-	    
-		$('#reservationStartDate').datetimepicker({
-			lang: 'ko',
-			step: 30,
-			minDate: 0,
-			defaultDate: new Date(),
-			defaultTime: '09:00',
-			minTime: '09:00',
-			maxTime: '18:00',
-			disabledWeekDays: [0, 6],
-			onSelectDate: function(ct) {
-				$('#reservationStartDate').val(moment(ct).format('YYYY/MM/DD')+" 00:00");
-				$.ajax({
-		            type : "POST",
-		            url : "/reserve/getTimeByDate",
-		            data : {"buildNo" : $('#buildingSelect').val(),
-		            		"roomNo" : $('#roomSelect').val(),
-		            		"startDate" : $('#reservationStartDate').val()},
-		            dataType : "json",
-		            success : function(data) {
-		            	console.log(JSON.stringify(data.reservationList));
-		            	timeTableSetting($('#reservationStartDate').val(), data.reservationList);
-		            }
-				});
-			}
-		});
-		
-		$('#reservationEndDate').datetimepicker({
-			step: 30,
-			minDate: 0
-		});
-		
+	    // oneDate가 0~29분 -> 0분 / 30~59 -> 30분 
 		function settingMinute(oneDate) {
 			let hour = moment(oneDate).format('HH');
 			let min = moment(oneDate).format('mm');
@@ -311,7 +301,7 @@
 			return hour+':'+minute;
 		}
 		
-		function timeTableSetting(oneDate, disabledTimes) {
+		function getAllowTimeList(oneDate, disabledTimes) {
 			let selectedDate = moment(oneDate);
 			let year = selectedDate.format('YYYY');
 			let month = selectedDate.format('MM');
@@ -320,47 +310,36 @@
 			let min = selectedDate.format('mm');
 			let minute = parseInt(min/30+1)*30;
 			
-			// 시간 셋팅
+			// 전체 시간 셋팅
 			let allowTimeList = new Array();
 			for(var i = moment('09:00','HH:mm'); i<moment('18:00', 'HH:mm'); i.add(30, 'm')) {
 				allowTimeList.push(i.format('HH:mm'));
 			}
 			
+			// 선택된 날짜가 오늘이면 현재 시간전까지 선택불가 설정
+			if(moment().format('YYYY/MM/DD')==selectedDate.format('YYYY/MM/DD')) {
+				let from = new Date();
+				from.setHours(9, 0);
+				let dateRange = {STARTDATE: from, ENDDATE: new Date()}
+				disabledTimes.push(dateRange);
+			}
+			
 			$.each(disabledTimes, function(index, item) {
 				console.log(moment(item.STARTDATE).format('YYYY/MM/DD HH:mm') +" - "+moment(item.ENDDATE).format('YYYY/MM/DD HH:mm'));
 				for(var i = moment(item.STARTDATE); i < moment(item.ENDDATE); i.add(30, 'm')) {
-					console.log(i.format('HH:mm'));
 					allowTimeList.splice(allowTimeList.indexOf(i.format('HH:mm')), 1);
 				}
 			});
 			
-			console.log(allowTimeList);
+			console.log("allowTimeList : "+allowTimeList);
 			
-			if(moment().format('YYYY/MM/DD')==selectedDate.format('YYYY/MM/DD')) { // 오늘일때
-				$('#reservationStartDate').datetimepicker('setOptions', {
-					minTime: settingMinute(new Date()),
-					allowTimes: allowTimeList
-				});
-			} else {
-				$('#reservationStartDate').datetimepicker('setOptions', {
-					minTime: '09:00',
-					allowTimes: allowTimeList
-				});
-			}
+			return allowTimeList;
 		}
 		
-		
-	    
-// 	    $(".timepicker").timeselect({
-// 			disableTimes: ["09:00", "10:00"]
-// 		});
-		
-// 	    $('.timepicker').timepicker({
-// 	    	interval : 30,
-// 	    	startTime: '09:00',
-// 	    	endTime: '18:00',
-// 	    	showInputs : false
-// 	    });
+		//iCheck for checkbox and radio inputs
+	    $('input[type="radio"].minimal').iCheck({
+	      radioClass   : 'iradio_minimal-blue'
+	    })
 	    
 	});
 </script>
