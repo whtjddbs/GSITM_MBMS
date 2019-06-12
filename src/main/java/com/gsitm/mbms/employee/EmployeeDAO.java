@@ -1,5 +1,6 @@
 package com.gsitm.mbms.employee;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,4 +13,7 @@ public interface EmployeeDAO {
 	public EmployeeDTO getEmployee(String emp_no);
 
 	public EmployeeDTO login(Map<String, String> map);
+
+	public List<EmployeeDTO> selectAllAdmin();
+	 
 }

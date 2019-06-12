@@ -90,15 +90,51 @@ figure img {max-width:600px; height:auto;}
             <div class="box-footer">
               <div class="pull-right">
               
+              
+              
+         <%--      	<c:choose>
+					<c:when test="${isAdmin}">
+						<form action="noticeInsertForm" method="post">
+							<button type="submit" class="btn btn-primary">
+			                 	<i class="fa fa-plus"></i>　공지 작성
+			                 </button>
+	                 	</form>
+					</c:when>
+					<c:otherwise>
+						<form action="noticeInsertForm" method="post">
+							<button type="submit" class="btn btn-primary" disabled>
+			                 	<i class="fa fa-plus"></i>　작성하려면 운영자로 로그인하세요
+			                 </button>
+	                 	</form>
+					</c:otherwise>
+				</c:choose> --%>
+              
+              
+              
+              
               <form action="noticeDelete" method="post" class = "btn_del_upd">
               	<input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
-	            <button type="submit" class="btn btn-default"><i class="fa fa-trash-o"></i> 삭제(운영자만 활성화)</button>
+              	<c:choose>
+					<c:when test="${isAdmin}">
+	            		<button type="submit" class="btn btn-default"><i class="fa fa-trash-o"></i> 삭제</button>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<button type="submit" class="btn btn-default" disabled><i class="fa fa-trash-o"></i> 삭제</button>
+	            	</c:otherwise>
+				</c:choose>
               </form>
              
               
               <form action="noticeUpdateForm" method="post" class = "btn_del_upd">
               	<input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
-	            <button type="submit" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> 수정(운영자만 활성화)</button>
+              	<c:choose>
+					<c:when test="${isAdmin}">
+	            		<button type="submit" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> 수정</button>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<button type="submit" class="btn btn-default" disabled><i class="fa fa-pencil-square-o"></i> 수정</button>
+	            	</c:otherwise>
+				</c:choose>
               </form>
                 
               	
@@ -111,7 +147,7 @@ figure img {max-width:600px; height:auto;}
           <!-- /. box -->
         </div>
         <!-- /.col -->
-      </div>
+      </div> 
       <!-- /.row -->
     </section>
     <!-- /.content -->
