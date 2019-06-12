@@ -18,6 +18,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="room_type" property="roomType"/>
 	</resultMap>
 	
+	<insert id="insertRoom" parameterType="Room">
+		insert into room values(room_seq.nextval,
+								#{buildNo},
+								#{roomName},
+								#{roomSpace},
+								#{roomNumEmp},
+								#{mgrEmpNo},
+								#{roomImg},
+								#{roomPrice},
+								#{networkYn},
+								#{roomFloor},
+								#{roomType})
+	</insert>
+	
 	<select id="selectAllRoom" resultMap="RoomDTO">
 		select * from room
 	</select>
