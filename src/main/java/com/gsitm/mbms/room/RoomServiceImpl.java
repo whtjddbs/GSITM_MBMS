@@ -1,5 +1,7 @@
 package com.gsitm.mbms.room;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,20 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public RoomDTO selectOneRoomByRoomNo(int roomNo) {
 		return roomDAO.selectOneRoomByRoomNo(roomNo);
+	}
+
+	@Override
+	public List<RoomDTO> SelectAll() {
+		// TODO Auto-generated method stub
+		System.out.println(roomDAO.selectAll().toString());
+		return roomDAO.selectAll();
+	}
+
+	@Override
+	public void roomInsert(RoomDTO dto) {
+		// TODO Auto-generated method stub
+		System.out.println(dto.toString());
+		roomDAO.roomInsert(dto);
+		
 	}
 }

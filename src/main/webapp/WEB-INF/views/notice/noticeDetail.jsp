@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 figure img {max-width:600px; height:auto;}
+
+.btn_del_upd {display: inline-block;}
+
 </style>
 
   <!-- Content Wrapper. Contains page content -->
@@ -28,8 +31,12 @@ figure img {max-width:600px; height:auto;}
               <h3 class="box-title">공지사항 상세보기</h3>
 
               <div class="box-tools pull-right">
-                <a href='noticeDetail?noticeNo=${noticeDTO.noticeNo -1}' class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"> </i> 이전글(현재 처음글이면 비활성화해야)</a>
-                <a href='noticeDetail?noticeNo=${noticeDTO.noticeNo +1}' class="btn btn-box-tool" data-toggle="tooltip" title="Next"> 다음글(현재 최신글이면 비활성화해야) <i class="fa fa-chevron-right"></i></a>
+              	<c:if test="${!isFirstNo}">
+					 <a href='noticeDetail?noticeNo=${prevNoticeNo}' class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"> </i> 이전글</a>
+				</c:if>
+				<c:if test="${!isLatestNo}">
+					<a href='noticeDetail?noticeNo=${nextNoticeNo}' class="btn btn-box-tool" data-toggle="tooltip" title="Next"> 다음글 <i class="fa fa-chevron-right"></i></a>
+				</c:if>
               </div>
             </div>
             <!-- /.box-header -->
@@ -50,7 +57,7 @@ figure img {max-width:600px; height:auto;}
               <!-- /.mailbox-read-message -->
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">
+            <!-- <div class="box-footer">
               <ul class="mailbox-attachments clearfix">
                 <li>
                   <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
@@ -78,19 +85,20 @@ figure img {max-width:600px; height:auto;}
  				
               </ul>
               첨부파일 구현해라@@@@@@@@@@@@@@
-            </div>
+            </div> -->
             <!-- /.box-footer -->
             <div class="box-footer">
               <div class="pull-right">
               
-              <form action="noticeDelete" method="post">
+              <form action="noticeDelete" method="post" class = "btn_del_upd">
               	<input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
-	            <button type="submit" class="btn btn-default"><i class="fa fa-trash-o"></i> 삭제(당사자랑 운영자만 활성화)</button>
+	            <button type="submit" class="btn btn-default"><i class="fa fa-trash-o"></i> 삭제(운영자만 활성화)</button>
               </form>
+             
               
-              <form action="noticeUpdateForm" method="post">
+              <form action="noticeUpdateForm" method="post" class = "btn_del_upd">
               	<input type="hidden" name="noticeNo" value="${noticeDTO.noticeNo}">
-	            <button type="submit" class="btn btn-default"><i class="fa fa-print"></i> 수정(아이콘바꾸기)(당사자랑 운영자만 활성화)</button>
+	            <button type="submit" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> 수정(운영자만 활성화)</button>
               </form>
                 
               	

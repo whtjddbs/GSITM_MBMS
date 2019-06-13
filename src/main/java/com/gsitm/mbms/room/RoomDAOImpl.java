@@ -1,5 +1,7 @@
 package com.gsitm.mbms.room;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,19 @@ public class RoomDAOImpl implements RoomDAO {
 	@Override
 	public RoomDTO selectOneRoomByRoomNo(int roomNo) {
 		return session.selectOne("roomMapper.selectOneRoomByRoomNo", roomNo);
+	}
+
+	@Override
+	public List<RoomDTO> selectAll() {
+		// TODO Auto-generated method stub
+		return session.selectList("roomMapper.selectAllRoom");
+	}
+
+	@Override
+	public void roomInsert(RoomDTO dto) {
+		// TODO Auto-generated method stub
+		System.out.println("잠시만~");
+		
 	}
 
 }
