@@ -24,7 +24,7 @@
 				<div class="box">
 					<!-- /.box-header -->
 					<div class="box-body">
-						<form role="form" action="/room/roomInsert" method="post">
+						<form role="form" action="/room/roomInsert" method="post" enctype="multipart/form-data">
 							<!-- text input -->
 							<div class="form-group">
 								<label>회의실이름</label> <input type="text" class="form-control"
@@ -57,17 +57,38 @@
 
 								</div>
 							</div>
-
-							<label>회의실 대표사진</label>
+							
+							<label>지사</label>
 							<div class="row">
 								<div class="col-xs-3">
-									<input type="text" class="form-control" name="roomImg">
+									<input type="text" class="form-control" name="buildNo">
 								</div>
 								<div class="col-xs-3">
-									<input type="button" class='btn btn-default' value="이미지 찾기"
-										id="findImgBtn">
+									<input type="button" class='btn btn-default' value="지사 찾기"
+										id="findBuildBtn">
+
 								</div>
 							</div>
+							
+							<label>회의실 대표사진</label>
+							<div class="row">
+								<div class=selectedImg>
+									<img src=""></img>
+								</div>
+									<input type="file" value="이미지 찾기"
+										id="roomImg" name="file">
+							</div>
+							
+							<script>
+								$("#roomImg").change(function(){
+									if(this.files && this.files[0]){
+										var reader = new FileReader;
+										reader.onload = function(data){
+											$(".selectedImg img").attr("src",data.target.result).width(500);
+										}
+									}reader.readAsDataURL(this.files[0])
+								})
+							</script>
 
 							<label>시간 당 가격</label>
 							<div class="row">

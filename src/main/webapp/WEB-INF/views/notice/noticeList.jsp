@@ -61,11 +61,29 @@
 					<div class="box-header">
 						<h3 class="box-title">MBMS 공지사항</h3>
 						<div class="pull-right box-tools">
-							<form action="noticeInsertForm" method="post">
-								<button type="submit" class="btn btn-primary">
-		                 		 	<i class="fa fa-plus"></i>　공지 작성
-		                 		</button>
-	                 		</form>
+						
+						<!-- 운영자만 공지작성버튼 보이게 -->
+						<c:choose>
+							<c:when test="${isAdmin}">
+							 	<form action="noticeInsertForm" method="post">
+									<button type="submit" class="btn btn-primary">
+			                 		 	<i class="fa fa-plus"></i>　공지 작성
+			                 		</button>
+	                 			</form>
+							</c:when>
+							<c:otherwise>
+								<form action="noticeInsertForm" method="post">
+									<button type="submit" class="btn btn-primary" disabled>
+			                 		 	<i class="fa fa-plus"></i>　작성하려면 운영자로 로그인하세요
+			                 		</button>
+	                 			</form>
+							</c:otherwise>
+						</c:choose>
+							
+	                 		
+	                 		
+	                 		
+	                 		
 	                	</div>
 					</div>
 					
@@ -131,7 +149,7 @@
 <!-- page script -->
 <script>
 	$(function() {
-		$('#example1').DataTable()
+		$('#example1').DataTable() 
 		$('#example2').DataTable({
 			'paging' : true,
 			'lengthChange' : false,
