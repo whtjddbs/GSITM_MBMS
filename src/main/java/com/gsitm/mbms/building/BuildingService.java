@@ -19,4 +19,7 @@ public interface BuildingService {
 	public BuildingDTO buildingUpdateForm(int buildNo);
 
 	public void buildingUpdate(BuildingDTO dto);
+	
+	//<select id="selectAllWithRooms" resultMap="buildingWithRooms">
+	public List<BuildingDTO> selectAllWithRooms();
 }

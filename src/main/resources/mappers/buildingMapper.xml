@@ -11,6 +11,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result column="build_addr" property="buildAddr"/>
       <result column="build_post" property="buildPost"/>
    </resultMap>
+	<!-- BuildingDTO와 RoomDTO 조인 -->
+   <resultMap type="building" id="buildingWithRooms" extends="Building">
+		<collection property="rooms" ofType="room" resultMap="roomMapper.RoomDTO"></collection>
+   </resultMap>
    
    <select id="allBuilding" resultMap="Building">
       select * from building 
@@ -30,5 +34,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
     <update id="buildingUpdate" parameterType="Building">
    		UPDATE building SET build_name = #{buildName},build_Addr=#{buildAddr},build_post=#{buildPost} WHERE build_no=#{buildNo}
-   </update> 
+   </update>
+   
+   <select id="selectAllWithRooms" resultMap="buildingWithRooms">
+   		SELECT b.*, r.* FROM building b LEFT OUTER JOIN room r ON b.build_no = r.build_no 
+   		ORDER BY b.build_no    
+   </select>
 </mapper>

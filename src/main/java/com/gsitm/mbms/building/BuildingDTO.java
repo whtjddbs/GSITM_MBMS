@@ -1,5 +1,9 @@
 package com.gsitm.mbms.building;
 
+import java.util.List;
+
+import com.gsitm.mbms.room.RoomDTO;
+
 /**
  * @작성일 : 2019. 5. 23.
  * @작성자 : 김원빈
@@ -9,6 +13,7 @@ public class BuildingDTO {
 	String buildName;
 	String buildAddr;
 	String buildPost;
+	List<RoomDTO> rooms;
 	
 	public BuildingDTO() {
 		super();
@@ -46,6 +51,13 @@ public class BuildingDTO {
 	public void setBuildPost(String buildPost) {
 		this.buildPost = buildPost;
 	}
+	public List<RoomDTO> getRooms() {
+		return rooms;
+	}
+	public void setRooms(List<RoomDTO> rooms) {
+		this.rooms = rooms;
+	}
+
 	@Override
 	public String toString() {
 		return "BuildingDTO [buildNo=" + buildNo + ", buildName=" + buildName + ", buildAddr=" + buildAddr

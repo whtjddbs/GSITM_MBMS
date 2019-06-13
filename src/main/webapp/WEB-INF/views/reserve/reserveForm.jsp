@@ -173,6 +173,20 @@
 <script src="/resources/plugins/datetimepicker/jquery.datetimepicker.full.js"></script>
 <script>
 	$(function(){
+		/**
+			#### Controller로부터 받아올 정보
+			#	model : 지사 목록 (buildings), 전체 직원 목록 (employees)
+			#	session : 예약정보 (reservationInfo)
+			
+			1. 지사 목록을 buildingSelect 태그에 출력
+			2. 선택된 지사의 회의실 목록을 roomSelect 태그에 출력
+			3. 회의실 선택 => 예약 시작일의 예약정보를 조회하여 datetimepicker에 반영
+							비품 목록을 불러오기
+			4. 시작일(onSelectDate) 선택 시 예약정보를 조회하여 선택가능 시간(allowTimes) 반영
+			5. 시작일 시간 선택 시 시작날짜 이전일 선택을 막고 종료일 datetimepicker 생성 및 show
+			6. 종료일(onSelectDate) 선택 시 예약정보를 조회하여 선택가능 시간(allowTimes) 반영
+			7. 전체 직원 목록 불러오기 
+		**/
 		console.log('${reservationList}');
 		
 		//예약할 회의실 번호를 가지고 들어왔으면 초기세팅 
