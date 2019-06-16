@@ -26,4 +26,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="login" parameterType="java.util.Map" resultMap="EmployeeDTO">
 		select * from employee where emp_no=#{emp_no} and emp_pw=#{emp_pw}
 	</select> 
+	 
+	<!-- 민기 : 회의실 관리자 명단 뽑아오기 -->
+	<select id="selectAllAdmin" resultMap="EmployeeDTO">
+        SELECT employee.* FROM employee, room where employee.emp_no = room.mgr_emp_no
+	</select>
 </mapper>

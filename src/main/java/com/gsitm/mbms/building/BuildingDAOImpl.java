@@ -48,5 +48,10 @@ public class BuildingDAOImpl implements BuildingDAO{
 		// TODO Auto-generated method stub
 		sqlSession.update("buildingMapper.buildingUpdate", dto);
 	}
+
+	@Override
+	public List<BuildingDTO> selectAllWithRooms() {
+		return sqlSession.selectList("buildingMapper.selectAllWithRooms");
+	}
 	
 }

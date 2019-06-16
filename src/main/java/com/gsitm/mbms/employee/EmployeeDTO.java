@@ -156,6 +156,14 @@ public class EmployeeDTO {
 	 */
 	public void setPermissionYn(char permissionYn) {
 		this.permissionYn = permissionYn;
-	}
+	} 
+	/*@Override
+	public String toString() {
+		return "EmployeeDTO [empNo=" + empNo + ", empPw=" + empPw + ", empName=" + empName + ", empPosition="
+				+ empPosition + ", empEmail=" + empEmail + ", cellPhone=" + cellPhone + ", officePhone=" + officePhone
+				+ ", deptNo=" + deptNo + ", permissionYn=" + permissionYn + "]";
+	}*/
+	
+	
 
 }

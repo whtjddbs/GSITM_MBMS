@@ -80,11 +80,11 @@
 
 							</div><!-- /. 에디터 폼그룹 -->
 
-							<div class="form-group">
+						<!-- 	<div class="form-group">
 								<label for="exampleInputFile">File input</label> <input type="file" id="exampleInputFile"  name="uploadfile" placeholder="파일이 첨부되지 않았습니다.">
 
 								<p class="help-block">파일을 첨부하세요.</p>
-							</div>
+							</div> -->
 							 
 							<!-- 첨부 폼그룹 -->
 
