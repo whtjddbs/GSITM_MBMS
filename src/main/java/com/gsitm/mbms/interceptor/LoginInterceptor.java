@@ -39,13 +39,22 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				EmployeeDTO employeeDTO = loginService.getEmployee(id);
 				if(employeeDTO != null) {
 					session.setAttribute("login", employeeDTO);
-					response.sendRedirect("/");
+					response.sendRedirect(request.getServletPath().equals("/login") ? "/" : request.getServletPath());
 					return false;
 				}
 			}
 			
+			session.setAttribute("prevUrl", request.getServletPath());
 			//로그인이 안되어 있는 상태 - 로그인 폼으로 돌려 보냄
 			response.sendRedirect("/login");
+			return false;
+		}
+		
+		if(session.getAttribute("prevUrl")!=null) {
+			String target = (String)session.getAttribute("prevUrl");
+			session.removeAttribute("prevUrl");
+			response.sendRedirect(target);
+			return false;
 		}
 		
 		return true;

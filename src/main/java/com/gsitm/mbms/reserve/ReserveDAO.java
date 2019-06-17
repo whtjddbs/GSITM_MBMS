@@ -25,4 +25,7 @@ public interface ReserveDAO {
 
 	/** 회의실 검색 : 조건에 해당하는 이용가능한 회의실 목록 조회 **/
 	public List<RoomDTO> selectAvailableRoom(Map<String, Object> map);
+
+	/** 예약날짜의 예약시간목록 조회 **/
+	public List<Map<String, String>> getTimeByDate(Map<String, String> map);
 }

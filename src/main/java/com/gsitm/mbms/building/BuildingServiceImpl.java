@@ -50,7 +50,9 @@ public class BuildingServiceImpl implements BuildingService{
 		
 	}
 
+	@Override
+	public List<BuildingDTO> selectAllWithRooms() {
+		return buildingDAO.selectAllWithRooms();
+	}
 
-
-	
 }

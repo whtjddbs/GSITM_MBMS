@@ -92,7 +92,15 @@ public class ReserveController {
 	
 	/** 회의실 예약 양식 페이지 **/
 	@RequestMapping("/reserveForm")
-	public String reserveForm(ReserveHistoryDTO reserveHistoryDTO, Model model) {
+	public String reserveForm(ReserveHistoryDTO reserveHistoryDTO, Model model, HttpSession session) {
+		@SuppressWarnings("unchecked")
+		Map<String, Object> map = (Map<String,Object>)session.getAttribute("reservationInfo");
+		System.out.println("reserveForm -> map : "+map);
+		
+		if(map!=null) {
+			model.addAttribute("reservationInfo", map);
+		}
+		
 		List<BuildingDTO> buildings = buildingService.SelectAll();
 		int roomNo = reserveHistoryDTO.getRoomNo();
 
@@ -132,6 +140,18 @@ public class ReserveController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reservationList", reservationList);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/** 예약날짜의 예약시간목록 조회 **/
+	@RequestMapping("/getTimeByDate")
+	public ModelAndView getTimeByDate(@RequestParam Map<String, String> map) {
+		
+		List<Map<String,String>> reservationTimes = reserveService.getTimeByDate(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reservationList", reservationTimes);
 		mav.setViewName("jsonView");
 		return mav;
 	}
