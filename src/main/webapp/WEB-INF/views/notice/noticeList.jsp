@@ -71,8 +71,8 @@
 			                 		</button>
 	                 			</form>
 							</c:when>
-							<c:otherwise>
-								<form action="noticeInsertForm" method="post">
+							<c:otherwise> 
+								<form action="noticeList" method="get">
 									<button type="submit" class="btn btn-primary" disabled>
 			                 		 	<i class="fa fa-plus"></i>　작성하려면 운영자로 로그인하세요
 			                 		</button>

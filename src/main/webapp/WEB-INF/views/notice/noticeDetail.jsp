@@ -119,7 +119,7 @@ figure img {max-width:600px; height:auto;}
 	            		<button type="submit" class="btn btn-default"><i class="fa fa-trash-o"></i> 삭제</button>
 	            	</c:when>
 	            	<c:otherwise>
-	            		<button type="submit" class="btn btn-default" disabled><i class="fa fa-trash-o"></i> 삭제</button>
+	            		<button type="button" class="btn btn-default" disabled><i class="fa fa-trash-o"></i> 삭제</button>
 	            	</c:otherwise>
 				</c:choose>
               </form>
@@ -130,9 +130,9 @@ figure img {max-width:600px; height:auto;}
               	<c:choose>
 					<c:when test="${isAdmin}">
 	            		<button type="submit" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> 수정</button>
-	            	</c:when>
+	            	</c:when> 
 	            	<c:otherwise>
-	            		<button type="submit" class="btn btn-default" disabled><i class="fa fa-pencil-square-o"></i> 수정</button>
+	            		<button type="button" class="btn btn-default" disabled><i class="fa fa-pencil-square-o"></i> 수정</button>
 	            	</c:otherwise>
 				</c:choose>
               </form>
