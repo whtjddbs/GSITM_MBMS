@@ -24,7 +24,7 @@
 					<div class="box-header">
 						<h3 class="box-title">조건 검색</h3>
 					</div>
-					<form id="availableRoomList" method="post" action="availableRoomList">
+					<form id="availableRoomListForm" method="post" action="/reserve/availableRoomList">
 						<div class="box-body">
 							<!-- 지사 선택 -->
 							<div class="form-group">
@@ -63,7 +63,7 @@
 							<!-- 회의실 규모 -->
 							<div class="input-group form-group">
 	    						<span class="input-group-addon">참석인원</span>
-								<input type="number" name="empCount" placeholder="최대인원 (명)" class="form-control input-sm">
+								<input type="number" name="empCount" placeholder="최대인원 (명)" min="1" value="1" class="form-control input-sm">
 							</div>
 							<!-- 네트워크 사용 유무 -->
 							<div class="form-group">
@@ -71,11 +71,11 @@
 									<label class="control-label">네트워크 유/무</label>
 									<div class="col-sm-12">
 					            	<label class="col-sm-6">
-					                	<input type="radio" name="networkYn" class="minimal" checked>
+					                	<input type="radio" name="networkYn" value="Y" class="minimal" checked>
 					                 	Yes
 					                </label>
 					                <label class="col-sm-6">
-					                	<input type="radio" name="networkYn" class="minimal">
+					                	<input type="radio" name="networkYn" value="N" class="minimal">
 					                	No
 					              	</label>
 					              	</div>
@@ -83,7 +83,7 @@
 				            </div>
 							
 							<!-- 네트워크 사용 유무 -->
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<div class="input-group">
 									<label class="control-label">다과준비 유/무</label>
 									<div class="col-sm-12">
@@ -97,7 +97,7 @@
 					              	</label>
 					              	</div>
 				              	</div>
-				            </div>
+				            </div> -->
 				            
 				            <input type="button" class="btn  btn-info col-sm-12" id="availableRoomSearchBtn" value="검색">
 	
@@ -128,6 +128,7 @@
 </div>
 <!-- /.content-wrapper -->
 
+<!-- modal -->
 <div class="modal fade" id="fullcalendar-event-detail-modal">
 	<div class="modal-dialog">
 	  <div class="modal-content">
@@ -261,45 +262,24 @@
 </div>
 <!-- /.modal -->
 
+<!-- fullCalendar customizing -->
+<style>
+	.fc-day-top.fc-sat > .fc-day-number { color:#0000FF; }     /* 토요일 */
+    .fc-day-top.fc-sun > .fc-day-number { color:#FF0000; }    /* 일요일 */
+    .fc-reserveBtn-button {background: '#3c8dbc'; }
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/gcal.js"></script>
 <!-- Page specific script -->
 <script>
 	$(function() {
-
-		/* initialize the external events
-		 -----------------------------------------------------------------*/
-		function init_events(ele) {
-			ele.each(function() {
-
-				// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-				// it doesn't need to have a start or end
-				var eventObject = {
-					title : $.trim($(this).text())
-				// use the element's text as the event title
-				}
-
-				// store the Event Object in the DOM element so we can get to it later
-				$(this).data('eventObject', eventObject)
-
-				// make the event draggable using jQuery UI
-				$(this).draggable({
-					zIndex : 1070,
-					revert : true, // will cause the event to go back to its
-					revertDuration : 0
-				//  original position after the drag
-				})
-
-			})
-		}
-
-		init_events($('#external-events div.external-event'))
-
 		/* initialize the calendar
 		 -----------------------------------------------------------------*/
 		//Date for the calendar events (dummy data)
-		var date = new Date()
-		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear()
-		$('#calendar').fullCalendar({
+		var date = new Date();
+		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear();
+		var selectedStart;
+		var selectedEnd;
+		var calendar = $('#calendar').fullCalendar({
 			header : {
 				left : 'prev,next today reserveBtn',
 				center : 'title',
@@ -314,10 +294,26 @@
 			customButtons: {
 				reserveBtn: {
 					text: '예약하기',
-					click: function() {
-						alert('clicked custom button 1!');
+					color : '#3c8dbc',
+					click: function(event) {
+						console.log(selectedStart +" - "+ selectedEnd);
+						$('#availableRoomListForm').submit();
 					}
 				}
+			},
+			selectable: true,
+			selectAllow: function(selectInfo) {
+				//주말 선택 금지
+				if(moment(selectInfo.start).format('E')==6 || moment(selectInfo.start).format('E')==7) return false;
+				//과거일 선택 금지
+				if(moment(selectInfo.start).format('YYYY-MM-DD') < moment(new Date()).format('YYYY-MM-DD')) return false;
+				return true;				
+			},
+			select: function(startDate, endDate, jsEvent, view, resource) {
+				selectedStart = startDate.format('YYYY-MM-DD HH:mm');
+				selectedEnd = endDate.format('YYYY-MM-DD HH:mm');
+				$('#reservationtime').data('daterangepicker').setStartDate(selectedStart);
+				$('#reservationtime').data('daterangepicker').setEndDate(selectedEnd);
 			},
 			eventClick: function(event){
 				console.log(event);
@@ -336,8 +332,10 @@
 				
 				$('#fullcalendar-event-detail-modal').modal('show');
 			},
-			dayClick: function(event) {
-				alert('dayClick');
+			dayClick: function(date, event, view) {
+				console.log(moment(date).format('YYYY/MM/DD HH:mm'));
+				console.log(event);
+				console.log(view);
 			},
 			contentHeight: "auto",
 			googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE" // Google API KEY
@@ -396,8 +394,10 @@
 	            	holiday.textColor = "#FFFFFF";
 	            	
 	            	$('#calendar').fullCalendar('removeEvents');
+	            	$('#calendar').fullCalendar('removeEvents', 'koHolidays');
         		    $('#calendar').fullCalendar('addEventSource', events);
         		    $('#calendar').fullCalendar('addEventSource', holiday);
+        		    $('#calendar').fullCalendar('rerenderEvents');
 	            },
 	            error : function(data) {
 	               alert('roomSelect click error!');
@@ -429,13 +429,13 @@
 		//iCheck for checkbox and radio inputs
 	    $('input[type="radio"].minimal').iCheck({
 	      radioClass   : 'iradio_minimal-blue'
-	    })
+	    });
 	    
 	    //검색 버튼 클릭
 	    $('#availableRoomSearchBtn').click(function(){
 	    	let picker = $('#reservationtime').data('daterangepicker');
 	    	console.log(moment(picker.startDate).format('YYYY/MM/DD HH:mm') + " - " + moment(picker.endDate).format('YYYY/MM/DD HH:mm'));
-	    	$('#availableRoomList').submit();
+	    	$('#availableRoomListForm').submit();
 	    });
 	    
 	})

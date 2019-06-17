@@ -63,4 +63,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    AND r.room_type like '%${roomType}%'
 		]]>	
 	</select>
+	
+	<!-- 날짜별 예약 시간 받아오기 -->
+	<select id="getTimeByDate" parameterType="map" resultType="map">
+		<![CDATA[
+			SELECT 
+			    rh.start_date AS startDate,
+			    rh.end_date AS endDate
+			FROM reserve_history rh, room r, building b
+			WHERE rh.room_no = r.room_no
+			    AND r.build_no = b.build_no
+			    AND b.build_no like '%${buildNo}%'
+			    AND r.room_no like '%${roomNo}%'
+			    AND ( rh.start_date BETWEEN TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') AND TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi')+1
+        			OR rh.end_date BETWEEN TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') AND TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi')+1)
+		]]>
+	</select>
 </mapper>

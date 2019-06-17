@@ -18,4 +18,7 @@ public interface BuildingDAO {
 	public BuildingDTO buildingSelect(int buildNo);
 	
 	public void buildingUpdate(BuildingDTO dto);
+	
+	//<select id="selectAllWithRooms" resultMap="buildingWithRooms">
+	public List<BuildingDTO> selectAllWithRooms();
 }

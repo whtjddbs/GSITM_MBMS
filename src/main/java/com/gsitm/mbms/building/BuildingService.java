@@ -23,4 +23,7 @@ public interface BuildingService {
 
 	/** 건물 수정 **/
 	public void buildingUpdate(BuildingDTO dto);
+	
+	//<select id="selectAllWithRooms" resultMap="buildingWithRooms">
+	public List<BuildingDTO> selectAllWithRooms();
 }
