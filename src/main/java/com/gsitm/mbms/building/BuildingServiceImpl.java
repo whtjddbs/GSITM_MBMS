@@ -18,7 +18,7 @@ public class BuildingServiceImpl implements BuildingService{
 	private BuildingDAO buildingDAO;
 	
 	@Override
-	public List<BuildingDTO> SelectAll() {
+	public List<BuildingDTO> selectAll() {
 		// TODO Auto-generated method stub
 		return buildingDAO.SelectAll();
 	}

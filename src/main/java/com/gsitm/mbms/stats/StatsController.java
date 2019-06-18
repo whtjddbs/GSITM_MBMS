@@ -30,6 +30,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
+import com.gsitm.mbms.building.BuildingDTO;
+import com.gsitm.mbms.building.BuildingService;
 import com.gsitm.mbms.employee.EmployeeDTO;
 import com.gsitm.mbms.employee.LoginService;
 
@@ -48,6 +50,8 @@ public class StatsController {
 	@Inject
 	private StatsService StatsService;
 	
+	@Inject
+	private BuildingService buildingService;
 	/**
 	 * 공지사항 목록-------------------------------------------------------------------------------------
 	 * 
@@ -58,6 +62,13 @@ public class StatsController {
 	
 	@RequestMapping(value = "/statsMain", method = RequestMethod.GET)
 	public void statsMain(Model model) throws Exception {
+		
+		//근무지(빌딩)리스트 가져오기
+		List<BuildingDTO> buildingList = buildingService.selectAll();
+		model.addAttribute("buildingList", buildingList);
+		
+		
+		
 		
 	}
 	
