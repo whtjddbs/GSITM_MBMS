@@ -54,6 +54,9 @@
 									<label>회의구분</label> 
 									<select name="category" id="meetingCategory" class="form-control">
 										<option value="고객미팅">고객미팅</option>
+										<option value="프로젝트회의">프로젝트회의</option>
+										<option value="교육">교육</option>
+										<option value="기타">기타</option>
 									</select>
 								</div>
 							
@@ -101,7 +104,7 @@
 									<span class="input-group-addon"><i class="fa fa-users"></i></span>
 									<input type="text" class="form-control" placeholder="참석자 명단">
 									<div class="input-group-btn">
-										<button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
+										<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#employeeList-modal" type="button"><i class="fa fa-plus"></i></button>
 									</div>
 								</div>
 							</div>
@@ -175,9 +178,34 @@
 </div>
 <!-- /.content-wrapper -->
 
-<div>
-	
+<!-- modal -->
+<div class="modal fade" id="employeeList-modal">
+	<div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	        <span aria-hidden="true">&times;</span></button>
+	      <h4 class="modal-title">참석 명단</h4>
+	    </div>
+	    <div class="modal-body" style="display: inline-block">
+	    	<!-- 모달 내용 -->
+	    	<div class="col-lg-3">
+	    	</div>
+	    	<div class="col-lg-6">
+	    	</div>
+	    	<div class="col-lg-3">
+	    	</div>
+	    </div>
+	    <div class="modal-footer">
+	      <button type="button" class="btn btn-primary col-lg-2 pull-right">확인</button>
+	      <button type="button" class="btn btn-default col-lg-2 pull-right" data-dismiss="modal">취소</button>
+	    </div>
+	  </div>
+	  <!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
 </div>
+<!-- /.modal -->
 
 <style>
 	.dropdown-menu > li:hover {cursor: pointer;}
