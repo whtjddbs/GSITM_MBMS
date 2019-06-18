@@ -12,7 +12,8 @@ public interface RoomService {
 	public RoomDTO selectOneRoomByRoomNo(int roomNo);
 	
 	//전체 회의실 보기
-	public List<RoomDTO> SelectAll();
+	public List<RoomDTO> selectAllRoom();
 
 	public void roomInsert(RoomDTO dto);
+	
 }

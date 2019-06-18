@@ -58,27 +58,6 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-										<td>test Data 보헌 회의실</td>
-										<td>2</td>
-										<td>나와라</td>
-										<td>원빈</td>
-										<td>2</td>
-										<td>강서 136</td>
-										<td>회의실</td>
-										<td>버튼들</td>
-									</tr>
-										
-									<tr  >
-										<td>testData 보헌 교육장</td>
-										<td>3</td>
-										<td>2</td>
-										<td>빈</td>
-										<td>3</td>
-										<td>강서 136</td>
-										<td>교육실</td>
-										<td>버튼들</td>
-									</tr>
 								<c:forEach items="${rooms }" var="room" varStatus="status">
 									<tr role='row'>
 										<td><img src='${room.roomImg }' style="width: 300px;">?</td>

@@ -23,7 +23,7 @@ public class RoomDAOImpl implements RoomDAO {
 	}
 
 	@Override
-	public List<RoomDTO> selectAll() {
+	public List<RoomDTO> selectAllRoom() {
 		// TODO Auto-generated method stub
 		return session.selectList("roomMapper.selectAllRoom");
 	}

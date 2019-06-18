@@ -22,10 +22,10 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public List<RoomDTO> SelectAll() {
+	public List<RoomDTO> selectAllRoom() {
 		// TODO Auto-generated method stub
-		System.out.println(roomDAO.selectAll().toString());
-		return roomDAO.selectAll();
+		System.out.println(roomDAO.selectAllRoom().toString());
+		return roomDAO.selectAllRoom();
 	}
 
 	@Override

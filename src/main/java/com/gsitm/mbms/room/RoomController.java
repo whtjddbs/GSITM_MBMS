@@ -1,24 +1,27 @@
 package com.gsitm.mbms.room;
 
+
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gsitm.mbms.building.BuildingController;
 import com.gsitm.mbms.building.BuildingDTO;
 import com.gsitm.mbms.building.BuildingService;
+import com.gsitm.mbms.employee.EmployeeDAO;
+import com.gsitm.mbms.employee.EmployeeDTO;
 
 /**
  * @주제 : 
@@ -36,6 +39,9 @@ public class RoomController {
 	@Inject
 	private RoomService roomService;
 	
+	@Inject
+	private EmployeeDAO eDao;
+	
 	@Resource(name="uploadPath")
 	private String uploadPath; //여기까지해쑴
 	
@@ -44,7 +50,7 @@ public class RoomController {
 	public String list(Model model) {
 		logger.info("Room ListPage!");
 		
-		List<RoomDTO> rooms = roomService.SelectAll();
+		List<RoomDTO> rooms = roomService.selectAllRoom();
 		List<BuildingDTO> buildings = buildingService.SelectAll();
 		
 		model.addAttribute("rooms", rooms);
@@ -53,12 +59,13 @@ public class RoomController {
 		return "/room/roomManageList";
 	}
 	
-	//Room 등록
+	//Room 등록화면이동
 	@RequestMapping(value="/roomInsertForm",method=RequestMethod.GET)
-	public String roomInsertForm()  {
+	public String roomInsertForm(Model model)  {
 		logger.info("Room Insert Form!");
 		
-		
+		List<BuildingDTO> buildings = buildingService.SelectAll();
+		model.addAttribute("buildings", buildings);
 		return "/room/roomInsertForm";	
 	}
 	
@@ -83,5 +90,16 @@ public class RoomController {
 		
 			return "redirect:/room/roomManageList";	
 		}
-	
+		
+		@RequestMapping(value="/getEmployeeSearch",method=RequestMethod.POST)
+		public ModelAndView getEmployeeList(Model model) {
+			
+			List<Map<String, Object>> employees = eDao.getEmployeeList();
+			System.out.println(employees.size());
+			System.out.println(employees.toString());
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("employees",employees);
+			mav.setViewName("jsonView");
+			return mav;
+		}
 }
