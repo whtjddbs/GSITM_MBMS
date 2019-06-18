@@ -33,4 +33,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public List<EmployeeDTO> selectAllAdmin() {
 		return sqlSession.selectList("employeeMapper.selectAllAdmin");
 	}
+
+	//원빈 : 담당자 찾기 selectAll
+	@Override
+	public List<Map<String, Object>> getEmployeeList() {
+		return sqlSession.selectList("employeeMapper.getEmployeeList");
+	}
+	
 }
