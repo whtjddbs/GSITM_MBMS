@@ -51,7 +51,7 @@ public class RoomController {
 		logger.info("Room ListPage!");
 		
 		List<RoomDTO> rooms = roomService.selectAllRoom();
-		List<BuildingDTO> buildings = buildingService.SelectAll();
+		List<BuildingDTO> buildings = buildingService.selectAll();
 		
 		model.addAttribute("rooms", rooms);
 		model.addAttribute("buildings", buildings);
@@ -64,7 +64,7 @@ public class RoomController {
 	public String roomInsertForm(Model model)  {
 		logger.info("Room Insert Form!");
 		
-		List<BuildingDTO> buildings = buildingService.SelectAll();
+		List<BuildingDTO> buildings = buildingService.selectAll();
 		model.addAttribute("buildings", buildings);
 		return "/room/roomInsertForm";	
 	}

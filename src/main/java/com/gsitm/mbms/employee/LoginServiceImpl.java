@@ -36,4 +36,10 @@ public class LoginServiceImpl implements LoginService {
 
 	}
 
+	@Override
+	public List<DepartmentDTO> selectAllDept() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
