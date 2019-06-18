@@ -31,4 +31,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAllAdmin" resultMap="EmployeeDTO">
         SELECT employee.* FROM employee, room where employee.emp_no = room.mgr_emp_no
 	</select>
+	
+	<!-- 원빈 : 담당자 명단 뽑아오기 -->
+	<select id="getEmployeeList"  resultType="map">
+		<![CDATA[
+			SELECT 
+				e.emp_no AS empNo,
+				e.emp_name AS empName,
+				e.emp_position AS empPosition,
+				e.emp_email AS empEmail,
+				e.cell_phone AS empCellphone,
+				e.office_phone AS empOfficephone,
+				d.dept_name AS dept_name
+			    
+			FROM  department d, employee e
+			WHERE d.dept_no = e.dept_no
+		]]>	
+	</select>
 </mapper>

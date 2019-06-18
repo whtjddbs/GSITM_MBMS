@@ -15,5 +15,7 @@ public interface EmployeeDAO {
 	public EmployeeDTO login(Map<String, String> map);
 
 	public List<EmployeeDTO> selectAllAdmin();
+	
+	public List<Map<String, Object>> getEmployeeList();
 	 
 }
