@@ -139,7 +139,7 @@
 
 <!-- 담당자 찾기 모달  -->
 <div class="modal fade" id="findEmpModal">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"

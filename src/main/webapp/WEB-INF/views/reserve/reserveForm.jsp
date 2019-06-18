@@ -178,34 +178,8 @@
 </div>
 <!-- /.content-wrapper -->
 
-<!-- modal -->
-<div class="modal fade" id="employeeList-modal">
-	<div class="modal-dialog modal-lg">
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	        <span aria-hidden="true">&times;</span></button>
-	      <h4 class="modal-title">참석 명단</h4>
-	    </div>
-	    <div class="modal-body" style="display: inline-block">
-	    	<!-- 모달 내용 -->
-	    	<div class="col-lg-3">
-	    	</div>
-	    	<div class="col-lg-6">
-	    	</div>
-	    	<div class="col-lg-3">
-	    	</div>
-	    </div>
-	    <div class="modal-footer">
-	      <button type="button" class="btn btn-primary col-lg-2 pull-right">확인</button>
-	      <button type="button" class="btn btn-default col-lg-2 pull-right" data-dismiss="modal">취소</button>
-	    </div>
-	  </div>
-	  <!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+<jsp:include page="modals/employeeListModal.jsp"></jsp:include>
+
 
 <style>
 	.dropdown-menu > li:hover {cursor: pointer;}

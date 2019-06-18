@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gsitm.mbms.building.BuildingDTO;
 import com.gsitm.mbms.building.BuildingService;
+import com.gsitm.mbms.employee.EmployeeService;
 import com.gsitm.mbms.room.RoomDTO;
 import com.gsitm.mbms.room.RoomService;
 
@@ -31,6 +32,8 @@ public class ReserveController {
 	private BuildingService buildingService;
 	@Autowired
 	private RoomService roomService;
+	@Autowired
+	private EmployeeService employeeService;
 
 	/** 회의실 소개 페이지 **/
 	@RequestMapping("/roomList")
@@ -107,6 +110,12 @@ public class ReserveController {
 			model.addAttribute("reservationList", reservationList);
 		}
 		
+		// 참석명단을 위한 전체 직원목록
+		List<Map<String,Object>> employees = employeeService.getEmployeeList();
+		// 부서를 트리 뷰로 보여주기 위한 부서 전체목록
+		List<Map<String, String>> departments = employeeService.selectAllDepartmentTree();
+		model.addAttribute("employees", employees);
+		model.addAttribute("departments", departments);
 		model.addAttribute("reserveHistoryDTO", reserveHistoryDTO);
 		model.addAttribute("buildings", buildings);
 		

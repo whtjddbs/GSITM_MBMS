@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="departmentMapper">
+	<!-- 성윤 : 부서 전체조회 (트리) -->
+	<select id="selectAllDepartmentTree" resultType="map">
+		SELECT 
+			LEVEL,
+		    dept_name,
+		    dept_no, mgr_dept_no, boss_no
+		FROM department
+		START WITH mgr_dept_no IS NULL
+		CONNECT BY PRIOR dept_no = mgr_dept_no
+	</select>
+</mapper>
