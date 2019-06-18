@@ -115,6 +115,9 @@
 <script src="/resources/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- iCheck -->
 <script src="/resources/plugins/iCheck/icheck.min.js"></script>
+<!-- ChartJS -->
+<script src="/resources/bower_components/chart.js/Chart.js"></script>
+
 </head>
 
 
