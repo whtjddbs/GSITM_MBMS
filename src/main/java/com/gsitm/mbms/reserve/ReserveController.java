@@ -97,11 +97,7 @@ public class ReserveController {
 		Map<String, Object> map = (Map<String,Object>)session.getAttribute("reservationInfo");
 		System.out.println("reserveForm -> map : "+map);
 		
-		if(map!=null) {
-			model.addAttribute("reservationInfo", map);
-		}
-		
-		List<BuildingDTO> buildings = buildingService.SelectAll();
+		List<BuildingDTO> buildings = buildingService.selectAllWithRooms();
 		int roomNo = reserveHistoryDTO.getRoomNo();
 
 		if(roomNo!=0) {
@@ -152,6 +148,17 @@ public class ReserveController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reservationList", reservationTimes);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/** 다음 예약시간 정보를 반환 **/
+	@RequestMapping("/getNextReservation")
+	public ModelAndView getNextReservation(@RequestParam Map<String,Object> map) {
+		Map<String,String> reservationTime = reserveService.getNextReservation(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("nextReservationTime", reservationTime);
 		mav.setViewName("jsonView");
 		return mav;
 	}

@@ -28,4 +28,7 @@ public interface ReserveDAO {
 
 	/** 예약날짜의 예약시간목록 조회 **/
 	public List<Map<String, String>> getTimeByDate(Map<String, String> map);
+
+	/** 다음 예약시간 정보를 반환 **/
+	public Map<String, String> getNextReservation(Map<String, Object> map);
 }
