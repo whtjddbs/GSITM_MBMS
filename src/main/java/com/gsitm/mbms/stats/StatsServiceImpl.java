@@ -4,7 +4,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.gsitm.mbms.employee.DepartmentDTO;
+import com.gsitm.mbms.employee.EmployeeDAO;
 
 /**
  * @주제 :
@@ -13,36 +17,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class StatsServiceImpl implements StatsService {
-/*
-	@Inject
-	private StatsDAO dao;
-
-	// 리스트 불러오기
-	public List<NoticeDTO> selectAll() throws Exception {
-		return dao.selectAll();
-
-	}
-
-	// 쓰기
-	public void insert(NoticeDTO noticeDTO) throws Exception {
-		dao.insert(noticeDTO);
-	}
-
-	// 읽기
-	public NoticeDTO selectByNoticeNo(int noticeNo) throws Exception {
-		return dao.selectByNoticeNo(noticeNo);
-	}
+	@Autowired
+	private StatsDAO statsDAO;
 	
-	// 수정
-	public void update(NoticeDTO noticeDTO) throws Exception {
-		dao.update(noticeDTO);
+	/**민기 : 부서 명단 뽑아오기-----------------------------*/
+	@Override
+	public List<DepartmentDTO> selectAllDept() {
+		return statsDAO.selectAllDept();
 	}
-	
-	// 삭제
-	public void delete(int noticeNo) throws Exception {
-		dao.delete(noticeNo);
-	}
-
-*/
 
 }

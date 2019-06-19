@@ -18,9 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  <result column="notice_date" property="noticeDate" />   
 	  
 	  <result column="writer_emp_no" property="writerEmpNo" />  
+	  
    </resultMap>
-
-
 
 
 	<select id="selectAll" resultMap="NoticeResult">

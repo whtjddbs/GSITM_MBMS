@@ -31,14 +31,15 @@
    <div>            
    
    
-   
+   <!-- 근무지명 부서명 회의실구분 name이랑 id 확인해봐 -->
  	<div class="col-md-3">
 			<div class="form-group">
 								<label>근무지명</label>
 								<select name="roomTypeSelect" id="roomTypeSelect" class="form-control">
 									<option value="">전체</option>
-									<option value="회의실">회의실</option>
-									<option value="교육실">교육실</option>
+										<c:forEach var="buildingDTO" items="${buildingList}">
+											<option value="${buildingDTO.buildName}">${buildingDTO.buildName}</option>
+										</c:forEach>
 								</select>
 							</div>
 </div>		  
@@ -50,12 +51,13 @@
    
    
 	<div class="col-md-3">
-			<div class="form-group">
+							<div class="form-group">
 								<label>부서명</label>
 								<select name="roomTypeSelect" id="roomTypeSelect" class="form-control">
 									<option value="">전체</option>
-									<option value="회의실">회의실</option>
-									<option value="교육실">교육실</option>
+										<c:forEach var="departmentDTO" items="${departmentList}">
+											<option value="${departmentDTO.deptName}">${departmentDTO.deptName}</option>
+										</c:forEach>
 								</select>
 							</div>
 </div>		
@@ -64,8 +66,9 @@
 								<label>회의실구분</label>
 								<select name="roomTypeSelect" id="roomTypeSelect" class="form-control">
 									<option value="">전체</option>
-									<option value="회의실">회의실</option>
-									<option value="교육실">교육실</option>
+										<c:forEach var="roomtype" items="${roomTypes}">
+											<option value="${roomtype}">${roomtype}</option>
+										</c:forEach>
 								</select>
 							</div>
 	</div>		

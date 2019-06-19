@@ -35,11 +35,6 @@ public class LoginServiceImpl implements LoginService {
 		return employeeDAO.selectAllAdmin();
 
 	}
-
-	@Override
-	public List<DepartmentDTO> selectAllDept() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

@@ -17,5 +17,6 @@ public interface EmployeeDAO {
 	public List<EmployeeDTO> selectAllAdmin();
 	
 	public List<Map<String, Object>> getEmployeeList();
+
 	 
 }

@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -32,8 +33,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.JsonObject;
 import com.gsitm.mbms.building.BuildingDTO;
 import com.gsitm.mbms.building.BuildingService;
+import com.gsitm.mbms.employee.DepartmentDTO;
 import com.gsitm.mbms.employee.EmployeeDTO;
 import com.gsitm.mbms.employee.LoginService;
+import com.gsitm.mbms.room.RoomDTO;
+import com.gsitm.mbms.room.RoomService;
 
 /**
  * @주제 :
@@ -48,67 +52,37 @@ public class StatsController {
 	private static final Logger logger = LoggerFactory.getLogger(StatsController.class);
 
 	@Inject
-	private StatsService StatsService;
+	private StatsService statsService;
 	
 	@Inject
 	private BuildingService buildingService;
-	/**
-	 * 공지사항 목록-------------------------------------------------------------------------------------
-	 * 
-	 */
+	
+	@Inject
+	private RoomService roomService;
+	
 
-	
-	
-	
 	@RequestMapping(value = "/statsMain", method = RequestMethod.GET)
-	public void statsMain(Model model) throws Exception {
+	public String statsMain(Model model) throws Exception {
 		
 		//근무지(빌딩)리스트 가져오기
 		List<BuildingDTO> buildingList = buildingService.selectAll();
 		model.addAttribute("buildingList", buildingList);
 		
+		//부서 리스트 가져오기
+		List<DepartmentDTO> departmentList = statsService.selectAllDept();
+		model.addAttribute("departmentList", departmentList);
 		
-		
-		
-	}
-	
-	/*
-	// 공지사항 리스트
-	// 전체보기-----------------------------------------------------------------------------------
-	@RequestMapping(value = "/noticeList", method = RequestMethod.GET)
-	public String noticeList(Model model, HttpServletRequest request, HttpSession session) throws Exception {
-
-		//공지리스트 가져오기 및 모델에 추가
-		List<NoticeDTO> noticeList = noticeService.selectAll();
-		model.addAttribute("noticeList", noticeList);
-
-		//세션정보 가져오기
-		EmployeeDTO employeeDTO = (EmployeeDTO)session.getAttribute("login");
-
-		//운영자리스트 가져오기
-		List<EmployeeDTO> adminList = loginService.selectAllAdmin();
-		
-		//운영자인지 판별 및 모델에 추가
-		boolean isAdmin =  false;
-		for (int i = 0; i < adminList.size(); i++) {
-			if(adminList.get(i).getEmpNo().equals(employeeDTO.getEmpNo())) {
-				isAdmin=true;
-				break;
+		//현재 있는 모든 Room의 타입(회의실, 교육실, 기타 등) 가져오기
+		List<RoomDTO> roomList = roomService.selectAllRoom();
+		List<String> roomTypes = new ArrayList<String>();
+		for (int i = 0; i < roomList.size(); i++) {
+			String thisType = roomList.get(i).getRoomType();
+			if (!roomTypes.contains(thisType)) {
+				roomTypes.add(thisType);
 			}
 		}
-		model.addAttribute("isAdmin", isAdmin);
-		
-		return "notice/noticeList";
+		model.addAttribute("roomTypes", roomTypes);
+		return "stats/statsMain";
 	}
-	
-	*/
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

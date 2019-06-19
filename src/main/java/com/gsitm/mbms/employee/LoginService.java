@@ -16,6 +16,5 @@ public interface LoginService {
 	/**민기 : 회의실 관리자 명단 뽑아오기-----------------------------*/
 	public List<EmployeeDTO> selectAllAdmin();
 	
-	/**민기 : 부서 명단 뽑아오기-----------------------------*/
-	public List<DepartmentDTO> selectAllDept();
+	
 }
