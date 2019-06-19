@@ -34,7 +34,7 @@
                 <tr>
                   <th>예약 일자</th>
                   <th>회의 구분</th>
-                  <th>예약자</th>
+                  <th>예약자(사원번호)</th>
                   <th>결제 상태</th> 
                   <th>결제 날짜</th> 
                   <th>비용(원)</th>       
@@ -46,7 +46,7 @@
 					<tr>
 						<td>${PaymentDTO.startDate}</td>
 						<td>${PaymentDTO.category}</td>
-						<td>${PaymentDTO.reserveEmpNo}</td>
+						<td>${PaymentDTO.empName} (${PaymentDTO.reserveEmpNo})</td>
 						<c:if test="${PaymentDTO.paymentYn == 0 }">
 							<td>미결제</td>
 						</c:if>

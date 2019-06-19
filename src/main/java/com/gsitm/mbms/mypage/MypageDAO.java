@@ -1,0 +1,20 @@
+package com.gsitm.mbms.mypage;
+
+import java.util.List;
+
+
+/**
+ * @작성일 : 2019. 5. 28.
+ * @작성자 : 이주현
+ */
+
+public interface MypageDAO {
+
+	public List<MypageDTO> selectAllHistory();
+	
+	public List<MypageDTO> selectAllStatus();
+
+	//삭제
+	public void delete(int reserveNo) throws Exception;
+
+}

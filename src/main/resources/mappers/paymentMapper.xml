@@ -25,16 +25,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="priority" property="priority"/>
 		<result column="emp_count" property="empCount"/>
 		<result column="snack_yn" property="snackYn"/>
+		<result column="emp_name" property="empName"/>
 	</resultMap>
 	
 	<!-- 회의실 비용 관련 조회 -->
 	<select id="selectAllPayment" resultMap="PaymentDTO">
-		SELECT * FROM Reserve_history
+		SELECT Reserve_history.*, employee.emp_name FROM RESERVE_HISTORY, EMPLOYEE WHERE reserve_history.reserve_emp_no=employee.emp_no
 	</select>
 	
-	<!-- 총 결제 비용 관련 조회 -->
+	<!-- 총 결제 비용 관련 조회 
 	<select id="sumPayment" resultMap="PaymentDTO">
 		SELECT SUM(reserve_price) FROM Reserve_history
 	</select>
+	-->
 
 </mapper>
