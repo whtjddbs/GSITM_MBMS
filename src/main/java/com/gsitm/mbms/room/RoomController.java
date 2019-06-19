@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,9 +73,10 @@ public class RoomController {
 	
 	//Room 등록
 		@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
-		public String roomInsert(RoomDTO dto, MultipartFile file) throws Exception {
+		public String roomInsert(RoomDTO dto, MultipartFile file, HttpServletRequest request) throws Exception {
 			logger.info("Room Insert Action!");
-			String imgpUploadPath = uploadPath + File.separator + "imgUpload";
+//			String imgpUploadPath = uploadPath + File.separator + "imgUpload";
+			String imgpUploadPath = request.getRealPath("/resources/") + File.separator + "imgUpload";
 			String ymdPath = UploadFileUtils.calcPath(imgpUploadPath);
 			String fileName = null;
 			
