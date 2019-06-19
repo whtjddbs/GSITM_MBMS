@@ -4,5 +4,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="equipmentMapper">
-	
+	<!-- EquipmentDTO 컬럼명 매핑 -->
+   <resultMap type="equipment" id="Equipment">
+      <result column="room_no" property="roomNo"/>
+      <result column="eq_no" property="eqNo"/>
+      <result column="eq_name" property="eqName"/>
+      <result column="eq_count" property="eqCount"/>
+   </resultMap>
+   
+   <insert  id="equipmentInsert"  parameterType="Equipment">
+   		insert into room_equipment values(#{roomNo},eq_seq.nextval,#{eqName},#{eqCount}) 
+   </insert>
 </mapper>
