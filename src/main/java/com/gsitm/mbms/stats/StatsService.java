@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.gsitm.mbms.employee.DepartmentDTO;
+import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 
 /**
  * @주제 : 
@@ -18,7 +19,8 @@ public interface StatsService {
 
 	/**민기 : 부서 명단 뽑아오기-----------------------------*/
 	public List<DepartmentDTO> selectAllDept();
-
 	
+	//히스토리 전체출력
+	public List<ReserveHistoryDTO> selectAllHistory();
 
 }

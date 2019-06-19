@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.gsitm.mbms.employee.DepartmentDTO;
 import com.gsitm.mbms.employee.EmployeeDAO;
+import com.gsitm.mbms.mypage.MypageHistoryDAO;
+import com.gsitm.mbms.mypage.MypageHistoryDTO;
+import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 
 /**
  * @주제 :
@@ -24,6 +27,12 @@ public class StatsServiceImpl implements StatsService {
 	@Override
 	public List<DepartmentDTO> selectAllDept() {
 		return statsDAO.selectAllDept();
+	}
+	
+	//히스토리 전체출력
+	@Override
+	public List<ReserveHistoryDTO> selectAllHistory() {
+		return statsDAO.selectAllHistory();
 	}
 
 }

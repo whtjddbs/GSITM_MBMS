@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gsitm.mbms.employee.DepartmentDTO;
+import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 
 /**
  * @주제 : 
@@ -12,6 +13,10 @@ import com.gsitm.mbms.employee.DepartmentDTO;
  */
 public interface StatsDAO {
 	
+	//부서 전체출력
 	public List<DepartmentDTO> selectAllDept();
+
+	//히스토리 전체출력
+	public List<ReserveHistoryDTO> selectAllHistory();
 	 
 }

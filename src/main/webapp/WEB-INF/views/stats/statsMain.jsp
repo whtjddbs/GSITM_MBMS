@@ -28,72 +28,78 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Bar Chart</h3>
-   <div>            
-   
-   
-   <!-- 근무지명 부서명 회의실구분 name이랑 id 확인해봐 -->
- 	<div class="col-md-3">
-			<div class="form-group">
-								<label>근무지명</label>
-								<select name="roomTypeSelect" id="roomTypeSelect" class="form-control">
-									<option value="">전체</option>
-										<c:forEach var="buildingDTO" items="${buildingList}">
-											<option value="${buildingDTO.buildName}">${buildingDTO.buildName}</option>
-										</c:forEach>
-								</select>
-							</div>
-</div>		  
-   
-   
-   
-   
-   
-   
-   
-	<div class="col-md-3">
-							<div class="form-group">
-								<label>부서명</label>
-								<select name="roomTypeSelect" id="roomTypeSelect" class="form-control">
-									<option value="">전체</option>
-										<c:forEach var="departmentDTO" items="${departmentList}">
-											<option value="${departmentDTO.deptName}">${departmentDTO.deptName}</option>
-										</c:forEach>
-								</select>
-							</div>
-</div>		
-<div class="col-md-3">	
-							<div class="form-group">
-								<label>회의실구분</label>
-								<select name="roomTypeSelect" id="roomTypeSelect" class="form-control">
-									<option value="">전체</option>
-										<c:forEach var="roomtype" items="${roomTypes}">
-											<option value="${roomtype}">${roomtype}</option>
-										</c:forEach>
-								</select>
-							</div>
-	</div>		
-</div>			
-
-<div class="col-md-3">
-
+             
+			    <form id="availableRoomListForm" method="post" action="/stats/availableRoomList">           
+			   
+			   
+			   <!-- 근무지명 부서명 회의실구분 name이랑 id 확인해봐 -->
+			
+				
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>근무지명</label> <select name="buildingSelect" class="form-control">
+								<option value="">전체</option>
+								<c:forEach var="buildingDTO" items="${buildingList}">
+									<option value="${buildingDTO.buildName}">${buildingDTO.buildName}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+				
+				
+				
+				
+				
+				
+				
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>부서명</label> <select name="deptSelect" class="form-control">
+								<option value="">전체</option>
+								<c:forEach var="departmentDTO" items="${departmentList}">
+									<option value="${departmentDTO.deptName}">${departmentDTO.deptName}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>회의실구분</label> <select name="roomTypeSelect" class="form-control">
+								<option value="">전체</option>
+								<c:forEach var="roomtype" items="${roomTypes}">
+									<option value="${roomtype}">${roomtype}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					
+				
+				
+					<div class="col-md-8">
+				
 						<!-- Date and time range -->
-							<div class="form-group">
-								<label>예약 날짜 (시작 - 끝)</label>
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-clock-o"></i>
-									</div>
-									<input type="text" class="form-control pull-right" name="reservationtime"
-										id="reservationtime">
+						<div class="form-group">
+							<label>검색 날짜 (시작 - 끝)</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-clock-o"></i>
 								</div>
-								<!-- /.input group -->
+								<input type="text" class="form-control pull-right"
+									name="timeSelect" id="reservationtime">
 							</div>
-
-</div>
-
-
-
-
+							<!-- /.input group -->
+						</div>
+				
+					</div>
+				
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>검색하기</label> <input type="submit"
+								class="btn  btn-info col-sm-12" value="검색">
+						</div>
+					</div>
+				
+</form>
 
 
 			

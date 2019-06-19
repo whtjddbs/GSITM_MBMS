@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.gsitm.mbms.employee.DepartmentDTO;
+import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 
 /**
  * @주제 : 
@@ -25,6 +26,12 @@ public class StatsDAOImpl implements StatsDAO {
 	@Override
 	public List<DepartmentDTO> selectAllDept() {
 		return sqlSession.selectList("departmentMapper.selectAllDept");
+	}
+
+	//히스토리 전체출력
+	@Override
+	public List<ReserveHistoryDTO> selectAllHistory() {
+		return sqlSession.selectList("statsMapper.selectAllHistory");
 	}
 
 	

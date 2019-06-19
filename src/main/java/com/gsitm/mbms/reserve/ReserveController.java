@@ -53,7 +53,7 @@ public class ReserveController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rooms", rooms);
-		mav.setViewName("jsonView");	
+		mav.setViewName("jsonView");
 		return mav;
 	}
 	

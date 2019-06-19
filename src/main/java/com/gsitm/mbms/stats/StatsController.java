@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -83,6 +84,14 @@ public class StatsController {
 		}
 		model.addAttribute("roomTypes", roomTypes);
 		return "stats/statsMain";
+	}
+	
+	
+	@RequestMapping(value = "/statsFiltering", method = RequestMethod.GET)
+	public String availableRoomList(String buildingSelect, String deptSelect, String roomTypeSelect, String timeSelect, Model model) {
+		
+		
+		return "room/roomList";
 	}
 
 }
