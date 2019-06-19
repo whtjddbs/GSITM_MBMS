@@ -100,9 +100,9 @@
 								<label>참석인원 및 명단</label>
 								<div class="input-group">
 									<span class="input-group-addon">참석인원</span> 
-									<input type="number" placeholder="최대인원 (명)" class="form-control">
+									<input type="number" id="empCount" placeholder="최대인원 (명)" class="form-control">
 									<span class="input-group-addon"><i class="fa fa-users"></i></span>
-									<input type="text" class="form-control" placeholder="참석자 명단">
+									<input type="text" id="empList" class="form-control" placeholder="참석자 명단">
 									<div class="input-group-btn">
 										<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#employeeList-modal" type="button"><i class="fa fa-plus"></i></button>
 									</div>

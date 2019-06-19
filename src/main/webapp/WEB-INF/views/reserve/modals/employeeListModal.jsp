@@ -2,14 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<link rel="stylesheet" href="/resources/css/scrollbar.css" />
 <style>
-	.employeeList-left {overflow: scroll; overflow-y: hidden;}
-	.employeeList-right {}
+ 	.employeeList-left {overflow: hidden;}
+ 	.employeeList-right > #style-1 {overflow-x: hidden;}
+	
+	/* 직원 목록 */
 	#employeeListTable {width: 100%;}
 	table.dataTable tbody tr.selected {
         color: white;
-        background-color: #eeeeee;  /* Not working */
+        background-color: #eeeeee; !important  /* Not working */
     }
+    
+	/* 참석 명단 */
+    #attendants-list {list-style: none;}
+    #attendants-list > li {cursor: pointer;}
+    #attendants-list-title > * {display: inline-block;}
 </style>
 
 <!-- modal -->
@@ -26,7 +34,11 @@
 	    	<div class="row employeeList-body">
 		    	<div class="col-lg-3 employeeList-left">
 		    		<h4>조직도</h4>
-		    		<div id="jstree_demo_div"></div>
+		    		<div class="scrollbar" id="style-1">
+						<div class="force-overflow">
+							<div id="jstree_demo_div"></div>
+						</div>
+				    </div>
 		    	</div>
 		    	<div class="col-lg-6 employeeList-md">
 		    		<table id="employeeListTable" class="table table-bordered table-hover">
@@ -51,17 +63,23 @@
 					</table>
 		    	</div>
 		    	<div class="col-lg-3 employeeList-right">
-		    		<h4>참석자 명단</h4>
-		    		<ul id="attendants-list">
-		    			<li>조성윤 인턴</li>
-		    			<li>조성윤 인턴</li>
-		    		</ul>
+		    		<div id="attendants-list-title">
+		    			<h4>참석자 명단</h4>
+		    			( <span id="attendants-count">0</span> 명)
+		    		</div>
+		    		<div class="scrollbar" id="style-1">
+						<div class="force-overflow">
+							<ul id="attendants-list">
+		    				</ul>
+						</div>
+				    </div>
+		    		
 		    	</div>
 	    	</div>
 	    </div>
 	    <div class="modal-footer">
-	      <button type="button" class="btn btn-primary col-lg-2 pull-right">확인</button>
-	      <button type="button" class="btn btn-default col-lg-2 pull-right" data-dismiss="modal">취소</button>
+	      <button type="button" class="btn btn-primary col-lg-2 pull-right" data-dismiss="modal">확인</button>
+	      <button type="button" id="employeeList-modal-reset" class="btn btn-default col-lg-2 pull-right">초기화</button>
 	    </div>
 	  </div>
 	  <!-- /.modal-content -->
@@ -121,6 +139,51 @@
 	                "visible": false
 	            }
 	        ]
+		});
+		
+		table.on( 'select', function ( e, dt, type, indexes ) {
+		    if ( type === 'row' ) {
+		        var data = table.rows( indexes ).data();
+		        table.rows( indexes ).remove().draw();
+		        
+		        $('#attendants-list').append($('<li/>', {
+		        	'data-empNo' : data[0][0],
+		        	'data-empName' : data[0][1],
+		        	'data-empPosition' : data[0][2],
+		        	'data-deptNo' : data[0][3],
+		        	text : data[0][1] + " " + data[0][2]
+		        }));
+		        
+		        $('#attendants-count').text($('#attendants-list > li').length);
+		    }
+		} );
+		
+		$('#attendants-list').on('click', 'li', function() {
+			let empno = $(this).data('empno');    
+			let empname = $(this).data('empname');    
+			let empposition = $(this).data('empposition');  
+			let deptno = $(this).data('deptno');    
+			table.row.add([empno, empname, empposition, deptno]).draw();
+			
+			$(this).remove();
+			
+			$('#attendants-count').text($('#attendants-list > li').length);
+		});
+		
+		$('#employeeList-modal').on('hide.bs.modal', function (e) {
+			$('#empCount').val($('#attendants-count').text());
+			
+			if($('#attendants-count').text() =='1') {
+				$('#empList').val($('#attendants-list > li:eq(0)').text());
+			} else if($('#attendants-count').text()!='0') {
+				$('#empList').val($('#attendants-list > li:eq(0)').text()+" 외 "+(parseInt($('#attendants-count').text())-1)+"명");
+			} else {
+				$('#empList').val('');
+			}
+		})
+		
+		$('#employeeList-modal-reset').click(function(){
+			$('#attendants-list > li').trigger('click');
 		});
 	});
 </script>
