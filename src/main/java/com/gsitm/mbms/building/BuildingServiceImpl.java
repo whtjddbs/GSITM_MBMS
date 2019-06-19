@@ -33,7 +33,6 @@ public class BuildingServiceImpl implements BuildingService{
 	public void buildingDelete(int buildNo) {
 		// TODO Auto-generated method stub
 		buildingDAO.buildingDelete(buildNo);
-		
 	}
 
 
