@@ -118,7 +118,7 @@
 									<span class="input-group-addon">수량</span>
 									<input type="number" class="form-control" placeholder="수량" readonly>
 									<div class="input-group-btn">
-										<button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
+										<button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#equipmentList-modal"><i class="fa fa-plus"></i></button>
 									</div>
 								</div>
 							</div>
@@ -179,6 +179,90 @@
 <!-- /.content-wrapper -->
 
 <jsp:include page="modals/employeeListModal.jsp"></jsp:include>
+
+
+<div class="modal fade" id="equipmentList-modal">
+	<div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	        <span aria-hidden="true">&times;</span></button>
+	      <h4 class="modal-title">참석 명단</h4>
+	    </div>
+	    <div class="modal-body">
+	    	<!-- 모달 내용 -->
+	    	<div class="row equipmentList-body">
+		    	<div class="col-lg-8 equipmentList-md">
+		    		<table id="equipmentListTable" class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>비품코드</th>
+								<th>비품명</th>
+								<th>보유수량</th>
+								<th>신청수량</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${employees }" var="employee" varStatus="status">
+								<tr role='row'>
+									<td>${employee.EMPNO }</td>
+									<td>${employee.EMPNAME }</td>
+									<td>${employee.EMPPOSITION }</td>
+									<td>${employee.DEPT_NAME }</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+		    	</div>
+		    	<div class="col-lg-4 equipmentList-right">
+		    		<div id="attendants-list-title">
+		    			<h4>참석자 명단</h4>
+		    			( <span id="attendants-count">0</span> 명)
+		    		</div>
+		    		<div class="scrollbar" id="style-1">
+						<div class="force-overflow">
+							<ul id="attendants-list">
+		    				</ul>
+						</div>
+				    </div>
+		    		
+		    	</div>
+	    	</div>
+	    </div>
+	    <div class="modal-footer">
+	      <button type="button" class="btn btn-primary col-lg-2 pull-right" data-dismiss="modal">확인</button>
+	      <button type="button" id="employeeList-modal-reset" class="btn btn-default col-lg-2 pull-right">초기화</button>
+	    </div>
+	  </div>
+	  <!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<script>
+	$(function(){
+		var equipmentTable = $('#equipmentListTable').DataTable({
+			'lengthChange' : false,
+			'searching' : true,
+			'ordering' : true,
+			'info' : false,
+			'autoWidth' : false,
+			'order' : [ [ 1, "asc" ] ],
+			'destroy': true,
+			'dom': '<"top"f>rt<"bottom"p><"clear">',
+			select: {
+	            style: 'multi'
+	        },
+	        "columnDefs": [
+	            {
+	                "targets": [ 0 ],
+	                "visible": false
+	            }
+	        ]
+		});
+	});
+</script>
 
 
 <style>

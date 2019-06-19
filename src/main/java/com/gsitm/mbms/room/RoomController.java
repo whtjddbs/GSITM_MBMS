@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,6 @@ import com.gsitm.mbms.building.BuildingController;
 import com.gsitm.mbms.building.BuildingDTO;
 import com.gsitm.mbms.building.BuildingService;
 import com.gsitm.mbms.employee.EmployeeDAO;
-import com.gsitm.mbms.employee.EmployeeDTO;
 
 /**
  * @주제 : 
@@ -71,12 +71,12 @@ public class RoomController {
 	
 	//Room 등록
 		@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
-		public String roomInsert(RoomDTO dto,String eqName, int eqCount, MultipartFile file) throws Exception {
+		public String roomInsert(RoomDTO dto, MultipartFile file, HttpServletRequest request) throws Exception {
 			logger.info("Room Insert Action!");
-			String imgpUploadPath = uploadPath + File.separator + "imgUpload";
+			String imgpUploadPath = request.getSession().getServletContext().getRealPath("/resources/") + File.separator + "imgUpload";
 			String ymdPath = UploadFileUtils.calcPath(imgpUploadPath);
 			String fileName = null;
-			System.out.println(eqName+eqCount);
+			
 			if(file !=null) {
 				fileName = UploadFileUtils.fileUpload(imgpUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			}
