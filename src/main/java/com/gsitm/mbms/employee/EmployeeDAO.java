@@ -15,5 +15,13 @@ public interface EmployeeDAO {
 	public EmployeeDTO login(Map<String, String> map);
 
 	public List<EmployeeDTO> selectAllAdmin();
+	
+	public List<Map<String, Object>> getEmployeeList();
+
+	/** 성윤: 모든 직원 정보 조회 **/
+	public List<EmployeeDTO> selectAllEmployee();
+	
+	/** 성윤 : 부서 전체조회 (트리) **/
+	public List<Map<String,String>> selectAllDepartmentTree();
 	 
 }

@@ -12,7 +12,7 @@ public interface RoomDAO {
 	public RoomDTO selectOneRoomByRoomNo(int roomNo);
 	
 	// 회의실 전체 검색
-	public List<RoomDTO> selectAll();
+	public List<RoomDTO> selectAllRoom();
 	
 	//회의실 등록
 	public void roomInsert(RoomDTO dto);
