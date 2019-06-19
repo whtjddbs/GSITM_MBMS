@@ -25,11 +25,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="priority" property="priority"/>
 		<result column="emp_count" property="empCount"/>
 		<result column="snack_yn" property="snackYn"/>
+		
 		<result column="emp_name" property="empName"/>
 		<result column="room_name" property="roomName"/>
 		<result column="build_name" property="buildName"/>
+		<result column="dept_name" property="deptName"/>
+		<result column="emp_position" property="empPosition"/>
 		
-		
+
 	</resultMap>
    
 	<select id="selectAllHistory" resultMap="MypageDTO">
@@ -38,10 +41,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectAllStatus" resultMap="MypageDTO">
+            
          SELECT RESERVE_HISTORY.*, room.room_name, building.build_name FROM RESERVE_HISTORY, ROOM, building
-         WHERE TO_CHAR(START_DATE, 'YYYYMMDD') >= (SELECT TO_CHAR(SYSDATE, 'YYYYMMDD') FROM DUAL) 
-         and reserve_history.room_no=room.room_no
-         and room.build_no = building.build_no
+	         WHERE TO_CHAR(START_DATE, 'YYYYMMDD') >= (SELECT TO_CHAR(SYSDATE, 'YYYYMMDD') FROM DUAL) 
+	         and reserve_history.room_no=room.room_no
+	         and room.build_no = building.build_no
+         
+    </select>
+    
+    <select id="selectMemberList" resultMap="MypageDTO">
+	    select reserve_history.reserve_no, meeting_member_list.dept_name, employee.emp_name, employee.emp_position
+			from reserve_history, meeting_member_list, employee
+			where reserve_history.reserve_no = meeting_member_list.reserve_no
+			and meeting_member_list.emp_no = employee.emp_no
     </select>
 	
 	<delete id="delete">

@@ -47,6 +47,17 @@ public class MypageController {
 		return "/mypage/mypageStatusList";
 	}
 	
+	/** 회의 참석자 목록 */
+	@RequestMapping(value = "/mypageMemberList", method = RequestMethod.GET)
+	public String mypageMemberList(Model model, HttpServletRequest request) throws Exception {
+
+		List<MypageDTO> mypageMemberList = mypageService.selectMemberList();
+		
+		model.addAttribute("mypageMemberList", mypageMemberList);
+		
+		return "/mypage/mypageStatusList";
+	}
+	
 	/** 예약이력 목록 */
 	@RequestMapping(value = "/mypageHistoryList", method = RequestMethod.GET)
 	public String selectAllMypageHistory(Model model, HttpServletRequest request) throws Exception {
@@ -67,26 +78,6 @@ public class MypageController {
 		return "redirect:/mypage/mypageStatusList";
 	}
 	
-	/** 날짜 검색을 통한 회의실 예약 이력 조회  **/
-//	@RequestMapping("/selectHistoryReserve")
-//	public String selectHistoryReserve(@RequestParam Map<String,Object> map, Model model, HttpSession session) throws Exception {
-//		System.out.println(map.toString());
-//		
-//		String dateRange = (String) map.get("reservationtime");
-//		String dates[] = dateRange.split("-");
-//		map.put("startDate", dates[0].trim());
-//		map.put("endDate", dates[1].trim());
-//		map.put("empCount", (String) map.get("empCount") == "" ? 0 : map.get("empCount"));
-//		
-//		//회의실 검색 정보 저장
-//		session.setAttribute("reservationInfo", map);
-//		
-//		List<MypageDTO> selectHistoryReserve = mypageService.selectHistoryReserve(map);
-//		
-//		model.addAttribute("selectHistoryReserve", selectHistoryReserve);
-//		
-//		return "/mypage/mypageHistoryList";
-//	}
 
 	
 }

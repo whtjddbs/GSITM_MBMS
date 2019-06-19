@@ -13,6 +13,8 @@ public interface MypageDAO {
 	public List<MypageDTO> selectAllHistory();
 	
 	public List<MypageDTO> selectAllStatus();
+	
+	public List<MypageDTO> selectMemberList();
 
 	//삭제
 	public void delete(int reserveNo) throws Exception;

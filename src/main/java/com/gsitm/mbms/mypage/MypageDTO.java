@@ -28,9 +28,12 @@ public class MypageDTO {
 	private int priority;
 	private int empCount;
 	private char snackYn;
+	
 	private String empName;
 	public String roomName;
 	public String buildName;
+	public String empPosition;
+	public String deptName;
 
 
 	public MypageDTO() {
@@ -40,7 +43,9 @@ public class MypageDTO {
 	public MypageDTO(int reserveNo, int roomNo, String reserveEmpNo, Date startDate, Date endDate,
 			int approval1Yn, String approval1EmpNo, Date approval1Date, int approval2Yn, String approval2EmpNo,
 			Date approval2Date, int paymentYn, Date paymentDate, Date reserveDate, int reservePrice, String purpose,
-			String category, int priority, int empCount, char snackYn, String empName, String roomName, String buildName) {
+			String category, int priority, int empCount, char snackYn, String empName, String roomName, String buildName
+			, String empPosition, String deptName) {
+		
 		super();
 		this.reserveNo = reserveNo;
 		this.roomNo = roomNo;
@@ -65,6 +70,8 @@ public class MypageDTO {
 		this.empName = empName;
 		this.roomName=roomName;
 		this.buildName=buildName;
+		this.empPosition=empPosition;
+		this.deptName=deptName;
 	}
 
 	public int getReserveNo() {
@@ -209,6 +216,21 @@ public class MypageDTO {
 		this.buildName = buildName;
 	}
 	
+	public String getEmpPosition() {
+		return empPosition;
+	}
+	public void setEmpPosition(String empPosition) {
+		this.empPosition = empPosition;
+	}
+	
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "MypageDTO [reserveNo=" + reserveNo + ", roomNo=" + roomNo + ", reserveEmpNo=" + reserveEmpNo
@@ -218,11 +240,11 @@ public class MypageDTO {
 				+ ", paymentYn=" + paymentYn + ", paymentDate=" + paymentDate + ", reserveDate=" + reserveDate
 				+ ", reservePrice=" + reservePrice + ", purpose=" + purpose + ", category=" + category + ", priority="
 				+ priority + ", empCount=" + empCount + ", snackYn=" + snackYn + ", empName=" + empName +  ", roomName=" 
-				+ roomName + ", buildName=" + buildName + "]";
+				+ roomName + ", buildName=" + buildName + ", empPosition=" + empPosition + ", deptName=" + deptName + "]";
 	}
 }
 
 
-
+//
 
 

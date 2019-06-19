@@ -32,6 +32,11 @@ public class MypageDAOImpl implements MypageDAO{
 		return session.selectList("mypageMapper.selectAllStatus");
 	}
 	
+	@Override
+	public List<MypageDTO> selectMemberList(){
+		return session.selectList("mypageMapper.selectMemberList");
+	}
+	
 	//삭제
 	public void delete(int reserveNo) throws Exception {
 		//session.delete("mypageMapper.delete", reserveNo);
