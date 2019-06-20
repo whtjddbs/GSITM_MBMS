@@ -61,6 +61,7 @@ Insert into MBMS.EMPLOYEE (EMP_NO,EMP_PW,EMP_NAME,EMP_POSITION,EMP_EMAIL,CELL_PH
 Insert into MBMS.EMPLOYEE (EMP_NO,EMP_PW,EMP_NAME,EMP_POSITION,EMP_EMAIL,CELL_PHONE,OFFICE_PHONE,DEPT_NO) values ('IT1037','1q2w3e4r!@','김민재','대리','jaejae@gsitm.com','010-1563-9031','02-230-9987',12);
 Insert into MBMS.EMPLOYEE (EMP_NO,EMP_PW,EMP_NAME,EMP_POSITION,EMP_EMAIL,CELL_PHONE,OFFICE_PHONE,DEPT_NO) values ('IT1038','1q2w3e4r!@','김준호','대리','jaejae@gsitm.com','010-1563-9031','02-230-9987',11);
 Insert into MBMS.EMPLOYEE (EMP_NO,EMP_PW,EMP_NAME,EMP_POSITION,EMP_EMAIL,CELL_PHONE,OFFICE_PHONE,DEPT_NO) values ('IT1039','1q2w3e4r!@','김민우','대리','mwmw@gsitm.com','010-1563-9031','02-230-9987',10);
+Insert into MBMS.EMPLOYEE (EMP_NO,EMP_PW,EMP_NAME,EMP_POSITION,EMP_EMAIL,CELL_PHONE,OFFICE_PHONE,DEPT_NO) values ('it1235','1q2w3e4r!@','조성윤','대리','mwmw@gsitm.com','010-1563-9031','02-230-9987',10);
 --------------------------------------------------------
 --  DDL for Index EMPLOYEE_PK
 --------------------------------------------------------

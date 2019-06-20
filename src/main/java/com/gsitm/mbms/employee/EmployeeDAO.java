@@ -18,6 +18,7 @@ public interface EmployeeDAO {
 	
 	public List<Map<String, Object>> getEmployeeList();
 
+
 	/** 성윤: 모든 직원 정보 조회 **/
 	public List<EmployeeDTO> selectAllEmployee();
 	
