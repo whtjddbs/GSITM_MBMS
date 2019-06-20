@@ -48,7 +48,7 @@ public class ReserveServiceImpl implements ReserveService {
 	public List<Map<String, String>> getTimeByDate(Map<String, String> map) {
 		return reserveDAO.getTimeByDate(map);
 	}
-
+ 
 	@Override
 	public Map<String, String> getNextReservation(Map<String, Object> map) {
 		return reserveDAO.getNextReservation(map);

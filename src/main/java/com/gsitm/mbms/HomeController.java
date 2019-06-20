@@ -33,7 +33,7 @@ public class HomeController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "redirect:/reserve/reserveSearchForm";
+		return "reserve/reserveSearchForm";
 	}
 
 }

@@ -55,4 +55,4 @@ public class ReserveDAOImpl implements ReserveDAO {
 		return session.selectOne("reserveHistoryMapper.getNextReservation", map);
 	}
 
-}
+} 

@@ -10,7 +10,7 @@ import com.gsitm.mbms.employee.EmployeeDTO;
  */
 public interface BuildingService {
 	/** 모든 건물 조회 **/
-	public List<BuildingDTO> SelectAll();
+	public List<BuildingDTO> selectAll();
 	
 	/** 건물 등록 **/
 	public void buildingInsert(BuildingDTO dto);
