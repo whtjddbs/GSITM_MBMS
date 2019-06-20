@@ -1,6 +1,6 @@
 package com.gsitm.mbms.equipment;
 
-
+import java.util.List;
 
 /**
  * @주제 : 
@@ -11,5 +11,7 @@ package com.gsitm.mbms.equipment;
 public interface EquipmentService {
 	//비품 등록
 	public void equipmentInsert(EquipmentDTO dto);
+
+	public List<EquipmentDTO> equipmentDistinctSelect();
 
 }

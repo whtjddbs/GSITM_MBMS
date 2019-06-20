@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result column="build_addr" property="buildAddr"/>
       <result column="build_post" property="buildPost"/>
    </resultMap>
+   
 	<!-- BuildingDTO와 RoomDTO 조인 -->
    <resultMap type="building" id="buildingWithRooms" extends="Building">
 		<collection property="rooms" ofType="room" resultMap="roomMapper.RoomDTO"></collection>

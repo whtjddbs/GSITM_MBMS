@@ -15,4 +15,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <insert  id="equipmentInsert"  parameterType="Equipment">
    		insert into room_equipment values(#{roomNo},eq_seq.nextval,#{eqName},#{eqCount}) 
    </insert>
+   
+   <select id="equipmentDistinctSelect" resultMap="Equipment">
+   		select distinct eq_name from room_equipment
+   </select>
 </mapper>
