@@ -18,5 +18,8 @@ public interface StatsDAO {
 
 	//히스토리 전체출력
 	public List<ReserveHistoryDTO> selectAllHistory();
+
+	//히스토리 필터링 출력
+	public List<ReserveHistoryDTO> selectFilterHistory(Map<String, String> filterMap);
 	 
 }

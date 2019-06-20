@@ -1,6 +1,7 @@
 package com.gsitm.mbms.stats;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -22,5 +23,9 @@ public interface StatsService {
 	
 	//히스토리 전체출력
 	public List<ReserveHistoryDTO> selectAllHistory();
+	
+	//히스토리 필터링 출력
+
+	public List<ReserveHistoryDTO> selectFilterHistory(Map<String, String> filterMap);
 
 }

@@ -136,29 +136,40 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th class = "">예약일</th>
-									<th class = "">회의 구분</th>
+									<th class = "">예약번호</th>
+									<th class = "">회의실번호</th>
 									<th class = "">예약자</th>
-									<th class = "">예약명</th>
-									<th class = "">예약장소</th>
+									<th class = "">startDate</th>
+									<th class = "">endDate</th>
+									<th class = "">category</th>
+									<th class = "">purpose</th>
 								</tr>
 							</thead>
 							<tbody>
-				                <tr>
-									<td>2019.06.07</td>
-									<td>내부 회의</td>
-									<td>사용자1</td>
-									<td>MBMS 구축을 위한 사전미팅</td>
-									<td>몰디브</td>
-				                </tr>
+					              <c:forEach var="histDTO" items="${historyList}">
+										<tr>
+											
+												<td>${histDTO.reserveNo}</td>
+												<td>${histDTO.roomNo}</td>
+												<td>${histDTO.reserveEmpNo}</td>
+												<td>${histDTO.startDate}</td>
+												<td>${histDTO.endDate}</td>
+												<td><a href='noticeDetail?noticeNo=${histDTO.category}'>${histDTO.category}</a></td>
+												<td>${histDTO.purpose}</td>
+											
+											
+										</tr>
+									</c:forEach>
 				                </tbody>
 				                <tfoot>
 				                <tr>
-									<th class = "">예약일</th>
-									<th class = "">회의 구분</th>
+									<th class = "">예약번호</th>
+									<th class = "">회의실</th>
 									<th class = "">예약자</th>
-									<th class = "">예약명</th>
-									<th class = "">예약장소</th>
+									<th class = "">startDate</th>
+									<th class = "">endDate</th>
+									<th class = "">category</th>
+									<th class = "">purpose</th>
 				                </tr>
 				                </tfoot>
 						</table>
@@ -417,12 +428,19 @@
 <script type="text/javascript"> 
 
 var barChartData = {        
-        labels: ["몰디브", "회의실1", "회의실2", "회의실3", "회의실4", "회의실5", "회의실6"],
+        labels: [
+        	"몰디브",
+        	"회의실1",
+        	"회의실2",
+        	"회의실3",
+        	"회의실4",
+        	"회의실5",
+        	"회의실6"
+        	],
         datasets: [{
             label: '3년간 평균 사용기록',
             backgroundColor: "#dddddd",
             data: [
-                Math.random()*100,
                 Math.random()*100,
                 Math.random()*100,
                 Math.random()*100,

@@ -33,6 +33,12 @@ public class StatsDAOImpl implements StatsDAO {
 	public List<ReserveHistoryDTO> selectAllHistory() {
 		return sqlSession.selectList("statsMapper.selectAllHistory");
 	}
+	
+	//히스토리 필터링 출력
+	@Override
+	public List<ReserveHistoryDTO> selectFilterHistory(Map<String, String> filterMap) {
+		return sqlSession.selectList("statsMapper.selectFilterHistory", filterMap);
+	}
 
 	
 	

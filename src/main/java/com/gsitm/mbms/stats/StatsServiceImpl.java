@@ -1,6 +1,7 @@
 package com.gsitm.mbms.stats;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -31,6 +32,12 @@ public class StatsServiceImpl implements StatsService {
 	@Override
 	public List<ReserveHistoryDTO> selectAllHistory() {
 		return statsDAO.selectAllHistory();
+	}
+	
+	//히스토리 필터링출력
+	@Override
+	public List<ReserveHistoryDTO> selectFilterHistory(Map<String, String> filterMap) {
+		return statsDAO.selectFilterHistory(filterMap);
 	}
 
 }

@@ -27,9 +27,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="snack_yn" property="snackYn"/>
 	</resultMap>
 	
-	<!--예약내역 조회 -->
+	<!--예약내역 전체 조회 -->
 	<select id="selectAllHistory" parameterType="String" resultMap="ReserveHistoryDTO">
 		SELECT * FROM Reserve_history
+	</select>
+	
+	<!--예약내역 전체 조회 -->
+	<select id="selectFilterHistory" parameterType="String" resultMap="ReserveHistoryDTO">
+		SELECT * FROM Reserve_history WHERE
 	</select>
 	
 </mapper>
