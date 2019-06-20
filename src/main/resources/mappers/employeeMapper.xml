@@ -42,10 +42,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				e.emp_email AS empEmail,
 				e.cell_phone AS empCellphone,
 				e.office_phone AS empOfficephone,
-				d.dept_name AS dept_name
+				d.dept_name AS dept_name,
+				d.dept_no AS deptNo
 			    
 			FROM  department d, employee e
 			WHERE d.dept_no = e.dept_no
 		]]>	
 	</select>
+	
+	<!-- 성윤 : 전체 직원 목록 조회 -->
+	<select id="selectAllEmployee" resultMap="EmployeeDTO">
+		SELECT * FROM employee
+	</select>
+	
 </mapper>

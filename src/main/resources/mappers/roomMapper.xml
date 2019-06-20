@@ -30,7 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 								#{networkYn},
 								#{roomFloor},
 								#{roomType})
+		<selectKey keyProperty="roomNo" resultType="Integer" order="AFTER"> 
+			SELECT Max(Room_no) FROM Room 
+		</selectKey>
 	</insert>
+	
 	
 	<select id="selectAllRoom" resultMap="RoomDTO">
 		select * from room

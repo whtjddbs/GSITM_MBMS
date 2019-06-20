@@ -3,14 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script type="text/javascript" src="../../../resources/dist/js/postSearch.js"></script>
+<script type="text/javascript"
+	src="../../../resources/dist/js/postSearch.js"></script>
 
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>근무지 등록</h1>
+		<h1>회의실 등록</h1>
 		<ol class="breadcrumb">
 			<li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li class="active">Notice</li>
@@ -45,27 +46,38 @@
 										<label>수용 인원</label> <input type="number" class="form-control"
 											name="roomNumEmp">
 									</div>
-									
+
 									<label>회의실 담당자</label>
 									<div class="col-xs-6">
-										<div class="col-xs-4">
-										 	<input type="text" class="form-control"
-											name="mgrEmpNo" id="mgrEmpNo">
+										<div class="col-xs-8">
+											<input type="text" class="form-control" name="mgrEmpNo"
+												id="mgrEmpNo">
 										</div>
-										
-										<div class="col-xs-2">
+
+										<div class="col-xs-1">
 											<input type="button" class='btn btn-default' value="담당자 찾기"
 												id="findEmpBtn">
 										</div>
-</div>
-									<div class="col-sm-6">
-										<label for="buildingSelect">지사</label> 
-										<select name="buildNo" id="buildingSelect" class="form-control">
+									</div>
+									<div class="col-sm-12">
+										<label for="buildingSelect">지사</label> <select name="buildNo"
+											id="buildingSelect" class="form-control">
 											<option value="">전체</option>
 											<c:forEach var="building" items="${buildings }">
 												<option value="${building.buildNo }">${building.buildName }</option>
 											</c:forEach>
 										</select>
+										<br>
+									</div>
+									
+									<div class="col-sm-6">
+										<label>비품이름</label> 
+										<input type="text" class="form-control" name="eqName" >
+									</div>
+									
+									<div class="col-xs-6">
+										<label>비품갯수</label> 
+										<input type="number" class="form-control" name="eqCount">
 									</div>
 
 									<div class="col-xs-12">
@@ -95,11 +107,11 @@
 									<div class="col-sm-12">
 										<label class="control-label">네트워크 유/무</label>
 										<div class="col-sm-12">
-											<label class="col-sm-6"> 
-												<input type="radio" name="networkYn" class="minimal" checked value="y"> Yes
-											</label>
-											 <label class="col-sm-6"> 
-											 	<input type="radio" name="networkYn" class="minimal" value="n"> No
+											<label class="col-sm-6"> <input type="radio"
+												name="networkYn" class="minimal" checked value="y">
+												Yes
+											</label> <label class="col-sm-6"> <input type="radio"
+												name="networkYn" class="minimal" value="n"> No
 											</label>
 										</div>
 									</div>
@@ -139,7 +151,7 @@
 
 <!-- 담당자 찾기 모달  -->
 <div class="modal fade" id="findEmpModal">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
@@ -149,8 +161,7 @@
 				<h4 class="modal-title">담당자 찾기</h4>
 			</div>
 			<div class="modal-body">
-				<div class="col-sm-3">
-				</div>
+				<div class="col-sm-3"></div>
 				<table id="empListTable" class="table table-bordered table-hover">
 					<thead>
 						<tr>
@@ -160,7 +171,7 @@
 							<th>이메일</th>
 							<th>전화번호</th>
 							<th>사무실번호</th>
-							<th>부서번호</th>	
+							<th>부서번호</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -172,7 +183,8 @@
 								</td>
 								<td>${emp.empPosition }명</td>
 								<td>시간당 ${room.roomPrice }원</td>
-								<td><input type="button" class="btn btn-danger btn-sm reserveBtn" id="${room.roomNo }"
+								<td><input type="button"
+									class="btn btn-danger btn-sm reserveBtn" id="${room.roomNo }"
 									value="예약 하기"></td>
 							</tr>
 						</c:forEach>

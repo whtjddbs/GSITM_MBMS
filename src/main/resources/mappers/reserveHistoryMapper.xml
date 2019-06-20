@@ -79,4 +79,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         			OR rh.end_date BETWEEN TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') AND TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi')+1)
 		]]>
 	</select>
+	
+	
+	<!-- 다음 예약시간 정보를 반환 -->
+	<select id="getNextReservation" parameterType="map" resultType="map">
+		<![CDATA[
+			SELECT tt.* FROM (
+			SELECT 
+			    rh.start_date AS startDate,
+			    rh.end_date AS endDate
+			FROM reserve_history rh, room r, building b
+			WHERE rh.room_no = r.room_no
+			    AND r.build_no = b.build_no
+			    AND b.build_no like '%${buildNo}%'
+			    AND r.room_no like '%${roomNo}%'
+			    AND rh.start_date > TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi')
+			ORDER BY rh.start_date asc
+			) tt
+			WHERE rownum=1
+		]]>
+	</select>
 </mapper>

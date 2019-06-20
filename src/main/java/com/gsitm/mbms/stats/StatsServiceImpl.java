@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.gsitm.mbms.employee.DepartmentDTO;
 import com.gsitm.mbms.employee.EmployeeDAO;
-import com.gsitm.mbms.mypage.MypageHistoryDAO;
-import com.gsitm.mbms.mypage.MypageHistoryDTO;
 import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 
 /**

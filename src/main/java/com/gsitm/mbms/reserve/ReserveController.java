@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gsitm.mbms.building.BuildingDTO;
 import com.gsitm.mbms.building.BuildingService;
+import com.gsitm.mbms.employee.EmployeeService;
 import com.gsitm.mbms.room.RoomDTO;
 import com.gsitm.mbms.room.RoomService;
 
@@ -27,10 +28,12 @@ import com.gsitm.mbms.room.RoomService;
 public class ReserveController {
 	@Autowired
 	private ReserveService reserveService;
-	@Autowired
+	@Autowired 
 	private BuildingService buildingService;
 	@Autowired
 	private RoomService roomService;
+	@Autowired
+	private EmployeeService employeeService;
 
 	/** 회의실 소개 페이지 **/
 	@RequestMapping("/roomList")
@@ -97,11 +100,7 @@ public class ReserveController {
 		Map<String, Object> map = (Map<String,Object>)session.getAttribute("reservationInfo");
 		System.out.println("reserveForm -> map : "+map);
 		
-		if(map!=null) {
-			model.addAttribute("reservationInfo", map);
-		}
-		
-		List<BuildingDTO> buildings = buildingService.selectAll();
+		List<BuildingDTO> buildings = buildingService.selectAllWithRooms();
 		int roomNo = reserveHistoryDTO.getRoomNo();
 
 		if(roomNo!=0) {
@@ -111,6 +110,12 @@ public class ReserveController {
 			model.addAttribute("reservationList", reservationList);
 		}
 		
+		// 참석명단을 위한 전체 직원목록
+		List<Map<String,Object>> employees = employeeService.getEmployeeList();
+		// 부서를 트리 뷰로 보여주기 위한 부서 전체목록
+		List<Map<String, String>> departments = employeeService.selectAllDepartmentTree();
+		model.addAttribute("employees", employees);
+		model.addAttribute("departments", departments);
 		model.addAttribute("reserveHistoryDTO", reserveHistoryDTO);
 		model.addAttribute("buildings", buildings);
 		
@@ -155,5 +160,23 @@ public class ReserveController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	
+	/** 다음 예약시간 정보를 반환 **/
+	@RequestMapping("/getNextReservation")
+	public ModelAndView getNextReservation(@RequestParam Map<String,Object> map) {
+		Map<String,String> reservationTime = reserveService.getNextReservation(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("nextReservationTime", reservationTime);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+
+	
+
+
+	
+
 	
 }

@@ -33,8 +33,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public List<EmployeeDTO> selectAllAdmin() {
 		return sqlSession.selectList("employeeMapper.selectAllAdmin");
 	}
-	
-	
+
 	//원빈 : 담당자 찾기 selectAll
 	@Override
 	public List<Map<String, Object>> getEmployeeList() {
@@ -42,5 +41,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	
+
+	/** 성윤: 모든 직원 정보 조회 **/
+	@Override
+	public List<EmployeeDTO> selectAllEmployee() {
+		return sqlSession.selectList("employeeMapper.selectAllEmployee");
+	}
+
+	/** 성윤 : 부서 전체조회 (트리) **/
+	@Override
+	public List<Map<String, String>> selectAllDepartmentTree() {
+		return sqlSession.selectList("departmentMapper.selectAllDepartmentTree");
+	}
 	
 }
