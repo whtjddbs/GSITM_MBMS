@@ -1,5 +1,7 @@
 package com.gsitm.mbms.equipment;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,11 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public void equipmentInsert(EquipmentDTO dto) {
 		// TODO Auto-generated method stub
 		equipmentDAO.equipmentInsert(dto);
+	}
+	@Override
+	public List<EquipmentDTO> equipmentDistinctSelect() {
+		// TODO Auto-generated method stub
+		return equipmentDAO.equipmentDistinctSelect();
 	}
 
 }

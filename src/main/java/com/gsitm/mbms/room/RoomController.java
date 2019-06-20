@@ -4,6 +4,7 @@ package com.gsitm.mbms.room;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -46,7 +47,7 @@ public class RoomController {
 	private EmployeeDAO eDao;
 	
 	@Resource(name="uploadPath")
-	private String uploadPath; //여기까지해쑴
+	private String uploadPath; 
 	
 	//Room 목록
 	@RequestMapping(value="/roomManageList", method=RequestMethod.GET)
@@ -69,12 +70,15 @@ public class RoomController {
 		
 		List<BuildingDTO> buildings = buildingService.SelectAll();
 		model.addAttribute("buildings", buildings);
+		
+		List<EquipmentDTO> equipments = equipmentService.equipmentDistinctSelect();
+		model.addAttribute("equipments",equipments);
 		return "/room/roomInsertForm";	
 	}
 	
 	//Room 등록
 		@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
-		public String roomInsert(RoomDTO dto, String eqName,int eqCount,MultipartFile file, HttpServletRequest request) throws Exception {
+		public String roomInsert(RoomDTO dto, String eqNameList,String eqCountList,MultipartFile file, HttpServletRequest request) throws Exception {
 			logger.info("Room Insert Action!");
 			String imgpUploadPath = request.getSession().getServletContext().getRealPath("/resources/") + File.separator + "imgUpload";
 			String ymdPath = UploadFileUtils.calcPath(imgpUploadPath);
@@ -89,8 +93,15 @@ public class RoomController {
 			dto.setRoomImg(File.separator +"imgUpload"+ymdPath+File.separator+fileName);
 			System.out.println(dto.getRoomImg());
 			roomService.roomInsert(dto);
-			EquipmentDTO equipmentDTO = new EquipmentDTO(dto.getRoomNo(),0, eqName, eqCount );
-			equipmentService.equipmentInsert(equipmentDTO);
+			
+			StringTokenizer nameToken = new StringTokenizer(eqNameList, ",");
+			StringTokenizer countToken = new StringTokenizer(eqCountList, ",");
+			
+			 while(nameToken.hasMoreTokens()) {	 
+				 EquipmentDTO equipmentDTO = new EquipmentDTO(dto.getRoomNo(),0, nameToken.nextToken(),Integer.parseInt(countToken.nextToken()));
+				 equipmentService.equipmentInsert(equipmentDTO);
+			 }
+						
 		
 			return "redirect:/room/roomManageList";	
 		}

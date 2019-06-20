@@ -35,4 +35,5 @@ public class RoomServiceImpl implements RoomService {
 		roomDAO.roomInsert(dto);
 		
 	}
+
 }

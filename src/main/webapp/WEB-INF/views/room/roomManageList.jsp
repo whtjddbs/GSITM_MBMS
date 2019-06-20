@@ -62,7 +62,8 @@
 									<tr role='row'>
 										<td><img src='${room.roomImg }' style="width: 300px;">?</td>
 										<td>${room.roomName }</td>
-										<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기</td>
+										
+										<td><span id="equipList"></span></td>
 										<td>${room.roomNumEmp }명</td>
 										<td>시간당 ${room.roomPrice }원</td>
 										<td>${room.buildNo}</td>
@@ -220,17 +221,28 @@
 			$(id).modal();
 		})
 		
-/* 	$('#roomListTable').DataTable({
-			"columnDefs" : [ {
-				"targets" : [ 5 ],
-				"visible" : false,
-				"searchable" : true
-			}, {
-				"targets" : [ 6 ],
-				"visible" : false,
-				"searchable":true
-			} ]
-		}); */
-
-	})
+	
+	$('.td').each(function(i, e){
+		
+		$.ajax({
+	        url : "/equipment/equipmentList",
+	        data : {roomNo: $(e).find("#roomNo").val()},
+	        
+	        type : "POST",
+	        dataType : "json",
+	        success : function(data){
+	            var str = '';
+	            $.each(data.equipmentList , function(i, item){
+	                str += item.NAME + " ";
+	           });
+	            
+	            $(e).find("#equipList").append(str); 
+	        },
+	        error : function(){
+	            alert("회의실 별 비품 목록 조회 에러");
+	        }
+	    });
+	})	
+})
+	
 </script>
