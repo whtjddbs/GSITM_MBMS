@@ -10,8 +10,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class EquipmentDTO {
+	private int roomNo;
 	private int eqNo;
 	private String eqName;
 	private int eqCount;
-	private int roomNo;
 }

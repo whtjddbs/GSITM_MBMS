@@ -2,6 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<style>
+	.form-group {display: -webkit-box; height: auto;}
+	.form-control[readonly] {background: white;}
+	.input-group-addon {background-color: #3c8dbc !important; border-color: #367fa9 !important; color: white;}
+	.fa-plus {color: white;}
+	.btn-outline-secondary {background-color: #3c8dbc; color: white;}
+	.btn-outline-secondary:hover {background-color: #367fa9; color: white;}
+</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -23,22 +32,22 @@
 					</div>
 					<div class="box-body">
 						<!-- 지사 선택 -->
-						<div class="col-md-12">
+						<div class="col-md-12 col-xs-12">
 							<div class="form-group">
-								<div class="col-sm-6">
-								<label for="buildingSelect">지사</label> 
+								<div class="col-lg-6 col-xs-6">
+									<label for="buildingSelect">지사</label> 
 									<select name="buildingSelect" id="buildingSelect" class="form-control" onchange="selectBuilding(this.options[this.selectedIndex].value)">
-										<c:forEach var="building" items="${buildings }" varStatus="status">
+										<c:forEach var="building" items="${buildings}" varStatus="status">
 											<c:if test="${status.first}">
 												<option value="${building.buildNo }" selected="selected">${building.buildName }</option>
 											</c:if>
 											<c:if test="${!status.first}">
-												<option value="${building.buildNo }">${building.buildName }</option>
+												<option value="${building.buildNo }">${building.buildName}</option>
 											</c:if>
 										</c:forEach>
 									</select>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-6  col-xs-6">
 									<label for="roomSelect">회의실</label>
 									<select name="roomSelect" id="roomSelect" class="form-control">
 										<c:forEach var="building" items="${buildings }" varStatus="status">
@@ -48,9 +57,12 @@
 										</c:forEach>
 									</select>
 								</div>
-	
-								<!-- 회의유형 선택 -->
-								<div class="col-sm-12">
+								
+							</div>
+								
+							<!-- 회의유형 선택 -->
+							<div class="form-group">
+								<div class="col-sm-12  col-xs-12">
 									<label>회의구분</label> 
 									<select name="category" id="meetingCategory" class="form-control">
 										<option value="고객미팅">고객미팅</option>
@@ -59,8 +71,10 @@
 										<option value="기타">기타</option>
 									</select>
 								</div>
-							
-								<div class="col-sm-12">
+							</div>
+								
+							<div class="form-group">
+								<div class="col-sm-12  col-xs-12">
 									<label>시작일</label>
 									<div class="input-group">
 										<div class="input-group-addon">
@@ -76,7 +90,10 @@
 									</div>
 									<!-- /.input group -->
 								</div>
-								<div class="col-sm-12">
+							</div>
+								
+							<div class="form-group">
+								<div class="col-sm-12  col-xs-12">
 									<label>종료일</label>
 									<div class="input-group">
 										<div class="input-group-addon">
@@ -92,74 +109,99 @@
 									</div>
 									<!-- /.input group -->
 								</div>
-					             
-							</div>
-
+					        </div>
+								
+							<div class="form-group">
 							<!-- 참석인원 -->
-							<div class="col-sm-12">
+							<div class="col-sm-12  col-xs-12">
 								<label>참석인원 및 명단</label>
 								<div class="input-group">
 									<span class="input-group-addon">참석인원</span> 
-									<input type="number" id="empCount" placeholder="최대인원 (명)" class="form-control">
+									<input type="number" id="empCount" placeholder="최대인원 (명)" class="form-control" readonly>
 									<span class="input-group-addon"><i class="fa fa-users"></i></span>
-									<input type="text" id="empList" class="form-control" placeholder="참석자 명단">
+									<input type="text" id="empList" class="form-control" placeholder="참석자 명단" readonly>
 									<div class="input-group-btn">
 										<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#employeeList-modal" type="button"><i class="fa fa-plus"></i></button>
 									</div>
 								</div>
 							</div>
+							</div>
 							
+							<div class="form-group">
+							<!-- 주관 / 협조 부서 -->
+							<div class="col-sm-12  col-xs-12">
+								<label>주관 및 협조부서</label>
+								<div class="input-group">
+									<span class="input-group-addon">주관</span> 
+									<input type="text" id="mainDeptList" class="form-control" placeholder="주관부서 목록"  readonly>
+									<span class="input-group-addon">협조</span>
+									<input type="text" id="subDeptList" class="form-control" placeholder="협조부서 목록" readonly>
+									<div class="input-group-btn">
+										<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#mainDept-modal" type="button"><i class="fa fa-plus"></i></button>
+									</div>
+								</div>
+							</div>
+							</div>
+								
+							<div class="form-group">
 							<!-- 비품 신청 -->
-							<div class="col-sm-12">
+							<div class="col-sm-12  col-xs-12">
 								<label>비품신청</label>
 								<div class="input-group">
-									<span class="input-group-addon">비품명</span> 
-									<input type="text" placeholder="비품명" class="form-control" readonly>
-									<span class="input-group-addon">수량</span>
-									<input type="number" class="form-control" placeholder="수량" readonly>
+									<span class="input-group-addon">비품</span> 
+									<input type="text" placeholder="비품을 선택하세요." class="form-control" id="eqList" readonly>
 									<div class="input-group-btn">
 										<button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#equipmentList-modal"><i class="fa fa-plus"></i></button>
 									</div>
 								</div>
 							</div>
-							
+							</div>
+								
+							<div class="form-group">
 							<!-- 네트워크 사용 유무 -->
-							<div class="col-sm-12">
+							<div class="col-sm-12 col-xs-12">
 								<label class="control-label">네트워크 유/무</label>
-								<div class="col-sm-12">
-									<label class="col-sm-6"> 
-										<input type="radio" name="networkYn" class="minimal" checked> Yes
+								<div class="col-sm-12  col-xs-12">
+									<label class="col-sm-6  col-xs-6"> 
+										<input type="radio" name="networkYn" class="minimal" value="Y" checked> Yes
 									</label>
-									<label class="col-sm-6">
-										<input type="radio" name="networkYn" class="minimal"> No
+									<label class="col-sm-6  col-xs-6">
+										<input type="radio" name="networkYn" class="minimal" value="N"> No
 									</label>
 								</div>
 							</div>
+							
+							</div>
+								
+							<div class="form-group">
 	
 							<!-- 다과준비 유무 -->
-							<div class="col-sm-12">
+							<div class="col-sm-12 col-xs-12">
 								<label class="control-label">다과준비 유/무</label>
-								<div class="col-sm-12">
-									<label class="col-sm-6"> <input type="radio"
-										name="snackYn" class="minimal" checked> Yes
-									</label> <label class="col-sm-6"> <input type="radio"
-										name="snackYn" class="minimal"> No
+								<div class="col-sm-12 col-xs-12">
+									<label class="col-sm-6 col-xs-6"> <input type="radio"
+										name="snackYn" class="minimal" value="Y" checked> Yes
+									</label> <label class="col-sm-6 col-xs-6"> <input type="radio"
+										name="snackYn" class="minimal" value="N"> No
 									</label>
 								</div>
 							</div>
-							
-							<!-- 사용 목적 -->
-							<div class="col-sm-12">
-								<div class="form-group">
-									<label class="control-label">사용 목적</label>
-									<textarea class="form-control" rows="5" ></textarea>
-								</div>
-								<br>
 							</div>
+								
+							<div class="form-group">
+							<!-- 사용 목적 -->
+							<div class="col-sm-12 col-xs-12">
+								<label class="control-label">사용 목적</label>
+								<textarea class="form-control" rows="5" ></textarea>
+							</div>
+							</div>
+							
+							<div class="form-group">
 	
-							<div class="col-sm-12">
-								<input type="button" class="btn  btn-info col-sm-12"
+							<div class="col-sm-12 col-xs-12">
+								<input type="button" class="btn bg-primary col-sm-12 "
 									id="availableRoomSearchBtn" value="예약">
+							</div>
 							</div>
 
 						</div>
@@ -179,59 +221,39 @@
 <!-- /.content-wrapper -->
 
 <jsp:include page="modals/employeeListModal.jsp"></jsp:include>
+<jsp:include page="modals/equipmentListModal.jsp"></jsp:include>
 
 
-<div class="modal fade" id="equipmentList-modal">
-	<div class="modal-dialog modal-lg">
+<!-- dataTable extension select -->
+<link rel="stylesheet" href="/resources/plugins/multi-select/css/multi-select.css">
+<script src="/resources/plugins/multi-select/js/jquery.multi-select.js"></script>
+<div class="modal fade" id="mainDept-modal">
+	<div class="modal-dialog">
 	  <div class="modal-content">
 	    <div class="modal-header">
 	      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	        <span aria-hidden="true">&times;</span></button>
-	      <h4 class="modal-title">참석 명단</h4>
+	      <h4 class="modal-title">주관 및 협조부서</h4>
 	    </div>
 	    <div class="modal-body">
 	    	<!-- 모달 내용 -->
-	    	<div class="row equipmentList-body">
-		    	<div class="col-lg-8 equipmentList-md">
-		    		<table id="equipmentListTable" class="table table-bordered table-hover">
-						<thead>
-							<tr>
-								<th>비품코드</th>
-								<th>비품명</th>
-								<th>보유수량</th>
-								<th>신청수량</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${employees }" var="employee" varStatus="status">
-								<tr role='row'>
-									<td>${employee.EMPNO }</td>
-									<td>${employee.EMPNAME }</td>
-									<td>${employee.EMPPOSITION }</td>
-									<td>${employee.DEPT_NAME }</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-		    	</div>
-		    	<div class="col-lg-4 equipmentList-right">
-		    		<div id="attendants-list-title">
-		    			<h4>참석자 명단</h4>
-		    			( <span id="attendants-count">0</span> 명)
-		    		</div>
-		    		<div class="scrollbar" id="style-1">
-						<div class="force-overflow">
-							<ul id="attendants-list">
-		    				</ul>
-						</div>
-				    </div>
-		    		
+	    	<div class="row mainDept-body text-center">
+		    	<div class="col-lg-10 col-lg-offset-1 equipmentList-md">
+		    		<select id='mainDeptSelect' multiple='multiple'>
+		    			<option value="test1">테스트1</option>
+		    			<option value="test2" selected>테스트2</option>
+		    			<option value="test3" selected>테스트3</option>
+		    			<option value="test4">테스트4</option>
+		    			<option value="test6">테스트5</option>
+		    			<option value="test7">테스트6</option>
+		    			<option value="test8">테스트7</option>
+		    		</select>
 		    	</div>
 	    	</div>
 	    </div>
 	    <div class="modal-footer">
-	      <button type="button" class="btn btn-primary col-lg-2 pull-right" data-dismiss="modal">확인</button>
-	      <button type="button" id="employeeList-modal-reset" class="btn btn-default col-lg-2 pull-right">초기화</button>
+	      <button type="button" id="mainDept-modal-ok" class="btn btn-primary col-lg-2 pull-right" data-dismiss="modal">확인</button>
+	      <button type="button" id="mainDept-modal-cancel" class="btn btn-default col-lg-2 pull-right" data-dismiss="modal">취소</button>
 	    </div>
 	  </div>
 	  <!-- /.modal-content -->
@@ -239,30 +261,16 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
 <script>
 	$(function(){
-		var equipmentTable = $('#equipmentListTable').DataTable({
-			'lengthChange' : false,
-			'searching' : true,
-			'ordering' : true,
-			'info' : false,
-			'autoWidth' : false,
-			'order' : [ [ 1, "asc" ] ],
-			'destroy': true,
-			'dom': '<"top"f>rt<"bottom"p><"clear">',
-			select: {
-	            style: 'multi'
-	        },
-	        "columnDefs": [
-	            {
-	                "targets": [ 0 ],
-	                "visible": false
-	            }
-	        ]
+		$('#mainDeptSelect').multiSelect({
+			selectableHeader: "<div class='custom-header'><h4>주관부서</h4></div>",
+			selectionHeader: "<div class='custom-header'><h4>협조부서</h4></div>"
 		});
 	});
 </script>
+
+
 
 
 <style>
@@ -415,18 +423,19 @@
 			zIndexOffset: 100,
 			title: '시작일'
 		}).on('changeDate', function(e) {
-			if(moment(e.date).format('YYYY/MM/DD')!=$(startDateElement).val()) {
+			if(moment(e.date).format('YYYY/MM/DD')!=setStartDate) {
 				$(endDateElement).val('');
 				$(startTimeElement).val('');
 				$(endTimeElement).val('');
 			}
 			
-// 			$(endDateElement).datepicker('setStartDate', moment(e.date).format('YYYY/MM/DD'));
 			$(startDateElement).datepicker('hide');
 			$('#reservationStartTime').myTimepicker({
 				nextTarget: '#reservationEndDate'
 			});
 			settingStartDateAllowTimes($('#reservationStartDate').val()+" 00:00", '#reservationStartTimeDrop', true);
+			
+			setStartDate = $(startDateElement).val();
 		});
 	}
 	
@@ -546,6 +555,7 @@
 		   	$('#reservationStartTime').val(startDate.format('HH:mm'));
 		   	$('#reservationEndTime').val(endDate.format('HH:mm'));
 	   	}
-	    
+		
 	});
+	
 </script>

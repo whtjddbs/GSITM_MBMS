@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gsitm.mbms.building.BuildingDTO;
 import com.gsitm.mbms.building.BuildingService;
 import com.gsitm.mbms.employee.EmployeeService;
+import com.gsitm.mbms.equipment.EquipmentDTO;
+import com.gsitm.mbms.equipment.EquipmentService;
 import com.gsitm.mbms.room.RoomDTO;
 import com.gsitm.mbms.room.RoomService;
 
@@ -34,6 +36,8 @@ public class ReserveController {
 	private RoomService roomService;
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private EquipmentService equipmentService;
 
 	/** 회의실 소개 페이지 **/
 	@RequestMapping("/roomList")
@@ -108,12 +112,17 @@ public class ReserveController {
 			List<ReserveHistoryDTO> reservationList = reserveService.getReservationListByRoomNo(roomNo);
 			model.addAttribute("roomDTO", roomDTO);
 			model.addAttribute("reservationList", reservationList);
+			
+			// 선택한 회의실의 비품목록 조회
+			List<EquipmentDTO> equipments = equipmentService.selectOneByRoomNo(roomNo);
+			model.addAttribute("equipments", equipments);	
 		}
 		
 		// 참석명단을 위한 전체 직원목록
 		List<Map<String,Object>> employees = employeeService.getEmployeeList();
 		// 부서를 트리 뷰로 보여주기 위한 부서 전체목록
 		List<Map<String, String>> departments = employeeService.selectAllDepartmentTree();
+		
 		model.addAttribute("employees", employees);
 		model.addAttribute("departments", departments);
 		model.addAttribute("reserveHistoryDTO", reserveHistoryDTO);
@@ -169,6 +178,15 @@ public class ReserveController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("nextReservationTime", reservationTime);
 		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/** 성윤: 해당 회의실의 비품 목록을 json으로 반환 */
+	@RequestMapping("/getOneRoomEquipment")
+	public ModelAndView getOneRoomEquipment(Integer roomNo) {
+		List<EquipmentDTO> equipments = equipmentService.selectOneByRoomNo(roomNo);
+		ModelAndView mav = new ModelAndView("jsonView");
+		mav.addObject("equipments", equipments);
 		return mav;
 	}
 	
