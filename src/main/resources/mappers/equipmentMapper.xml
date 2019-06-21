@@ -12,6 +12,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result column="eq_count" property="eqCount"/>
    </resultMap>
    
+   <resultMap type="equipment" id="EquipmentwithRoom">
+      <result column="room_no" property="roomNo"/>
+      <result column="eq_no" property="eqNo"/>
+      <result column="eq_name" property="eqName"/>
+      <result column="eq_count" property="eqCount"/>
+   </resultMap>
+   
+   
    <insert  id="equipmentInsert"  parameterType="Equipment">
    		insert into room_equipment values(#{roomNo},eq_seq.nextval,#{eqName},#{eqCount}) 
    </insert>
@@ -19,4 +27,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="equipmentDistinctSelect" resultMap="Equipment">
    		select distinct eq_name from room_equipment
    </select>
+   
+   <select id="equipmentSelectAll" resultMap="Equipment">
+   		select * from room_equipment
+   </select>
+   
+   <!-- 비품에서 회의실 이름 가져오기 -->
+	<select id="equipmentSelectAllwithRoom"  resultType="map">	
+			SELECT 
+				e.room_no AS roomNo,
+				e.eq_no AS eqNo,
+				e.eq_name AS eqName,
+				e.eq_count AS eqCount,
+				r.room_name AS roomName,
+				b.build_name AS buildName
+			    
+			FROM  room_equipment e, room r, building b
+			WHERE r.room_no = e.room_no	and r.build_no = b.build_no 
+	</select>
+   
 </mapper>

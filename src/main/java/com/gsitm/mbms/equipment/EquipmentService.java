@@ -1,6 +1,7 @@
 package com.gsitm.mbms.equipment;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @주제 : 
@@ -13,5 +14,9 @@ public interface EquipmentService {
 	public void equipmentInsert(EquipmentDTO dto);
 
 	public List<EquipmentDTO> equipmentDistinctSelect();
+
+	public List<EquipmentDTO> equipmentSelectAll();
+
+	public List<Map<String, Object>> equipmentSelectAllwithRoom();
 
 }
