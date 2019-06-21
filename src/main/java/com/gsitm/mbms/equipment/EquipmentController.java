@@ -1,6 +1,7 @@
 package com.gsitm.mbms.equipment;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -26,15 +27,14 @@ public class EquipmentController {
 	@Inject
 	EquipmentService service;
 	
-	@RequestMapping(value="/equipmentList", method=RequestMethod.POST)
-	public ModelAndView list(String roomNo) {
-		log.trace("Equipment List!");
+	//equipment 목록
+	@RequestMapping(value="/equipmentList", method=RequestMethod.GET)
+	public String list(Model model) {
+		log.trace("equipment ListPage!");
 		
-		List<EquipmentDTO> list = service.equipmentDistinctSelect();
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("equipmentList", list);
-		mav.setViewName("jsonView");
-
-		return mav;
+		//List<EquipmentDTO> list = service.equipmentSelectAll();
+		List<Map<String, Object>> list= service.equipmentSelectAllwithRoom();
+		model.addAttribute("list",list);
+		return "/equipment/equipmentList";//test
 	}
 }

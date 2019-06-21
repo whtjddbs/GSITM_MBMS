@@ -1,12 +1,17 @@
 package com.gsitm.mbms.equipment;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @작성일 : 2019. 6. 20.
+ * @작성자 : 김원빈
+ */
 @Repository
 public class EquipmentDAOImpl implements EquipmentDAO {
 
@@ -23,6 +28,18 @@ public class EquipmentDAOImpl implements EquipmentDAO {
 	public List<EquipmentDTO> equipmentDistinctSelect() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("equipmentMapper.equipmentDistinctSelect");
+	}
+
+	@Override
+	public List<EquipmentDTO> equipmentSelectAll() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("equipmentMapper.equipmentSelectAll");
+	}
+
+	@Override
+	public List<Map<String, Object>> equipmentSelectAllwithRoom() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("equipmentMapper.equipmentSelectAllwithRoom");
 	}
 
 }
