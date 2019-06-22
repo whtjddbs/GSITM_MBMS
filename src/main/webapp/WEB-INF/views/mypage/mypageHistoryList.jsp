@@ -107,7 +107,7 @@
 					title : $.trim($(this).text())
 				// use the element's text as the event title
 				}
-
+				
 				// store the Event Object in the DOM element so we can get to it later
 				$(this).data('eventObject', eventObject)
 

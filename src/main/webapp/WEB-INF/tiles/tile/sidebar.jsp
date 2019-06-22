@@ -12,7 +12,7 @@
 					class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>조성윤</p>
+				<p>흰둥이26</p>
 				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 			</div>
 		</div>
@@ -72,7 +72,7 @@
 							근무지 관리</a></li>
 					<li><a href="/room/roomManageList"><i class="fa fa-circle-o"></i>
 							회의실 관리</a></li>
-					<li><a href="layout/fixed.html"><i class="fa fa-circle-o"></i>
+					<li><a href="/equipment/equipmentList"><i class="fa fa-circle-o"></i>
 							비품 관리</a></li>
 				</ul></li>
 			<!-- 회의실 -->
@@ -84,7 +84,7 @@
 				<ul class="treeview-menu">
 					<li><a href="layout/top-nav.html"><i class="fa fa-circle-o"></i> 
 							예약 현황 관리</a></li>
-					<li><a href="layout/boxed.html"><i class="fa fa-circle-o"></i>
+					<li><a href="/stats/statsMain"><i class="fa fa-circle-o"></i>
 							예약 통계</a></li>
 				</ul></li>
 		</ul>

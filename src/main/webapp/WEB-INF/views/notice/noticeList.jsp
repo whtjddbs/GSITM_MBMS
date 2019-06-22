@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-	.notice_col1 { width: 10%; }
+	.notice_col1 { width: 8%; }
 	.notice_col2 { width: 10%; }
-	.notice_col3 { width: 50%; }
-	.notice_col4 { width: 10%; }
+	.notice_col3 { width: 10%; }
+	.notice_col4 { width: 50%; }
 	.notice_col5 { width: 20%; }
 
 
@@ -71,8 +71,8 @@
 			                 		</button>
 	                 			</form>
 							</c:when>
-							<c:otherwise>
-								<form action="noticeInsertForm" method="post">
+							<c:otherwise> 
+								<form action="noticeList" method="get">
 									<button type="submit" class="btn btn-primary" disabled>
 			                 		 	<i class="fa fa-plus"></i>　작성하려면 운영자로 로그인하세요
 			                 		</button>
@@ -96,10 +96,10 @@
 							<thead>
 							
 								<tr>
-									<th class = "notice_col1">글번호</th>
-									<th class = "notice_col2">작성자</th>
-									<th class = "notice_col3">제목</th>
-									<th class = "notice_col4">첨부</th>
+									<th class = "notice_col1">번호</th>
+									<th class = "notice_col2">사번</th>
+									<th class = "notice_col3">작성자</th>
+									<th class = "notice_col4">제목</th>
 									<th class = "notice_col5">작성일</th>
 								</tr>
 							</thead>
@@ -111,8 +111,8 @@
 										
 											<td>${noticeDTO.noticeNo}</td>
 											<td>${noticeDTO.writerEmpNo}</td>
+											<td>${noticeDTO.writerEmpName}</td>
 											<td><a href='noticeDetail?noticeNo=${noticeDTO.noticeNo}'>${noticeDTO.noticeSubject}</a></td>
-											<td>미구현</td>
 											<td>${noticeDTO.noticeDate}</td>
 										
 										
@@ -123,7 +123,7 @@
 								
 								
 							</tbody>
-							<tfoot>
+							<!-- <tfoot>
 								<tr>
 									<th>글번호</th>
 									<th>작성자</th>
@@ -131,7 +131,7 @@
 									<th>첨부</th>
 									<th>작성일</th>
 								</tr>
-							</tfoot>
+							</tfoot> -->
 						</table>
 					</div>
 					<!-- /.box-body -->

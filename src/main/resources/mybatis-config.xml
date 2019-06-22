@@ -17,6 +17,5 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.gsitm.mbms.reserve.ReserveHistoryDTO" alias="reserveHistory"/>
 		<typeAlias type="com.gsitm.mbms.payment.PaymentDTO" alias="payment"/>
 		<typeAlias type="com.gsitm.mbms.mypage.MypageDTO" alias="mypage"/>
-		
 	</typeAliases>
-</configuration>
+</configuration> 
