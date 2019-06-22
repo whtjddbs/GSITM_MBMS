@@ -2,9 +2,11 @@ package com.gsitm.mbms.mypage;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +27,7 @@ public class MypageController {
 	
 	@Inject
 	private MypageService mypageService;
-	
-//	@Autowired
-//	private ReserveService reserveService;
-//	
-//	@Autowired
-//	private BuildingService buildingService;
 
-	
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 
 	/** 예약현황 목록 */
@@ -77,6 +72,19 @@ public class MypageController {
 		mypageService.delete(reserveNo);
 		return "redirect:/mypage/mypageStatusList";
 	}
+	
+//	/** 날짜 검색 */
+//	@RequestMapping("/mypageListResult")
+//	public String mypageListResult(@RequestParam Map<String,Object> map, Model model, HttpSession session) {
+//		System.out.println(map.toString());
+//		
+//		String dateRange = (String) map.get("reservationtime");
+//		String dates[] = dateRange.split("-");
+//		map.put("startDate", dates[0].trim());
+//		map.put("endDate", dates[1].trim());
+//		
+//		return "mypage/mypageListResult";
+//	}
 	
 
 	

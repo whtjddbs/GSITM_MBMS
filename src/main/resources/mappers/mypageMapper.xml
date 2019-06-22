@@ -38,6 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAllHistory" resultMap="MypageDTO">
 		SELECT RESERVE_HISTORY.*,employee.emp_name, room.room_name FROM RESERVE_HISTORY, EMPLOYEE, ROOM
 			WHERE reserve_history.reserve_emp_no=employee.emp_no and reserve_history.room_no=room.room_no
+			
 	</select>
 	
 	<select id="selectAllStatus" resultMap="MypageDTO">
@@ -45,8 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          SELECT RESERVE_HISTORY.*, room.room_name, building.build_name FROM RESERVE_HISTORY, ROOM, building
 	         WHERE TO_CHAR(START_DATE, 'YYYYMMDD') >= (SELECT TO_CHAR(SYSDATE, 'YYYYMMDD') FROM DUAL) 
 	         and reserve_history.room_no=room.room_no
-	         and room.build_no = building.build_no
-         
+	         and room.build_no = building.build_no         
     </select>
     
     <select id="selectMemberList" resultMap="MypageDTO">

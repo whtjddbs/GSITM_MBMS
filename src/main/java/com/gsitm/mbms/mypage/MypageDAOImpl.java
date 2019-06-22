@@ -39,7 +39,6 @@ public class MypageDAOImpl implements MypageDAO{
 	
 	//삭제
 	public void delete(int reserveNo) throws Exception {
-		//session.delete("mypageMapper.delete", reserveNo);
 		session.delete(namespace + "delete", reserveNo);
 	}
 	

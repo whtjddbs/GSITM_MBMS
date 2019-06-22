@@ -9,5 +9,4 @@ public interface PaymentDAO {
 	
 	public List<PaymentDTO> sumPayment();
 
-	
 }

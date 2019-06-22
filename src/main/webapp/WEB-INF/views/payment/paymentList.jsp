@@ -28,13 +28,13 @@
             <!-- /.box-header -->
             <div id="dvData">
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example2" class="table table-bordered table-striped">
                 
                 <thead>
                 <tr>
                   <th>예약 일자</th>
                   <th>회의 구분</th>
-                  <th>예약자(사원번호)</th>
+                  <th>주관 부서</th>
                   <th>결제 상태</th> 
                   <th>결제 날짜</th> 
                   <th>비용(원)</th>       
@@ -44,9 +44,9 @@
                 <tbody>
 				<c:forEach var="PaymentDTO" items="${paymentList}">
 					<tr>
-						<td>${PaymentDTO.startDate}</td>
+						<td><a href='paymentDetail?reserveNo=${PaymentDTO.reserveNo}'>${PaymentDTO.startDate}</td>
 						<td>${PaymentDTO.category}</td>
-						<td>${PaymentDTO.empName} (${PaymentDTO.reserveEmpNo})</td>
+						<td>${PaymentDTO.deptName}</td>
 						<c:if test="${PaymentDTO.paymentYn == 0 }">
 							<td>미결제</td>
 						</c:if>
@@ -75,14 +75,14 @@
               </table>
               </div>
             </div>
-            </div>            
+           </div>            
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
        	</div>
        </section>
         <!-- /.col -->
-      </div>
+    </div>
       <!-- /.row -->
 
 <script>

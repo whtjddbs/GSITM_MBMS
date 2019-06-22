@@ -45,20 +45,15 @@
 				<!-- /.box -->
 			</div>
 			<!-- /.col(left:col-md-3) -->
-			<div class="col-md-9">
-						<div class="box box-primary">
-			
-<!-- /.content-wrapper -->	
-
-
+	<div class="col-md-9">
+	<div class="box box-primary">
+	<!-- /.content-wrapper -->	
 	<section class="content">
 		<div class="row">
 			<div class="col-xs-12">
 					<!-- /.box-header -->
 					<div class="box-body">
-						
 						<table id="example1" class="table table-bordered table-striped">
-							
 							<thead>
 								<tr>
 									<th class = "">예약 시작일</th>
@@ -67,9 +62,7 @@
 									<th class = "">회의명</th>
 								</tr>
 							</thead>
-							
 			               <tbody>
-			               
 							<c:forEach var="MypageDTO" items="${mypageHistoryList}">
 								<tr>
 									<td>${MypageDTO.startDate}</td>
@@ -78,10 +71,7 @@
 									<td>${MypageDTO.purpose}</td>
 								</tr>
 							</c:forEach>
-							 
-
-							</tbody>
-											               		       
+							</tbody>			               		       
 						</table>
 					</div>
 					<!-- /.box-body -->
@@ -92,15 +82,16 @@
 		<!-- /.row -->
 	</section>
 	<!-- /.content -->
-<!-- /.content-wrapper -->
-
+	<!-- /.content-wrapper -->
 				</div>	
 				<!-- /. box -->	
 			</div>
 			<!-- /.col(right:col-md-9) -->
+			</div>
 			</section>
 		</div>
 		<!-- /.row -->
+
 
 <script>
 	$(function() {
@@ -187,7 +178,6 @@
 	    	$('#availableRoomListForm').submit();
 	    });
 		
-
 	})
 </script>
 
@@ -203,76 +193,3 @@
 		})
 	})
 </script>
-
-<!--
-<script>
-	$(function() {
-		/* initialize the calendar
-		 -----------------------------------------------------------------*/
-		//Date for the calendar events (dummy data)
-		var date = new Date();
-		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear();
-		var selectedStart;
-		var selectedEnd;
-		var calendar = $('#calendar').fullCalendar({
-			header : {
-				left : 'prev,next today reserveBtn',
-				center : 'title',
-				right : 'month,agendaWeek,agendaDay'
-			},
-			buttonText : {
-				today : 'today',
-				month : 'month',
-				week : 'week',
-				day : 'day'
-			},
-			customButtons: {
-				reserveBtn: {
-					text: '예약하기',
-					color : '#3c8dbc',
-					click: function(event) {
-						console.log(selectedStart +" - "+ selectedEnd);
-						$('#availableRoomListForm').submit();
-					}
-				}
-			},
-			selectable: true,
-			select: function(startDate, endDate, jsEvent, view, resource) {
-				selectedStart = startDate.format('YYYY-MM-DD HH:mm');
-				selectedEnd = endDate.format('YYYY-MM-DD HH:mm');
-				$('#reservationtime').data('daterangepicker').setStartDate(selectedStart);
-				$('#reservationtime').data('daterangepicker').setEndDate(selectedEnd);
-			},
-			dayClick: function(date, event, view) {
-				console.log(moment(date).format('YYYY/MM/DD HH:mm'));
-				console.log(event);
-				console.log(view);
-			},
-			contentHeight: "auto",
-			googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE" // Google API KEY
-
-		});
-		
-		/** DatePicker **/
-		//좌측 회의실 검색부분
-		$('#reservationtime').daterangepicker({
-			timePicker : true,
-			timePickerIncrement : 30,
-			timePicker24Hour: true,
-			minDate : new Date(),
-			format : 'YYYY/MM/DD HH:mm',
-			locale : {
-				format : 'YYYY/MM/DD HH:mm'
-			}
-		})
-	    
-	    //검색 버튼 클릭
-	    $('#availableRoomSearchBtn').click(function(){
-	    	let picker = $('#reservationtime').data('daterangepicker');
-	    	console.log(moment(picker.startDate).format('YYYY/MM/DD HH:mm') + " - " + moment(picker.endDate).format('YYYY/MM/DD HH:mm'));
-	    	$('#availableRoomListForm').submit();
-	    });
-	    
-	})
-</script>
-   -->
