@@ -11,7 +11,6 @@
 			<li class="active">Notice</li>
 		</ol>
 	</section>
-
 	<!-- Main content -->
 	<section class="content">
 		<div class="row">
@@ -99,7 +98,6 @@
 												<div class="modal-footer">
 													<button type="button" class="btn btn-outline pull-left"
 														data-dismiss="modal">닫기</button>
-
 												</div>
 											</div>
 											<!-- /.modal-content -->
@@ -108,67 +106,8 @@
 									</div>
 									<!-- /.modal -->
 								</c:forEach>
-
-
 							</tbody>
 							<tfoot>
-								<div class="modal fade" id="modal-default_eqInsert">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-												<h4 class="modal-title">Default Modal</h4>
-											</div>
-											<div class="modal-body">
-												<form role="form" action="/building/buildingInsert" method="post">
-							<!-- text input -->
-							<div class="form-group">
-								<label>근무지이름</label> <input type="text" class="form-control" name="buildName"
-									placeholder="Enter ...">
-							</div>
-							
-							<label>우편 번호</label>
-							<div class="row">
-								<div class="col-xs-3">
-									<input type="text" class="form-control" name="buildPost" onclick="execPostCode();">
-								</div>
-								<div class="col-xs-4">
-									<input type="button" class="btn btn-default" value="검색하기" onclick="execPostCode();">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label>근무지 주소</label>
-								<div class="row">
-									<div class="col-xs-7">
-										<input type="text" class="form-control" name="buildAddr" onclick="execPostCode();">
-									</div>
-								</div>
-							</div>
-
-							<div class="form-group" align=center>
-								<input type="submit" class='btn btn-success' value="등록완료">
-								<input type="reset" class='btn btn-danger' value="등록취소">
-								<input type="button" class='btn btn-default' value="뒤로가기"  onClick = "history.back();">
-							</div>
-						</form>
-
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default pull-left"
-													data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary">Save
-													changes</button>
-											</div>
-										</div>
-										<!-- /.modal-content -->
-									</div>
-									<!-- /.modal-dialog -->
-								</div>
-
 								<tr>
 									<th>Rendering engine</th>
 									<th>Browser</th>
@@ -178,10 +117,73 @@
 										data-toggle="modal" data-target="#modal-default_eqInsert"
 										value="비품등록하기" /></th>
 								</tr>
-							</tfoot>
 						</table>
+						<div class="modal fade" id="modal-default_eqInsert">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title">Default Modal</h4>
+									</div>
+									<div class="modal-body">
+										<form role="form" action="/equipment/equipmentInsert"
+											method="post">
+										<!-- text input -->
 
+										<div class="row">
+											<div class="col-xs-6">
+												<label>비품이름</label>
+											</div>
+											<div class="col-xs-6">
+												<label>비품갯수</label>
+											</div>
+											<div class="col-xs-6">
+												<input type="text" class="form-control" name="eqName"
+													placeholder="Enter ...">
+											</div>
 
+											<div class="col-xs-6">
+												<input type="number" class="form-control" name="eqCount">
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-xs-3">
+											</div>
+											<div class="col-xs-6">
+											<label>회의실 목록</label>
+											<c:forEach var="building" items="${buildings }" varStatus="status">
+													<br><label>${building.buildName }</label><br>													
+												<c:forEach var="room" items="${building.rooms }">
+													<c:if test="${room.roomNo!=0 }">
+														<input type="checkbox" class="building${building.buildNo }" value="${room.roomNo }" name="roomList" >${room.roomName }
+													</c:if>	
+												</c:forEach>
+										</c:forEach>
+											</div>
+										</div>
+
+										<div class="form-group"></div>
+									</div>
+
+									<div class="form-group" align=center>
+										<input type="submit" class='btn btn-success' value="등록완료">
+										<input type="reset" class='btn btn-danger' value="등록취소">
+										<input type="button" class='btn btn-default' value="뒤로가기"
+											onClick="history.back();">
+									</div>
+									</form>
+									<div class="modal-footer">
+									
+									</div>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
 
 					</div>
 					<!-- /.box-body -->
@@ -208,5 +210,6 @@
 			'info' : true,
 			'autoWidth' : true
 		})
+
 	})
 </script>
