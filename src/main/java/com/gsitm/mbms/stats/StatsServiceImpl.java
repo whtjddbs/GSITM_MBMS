@@ -42,7 +42,6 @@ public class StatsServiceImpl implements StatsService {
 	//그래프에 들어갈 빈도 수치 출력
  	@Override
 	public List<FrequencyDTO> selectFrequency(Map<String, String> filterMap) {
-		System.out.println("----------------------서비스~~"+filterMap);
 		return statsDAO.selectFrequency(filterMap);
 	} 
 

@@ -52,6 +52,7 @@
 	
 	<!-- Interceptor 설정 -->
 	<interceptors>
+		<!-- 성윤 로그인 인터셉터 -->
     	<interceptor> 
     		<mapping path="/**"/>
     		<exclude-mapping path="/login"/>
@@ -60,6 +61,18 @@
     		<exclude-mapping path="/bower_components/**"/>
     		<beans:bean id="loginInterceptor" class="com.gsitm.mbms.interceptor.LoginInterceptor"/>
     	</interceptor>
+    	
+    	<!-- 민기 관리자페이지 권한 인터셉터 -->
+    	<interceptor> 
+    		<mapping path="/stats/**"/>
+    		<mapping path="/building/buildingList"/>
+    		<mapping path="/room/roomManageList"/>
+    		<mapping path="/equipment/equipmentList"/>
+    		<beans:bean id="AuthorityInterceptor" class="com.gsitm.mbms.interceptor.AuthorityInterceptor"/>
+    	</interceptor>
+    	
+    	
+    	
   	</interceptors>
   	
   	<!-- MultipartResolver - 민기 첨부파일 -->

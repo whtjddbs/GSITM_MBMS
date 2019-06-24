@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -28,7 +29,7 @@
 					search form.
 				</p>
 
-				<form class="search-form">
+				<form class="search-form" method=get action="http://www.google.co.kr/search" target="_blank">
 					<div class="input-group">
 						<input type="text" name="search" class="form-control"
 							placeholder="Search">
