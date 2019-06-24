@@ -36,5 +36,23 @@ public class LoginServiceImpl implements LoginService {
 
 	}
 	
+	/**민기 : 해당 사용자가 관리자인지 판별-----------------------------*/
+	@Override
+	public boolean isAdmin(String empNo) {
+		//회의실 관리자 명단 뽑기
+		List<EmployeeDTO> adminList = employeeDAO.selectAllAdmin();
+
+		// 운영자인지 판별
+		boolean isAdminBool = false;
+		for (int i = 0; i < adminList.size(); i++) {
+			if (adminList.get(i).getEmpNo().equals(empNo)) {
+				isAdminBool = true;
+				break;
+			}
+		}
+		
+		return isAdminBool;
+	}
+	
 
 }
