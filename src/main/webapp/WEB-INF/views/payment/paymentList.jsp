@@ -28,25 +28,26 @@
             <!-- /.box-header -->
             <div id="dvData">
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example2" class="table table-bordered table-striped">
                 
                 <thead>
                 <tr>
                   <th>예약 일자</th>
                   <th>회의 구분</th>
-                  <th>예약자(사원번호)</th>
+                  <th>주관 부서</th>
                   <th>결제 상태</th> 
                   <th>결제 날짜</th> 
-                  <th>비용(원)</th>       
+                  <th>비용(원)</th>  
+                  <th>비고</th>     
                 </tr>
                 </thead>
                                 
                 <tbody>
 				<c:forEach var="PaymentDTO" items="${paymentList}">
 					<tr>
-						<td>${PaymentDTO.startDate}</td>
+						<td><a href='paymentDetail?reserveNo=${paymentDTO.reserveNo}'>${PaymentDTO.startDate}</a></td>
 						<td>${PaymentDTO.category}</td>
-						<td>${PaymentDTO.empName} (${PaymentDTO.reserveEmpNo})</td>
+						<td>${PaymentDTO.deptName}</td>
 						<c:if test="${PaymentDTO.paymentYn == 0 }">
 							<td>미결제</td>
 						</c:if>
@@ -55,6 +56,51 @@
 						</c:if>
 						<td>${PaymentDTO.paymentDate}</td>
 						<td>${PaymentDTO.reservePrice}</td>
+						<td>
+							<button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+							data-target="#modal-info_${PaymentDTO.reserveNo}">
+							상세 결제 정보</button>
+							
+							<div class="modal modal-info fade" id="modal-info_${PaymentDTO.reserveNo}">
+										<!-- 예약 상세보기 modal div -->
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+	
+												<h4 class="modal-title">상세 예약내역</h4>
+											</div>
+          										<div class="modal-body">
+										<p><strong>결제 상세 정보</strong></p>
+										<p>회의 일정 : ${PaymentDTO.startDate} ~ ${PaymentDTO.endDate} (예약 신청일 : ${PaymentDTO.reserveDate})</p>
+										<p>결제 대상자 : ${PaymentDTO.empCount}명</p>
+										<c:forEach var="Payment" items="${paymentDetail}">
+										<p>${Payment.empName}</p>
+										</c:forEach>
+										<br><p><strong>결제 현황</strong></p>
+											<p>비용 결제 : 
+										        <c:if test="${PaymentDTO.paymentYn == 0 }">
+													<span>미결제</span>
+												</c:if>
+												<c:if test="${PaymentDTO.paymentYn == 1 }">
+													<span>결제 완료</span>
+												</c:if>
+												(${PaymentDTO.reservePrice} 원)
+					        				</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-outline"
+											data-dismiss="modal">닫기</button>
+									</div>
+									</div>
+								<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+								</div>	
+						</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -73,16 +119,18 @@
 				</tfoot>  
 				      
               </table>
+              
+              					
               </div>
             </div>
-            </div>            
+           </div>            
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
        	</div>
        </section>
         <!-- /.col -->
-      </div>
+    </div>
       <!-- /.row -->
 
 <script>

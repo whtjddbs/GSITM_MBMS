@@ -20,3 +20,5 @@ public interface RoomDAO {
 	public List<RoomDTO> selectAllWithEquipments();
 
 	}
+
+

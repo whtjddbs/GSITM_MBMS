@@ -21,11 +21,14 @@ public interface StatsService {
 	/**민기 : 부서 명단 뽑아오기-----------------------------*/
 	public List<DepartmentDTO> selectAllDept();
 	
-	//히스토리 전체출력
-	public List<ReserveHistoryDTO> selectAllHistory();
-	
+/*	//히스토리 전체출력
+	public List<HistoryForStatsDTO> selectAllHistory();
+	*/
 	//히스토리 필터링 출력
+	public List<HistoryForStatsDTO> selectFilterHistory(Map<String, String> filterMap);
 
-	public List<ReserveHistoryDTO> selectFilterHistory(Map<String, String> filterMap);
+	//그래프에 들어갈 빈도 수치 출력
+	public List<FrequencyDTO> selectFrequency(Map<String, String> filterMap);
+	
 
 }

@@ -1,3 +1,4 @@
+
 package com.gsitm.mbms.equipment;
 
 import java.util.List;
@@ -52,6 +53,11 @@ public class EquipmentDAOImpl implements EquipmentDAO {
 	public void equipmentUpdate(EquipmentDTO dto) {
 		// TODO Auto-generated method stub
 		sqlSession.update("equipmentMapper.equipmentUpdate",dto);
+	}
+
+	@Override
+	public List<EquipmentDTO> selectOneByRoomNo(int roomNo) {
+		return session.selectList("equipmentMapper.selectOneByRoomNo", roomNo);
 	}
 
 }

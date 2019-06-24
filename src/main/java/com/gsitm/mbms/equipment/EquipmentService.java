@@ -1,3 +1,4 @@
+
 package com.gsitm.mbms.equipment;
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface EquipmentService {
 
 	public void equipmentUpdate(EquipmentDTO dto);
 
+	/** 성윤: 회의실번호로 회의실 내 비품목록 조회 **/
+	public List<EquipmentDTO> selectOneByRoomNo(int roomNo);
+
 }
+

@@ -25,6 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="priority" property="priority"/>
 		<result column="emp_count" property="empCount"/>
 		<result column="snack_yn" property="snackYn"/>
+		<result column="reason" property="reason"/>
 	</resultMap>
 	
 	<!-- 회원번호로 예약내역 조회 -->
@@ -75,12 +76,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    AND r.build_no = b.build_no
 			    AND b.build_no like '%${buildNo}%'
 			    AND r.room_no like '%${roomNo}%'
-			    AND ( rh.start_date BETWEEN TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') AND TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi')+1
-        			OR rh.end_date BETWEEN TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') AND TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi')+1)
+			    AND (
+			    		( 
+			    			rh.start_date BETWEEN TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') AND TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi')+1
+        					OR 
+        					rh.end_date BETWEEN TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') AND TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi')+1
+        				)
+        				OR
+        				(
+        					TO_DATE(#{startDate}, 'yyyy/mm/dd hh24:mi') BETWEEN rh.start_date AND rh.end_date
+        				)
+        			)
 		]]>
 	</select>
 	
-	
+
 	<!-- 다음 예약시간 정보를 반환 -->
 	<select id="getNextReservation" parameterType="map" resultType="map">
 		<![CDATA[
@@ -99,4 +109,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE rownum=1
 		]]>
 	</select>
+	
+	<!-- 성윤: 다음 회의실 예약 번호 조회 -->
+	<select id="getNextReserveNo" resultType="int">
+		SELECT RESERVE_HISTORY_SEQ.NEXTVAL FROM DUAL
+	</select>
+	<!-- 성윤: 회의실 예약 추가 -->
+	<insert id="insertReserveHistory" parameterType="reserveHistory">
+		INSERT INTO Reserve_history VALUES(
+			Reserve_history_seq.nextval, #{roomNo}, #{reserveEmpNo}, #{startDate}, #{endDate}, 
+    		#{approval1Yn}, #{approval1EmpNo}, null, #{approval2Yn}, #{approval2EmpNo}, null, 0, null, SYSDATE, 
+    		#{reservePrice}, #{purpose}, #{category}, 5, #{empCount}, #{snackYn}, null)
+	</insert>
+	<!-- 성윤: 회의실 참석자 명단 추가 -->
+	<insert id="insertMeetingMemberList" parameterType="meetingMember">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+            INTO meeting_member_list VALUES(
+	                  Reserve_history_seq.currval                 
+	                , #{item.empNo}                         
+	                , #{item.deptName}                             
+	           )
+		</foreach>
+	</insert>
+	<!-- 성윤: 회의실 예약 시 비품정보 추가 -->
+	<insert id="insertMeetingEquipmentList" parameterType="meetingEquipment">
+		<selectKey keyProperty="reserveNo" resultType="int" order="AFTER"> SELECT Reserve_history_seq.currval FROM dual </selectKey>
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+            INTO meeting_equipment_list VALUES(
+	                  Reserve_history_seq.currval  
+	                , #{item.eqNo} 
+	                , #{item.eqCount} 
+	           )
+		</foreach>
+	</insert>
+	<!-- 성윤: 주관부서 목록 추가 -->
+	<insert id="insertCompetentDepartmentList" parameterType="competentDepartment">
+		<selectKey keyProperty="reserveNo" resultType="int" order="AFTER"> SELECT Reserve_history_seq.currval FROM dual </selectKey>
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+            INTO competent_department VALUES(
+	                  Reserve_history_seq.currval  
+	                , #{item.deptNo} 
+	                , #{item.empCount} 
+	           )
+		</foreach>
+	</insert>
 </mapper>

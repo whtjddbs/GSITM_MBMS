@@ -47,5 +47,10 @@ public class EquipmentServiceImpl implements EquipmentService {
 		equipmentDAO.equipmentUpdate(dto);
 		
 	}
+	@Override
+	public List<EquipmentDTO> selectOneByRoomNo(int roomNo) {
+		return equipmentDAO.selectOneByRoomNo(roomNo);
+	}
+
 
 }
