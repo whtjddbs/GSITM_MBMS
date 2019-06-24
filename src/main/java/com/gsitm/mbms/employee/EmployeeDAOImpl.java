@@ -51,5 +51,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public List<Map<String, String>> selectAllDepartmentTree() {
 		return sqlSession.selectList("departmentMapper.selectAllDepartmentTree");
 	}
+
+	/** 성윤: 상위결재자 사원번호 조회 **/
+	@Override
+	public EmployeeDTO getDeptManagerEmpNo(String empNo) {
+		return sqlSession.selectOne("employeeMapper.getDeptManagerEmpNo", empNo);
+	}
 	
 }

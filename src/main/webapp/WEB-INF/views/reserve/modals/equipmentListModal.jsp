@@ -34,11 +34,11 @@
 										<input type="hidden" name="eqNo" value="${equipment.eqNo }">
 										<div class="input-group number-spinner">
 											<span class="input-group-btn">
-												<button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+												<button type="button" class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
 											</span>
 											<input type="text" name="eqCount" class="form-control text-center" min="0" max="${equipment.eqCount }" value="${equipment.eqCount }" readonly>
 											<span class="input-group-btn">
-												<button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+												<button type="button" class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
 											</span>
 										</div>
 									</td>
@@ -62,8 +62,8 @@
 
 <script src="/resources/js/bootstrap-input-spinner.js"></script>
 <script>
+	var eqList = [];
 	$(function(){
-		var eqList = [];
 		
 		var equipmentTable = $('#equipmentListTable').DataTable({
 			'lengthChange' : false,
@@ -154,11 +154,11 @@
 		            	dataHtml = '<input type="hidden" name="eqNo" value="'+item.eqNo+'">'
 		            			+ '<div class="input-group number-spinner">'
 		            			+ '<span class="input-group-btn">'
-		            			+ '<button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>'
+		            			+ '<button type="button" class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>'
 		            			+ '</span>'
 		            			+ '<input type="text" name="eqCount" class="form-control text-center" min="0" max="'+item.eqCount+'" value="'+item.eqCount+'" readonly>'
 		            			+ '<span class="input-group-btn">'
-		            			+ '<button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>'
+		            			+ '<button type="button" class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>'
 		            			+ '</span></div>';
 		            	
 		            	equipmentTable.row.add([item.eqNo, item.eqName, dataHtml]);

@@ -1,9 +1,11 @@
 package com.gsitm.mbms.reserve;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.gsitm.mbms.room.RoomDTO;
+import com.gsitm.mbms.util.ReserveTypeVO;
 
 /**
  * @주제 : 
@@ -31,4 +33,10 @@ public interface ReserveService {
 
 	/** 다음 예약시간 정보를 반환 **/
 	public Map<String, String> getNextReservation(Map<String, Object> map);
+	
+	/** 성윤: 회의실 예약 **/
+	public boolean doReserve(ReserveHistoryDTO reserveHistory);
+	
+	/** 성윤: 예약 시간 계산 **/
+	public ReserveTypeVO calcDate(Date startDate, Date endDate);
 }

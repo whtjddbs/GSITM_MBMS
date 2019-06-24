@@ -11,6 +11,7 @@
 	.btn-outline-secondary:hover {background-color: #367fa9; color: white;}
 </style>
 
+<form id="reserveForm" method="post" action="/reserve/doReserve">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -49,7 +50,7 @@
 								</div>
 								<div class="col-sm-6  col-xs-6">
 									<label for="roomSelect">회의실</label>
-									<select name="roomSelect" id="roomSelect" class="form-control">
+									<select name="roomNo" id="roomSelect" class="form-control">
 										<c:forEach var="building" items="${buildings }" varStatus="status">
 												<c:forEach var="room" items="${building.rooms }">
 														<option class="building${building.buildNo }" value="${room.roomNo }">${room.roomName }</option>
@@ -64,7 +65,7 @@
 							<div class="form-group">
 								<div class="col-sm-12  col-xs-12">
 									<label>회의구분</label> 
-									<select name="category" id="meetingCategory" class="form-control">
+									<select name="category" name="category" id="meetingCategory" class="form-control">
 										<option value="고객미팅">고객미팅</option>
 										<option value="프로젝트회의">프로젝트회의</option>
 										<option value="교육">교육</option>
@@ -117,11 +118,11 @@
 								<label>참석인원 및 명단</label>
 								<div class="input-group">
 									<span class="input-group-addon">참석인원</span> 
-									<input type="number" id="empCount" placeholder="최대인원 (명)" class="form-control" readonly>
+									<input type="number" name="empCount" id="empCount" placeholder="최대인원 (명)" class="form-control" readonly>
 									<span class="input-group-addon"><i class="fa fa-users"></i></span>
 									<input type="text" id="empList" class="form-control" placeholder="참석자 명단" readonly>
 									<div class="input-group-btn">
-										<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#employeeList-modal" type="button"><i class="fa fa-plus"></i></button>
+										<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#employeeList-modal" type="button"><i class="fa fa-plus"></i></button>
 									</div>
 								</div>
 							</div>
@@ -130,15 +131,12 @@
 							<div class="form-group">
 							<!-- 주관 / 협조 부서 -->
 							<div class="col-sm-12  col-xs-12">
-								<label>주관 및 협조부서</label>
+								<label>주관부서</label>
 								<div class="input-group">
-									<span class="input-group-addon">주관</span> 
-									<input type="text" id="mainDeptList" class="form-control" placeholder="주관부서 목록"  readonly>
-									<span class="input-group-addon">협조</span>
-									<input type="text" id="subDeptList" class="form-control" placeholder="협조부서 목록" readonly>
-									<div class="input-group-btn">
-										<button class="btn btn-outline-secondary" data-toggle="modal" data-target="#mainDept-modal" type="button"><i class="fa fa-plus"></i></button>
-									</div>
+									<span class="input-group-addon">주관부서</span> 
+									<select name="competentDepartment" id="mainDeptList" class="form-control" multiple="multiple" style="display: none;">
+										
+									</select>
 								</div>
 							</div>
 							</div>
@@ -192,7 +190,7 @@
 							<!-- 사용 목적 -->
 							<div class="col-sm-12 col-xs-12">
 								<label class="control-label">사용 목적</label>
-								<textarea class="form-control" rows="5" ></textarea>
+								<textarea name="purpose" id="purpose" class="form-control" rows="5" ></textarea>
 							</div>
 							</div>
 							
@@ -223,55 +221,7 @@
 <jsp:include page="modals/employeeListModal.jsp"></jsp:include>
 <jsp:include page="modals/equipmentListModal.jsp"></jsp:include>
 
-
-<!-- dataTable extension select -->
-<link rel="stylesheet" href="/resources/plugins/multi-select/css/multi-select.css">
-<script src="/resources/plugins/multi-select/js/jquery.multi-select.js"></script>
-<div class="modal fade" id="mainDept-modal">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	        <span aria-hidden="true">&times;</span></button>
-	      <h4 class="modal-title">주관 및 협조부서</h4>
-	    </div>
-	    <div class="modal-body">
-	    	<!-- 모달 내용 -->
-	    	<div class="row mainDept-body text-center">
-		    	<div class="col-lg-10 col-lg-offset-1 equipmentList-md">
-		    		<select id='mainDeptSelect' multiple='multiple'>
-		    			<option value="test1">테스트1</option>
-		    			<option value="test2" selected>테스트2</option>
-		    			<option value="test3" selected>테스트3</option>
-		    			<option value="test4">테스트4</option>
-		    			<option value="test6">테스트5</option>
-		    			<option value="test7">테스트6</option>
-		    			<option value="test8">테스트7</option>
-		    		</select>
-		    	</div>
-	    	</div>
-	    </div>
-	    <div class="modal-footer">
-	      <button type="button" id="mainDept-modal-ok" class="btn btn-primary col-lg-2 pull-right" data-dismiss="modal">확인</button>
-	      <button type="button" id="mainDept-modal-cancel" class="btn btn-default col-lg-2 pull-right" data-dismiss="modal">취소</button>
-	    </div>
-	  </div>
-	  <!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-<script>
-	$(function(){
-		$('#mainDeptSelect').multiSelect({
-			selectableHeader: "<div class='custom-header'><h4>주관부서</h4></div>",
-			selectionHeader: "<div class='custom-header'><h4>협조부서</h4></div>"
-		});
-	});
-</script>
-
-
-
+</form>
 
 <style>
 	.dropdown-menu > li:hover {cursor: pointer;}
@@ -449,7 +399,7 @@
             		"startDate" : dateString},
             dataType : "json",
             success : function(data) {
-            	console.log(JSON.stringify(data.reservationList));
+//             	console.log(JSON.stringify(data.reservationList));
             	let disableTimes = getDisableTimeList(dateString, data.reservationList, startFlag);
             	$(dropdownElement).children().each(function(index, item){
             		if($.inArray($(item).text(), disableTimes) != -1){
@@ -464,28 +414,42 @@
 		let disableTimeArray = new Array();
 		
 		if(moment().format('YYYY/MM/DD')==moment(oneDate).format('YYYY/MM/DD')) {
-			let from = new Date();
-			from.setHours(9, 0);
-			let dateRange = {STARTDATE: from, ENDDATE: new Date()}
+			let now = new Date();
+			let dif = 30 - now.getMinutes() % 30;
+			let to = moment().add(dif, 'm');
+			let from = new Date().setHours(9, 0).valueOf();
+			let dateRange = {STARTDATE: from, ENDDATE: to};
 			disabledTimes.push(dateRange);
 		}
 		
 		$.each(disabledTimes, function(index, item) {
+			// 예약시간 앞뒤 30분 막기
+			let startD = moment(item.STARTDATE).add(-30, 'm');
+			let endD = moment(item.ENDDATE).add(30, 'm');
+			let minT = moment(oneDate).set('hour', 8).set('minute', 0);
+			let maxT = moment(oneDate).set('hour', 19).set('minute', 0);
+			
+			console.log(startD.format('YYYY/MM/DD HH:mm')+"::::::::"+endD.format('YYYY/MM/DD HH:mm'));
+			
 			if(startFlag) {	// 시작일
-				for(var i = moment(item.STARTDATE); i < moment(item.ENDDATE); i.add(30, 'm')) {
-					if($.inArray(i.format("HH:mm"), disableTimeArray) == -1) {
-						disableTimeArray.push(i.format('HH:mm'));
+				for(var i = startD; i < endD; i.add(30, 'm')) {
+					if(i > minT && i < maxT) {
+						if($.inArray(i.format("HH:mm"), disableTimeArray) == -1) {
+							disableTimeArray.push(i.format('HH:mm'));
+						}
 					}
 				}
 			} else {
-				for(var i = moment(item.ENDDATE); i > moment(item.STARTDATE); i.add(-30, 'm')) {
-					if($.inArray(i.format("HH:mm"), disableTimeArray) == -1) {
-						disableTimeArray.push(i.format('HH:mm'));
+				for(var i = endD; i > startD && i >= minT && i <= maxT; i.add(-30, 'm')) {
+					if(i > minT && i < maxT) {
+						if($.inArray(i.format("HH:mm"), disableTimeArray) == -1) {
+							disableTimeArray.push(i.format('HH:mm'));
+						}
 					}
 				}
 			}
 		});
-		
+		console.log(disableTimeArray);
 		return disableTimeArray;
 	}
 	
@@ -556,6 +520,39 @@
 		   	$('#reservationEndTime').val(endDate.format('HH:mm'));
 	   	}
 		
+		$('#availableRoomSearchBtn').click(function(){
+			// 주관부서
+			var competentDepartment = new Array();
+			$('#mainDeptList option:selected').each(function(index, item){
+				competentDepartment.push({deptNo: $(item).val(), empCount: competentDepts.get($(item).text())});
+			});
+			
+			$.ajax({
+	            type : "POST",
+	            url : "/reserve/doReserve",
+	            data : JSON.stringify({
+	            	roomNo: $('#roomSelect').val(),
+	            	reserveEmpNo: '${sessionScope.login.empNo}',
+	            	startDate: moment($('#reservationStartDate').val()+" "+$('#reservationStartTime').val(), 'YYYY-MM-DD HH:mm'),
+	            	endDate: moment($('#reservationEndDate').val()+" "+$('#reservationEndTime').val(), 'YYYY-MM-DD HH:mm'),
+	            	purpose: $('#purpose').val(),
+	            	category: $('#meetingCategory').val(),
+	            	empCount: $('#empCount').val(),
+	            	snackYn: $('#snackYn').val()=='Y' ? 'Y' : 'N',
+	            	'meetingMemberList': meetingMemberList,
+	            	'competentDepartmentList': competentDepartment,
+	            	'meetingEquipmentList': eqList
+	            }),
+	            contentType:'application/json;charset=utf-8',
+	            dataType : "json",
+	            success : function(data) {
+	            	alert('success');
+	            },
+	            error: function(request,status,error){
+	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	            }
+			});
+		});
 	});
 	
 </script>

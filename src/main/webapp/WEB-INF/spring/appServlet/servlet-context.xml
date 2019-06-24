@@ -46,7 +46,9 @@
 	</beans:bean>
     
     <!-- Controller -->
-	<context:component-scan base-package="com.gsitm.mbms" />
+	<context:component-scan base-package="com.gsitm.mbms" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	
 	<!-- Interceptor 설정 -->
 	<interceptors>
@@ -81,11 +83,6 @@
 	</beans:bean>
 
 	<!-- 원빈 이미지  일반 파일 업로드 경로 -->
-	<resources mapping="/imgUpload/**"
-		location="/resources/imgUpload/" />
+	<resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
 
-	<beans:bean
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-		<beans:property name="maxUploadSize" value="10485760" />
-	</beans:bean>
 </beans:beans>

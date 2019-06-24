@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +40,7 @@ public class ReserveController {
 	private EmployeeService employeeService;
 	@Autowired
 	private EquipmentService equipmentService;
-
+	
 	/** 회의실 소개 페이지 **/
 	@RequestMapping("/roomList")
 	public String roomList(Model model) {
@@ -187,6 +189,16 @@ public class ReserveController {
 		List<EquipmentDTO> equipments = equipmentService.selectOneByRoomNo(roomNo);
 		ModelAndView mav = new ModelAndView("jsonView");
 		mav.addObject("equipments", equipments);
+		return mav;
+	}
+	
+	/** 성윤: 회의실 예약 실시!! **/
+	@PostMapping("/doReserve")
+	public ModelAndView doReserve(@RequestBody ReserveHistoryDTO reserveHistory) {
+		System.out.println(reserveHistory);
+		reserveService.doReserve(reserveHistory);
+		
+		ModelAndView mav = new ModelAndView("jsonView");
 		return mav;
 	}
 	

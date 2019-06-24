@@ -23,5 +23,7 @@ public interface EmployeeDAO {
 	
 	/** 성윤 : 부서 전체조회 (트리) **/
 	public List<Map<String,String>> selectAllDepartmentTree();
-	 
+
+	/** 성윤: 상위결재자 사원번호 조회 **/
+	public EmployeeDTO getDeptManagerEmpNo(String empNo);
 }
