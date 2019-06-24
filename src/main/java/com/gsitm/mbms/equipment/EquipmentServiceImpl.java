@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 /**
  * @주제 : 
  * @작성일 : 2019. 6. 19.
- * @작성자 : 조성윤
+ * @작성자 : 김원빈
  */
 @Service
 public class EquipmentServiceImpl implements EquipmentService {
 
 	@Autowired
-	EquipmentDAO equipmentDAO;
-	
+	private EquipmentDAO equipmentDAO;
 	@Override
 	public void equipmentInsert(EquipmentDTO dto) {
 		// TODO Auto-generated method stub
@@ -37,10 +36,21 @@ public class EquipmentServiceImpl implements EquipmentService {
 		// TODO Auto-generated method stub
 		return equipmentDAO.equipmentSelectAllwithRoom();
 	}
-	
+	@Override
+	public void equipmentDelete(int eqNo) {
+		// TODO Auto-generated method stub
+		 equipmentDAO.equipmentDelete(eqNo);
+	}
+	@Override
+	public void equipmentUpdate(EquipmentDTO dto) {
+		// TODO Auto-generated method stub
+		equipmentDAO.equipmentUpdate(dto);
+		
+	}
 	@Override
 	public List<EquipmentDTO> selectOneByRoomNo(int roomNo) {
 		return equipmentDAO.selectOneByRoomNo(roomNo);
 	}
+
 
 }
