@@ -16,5 +16,7 @@ public interface RoomService {
 
 	public void roomInsert(RoomDTO dto);
 
-	
-}
+	public List<RoomDTO> selectAllWithEquipments();
+	}
+
+

@@ -47,5 +47,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE r.room_no = e.room_no	and r.build_no = b.build_no 
 	</select>
 	
+	<!-- 비품삭제 -->
+	<delete id="equipmentDelete" parameterType="int">
+   		DELETE FROM room_equipment WHERE eq_no = #{eqNo}
+   </delete>
    
+   <update id="equipmentUpdate" parameterType="Equipment">
+   		UPDATE room_equipment SET eq_name = #{eqName},eq_count=#{eqCount} WHERE eq_no=#{eqNo}
+   </update>
+	
+	<select id="selectOneByRoomNo" parameterType="int" resultType="equipment">
+		SELECT * FROM room_equipment WHERE room_no = #{roomNo}
+	</select>
 </mapper>
+   

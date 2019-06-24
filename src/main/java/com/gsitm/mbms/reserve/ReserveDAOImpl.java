@@ -55,4 +55,30 @@ public class ReserveDAOImpl implements ReserveDAO {
 		return session.selectOne("reserveHistoryMapper.getNextReservation", map);
 	}
 
-} 
+	@Override
+	public int getNextReserveNo() {
+		return session.selectOne("reserveHistoryMapper.getNextReserveNo");
+	}
+	
+	@Override
+	public int insertReserveHistory(ReserveHistoryDTO reserveHistory) {
+		return session.insert("reserveHistoryMapper.insertReserveHistory", reserveHistory);
+	}
+
+	@Override
+	public int insertMeetingMemberList(List<MeetingMemberDTO> meetingMemberList) {
+		return session.insert("reserveHistoryMapper.insertMeetingMemberList", meetingMemberList);
+	}
+
+	@Override
+	public int insertMeetingEquipmentList(List<MeetingEquipmentDTO> meetingEquipmentList) {
+		return session.insert("reserveHistoryMapper.insertMeetingEquipmentList", meetingEquipmentList);
+	}
+
+	@Override
+	public int insertCompetentDepartmentList(List<CompetentDepartmentDTO> competentDepartmentList) {
+		return session.insert("reserveHistoryMapper.insertCompetentDepartmentList", competentDepartmentList);
+	}
+
+
+}

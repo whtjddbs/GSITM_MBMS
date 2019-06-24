@@ -492,3 +492,11 @@ ALTER TABLE Dept_payment
     ADD CONSTRAINT FK_Dept_payment_reserve_no_Res FOREIGN KEY (reserve_no)
         REFERENCES Reserve_history (reserve_no)
 /
+
+
+
+CREATE TABLE competent_department (
+    reserve_no NUMBER REFERENCES reserve_history(reserve_no),
+    dept_no NUMBER REFERENCES department(dept_no),
+    emp_count NUMBER NOT NULL
+);

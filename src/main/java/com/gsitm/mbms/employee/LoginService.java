@@ -18,6 +18,4 @@ public interface LoginService {
 
 	/**민기 : 해당 사용자가 관리자인지 판별-----------------------------*/
 	public boolean isAdmin(String empNo);
-	
-	
 }

@@ -31,7 +31,7 @@ public class BuildingController {
 	public String list(Model model) {
 		logger.info("Building ListPage!");
 		
-		List<BuildingDTO> list = service.selectAll();
+		List<BuildingDTO> list = service.selectAllWithRooms();
 		model.addAttribute("list",list);
 		return "/building/buildingList";//test
 	}

@@ -15,7 +15,7 @@
     }
     
 	/* 참석 명단 */
-    #attendants-list {list-style: none;}
+    #attendants-list {list-style: none; padding-left: 0px;}
     #attendants-list > li {cursor: pointer;}
     #attendants-list-title > * {display: inline-block;}
 </style>
@@ -47,6 +47,7 @@
 								<th>사원번호</th>
 								<th>이름</th>
 								<th>직함</th>
+								<th>부서명</th>
 								<th>부서번호</th>
 							</tr>
 						</thead>
@@ -57,6 +58,7 @@
 									<td>${employee.EMPNAME }</td>
 									<td>${employee.EMPPOSITION }</td>
 									<td>${employee.DEPT_NAME }</td>
+									<td>${employee.DEPTNO }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -91,15 +93,29 @@
 <!-- jsTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
 <!-- dataTable extension select -->
 <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css">
 <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
+
 <!-- dataTable extension buttons -->
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
 
+<!-- BsMultiSelect -->
+<link rel="stylesheet" href="/resources/plugins/BsMultiSelect/dist/css/BsMultiSelect.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="/resources/plugins/BsMultiSelect/dist/js/BsMultiSelect.js"></script>
+
 <script>
+	var competentDepts = new Map(); // key: 부서명, value: 인원수
+	var deptMap = new Map(); // key: 부서명, value: 부서번호
+	var meetingMemberList = new Array();
+	
 	$(function(){
+		var $multiSelects = $("select[multiple='multiple']");
+        $multiSelects.bsMultiSelect();
+        
 		var depts = new Array();
 		<c:forEach items="${departments}" var="dept">
 			var deptObject = new Object();
@@ -135,55 +151,107 @@
 	        },
 	        "columnDefs": [
 	            {
-	                "targets": [ 3 ],
+	                "targets": [ 4 ],
 	                "visible": false
 	            }
 	        ]
 		});
 		
+		// 테이블 -> 참석자 명단 이동
 		table.on( 'select', function ( e, dt, type, indexes ) {
 		    if ( type === 'row' ) {
 		        var data = table.rows( indexes ).data();
 		        table.rows( indexes ).remove().draw();
 		        
+		        let empno = data[0][0];
+		        let empname = data[0][1];
+		        let empposition = data[0][2];
+		        let deptname = data[0][3];
+		        let deptno = data[0][4];
+		        
 		        $('#attendants-list').append($('<li/>', {
-		        	'data-empNo' : data[0][0],
-		        	'data-empName' : data[0][1],
-		        	'data-empPosition' : data[0][2],
-		        	'data-deptNo' : data[0][3],
-		        	text : data[0][1] + " " + data[0][2]
+		        	'data-empNo' : empno,
+		        	'data-empName' : empname,
+		        	'data-empPosition' : empposition,
+		        	'data-deptName' : deptname,
+		        	'data-deptNo' : deptno,
+		        	text : empname + " " + empposition + " ("+deptname+")"
 		        }));
 		        
 		        $('#attendants-count').text($('#attendants-list > li').length);
+		        
+		        // 회의참석자 List에 추가
+		        meetingMemberList.push({
+		        	'empNo': empno,
+		        	'deptName': deptname
+		        });
+		        
+		        // 주관부서 Map에 추가
+		        if(competentDepts.has(deptname)) {
+		        	competentDepts.set(deptname, competentDepts.get(deptname)+1);
+		        } else {
+		        	deptMap.set(deptname, deptno);
+		        	competentDepts.set(deptname, 1);
+		        }
 		    }
 		} );
 		
+		// 참석자 명단 -> 직원 테이블 이동
 		$('#attendants-list').on('click', 'li', function() {
 			let empno = $(this).data('empno');    
 			let empname = $(this).data('empname');    
 			let empposition = $(this).data('empposition');  
-			let deptno = $(this).data('deptno');    
-			table.row.add([empno, empname, empposition, deptno]).draw();
+			let deptname = $(this).data('deptname');    
+			let deptno = $(this).data('deptno');
+			table.row.add([empno, empname, empposition, deptname, deptno]).draw();
 			
 			$(this).remove();
 			
 			$('#attendants-count').text($('#attendants-list > li').length);
+			
+			// 회의참석자 List에서 제거
+			meetingMemberList.splice(meetingMemberList.indexOf(empno));
+			
+			// 주관부서 Map에 삭제
+	        if(competentDepts.has(deptname)) {
+	        	if(competentDepts.get(deptname)==1)
+	        		competentDepts.delete(deptname);
+	        	else
+	        		competentDepts.set(deptname, competentDepts.get(deptname)-1);
+	        }
 		});
 		
 		$('#employeeList-modal').on('hide.bs.modal', function (e) {
+			// 인원 수
 			$('#empCount').val($('#attendants-count').text());
 			
+			// 조성윤 사원 외 00명
+			let empStr = $('#attendants-list > li:eq(0)').text().split('(')[0].trim();
 			if($('#attendants-count').text() =='1') {
-				$('#empList').val($('#attendants-list > li:eq(0)').text());
+				$('#empList').val(empStr);
 			} else if($('#attendants-count').text()!='0') {
-				$('#empList').val($('#attendants-list > li:eq(0)').text()+" 외 "+(parseInt($('#attendants-count').text())-1)+"명");
+				$('#empList').val(empStr+" 외 "+(parseInt($('#attendants-count').text())-1)+"명");
 			} else {
 				$('#empList').val('');
 			}
-		})
+			
+			// 검색창 초기화
+			$('input[type=search]').val('');
+			$('input[type=search]').trigger('keyup');
+			
+			// 주관부서 초기세팅
+			var $multiSelects = $("#mainDeptList");
+			$multiSelects.empty();
+			competentDepts.forEach(function(value, key){
+				$multiSelects.append('<option value="'+deptMap.get(key)+'" selected>'+key+'</option>');
+			})
+	        $multiSelects.bsMultiSelect('Dispose');
+	        $multiSelects.bsMultiSelect();
+		});
 		
 		$('#employeeList-modal-reset').click(function(){
 			$('#attendants-list > li').trigger('click');
 		});
+		
 	});
 </script>

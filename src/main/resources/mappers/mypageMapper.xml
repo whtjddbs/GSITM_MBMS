@@ -32,7 +32,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="dept_name" property="deptName"/>
 		<result column="emp_position" property="empPosition"/>
 		
-
 	</resultMap>
    
 	<select id="selectAllHistory" resultMap="MypageDTO">
@@ -66,6 +65,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				FROM RESERVE_HISTORY
 		]]>	
 	</select>
-	
+
 </mapper>
 

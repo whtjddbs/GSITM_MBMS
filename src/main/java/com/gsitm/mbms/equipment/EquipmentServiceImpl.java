@@ -36,5 +36,21 @@ public class EquipmentServiceImpl implements EquipmentService {
 		// TODO Auto-generated method stub
 		return equipmentDAO.equipmentSelectAllwithRoom();
 	}
+	@Override
+	public void equipmentDelete(int eqNo) {
+		// TODO Auto-generated method stub
+		 equipmentDAO.equipmentDelete(eqNo);
+	}
+	@Override
+	public void equipmentUpdate(EquipmentDTO dto) {
+		// TODO Auto-generated method stub
+		equipmentDAO.equipmentUpdate(dto);
+		
+	}
+	@Override
+	public List<EquipmentDTO> selectOneByRoomNo(int roomNo) {
+		return equipmentDAO.selectOneByRoomNo(roomNo);
+	}
+
 
 }

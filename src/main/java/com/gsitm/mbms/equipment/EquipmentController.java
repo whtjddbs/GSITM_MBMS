@@ -51,7 +51,22 @@ public class EquipmentController {
 		model.addAttribute("list",list);
 			
 		model.addAttribute("buildings",buildings);
-		System.out.println(buildings.get(3).getRooms().toString());
 		return "/equipment/equipmentList";//test
 	}
+	
+	//equipment 삭제
+		@RequestMapping(value="/equipmentDelete",method=RequestMethod.GET)
+		public String equipmentDelete(int eqNo) {
+			log.info("Equipment DeleteAction");
+			service.equipmentDelete(eqNo);
+			return "redirect:/equipment/equipmentList";
+		}
+		
+		//equipment 수정
+		@RequestMapping(value="/equipmentUpdate",method=RequestMethod.POST)
+		public String equipmentUpdate(EquipmentDTO dto) {
+			log.info("EquipmentUpdate Action");
+			service.equipmentUpdate(dto);
+			return "redirect:/equipment/equipmentList";
+		}
 }
