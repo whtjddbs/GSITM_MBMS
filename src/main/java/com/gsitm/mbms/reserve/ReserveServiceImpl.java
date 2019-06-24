@@ -31,7 +31,7 @@ public class ReserveServiceImpl implements ReserveService {
 	@Autowired
 	private EmployeeDAO employeeDAO;
 	@Autowired
-	private MailService MailService;
+	private MailService mailService;
 	
 	@Override
 	public List<RoomDTO> selectAllRoom() {
@@ -108,7 +108,14 @@ public class ReserveServiceImpl implements ReserveService {
 		if(reserveHistory.getCompetentDepartmentList()!=null && reserveHistory.getCompetentDepartmentList().size() > 0)
 			reserveDAO.insertCompetentDepartmentList(reserveHistory.getCompetentDepartmentList());
 		
+		
 		// 메일 전송
+		if(reserveType.isLongTerm()) {
+			mailService.send("회의실 예약 승인 요청", approval1Emp.getEmpEmail(), reserveHistory, roomDTO, "위 회의실 예약건에 대한 승인을 요청합니다.");
+		} else {
+			String to = approval1Emp.getEmpEmail()+","+reserveEmp.getEmpEmail();
+			mailService.send("회의실 예약 완료", to, reserveHistory, roomDTO, "회의실 예약이 완료되었습니다.");
+		}
 		return true;
 	}
 	

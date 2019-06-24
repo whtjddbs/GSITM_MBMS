@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.gsitm.mbms">
-		<level value="debug" />
+		<level value="info" /> <!--  -->
 	</logger>
 
 	<!-- 민기 통계 디버그용 SQL출력문 추가 -->
@@ -42,7 +42,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="debug" />
+		<priority value="info" /> <!--  -->
 		<appender-ref ref="console" />
 	</root>
 	

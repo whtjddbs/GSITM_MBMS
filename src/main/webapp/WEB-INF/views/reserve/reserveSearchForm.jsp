@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<style>
+	.fc-past:hover, .fc-sun:hover, .fc-sat:hover{cursor: not-allowed;}
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -309,8 +311,8 @@
 				return true;				
 			},
 			select: function(startDate, endDate, jsEvent, view, resource) {
-				selectedStart = startDate.format('YYYY-MM-DD HH:mm');
-				selectedEnd = endDate.format('YYYY-MM-DD HH:mm');
+				selectedStart = startDate.format('YYYY-MM-DD 09:00');
+				selectedEnd = endDate.format('YYYY-MM-DD 18:00');
 				$('#reservationtime').data('daterangepicker').setStartDate(selectedStart);
 				$('#reservationtime').data('daterangepicker').setEndDate(selectedEnd);
 			},
