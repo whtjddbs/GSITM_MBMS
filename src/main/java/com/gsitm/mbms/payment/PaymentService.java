@@ -8,4 +8,6 @@ public interface PaymentService {
 	
 	public List<PaymentDTO> sumPayment() throws Exception;
 
+	public PaymentDTO paymentDetail(int reserveNo) throws Exception;
+
 }

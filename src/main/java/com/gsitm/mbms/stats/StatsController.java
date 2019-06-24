@@ -1,43 +1,22 @@
 package com.gsitm.mbms.stats;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
 import com.gsitm.mbms.building.BuildingDTO;
 import com.gsitm.mbms.building.BuildingService;
 import com.gsitm.mbms.employee.DepartmentDTO;
-import com.gsitm.mbms.employee.EmployeeDTO;
-import com.gsitm.mbms.employee.LoginService;
 import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 import com.gsitm.mbms.room.RoomDTO;
 import com.gsitm.mbms.room.RoomService;
@@ -92,7 +71,7 @@ public class StatsController {
 	}
 	*/
 	
-	@RequestMapping(value = "/statsMain", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/statsMain", method = RequestMethod.GET)
 	public String statsMain(Model model) throws Exception {
 		
 		//근무지(빌딩)리스트 가져오기
@@ -114,19 +93,38 @@ public class StatsController {
 		}
 		model.addAttribute("roomTypes", roomTypes);
 		
+		// 필터링할 정보 맵으로 모으기 :
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("buildingSelect", "전체");
+		filterMap.put("deptSelect", "전체");
+		filterMap.put("roomTypeSelect", "전체");
+		filterMap.put("timeSelectStart", "전체");
+		filterMap.put("timeSelectEnd", "전체");
 		
+		//모델에도 필터링 담아서 뭐 선택했었는지 알려주기
+		model.addAttribute("filterMap", filterMap);
+				
 		//전체 기록 가져오기
-		 List<ReserveHistoryDTO> historyList= statsService.selectAllHistory();
+		 List<HistoryForStatsDTO> historyList= statsService.selectFilterHistory(filterMap);
 		 model.addAttribute("historyList", historyList);
 		 
 		
 		return "stats/statsMain";
-	}
+	}*/
 	
 	
 	@RequestMapping(value = "/statsFiltering", method = RequestMethod.GET)
-	public String availableRoomList(String buildingSelect, String deptSelect, String roomTypeSelect, String timeSelect, Model model) {
+	public String statsFiltering(String buildingSelect, String deptSelect, String roomTypeSelect, String timeSelect, Model model) {
 		
+		/**오류방지-------------------------------------------------------------------*/
+		//들어온 값이 없다면
+		if (buildingSelect==null) buildingSelect="전체";
+		if (deptSelect==null) deptSelect="전체";
+		if (roomTypeSelect==null) roomTypeSelect="전체";
+		if (timeSelect==null) timeSelect="전체-전체";
+
+		
+		/**드롭다운 선택리스트 만들기-------------------------------------------------------------------*/
 		// 근무지(빌딩)리스트 가져오기
 		List<BuildingDTO> buildingList = buildingService.selectAll();
 		model.addAttribute("buildingList", buildingList);
@@ -134,7 +132,7 @@ public class StatsController {
 		// 부서 리스트 가져오기
 		List<DepartmentDTO> departmentList = statsService.selectAllDept();
 		model.addAttribute("departmentList", departmentList);
-
+		
 		// 현재 있는 모든 Room의 타입(회의실, 교육실, 기타 등) 가져오기
 		List<RoomDTO> roomList = roomService.selectAllRoom();
 		List<String> roomTypes = new ArrayList<String>();
@@ -145,25 +143,103 @@ public class StatsController {
 			}
 		}
 		model.addAttribute("roomTypes", roomTypes);
-
-		// 필터링할 정보 맵으로 모으기 :
-		// 근무지로 거르면 해당 소속 회의실들 정보만 나오게,
-		// 부서로 거르면 해당 부서에서 근무하는 직원들이 신청한 정보만 나오게
-		// 날짜로 거르면 하루라도 시작~끝검색 날짜에 걸리면 나오게 (카운트 셀때는 1일 1회로 세야)
 		
+		
+		/**필터링한 부서 선택 작업-------------------------------------------------------------------*/
+		// 필터링할 정보 맵으로 모으기 :
 		Map<String, String> filterMap = new HashMap<String, String>();
 		filterMap.put("buildingSelect", buildingSelect);
 		filterMap.put("deptSelect", deptSelect);
 		filterMap.put("roomTypeSelect", roomTypeSelect);
-		filterMap.put("timeSelect", timeSelect);
+		timeSelect = timeSelect.replace(" ", "");
+		String timeSelectStart = timeSelect.split("-")[0];
+		String timeSelectEnd = timeSelect.split("-")[1];
+		filterMap.put("timeSelectStart", timeSelectStart);
+		filterMap.put("timeSelectEnd", timeSelectEnd);
 		
-		
-		//필터링한 리스트 가져오기
-		List<ReserveHistoryDTO> historyList = statsService.selectFilterHistory(filterMap);
+		//필터링한 선택부서 리스트 가져오기
+		List<HistoryForStatsDTO> historyList = statsService.selectFilterHistory(filterMap);
 		model.addAttribute("historyList", historyList);
 		
+		//모델에도 필터링 담아서 뭐 선택했었는지 알려주기
+		model.addAttribute("filterMap", filterMap);
 		
-		return "room/roomList";
+		//선택부서 그래프 출력을 위한 빈도 리스트
+		List<FrequencyDTO> frequencyList = statsService.selectFrequency(filterMap);
+		model.addAttribute("frequencyList", frequencyList);
+		
+	
+		/**필터링 없는 모든 부서 선택 작업-------------------------------------------------------------------*/
+		//모든부서 필터
+		Map<String, String> AllfilterMap = new HashMap<String, String>();
+		AllfilterMap.put("buildingSelect", "전체");
+		AllfilterMap.put("deptSelect", "전체");
+		AllfilterMap.put("roomTypeSelect", "전체");
+		AllfilterMap.put("timeSelectStart", timeSelectStart);  //기간은 전체 말고 필터링기간이랑 똑같이
+		AllfilterMap.put("timeSelectEnd", timeSelectEnd);
+		
+		//모든부서 그래프 출력을 위한 빈도 리스트
+		List<FrequencyDTO> allFrequencyList = statsService.selectFrequency(AllfilterMap);
+		model.addAttribute("allFrequencyList", allFrequencyList);
+		
+		
+		
+		return "stats/statsFiltering";
 	}
 
+	
+	@RequestMapping(value = "/statsHistory", method = RequestMethod.GET)
+	public String statsHistory(String buildingSelect, String deptSelect, String roomTypeSelect, String timeSelect, Model model) {
+		
+		/**오류방지-------------------------------------------------------------------*/
+		//들어온 값이 없다면
+		if (buildingSelect==null) buildingSelect="전체";
+		if (deptSelect==null) deptSelect="전체";
+		if (roomTypeSelect==null) roomTypeSelect="전체";
+		if (timeSelect==null) timeSelect="전체-전체";
+
+		
+		/**드롭다운 선택리스트 만들기-------------------------------------------------------------------*/
+		// 근무지(빌딩)리스트 가져오기
+		List<BuildingDTO> buildingList = buildingService.selectAll();
+		model.addAttribute("buildingList", buildingList);
+
+		// 부서 리스트 가져오기
+		List<DepartmentDTO> departmentList = statsService.selectAllDept();
+		model.addAttribute("departmentList", departmentList);
+		
+		// 현재 있는 모든 Room의 타입(회의실, 교육실, 기타 등) 가져오기
+		List<RoomDTO> roomList = roomService.selectAllRoom();
+		List<String> roomTypes = new ArrayList<String>();
+		for (int i = 0; i < roomList.size(); i++) {
+			String thisType = roomList.get(i).getRoomType();
+			if (!roomTypes.contains(thisType)) {
+				roomTypes.add(thisType);
+			}
+		}
+		model.addAttribute("roomTypes", roomTypes);
+		
+		
+		/**필터링한 부서 선택 작업-------------------------------------------------------------------*/
+		// 필터링할 정보 맵으로 모으기 :
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("buildingSelect", buildingSelect);
+		filterMap.put("deptSelect", deptSelect);
+		filterMap.put("roomTypeSelect", roomTypeSelect);
+		timeSelect = timeSelect.replace(" ", "");
+		String timeSelectStart = timeSelect.split("-")[0];
+		String timeSelectEnd = timeSelect.split("-")[1];
+		filterMap.put("timeSelectStart", timeSelectStart);
+		filterMap.put("timeSelectEnd", timeSelectEnd);
+		
+		//필터링한 선택부서 리스트 가져오기
+		List<HistoryForStatsDTO> historyList = statsService.selectFilterHistory(filterMap);
+		model.addAttribute("historyList", historyList);
+		
+		//모델에도 필터링 담아서 뭐 선택했었는지 알려주기
+		model.addAttribute("filterMap", filterMap);
+		
+		return "stats/statsHistory";
+	}
+	
 }

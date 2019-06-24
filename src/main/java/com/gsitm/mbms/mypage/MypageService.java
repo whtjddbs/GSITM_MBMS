@@ -1,7 +1,7 @@
 package com.gsitm.mbms.mypage;
 
 import java.util.List;
-
+import java.util.Map;
 
 
 /**
@@ -19,5 +19,8 @@ public interface MypageService {
 
 	 //삭제
 	 public void delete(int reserveNo) throws Exception;
+	 
+	public List<MypageDTO> getStatusListResult(Map<String, Object> map);
+
 
 }

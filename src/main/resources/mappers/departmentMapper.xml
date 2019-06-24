@@ -5,7 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="departmentMapper">
 
-
 	<!-- 테이블 매핑 -->
 	<resultMap type="department" id="DepartmentDTO">
 		<result column="dept_no" property="deptNo"/>
@@ -13,7 +12,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="boss_no" property="bossNo"/>
 		<result column="mgr_dept_no" property="mgrDeptNo"/>
 	</resultMap>
-
 
 	<!-- 성윤 : 부서 전체조회 (트리) -->
 	<select id="selectAllDepartmentTree" resultType="map">
@@ -25,7 +23,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		START WITH mgr_dept_no IS NULL
 		CONNECT BY PRIOR dept_no = mgr_dept_no
 	</select>
-
 
 	<!-- 민기 : 부서 명단 뽑아오기 -->
 	<select id="selectAllDept" resultMap="DepartmentDTO">

@@ -85,16 +85,6 @@ public class NoticeController {
 		}
 		model.addAttribute("isAdmin", isAdmin);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		return "notice/noticeList";
 	}
 

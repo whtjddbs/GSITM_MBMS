@@ -2,17 +2,19 @@ package com.gsitm.mbms.mypage;
 
 
 import java.util.List;
+import java.util.Map;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @작성일 : 2019. 5. 28.
@@ -23,16 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/mypage")
 public class MypageController {
 	
-	@Inject
+	@Autowired
 	private MypageService mypageService;
-	
-//	@Autowired
-//	private ReserveService reserveService;
-//	
-//	@Autowired
-//	private BuildingService buildingService;
 
-	
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 
 	/** 예약현황 목록 */
@@ -76,6 +71,18 @@ public class MypageController {
 		
 		mypageService.delete(reserveNo);
 		return "redirect:/mypage/mypageStatusList";
+	}
+	
+	/** 예약 현황 날짜 조건검색 */
+	@RequestMapping("/getStatusListResult")
+	public ModelAndView getStatusListResult(@RequestParam Map<String,Object> map) {
+
+		List<MypageDTO> statusListResult = mypageService.getStatusListResult(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("statusListResult", statusListResult);
+		mav.setViewName("jsonView");
+		return mav;
 	}
 	
 
