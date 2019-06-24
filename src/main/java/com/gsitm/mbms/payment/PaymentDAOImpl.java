@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-
+@Repository
 public class PaymentDAOImpl implements PaymentDAO {
 	
 	@Autowired
 	private SqlSession session;
+	
+	private static String namespace = "paymentMapper.";
 	
 	@Override
 	public List<PaymentDTO> selectAllPayment() {
@@ -20,5 +23,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 	public List<PaymentDTO> sumPayment() {
 		return session.selectList("paymentMapper.sumPayment");
 	}
+	
+	@Override
+	public PaymentDTO paymentDetail(int reserveNo) throws Exception {
+		return session.selectOne(namespace + "paymentDetail", reserveNo);
+	}
+
 
 }

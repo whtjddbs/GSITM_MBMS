@@ -2,6 +2,11 @@ package com.gsitm.mbms.payment;
 
 import java.sql.Date;
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Data
 public class PaymentDTO {
 	private int reserveNo;
 	private int roomNo;
@@ -24,6 +29,8 @@ public class PaymentDTO {
 	private int empCount;
 	private char snackYn;
 	private String empName;
+	private String deptName;
+
 
 	public PaymentDTO() {
 		super();
@@ -32,7 +39,7 @@ public class PaymentDTO {
 	public PaymentDTO(int reserveNo, int roomNo, String reserveEmpNo, Date startDate, Date endDate,
 			int approval1Yn, String approval1EmpNo, Date approval1Date, int approval2Yn, String approval2EmpNo,
 			Date approval2Date, int paymentYn, Date paymentDate, Date reserveDate, int reservePrice, String purpose,
-			String category, int priority, int empCount, char snackYn, String empName) {
+			String category, int priority, int empCount, char snackYn, String empName, String deptName) {
 		super();
 		this.reserveNo = reserveNo;
 		this.roomNo = roomNo;
@@ -55,6 +62,7 @@ public class PaymentDTO {
 		this.empCount = empCount;
 		this.snackYn = snackYn;
 		this.empName = empName;
+		this.deptName = deptName;
 	}
 
 	public int getReserveNo() {
@@ -184,6 +192,12 @@ public class PaymentDTO {
 	public void setEmpName(String empName) {
 		this.empName = empName;
 	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
 	
 	@Override
 	public String toString() {
@@ -193,7 +207,7 @@ public class PaymentDTO {
 				+ approval2Yn + ", approval2EmpNo=" + approval2EmpNo + ", approval2Date=" + approval2Date
 				+ ", paymentYn=" + paymentYn + ", paymentDate=" + paymentDate + ", reserveDate=" + reserveDate
 				+ ", reservePrice=" + reservePrice + ", purpose=" + purpose + ", category=" + category + ", priority="
-				+ priority + ", empCount=" + empCount + ", snackYn=" + snackYn + ", empName=" + empName + "]";
+				+ priority + ", empCount=" + empCount + ", snackYn=" + snackYn + ", empName=" + empName + ", deptName=" + deptName + "]";
 	}
 	
 }
