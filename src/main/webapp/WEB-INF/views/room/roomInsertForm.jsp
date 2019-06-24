@@ -8,6 +8,7 @@
 
 
 <!-- Content Wrapper. Contains page content -->
+
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
@@ -59,36 +60,52 @@
 												id="findEmpBtn">
 										</div>
 									</div>
-									<div class="col-sm-12">
+									<div class="col-sm-6">
 										<label for="buildingSelect">지사</label> <select name="buildNo"
 											id="buildingSelect" class="form-control">
-											<option value="">전체</option>
+											
 											<c:forEach var="building" items="${buildings }">
 												<option value="${building.buildNo }">${building.buildName }</option>
 											</c:forEach>
 										</select>
-										<br>
+										
 									</div>
 									
 									<div class="col-sm-6">
-										<label>비품이름</label> 
-										<input type="text" class="form-control" name="eqName" >
+										<label>비품목록</label> 
+										<input type="text" class="form-control" name="eqList"  id="eqList" >
 									</div>
 									
-									<div class="col-xs-6">
-										<label>비품갯수</label> 
-										<input type="number" class="form-control" name="eqCount">
+									<div class="col-sm-6">
+									<label for="eqName">비품</label> 
+									<select name="eqName" id="eqName" class="form-control">
+											<c:forEach var="equipment" items="${equipments }">
+												<option value="${equipment.eqName }" >${equipment.eqName }</option>
+											</c:forEach>
+										</select>
+										<input type="hidden" name="eqNameList" id="eqNameList">	
 									</div>
 
-									<div class="col-xs-12">
+									<div class="col-sm-6">
+										<div class="col-sm-8">
+										<label>비품갯수</label>
+											<input type="number" class="form-control" name="eqCount" id="eqCount">
+											<input type="hidden" name="eqCountList" id="eqCountList">
+										</div>
+										<div class="col-sm-1">
+											<input type="button" class='btn btn-default' value ="추가" id="eqAddBtn" >
+										</div>
+									</div>
+
+									<div class="col-sm-12">
 										<label>회의실 대표사진</label>
 										<div class=selectedImg>
 											<img src=""></img>
 										</div>
-										<input type="file" value="이미지 찾기" id="roomImg" name="file">
+										<input type="file" class='btn btn-default' value="이미지 찾기" id="roomImg" name="file">
 									</div>
 
-									<div class="col-xs-6">
+									<div class="col-sm-6">
 										<label>시간 당 가격</label> <select name="roomPrice"
 											class="form-control">
 											<option value="">시간당 비용</option>
@@ -98,7 +115,7 @@
 										</select>
 									</div>
 
-									<div class="col-xs-6">
+									<div class="col-sm-6">
 										<label>roomFloor</label> <input type="number"
 											class="form-control" name="roomFloor">
 									</div>
@@ -268,6 +285,16 @@ $(document).ready(function(){
 		var searchValue = $("td:eq(0)",this).text();
 		$("#mgrEmpNo").val(searchValue);
 		$('#findEmpModal').modal('hide');
+	})
+	$("#eqAddBtn").on("click",function(){
+		let eqList = $("#eqName").val()+","+$("#eqCount").val();
+		alert(eqList);
+		$("#eqList").val($("#eqList").val()+eqList+",");
+		
+		$("#eqNameList").val($("#eqNameList").val()+$("#eqName").val()+",")
+		alert($("#eqNameList").val())
+		$("#eqCountList").val($("#eqCountList").val()+$("#eqCount").val()+",")
+		alert($("#eqCountList").val())
 	})
 })
 		

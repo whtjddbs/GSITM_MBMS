@@ -18,5 +18,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.gsitm.mbms.reserve.MeetingEquipmentDTO" alias="meetingEquipment"/>
 		<typeAlias type="com.gsitm.mbms.reserve.MeetingMemberDTO" alias="meetingMember"/>
 		<typeAlias type="com.gsitm.mbms.equipment.EquipmentDTO" alias="equipment"/>
+		<typeAlias type="com.gsitm.mbms.payment.PaymentDTO" alias="payment"/>
+		<typeAlias type="com.gsitm.mbms.mypage.MypageDTO" alias="mypage"/>
+		<typeAlias type="com.gsitm.mbms.stats.HistoryForStatsDTO" alias="historyForStats"/>
+		<typeAlias type="com.gsitm.mbms.stats.FrequencyDTO" alias="frequency"/>
 	</typeAliases>
 </configuration>

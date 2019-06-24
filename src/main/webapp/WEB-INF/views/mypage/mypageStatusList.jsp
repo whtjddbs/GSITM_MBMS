@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         예약 현황
-        <!-- <small>현재 예약 현황을 볼 수 있습니다.</small> -->
+        <small>현재 예약 현황을 볼 수 있습니다.</small>
       </h1>
 		<ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -16,223 +17,304 @@
       	</ol> 
     </section>   
 
-    <!-- Main content -->
-    <section class="content">      
+	<!-- Main content -->
+	<section class="content">
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-3">
 				<div class="box box-primary">
-					<div class="box-body no-padding">
-						<!-- THE CALENDAR -->
-						<div id="calendar"></div>
+					<div class="box-header">
+						<h3 class="box-title">조건 검색</h3>
+						<br>
 					</div>
+					<div class="box-body">
+						<!-- Date and time range -->
+						<div class="form-group">
+							<label>예약 날짜</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<i class="fa fa-clock-o"></i>
+								</div>
+								<input type="text" class="form-control pull-right" id="reservationtime">
+							</div>
+							<!-- /.input group -->
+						</div> 
+			            <br><input type="button" class="btn  btn-info col-sm-12" id="availableMypageSearchBtn" value="검색">
+					</div><br>
 					<!-- /.box-body -->
 				</div>
-				<!-- /. box -->
-	<!-- Default box -->
-	      <div class="box">
-	        <div class="box-header with-border">
-	          <h3 class="box-title">예약 일자</h3>
-	          <div class="box-tools pull-right">
-	            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-	              <i class="fa fa-times"></i></button>
-	          </div>
-	        </div>
-	        <div class="box-body">
-	          	예약 상세 정보1
-	        </div>
-	        <!-- /.box-body -->
-	      	<div class="box-footer">
-	          	예약 상세 정보2
-	        </div>
-	        <!-- /.box-footer-->
-	      </div>
-	      <!-- /.box -->
-	    <!-- /.content -->
-	  <!-- /.content-wrapper -->
-		</div>
-			<!-- /.col(right:col-md-9) -->
-		</div>
-		<!-- /.row -->
-	</section>
-	<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-  
+				<!-- /.box -->
+			</div>
+			<!-- /.col(left:col-md-3) -->
+			
+	<div class="col-md-9">
+	<div class="box box-primary">
+<!-- /.content-wrapper -->		
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<table id="example1" class="table table-bordered table-striped">
+							
+							<thead>
+								<tr>
+									<th class = "">예약일</th>
+									<th class = "">회의명</th>
+									<th class = "">예약 요청 현황</th>
+									<th class = "">비고</th>		
+								</tr>
+							</thead>
+							
+							<tbody id="mypage_tbody">
+			               
+							<c:forEach var="mypage" items="${mypageStatusList}">
+								<tr>
+									<td>${mypage.startDate}</td>
+									<td>${mypage.purpose}</td>
+									<td>
+										<c:choose>
+									        <c:when test="${mypage.approval1Yn == 0 }">1차 승인 대기중</c:when>
+									        <c:when test="${mypage.approval1Yn == 1 && mypage.approval2Yn == 0}">2차 승인 대기중</c:when>
+									        <c:when test="${mypage.approval1Yn == 1 && mypage.approval2Yn == 1}"><span style = "color:blue">예약 완료 (확정)</span></c:when>
+							        	</c:choose>
+									</td>
+									<td> 	
+													<button type="button" class="btn btn-info btn-sm" data-toggle="modal" 
+							          					data-target="#modal-info_${mypage.reserveNo}">상세 예약 정보</button>
+							          					
+							          				<input type="button" class="btn btn-danger btn-sm" data-toggle="modal" 
+														data-target="#modal-danger_${mypage.reserveNo}" value="예약 취소 요청">
+							          					
+													<div class="modal modal-info fade" id="modal-info_${mypage.reserveNo}">
+														<!-- 예약 상세보기 modal div -->
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+					
+																<h4 class="modal-title">상세 예약내역</h4>
+															</div>
+													<div class="modal-body">
+														<p><strong>예약 신청 정보</strong></p>
+														<p>회의 일정 : ${mypage.startDate} ~ ${mypage.endDate} (예약 신청일 : ${mypage.reserveDate})</p>
+														<p>회의 장소 : ${mypage.buildName} ${mypage.roomName}</p>
+														<p>회의 구분 및 목적 : ${mypage.category} / ${mypage.purpose}</p>
+														<p>간식 신청 여부 : ${mypage.snackYn}</p>
+														<p>참석자 : ${mypage.empCount}명</p>
+														
+														<br><p><strong>예약 승인 현황</strong></p>
+															<p>1차 결재 : 
+														        <c:if test="${mypage.approval1Yn == 0 }">
+																	<span>미승인</span>
+																</c:if>
+																<c:if test="${mypage.approval1Yn == 1 }">
+																	<span style = "color:blue">승인 완료</span> (${mypage.approval1Date})
+																</c:if>
+										        			</p>        
+									        
+													        <p>2차 결재 : 
+															    <c:if test="${mypage.approval2Yn == 0 }">
+																	<span>미승인</span>
+																</c:if>
+																<c:if test="${mypage.approval2Yn == 1 }">
+																	<span style = "color:blue">승인 완료</span> (${mypage.approval1Date})
+																</c:if>
+															</p>
+															
+															<p>비용 결제 : 
+														        <c:if test="${mypage.paymentYn == 0 }">
+																	<span>미결제</span>
+																</c:if>
+																<c:if test="${mypage.paymentYn == 1 }">
+																	<span>결제 완료</span>
+																</c:if>
+																(${mypage.reservePrice} 원)
+									        				</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-outline"
+															data-dismiss="modal">닫기</button>
+													</div>
+													</div>
+												<!-- /.modal-content -->
+												</div>
+												<!-- /.modal-dialog -->
+												</div>	
+										
+												<div class="modal modal-danger fade" id="modal-danger_${mypage.reserveNo}">
+													<!-- 삭제 modal div -->
+													<!-- Modal Div -->
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+																<h4 class="modal-title">예약 취소하기</h4>
+															</div>
+															<div class="modal-body">
+																<p>해당 예약 요청을 취소하시겠습니까?</p>
+															</div>
+															<div class="modal-footer">
+																	<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">돌아가기</button>
+																
+																<form action="mypageDelete" method="post" class = "btn_del_upd">
+			              											<input type="hidden" name="reserveNo" value="${mypage.reserveNo}">
+																	<button type="submit" class="btn btn-outline" >취소 요청하기</button>
+																</form>
+															
+															</div>
+														</div>
+														<!-- /.modal-content -->
+													</div>
+													<!-- /.modal-dialog -->
+												</div> <!-- /.modal -->	
+										</td>
+										</tr>
+										</c:forEach>
+			
+										</tbody>		               		       
+									</table>
+								</div>
+			   				 <!-- Main content -->
+							</div>
+						</div>
+					</section>
+					</div>
+				</div>
+				</div>
+				</section>
+			</div>
+	
 <script>
 	$(function() {
-
-		/* initialize the external events
-		 -----------------------------------------------------------------*/
-		function init_events(ele) {
-			ele.each(function() {
-
-				// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-				// it doesn't need to have a start or end
-				var eventObject = {
-					title : $.trim($(this).text())
-				// use the element's text as the event title
-				}
-
-				// store the Event Object in the DOM element so we can get to it later
-				$(this).data('eventObject', eventObject)
-
-				// make the event draggable using jQuery UI
-				$(this).draggable({
-					zIndex : 1070,
-					revert : true, // will cause the event to go back to its
-					revertDuration : 0
-				//  original position after the drag
-				})
-
-			})
-		}
-
-		init_events($('#external-events div.external-event'))
-
 		/* initialize the calendar
 		 -----------------------------------------------------------------*/
 		//Date for the calendar events (dummy data)
-		var date = new Date()
-		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear()
-		$('#calendar').fullCalendar(
-				{
-					header : {
-						left : 'prev,next today',
-						center : 'title',
-						right : 'month,agendaWeek,agendaDay'
-					},
-					buttonText : {
-						today : 'today',
-						month : 'month',
-						week : 'week',
-						day : 'day'
-					},
-					//Random default events
-					events : [ {
-						title : 'All Day Event',
-						start : new Date(y, m, 1),
-						backgroundColor : '#f56954', //red
-						borderColor : '#f56954' //red
-					}, {
-						title : 'Long Event',
-						start : new Date(y, m, d - 5),
-						end : new Date(y, m, d - 2),
-						backgroundColor : '#f39c12', //yellow
-						borderColor : '#f39c12' //yellow
-					}, {
-						title : 'Meeting',
-						start : new Date(y, m, d, 10, 30),
-						allDay : false,
-						backgroundColor : '#0073b7', //Blue
-						borderColor : '#0073b7' //Blue
-					}, {
-						title : 'Lunch',
-						start : new Date(y, m, d, 12, 0),
-						end : new Date(y, m, d, 14, 0),
-						allDay : false,
-						backgroundColor : '#00c0ef', //Info (aqua)
-						borderColor : '#00c0ef' //Info (aqua)
-					}, {
-						title : 'Birthday Party',
-						start : new Date(y, m, d + 1, 19, 0),
-						end : new Date(y, m, d + 1, 22, 30),
-						allDay : false,
-						backgroundColor : '#00a65a', //Success (green)
-						borderColor : '#00a65a' //Success (green)
-					}, {
-						title : 'Click for Google',
-						start : new Date(y, m, 28),
-						end : new Date(y, m, 29),
-						url : 'http://google.com/',
-						backgroundColor : '#3c8dbc', //Primary (light-blue)
-						borderColor : '#3c8dbc' //Primary (light-blue)
-					} ],
-					editable : true,
-					droppable : true, // this allows things to be dropped onto the calendar !!!
-					drop : function(date, allDay) { // this function is called when something is dropped
+		var date = new Date();
+		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear();
+		var selectedStart;
+		var selectedEnd;
 
-						// retrieve the dropped element's stored Event Object
-						var originalEventObject = $(this).data('eventObject')
+		//회의실 예약 : 지사, 회의실구분별 예약목록 조회
+		function getReservationList() {
+			$.ajax({
+	            url : "/mypage/getReservationList",
+	            data : {"reserveNo" : reserveNo},
+	            type : "GET",
+	            
+	            success : function(data) {
+	            	//var events = [];
+	            	console.log(data);
+	            	
+	            	$("#startDate").val(data.startDate);
+	            	$("#purpose").val(data.purpose);
+	            },
+	            error : funtion(){
+	            	alert("예약 현황 조회 에러");
+	            }
+			});
+		}
+	            	
+	            	$.each(data.reservationList, function(index, item) {
+	            		var oneEvent = new Object();
+	            		oneEvent.id = item.RESERVENO;
+	            		oneEvent.title = item.PURPOSE;
+	            		oneEvent.start = new Date(item.STARTDATE);
+	            		oneEvent.end = new Date(item.ENDDATE);
+	            		oneEvent.backgroundColor = '#3c8dbc';
+	            		oneEvent.borderColor = '#3c8dbc';
+	            		//추가정보
+	            		oneEvent.roomName = item.ROOMNAME;
+	            		oneEvent.roomNo = item.ROOMNO;
+	            		oneEvent.networkYn = item.NETWORKYN;
+	            		oneEvent.buildNo = item.BUILDNO;
+	            		oneEvent.buildName = item.BUILDNAME;
+	            		oneEvent.reserveNo = item.RESERVENO;
+	            		oneEvent.startDate = item.STARTDATE;
+	            		oneEvent.endDate = item.ENDDATE;
+	            		oneEvent.purpose = item.PURPOSE;
+	            		oneEvent.category = item.CATEGORY;
+	            		oneEvent.empCount = item.EMPCOUNT;
+	            		oneEvent.snackYn = item.SNACKYN;
+	            		//이벤트 목록에 추가
+	            		events[index] = oneEvent;
+	            	});
 
-						// we need to copy it, so that multiple events don't have a reference to the same object
-						var copiedEventObject = $.extend({},
-								originalEventObject)
+	            	var holiday = new Object();
+	            	holiday.googleCalendarId = "ko.south_korea#holiday@group.v.calendar.google.com";
+	            	holiday.className = "koHolidays";
+	            	holiday.color = "#FF0000";
+	            	holiday.textColor = "#FFFFFF";
+	            	
+	            	$('#calendar').fullCalendar('removeEvents');
+	            	$('#calendar').fullCalendar('removeEvents', 'koHolidays');
+        		    $('#calendar').fullCalendar('addEventSource', events);
+        		    $('#calendar').fullCalendar('addEventSource', holiday);
+        		    $('#calendar').fullCalendar('rerenderEvents');
+	            },
+	            error : function(data) {
+	               alert('roomSelect click error!');
+	            }
+	        });
+		}
+		
+		//페이지로딩시 전체 예약현황 셋팅
+		getReservationList();
+		
+		/* 리스트 table 삽입 */
+		function makeTable(list, table){
+			$.each(list, function(i, item){
+				table += '<tr>'
+				table += '<td> ' +item.startDate + '</td> ';
+				table += '<td> ' +item.purpose + '</td> ';
 
-						// assign it the date that was reported
-						copiedEventObject.start = date
-						copiedEventObject.allDay = allDay
-						copiedEventObject.backgroundColor = $(this).css(
-								'background-color')
-						copiedEventObject.borderColor = $(this).css(
-								'border-color')
-
-						// render the event on the calendar
-						// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-						$('#calendar').fullCalendar('renderEvent',
-								copiedEventObject, true)
-
-						// is the "remove after drop" checkbox checked?
-						if ($('#drop-remove').is(':checked')) {
-							// if so, remove the element from the "Draggable Events" list
-							$(this).remove()
-						}
-
-					}
-				})
-
-		/* ADDING EVENTS */
-		var currColor = '#3c8dbc' //Red by default
-		//Color chooser button
-		var colorChooser = $('#color-chooser-btn')
-		$('#color-chooser > li > a').click(function(e) {
-			e.preventDefault()
-			//Save color
-			currColor = $(this).css('color')
-			//Add color effect to button
-			$('#add-new-event').css({
-				'background-color' : currColor,
-				'border-color' : currColor
-			})
-		})
-		$('#add-new-event').click(function(e) {
-			e.preventDefault()
-			//Get value and make sure it is not null
-			var val = $('#new-event').val()
-			if (val.length == 0) {
-				return
-			}
-
-			//Create events
-			var event = $('<div />')
-			event.css({
-				'background-color' : currColor,
-				'border-color' : currColor,
-				'color' : '#fff'
-			}).addClass('external-event')
-			event.html(val)
-			$('#external-events').prepend(event)
-
-			//Add draggable funtionality
-			init_events(event)
-
-			//Remove event from text input
-			$('#new-event').val('')
-		});
-
+				if(item.approval)
+				else if()
+				
+				table += '</tr>';
+			});
+			return table;
+		}
+		
 		/** DatePicker **/
-		//Date range picker with time picker
+		//좌측 회의실 검색부분
 		$('#reservationtime').daterangepicker({
 			timePicker : true,
 			timePickerIncrement : 30,
-			format : 'MM/DD/YYYY h:mm A'
+			timePicker24Hour: true,
+			minDate : new Date(),
+			format : 'YYYY/MM/DD HH:mm',
+			locale : {
+				format : 'YYYY/MM/DD HH:mm'
+			}
 		})
 		
-		//iCheck for checkbox and radio inputs
-	    $('input[type="radio"].minimal').iCheck({
-	      radioClass   : 'iradio_minimal-blue'
-	    })
+	    //검색 버튼 클릭
+	    $('#availableRoomSearchBtn').click(function(){
+	    	let picker = $('#reservationtime').data('daterangepicker');
+	    	console.log(moment(picker.startDate).format('YYYY/MM/DD HH:mm') + " - " + moment(picker.endDate).format('YYYY/MM/DD HH:mm'));
+	    	$('#availableRoomListForm').submit();
+	    });
 	    
 	})
 </script>
 
-  
+
+<script>
+	$(function() {
+		$('#example1').DataTable({
+			'paging' : true,
+			'lengthChange' : false,
+			'searching' : false,
+			'ordering' : true,
+			'info' : true,
+			'autoWidth' : false
+		})
+	})
+</script>
+

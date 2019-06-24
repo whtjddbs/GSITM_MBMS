@@ -34,6 +34,6 @@ public class LoginServiceImpl implements LoginService {
 	public List<EmployeeDTO> selectAllAdmin(){
 		return employeeDAO.selectAllAdmin();
 
-	}
+	}	
 
 }

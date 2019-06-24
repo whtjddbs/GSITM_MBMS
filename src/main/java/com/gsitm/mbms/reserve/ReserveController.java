@@ -46,7 +46,7 @@ public class ReserveController {
 	public String roomList(Model model) {
 		
 		List<RoomDTO> rooms = reserveService.selectAllRoom();
-		List<BuildingDTO> buildings = buildingService.SelectAll();
+		List<BuildingDTO> buildings = buildingService.selectAll();
 		
 		model.addAttribute("rooms", rooms);
 		model.addAttribute("buildings", buildings);
@@ -70,7 +70,7 @@ public class ReserveController {
 	@RequestMapping("/reserveSearchForm")
 	public String reserveSearchForm(Model model) {
 		
-		List<BuildingDTO> buildings = buildingService.SelectAll();
+		List<BuildingDTO> buildings = buildingService.selectAll();
 		model.addAttribute("buildings", buildings);
 		
 		return "reserve/reserveSearchForm";
@@ -91,7 +91,7 @@ public class ReserveController {
 		session.setAttribute("reservationInfo", map);
 		
 		List<RoomDTO> rooms = reserveService.selectAvailableRoom(map);
-		List<BuildingDTO> buildings = buildingService.SelectAll();
+		List<BuildingDTO> buildings = buildingService.selectAll();
 		
 		model.addAttribute("rooms", rooms);
 		model.addAttribute("buildings", buildings);

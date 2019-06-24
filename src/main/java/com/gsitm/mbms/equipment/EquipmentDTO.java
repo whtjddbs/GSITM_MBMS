@@ -5,6 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * @주제 : 
+ * @작성일 : 2019. 6. 19.
+ * @작성자 : 김원빈
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

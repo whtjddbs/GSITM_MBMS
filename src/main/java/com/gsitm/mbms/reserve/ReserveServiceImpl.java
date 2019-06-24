@@ -101,11 +101,11 @@ public class ReserveServiceImpl implements ReserveService {
 			reserveHistory.setApproval2EmpNo(null);
 		}
 		reserveDAO.insertReserveHistory(reserveHistory);
-		if(reserveHistory.getMeetingMemberList()!=null)
+		if(reserveHistory.getMeetingMemberList()!=null && reserveHistory.getMeetingMemberList().size() > 0)
 			reserveDAO.insertMeetingMemberList(reserveHistory.getMeetingMemberList());
-		if(reserveHistory.getMeetingEquipmentList()!=null)
+		if(reserveHistory.getMeetingEquipmentList()!=null && reserveHistory.getMeetingEquipmentList().size() > 0)
 			reserveDAO.insertMeetingEquipmentList(reserveHistory.getMeetingEquipmentList());
-		if(reserveHistory.getCompetentDepartmentList()!=null)
+		if(reserveHistory.getCompetentDepartmentList()!=null && reserveHistory.getCompetentDepartmentList().size() > 0)
 			reserveDAO.insertCompetentDepartmentList(reserveHistory.getCompetentDepartmentList());
 		
 		// 메일 전송
