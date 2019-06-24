@@ -53,6 +53,13 @@ public class LoginServiceImpl implements LoginService {
 		
 		return isAdminBool;
 	}
+	
+	/**민기 : 해당 사용자가 결재자인지 판별-----------------------------*/
+	@Override
+	public boolean isApprover(String empNo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	 
 
 }
