@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.mbms.employee.EmployeeDTO;
 import com.gsitm.mbms.room.RoomDTO;
 
 /**
@@ -78,6 +79,12 @@ public class ReserveDAOImpl implements ReserveDAO {
 	@Override
 	public int insertCompetentDepartmentList(List<CompetentDepartmentDTO> competentDepartmentList) {
 		return session.insert("reserveHistoryMapper.insertCompetentDepartmentList", competentDepartmentList);
+	}
+	
+	/**민기 : 해당 사용자가 결재자인지 판별-----------------------------*/
+	@Override
+	public List<ReserveHistoryDTO> getAllReservationList() {
+		return session.selectList("reserveHistoryMapper.getAllReservationList");
 	}
 
 

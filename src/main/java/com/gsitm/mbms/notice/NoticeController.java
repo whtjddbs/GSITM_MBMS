@@ -66,7 +66,6 @@ public class NoticeController {
 		boolean isAdminBool = loginService.isAdmin(employeeDTO.getEmpNo());
 		model.addAttribute("isAdmin", isAdminBool);
 		
-
 		
 		return "notice/noticeList";
 	}

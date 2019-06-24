@@ -3,6 +3,7 @@ package com.gsitm.mbms.reserve;
 import java.util.List;
 import java.util.Map;
 
+import com.gsitm.mbms.employee.EmployeeDTO;
 import com.gsitm.mbms.room.RoomDTO;
 
 /**
@@ -39,4 +40,7 @@ public interface ReserveDAO {
 	public int insertMeetingEquipmentList(List<MeetingEquipmentDTO> meetingEquipmentList);
 	public int insertCompetentDepartmentList(List<CompetentDepartmentDTO> competentDepartmentList);
 	// 회의실 예약 끝
+	
+	/** 민기: 모든 예약 내역 **/
+	public List<ReserveHistoryDTO> getAllReservationList();
 }
