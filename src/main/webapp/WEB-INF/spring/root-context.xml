@@ -77,7 +77,7 @@
                <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
                <prop key="mail.debug">true</prop>
          </props>
-      </property>
+      </property> 
    </bean>
 		
 </beans>

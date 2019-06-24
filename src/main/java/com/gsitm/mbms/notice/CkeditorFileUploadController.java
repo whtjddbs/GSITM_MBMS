@@ -1,4 +1,4 @@
-package com.gsitm.mbms.notice;
+/*package com.gsitm.mbms.notice;
 
 
 import java.io.File;
@@ -31,4 +31,4 @@ public class CkeditorFileUploadController {
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 	
 	
-}
+}*/

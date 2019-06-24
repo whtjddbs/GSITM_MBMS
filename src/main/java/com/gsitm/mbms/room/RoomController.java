@@ -53,8 +53,8 @@ public class RoomController {
 	@RequestMapping(value="/roomManageList", method=RequestMethod.GET)
 	public String list(Model model) {
 		logger.info("Room ListPage!");
-		
-		List<RoomDTO> rooms = roomService.selectAllRoom();
+		List<RoomDTO> rooms = roomService.selectAllWithEquipments();
+		//List<RoomDTO> rooms = roomService.selectAllRoom();
 		List<BuildingDTO> buildings = buildingService.selectAll();
 		
 		model.addAttribute("rooms", rooms);

@@ -15,4 +15,10 @@ public interface LoginService {
 
 	/**민기 : 회의실 관리자 명단 뽑아오기-----------------------------*/
 	public List<EmployeeDTO> selectAllAdmin();
+
+	/**민기 : 해당 사용자가 관리자인지 판별-----------------------------*/
+	public boolean isAdmin(String empNo);
+	
+	/**민기 : 해당 사용자가 관리자인지 판별-----------------------------*/
+	public boolean isApprover(String empNo);
 }

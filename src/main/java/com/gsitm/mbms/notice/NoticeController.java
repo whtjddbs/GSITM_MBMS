@@ -51,14 +51,6 @@ public class NoticeController {
 	@Inject
 	private LoginService loginService;
 	
-	/**
-	 * 공지사항 목록-------------------------------------------------------------------------------------
-	 * 
-	 * @throws Exception
-	 */
-
-	
-	
 	
 	// 공지사항 리스트
 	// 전체보기-----------------------------------------------------------------------------------
@@ -71,19 +63,9 @@ public class NoticeController {
 
 		//세션정보 가져오기
 		EmployeeDTO employeeDTO = (EmployeeDTO)session.getAttribute("login");
-
-		//운영자리스트 가져오기
-		List<EmployeeDTO> adminList = loginService.selectAllAdmin();
+		boolean isAdminBool = loginService.isAdmin(employeeDTO.getEmpNo());
+		model.addAttribute("isAdmin", isAdminBool);
 		
-		//운영자인지 판별 및 모델에 추가
-		boolean isAdmin =  false;
-		for (int i = 0; i < adminList.size(); i++) {
-			if(adminList.get(i).getEmpNo().equals(employeeDTO.getEmpNo())) {
-				isAdmin=true;
-				break;
-			}
-		}
-		model.addAttribute("isAdmin", isAdmin);
 		
 		return "notice/noticeList";
 	}
@@ -103,17 +85,7 @@ public class NoticeController {
 		EmployeeDTO employeeDTO = (EmployeeDTO)session.getAttribute("login");
 		String empNo = employeeDTO.getEmpNo();
 		noticeDTO.setWriterEmpNo(empNo);
-/*		
-		//첨부파일 업로드
-	    //logger.info("upload() POST 호출");
-	    //logger.info("파일 이름: {}", uploadedfile.getOriginalFilename());
-	    //logger.info("파일 크기: {}", uploadedfile.getSize());
-		final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("") + "resources\\uploadfiles";
-	    //System.out.println(UPLOAD_PATH);
-		UploadMyTool.saveFile(uploadedfile, UPLOAD_PATH);
-		
-		noticeDTO.setattach(UPLOAD_PATH+"\\"+uploadedfile);
-		*/
+
 		noticeService.insert(noticeDTO);
 		return "redirect:/notice/noticeList";
 	}
@@ -201,81 +173,6 @@ public class NoticeController {
 	}
 	
 	
-
-	
-	
-	
-	//파일업로드-----------------------------------------------------------------------------------
-	
-	
-/*	@RequestMapping(value = "/fileupload",method = RequestMethod.POST)
-	public void upload(MultipartFile uploadedfile, HttpServletRequest request){
-	    logger.info("upload() POST 호출");
-	    logger.info("파일 이름: {}", uploadedfile.getOriginalFilename());
-	    logger.info("파일 크기: {}", uploadedfile.getSize());
-		//final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("") + "resources\\uploadfiles";
-		
-		final String UPLOAD_PATH = "c:\\";        	logger.info("1");
-		System.out.println(UPLOAD_PATH);        		  logger.info("2");
-		UploadMyTool.saveFile(uploadedfile, UPLOAD_PATH);                logger.info("3");
-		
-	    return "redirect:/notice/noticeList";
-	}*/
-	
-/*	@RequestMapping(value = "/fileupload",method = RequestMethod.POST)
-	public void upload(MultipartFile uploadedfile, HttpServletRequest request){
-	    logger.info("upload() POST 호출");
-	    logger.info("파일 이름: {}", uploadedfile.getOriginalFilename());
-	    logger.info("파일 크기: {}", uploadedfile.getSize());
-		//final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("") + "resources\\uploadfiles";
-		
-		final String UPLOAD_PATH = "c:\\";        	logger.info("1");
-		System.out.println(UPLOAD_PATH);        		  logger.info("2");
-		UploadMyTool.saveFile(uploadedfile, UPLOAD_PATH);                logger.info("3");
-		
-	    return "redirect:/notice/noticeList";
-	}*/
-	
-/*	
-	@RequestMapping(value = "/file_upload", method = RequestMethod.POST)
-	public String procFileUpload(FileBean fileBean, HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		String root_path = session.getServletContext().getRealPath("/"); // 웹서비스 root 경로
-		String attach_path = "resources/files/attach/";
-		MultipartFile upload = fileBean.getUpload();
-		String filename = "";
-		String CKEditorFuncNum = "";
-		
-		if (upload != null) {//The method getServletContext() is undefined for the type HttpServletRequest
-			filename = upload.getOriginalFilename();
-			fileBean.setFilename(filename);
-			CKEditorFuncNum = fileBean.getCKEditorFuncNum();
-			try {
-				File file = new File(root_path + attach_path + filename);
-				logger.info(root_path + attach_path + filename);
-				 logger.info("파일생성");
-				upload.transferTo(file);
-				 logger.info("파일업로드완료");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		String file_path = "/GSITM_MBMS/" + attach_path + filename;
-		model.addAttribute("file_path", file_path);
-		model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
-		
-		JsonObject json = new JsonObject();
-		 json.addProperty("uploaded", 1);
-         json.addProperty("fileName", filename);
-         json.addProperty("url", file_path);
-		
-		 logger.info(file_path);
-		return "noticeInsertForm";
-	}*/
-	
-
-	
-	
 	
 	@RequestMapping(value="file_upload", method=RequestMethod.POST)
 	@ResponseBody
@@ -331,7 +228,7 @@ public class NoticeController {
 		return null;
 	}	
 	
-	
+	 
 	
 	
 	
