@@ -7,13 +7,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        예약 통계
+        예약 현황 관리
         <small>Statistics</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">예약 관리</a></li>
-        <li class="active">통계</li>
+        <li class="active">현황 관리</li>
       </ol>
     </section>
 
@@ -27,7 +27,7 @@
           <!-- BAR CHART -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">그래프 시각화</h3><br>
+              <h3 class="box-title">데이터 필터링</h3><br>
               <h3 class="box-title">　</h3>
 			    <form id="availableRoomListForm" method="get" action="/stats/statsHistory">           
 			   
@@ -100,18 +100,8 @@
 </form>
 
 	
-              <div class="box-tools pull-right">
-             
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
             </div>
             
-            <div class="box-body">
-            <div class="col-md-12">
-              </div>
-            </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -166,12 +156,140 @@
 												<td>${histDTO.empName} ${histDTO.empPosition}</td>
 												<td>${histDTO.startDate}</td>
 												<td>${histDTO.endDate}</td>
-												<td><a href='noticeDetail?noticeNo=${histDTO.category}'>${histDTO.category}</a></td>
-												<td>${histDTO.purpose}</td>
+												<td>${histDTO.category}</td>
+												<td>
+													<a data-toggle="modal"  href="#modal-active_${histDTO.reserveNo}">${histDTO.purpose}</a>
+												
 											
 											
+											
+											
+											
+											
+											
+											
+											
+											<div class="modal modal-active fade" id="modal-active_${histDTO.reserveNo}">
+														<!-- 예약 상세보기 modal div -->
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+					
+																<h4 class="modal-title">상세 예약내역</h4>
+															</div>
+															
+															<div class="modal-body">
+																<p><strong>예약정보</strong></p>														
+																	<div class="col-md-6">
+																		<label>예약번호</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reserveNo}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>회의실명</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.roomName}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>예약자</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reserveEmpNo} ${histDTO.empName} ${histDTO.empPosition}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>회의시작</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.startDate}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>회의종료</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.endDate} '>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>1차결재일</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.approval1Date}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>2차결재일</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.approval2Date}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>예약신청일</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reserveDate}'>
+																	</div>
+																	
+																	<div class="col-md-12">
+																		<label>회의목적</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.purpose}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>회의구분</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.category}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>중요도</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.priority}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>참석인원수</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.empCount}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>간식준비여부</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.snackYn}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>근무지명</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.buildName}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>신청부서명</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.deptName} '>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>회의실타입</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.roomType}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>회의비용</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reservePrice}'>
+																	</div>
+																<p>　</p>
+															</div>
+															
+													<div class="modal-footer">
+													<button type="button" class="btn  btn-info col-sm-12" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">확인</span>
+																</button>
+													</div>
+													
+													
+													</div>
+												<!-- /.modal-content -->
+												</div>
+												<!-- /.modal-dialog -->
+												</div>	
+					
+											
+											</td>
 										</tr>
 									</c:forEach>
+									
+									
+									
 				                </tbody>
 				                <tfoot>
 				           <!--      <tr>

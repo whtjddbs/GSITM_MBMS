@@ -104,7 +104,6 @@
              
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
             
@@ -171,7 +170,7 @@
 												<td>${histDTO.empName} ${histDTO.empPosition}</td>
 												<td>${histDTO.startDate}</td>
 												<td>${histDTO.endDate}</td>
-												<td><a href='noticeDetail?noticeNo=${histDTO.category}'>${histDTO.category}</a></td>
+												<td>${histDTO.category}</td>
 												<td>${histDTO.purpose}</td>
 											
 											
