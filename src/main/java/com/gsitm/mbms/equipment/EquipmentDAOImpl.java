@@ -57,7 +57,7 @@ public class EquipmentDAOImpl implements EquipmentDAO {
 
 	@Override
 	public List<EquipmentDTO> selectOneByRoomNo(int roomNo) {
-		return session.selectList("equipmentMapper.selectOneByRoomNo", roomNo);
+		return sqlSession.selectList("equipmentMapper.selectOneByRoomNo", roomNo);
 	}
 
 }
