@@ -28,6 +28,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="reason" property="reason"/>
 	</resultMap>
 	
+	<resultMap type="meetingMember" id="MeetingMemberDTO">
+		<result column="reserve_no" property="reserveNo"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="dept_name" property="deptName"/>
+	</resultMap>
+	
+	<resultMap type="meetingEquipment" id="MeetingEquipmentDTO">
+		<result column="reserve_no" property="reserveNo"/>
+		<result column="eq_no" property="eqNo"/>
+		<result column="eq_count" property="eqCount"/>
+	</resultMap>
+	
+	<resultMap type="competentDepartment" id="CompetentDepartmentDTO">
+		<result column="reserve_no" property="reserveNo"/>
+		<result column="dept_no" property="deptNo"/>
+		<result column="emp_count" property="empCount"/>
+	</resultMap>
+	
+	<resultMap type="reserveHistory" id="reserveHistoryFull" extends="ReserveHistoryDTO">
+		<collection property="meetingMemberList" ofType="meetingMember" resultMap="MeetingMemberDTO"></collection>
+		<collection property="competentDepartmentList" ofType="meetingEquipment" resultMap="MeetingEquipmentDTO"></collection>
+		<collection property="meetingEquipmentList" ofType="competentDepartment" resultMap="CompetentDepartmentDTO"></collection>
+	</resultMap>
+	<!-- End of resultMap -->
+	
+	<!-- BuildingDTO와 RoomDTO 조인 -->
+	<resultMap type="building" id="buildingWithRooms" extends="Building">
+		<collection property="rooms" ofType="room" resultMap="roomMapper.RoomDTO"></collection>
+	</resultMap>
+   
 	<!-- 회원번호로 예약내역 조회 -->
 	<select id="getReservationListByEmpNo" parameterType="String" resultMap="ReserveHistoryDTO">
 		SELECT * FROM Reserve_history 
@@ -157,5 +187,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 민기 : 모든 예약내역 조회 -->
 	<select id="getAllReservationList" parameterType="String" resultMap="ReserveHistoryDTO">
 		SELECT * FROM Reserve_history
+	</select>
+	
+	<!-- 성윤: 해당 예약 상세정보 조회 -->
+	<select id="selectOneReserveInfo" parameterType="int" resultType="reserveHistory">
+		SELECT * FROM reserve_history WHERE reserve_no = #{reserve_no}
+	</select>
+	
+	<!-- 성윤: 해당 예약 주관부서목록 조회 -->
+	<select id="selectCompetentDeptartmentList" parameterType="int" resultType="competentDepartment">
+		SELECT * FROM competent_department WHERE reserve_no = #{reserve_no}
+	</select>
+	
+	<!-- 성윤: 해당 예약 참석자목록 조회 -->
+	<select id="selectMeetingEquipmentList" parameterType="int" resultType="meetingEquipment">
+		SELECT * FROM member_equipment_list WHERE reserve_no = #{reserve_no}
+	</select>
+	
+	<!-- 성윤: 해당 예약 비품목록 조회 -->
+	<select id="selectMeetingMemberList" parameterType="int" resultType="meetingMember">
+		SELECT * FROM member_member_list WHERE reserve_no = #{reserve_no}
 	</select>
 </mapper>
