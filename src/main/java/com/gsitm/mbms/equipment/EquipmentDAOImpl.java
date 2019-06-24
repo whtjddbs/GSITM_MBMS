@@ -42,4 +42,16 @@ public class EquipmentDAOImpl implements EquipmentDAO {
 		return sqlSession.selectList("equipmentMapper.equipmentSelectAllwithRoom");
 	}
 
+	@Override
+	public void equipmentDelete(int eqNo) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("equipmentMapper.equipmentDelete", eqNo);
+	}
+
+	@Override
+	public void equipmentUpdate(EquipmentDTO dto) {
+		// TODO Auto-generated method stub
+		sqlSession.update("equipmentMapper.equipmentUpdate",dto);
+	}
+
 }

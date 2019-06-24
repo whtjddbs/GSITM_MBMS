@@ -17,4 +17,6 @@ public interface RoomDAO {
 	//회의실 등록
 	public void roomInsert(RoomDTO dto);
 
+	public List<RoomDTO> selectAllWithEquipments();
+
 	}

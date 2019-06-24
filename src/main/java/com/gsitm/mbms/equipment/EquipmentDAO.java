@@ -17,4 +17,8 @@ public interface EquipmentDAO {
 
 	List<Map<String, Object>> equipmentSelectAllwithRoom();
 
+	void equipmentDelete(int eqNo);
+
+	void equipmentUpdate(EquipmentDTO dto);
+
 }

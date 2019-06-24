@@ -19,4 +19,8 @@ public interface EquipmentService {
 
 	public List<Map<String, Object>> equipmentSelectAllwithRoom();
 
+	public void equipmentDelete(int eqNo);
+
+	public void equipmentUpdate(EquipmentDTO dto);
+
 }

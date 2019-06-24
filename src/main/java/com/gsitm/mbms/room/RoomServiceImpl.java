@@ -36,4 +36,10 @@ public class RoomServiceImpl implements RoomService {
 		
 	}
 
+	@Override
+	public List<RoomDTO> selectAllWithEquipments() {
+		// TODO Auto-generated method stub
+		return roomDAO.selectAllWithEquipments();
+	}
+
 }

@@ -36,5 +36,11 @@ public class RoomDAOImpl implements RoomDAO {
 		
 	}
 
+	@Override
+	public List<RoomDTO> selectAllWithEquipments() {
+		// TODO Auto-generated method stub
+		return session.selectList("roomMapper.selectAllWithEquipments");
+	}
+
 
 }

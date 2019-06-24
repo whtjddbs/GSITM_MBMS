@@ -49,9 +49,10 @@
 											<button type="button" class="btn btn-info btn-sm"
 												data-toggle="modal"
 												data-target="#modal-info_${building.buildNo }">
-												회의실정보</button> <input type="button" class="btn btn-warning btn-sm"
-											value="수정하기" id="${building.buildNo }_updateBtn"
-											onclick="location.href='/building/buildingUpdateForm?buildNo=${building.buildNo}'">
+												회의실정보</button> 
+												<input type="button" class="btn btn-warning btn-sm"
+											data-toggle="modal"
+											data-target="#modal-warning_${building.buildNo}" value="수정하기">
 
 											<input type="button" class="btn btn-danger btn-sm"
 											data-toggle="modal"
@@ -101,14 +102,91 @@
 													<h4 class="modal-title">${building.buildName }회의실내역</h4>
 												</div>
 												<div class="modal-body">
-													<p>
-														준비중 <br>준비중<bR>준비중 <br>&hellip;
-													</p>
+													
+														<ul>
+														<c:forEach items="${building.rooms }" var="room">
+															<c:if test="${room.roomName==null }">
+																[ ${building.buildName } ] 지사에 존재하는 회의실이 없습니다.
+															</c:if>
+															<c:if test="${room.roomName!=null }">
+																<li>[ ${room.roomName } ] 회의실</li>
+															</c:if>
+														</c:forEach>
+														</ul>
+													
+													
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-outline pull-left"
 														data-dismiss="modal">닫기</button>
 
+												</div>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+									<!-- /.modal -->
+									
+									<div class="modal modal-default fade"
+										id="modal-warning_${building.buildNo}">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<h4 class="modal-title">Warning Modal</h4>
+												</div>
+												<div class="modal-body">
+													<form role="form" action="/building/buildingUpdate"
+														method="post">
+														<!-- text input -->
+														<div class="form-group">
+															<input type="hidden" name="buildNo"
+																value="${building.buildNo }"> <label>근무지이름</label>
+															<input type="text" class="form-control" name="buildName"
+																placeholder="${building.buildName }">
+														</div>
+
+														<label>우편 번호</label>
+														<div class="row">
+															<div class="col-xs-3">
+																<input type="text" class="form-control" name="buildPost"
+																	placeholder="${building.buildPost }"
+																	onclick="execPostCode();">
+															</div>
+															<div class="col-xs-4">
+																<input type="button" class="btn btn-default"
+																	value="검색하기" onclick="execPostCode();">
+															</div>
+														</div>
+
+														<div class="form-group">
+															<label>근무지 주소</label>
+															<div class="row">
+																<div class="col-xs-7">
+																	<input type="text" class="form-control"
+																		name="buildAddr" placeholder="${building.buildAddr }"
+																		onclick="execPostCode();">
+																</div>
+															</div>
+														</div>
+
+														<div class="form-group" align=center>
+															<input type="submit" class='btn btn-success' value="수정완료">
+															<input type="reset" class='btn btn-danger' value="수정취소">
+															<input type="button" class='btn btn-default' value="뒤로가기"
+																onClick="history.back();">
+														</div>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-outline pull-left"
+														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-outline">Save
+														changes</button>
 												</div>
 											</div>
 											<!-- /.modal-content -->
@@ -124,7 +202,7 @@
 									<th>Browser</th>
 									<th>Platform(s)</th>
 									<th>Engine version</th>
-									<th><input type="button" class="btn btn-default btn-sm"
+									<th><input type="button" class="btn btn-primary"
 										data-toggle="modal" data-target="#modal-default_buildInsert"
 										value="근무지등록하기" /></th>
 								</tr>

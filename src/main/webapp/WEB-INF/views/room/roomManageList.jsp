@@ -60,10 +60,22 @@
 							<tbody>
 								<c:forEach items="${rooms }" var="room" varStatus="status">
 									<tr role='row'>
-										<td><img src='${room.roomImg }' style="width: 300px;">?</td>
+										<td><img src='${room.roomImg }' style="width: 300px;"></td>
 										<td>${room.roomName }</td>
 										
-										<td><span id="equipList"></span></td>
+										<td><span id="equipList">
+										<ul>
+											<c:forEach items="${room.equipments }" var="equipment">
+												<c:if test="${equipment.eqName==null }">
+													현재 구비된 비품이 없습니다.
+												</c:if>
+												
+												<c:if test="${equipment.eqName!=null }">
+													<li>${equipment.eqName }</li>
+												</c:if>
+											</c:forEach>
+											</ul>
+										</span></td>
 										<td>${room.roomNumEmp }명</td>
 										<td>시간당 ${room.roomPrice }원</td>
 										<td>${room.buildNo}</td>
