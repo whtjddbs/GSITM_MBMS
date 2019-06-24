@@ -12,7 +12,12 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.gsitm.mbms">
-		<level value="info" />
+		<level value="debug" />
+	</logger>
+	
+	<!-- 민기 통계 디버그용 SQL출력문 추가 -->
+	<logger name="com.gsitm.mbms.stats">
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -31,10 +36,13 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	
+
+
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
 	</root>
 	

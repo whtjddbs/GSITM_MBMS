@@ -28,16 +28,22 @@ public class StatsDAOImpl implements StatsDAO {
 		return sqlSession.selectList("departmentMapper.selectAllDept");
 	}
 
-	//히스토리 전체출력
+/*	//히스토리 전체출력
 	@Override
-	public List<ReserveHistoryDTO> selectAllHistory() {
+	public List<HistoryForStatsDTO> selectAllHistory() {
 		return sqlSession.selectList("statsMapper.selectAllHistory");
-	}
+	}*/
 	
 	//히스토리 필터링 출력
 	@Override
-	public List<ReserveHistoryDTO> selectFilterHistory(Map<String, String> filterMap) {
+	public List<HistoryForStatsDTO> selectFilterHistory(Map<String, String> filterMap) {
 		return sqlSession.selectList("statsMapper.selectFilterHistory", filterMap);
+	}
+	
+	//그래프에 들어갈 빈도 수치 출력
+	@Override
+	public List<FrequencyDTO> selectFrequency(Map<String, String> filterMap) {
+		return sqlSession.selectList("statsMapper.selectFrequency", filterMap);
 	}
 
 	

@@ -40,10 +40,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				e.eq_name AS eqName,
 				e.eq_count AS eqCount,
 				r.room_name AS roomName,
-				b.build_name AS buildName
+				b.build_name AS buildName,
+				b.build_no AS buildNo
 			    
 			FROM  room_equipment e, room r, building b
 			WHERE r.room_no = e.room_no	and r.build_no = b.build_no 
 	</select>
+	
    
 </mapper>
