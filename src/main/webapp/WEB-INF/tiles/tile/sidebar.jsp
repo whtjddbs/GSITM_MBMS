@@ -8,12 +8,12 @@
 		<!-- Sidebar user panel -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="/resources/dist/img/user2-160x160.jpg"
+				<img src="/resources/dist/img/GSprofile.png"
 					class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>소미닉</p>
-				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+				<p>${login.empName} ${login.empPosition} </p>
+				<a href="#"><i class="fa fa-circle text-success"></i> ${login.empNo}  </a>
 			</div>
 		</div>
 
