@@ -28,16 +28,22 @@ public class StatsServiceImpl implements StatsService {
 		return statsDAO.selectAllDept();
 	}
 	
-	//히스토리 전체출력
+/*	//히스토리 전체출력
 	@Override
-	public List<ReserveHistoryDTO> selectAllHistory() {
+	public List<HistoryForStatsDTO> selectAllHistory() {
 		return statsDAO.selectAllHistory();
 	}
-	
+	*/
 	//히스토리 필터링출력
 	@Override
-	public List<ReserveHistoryDTO> selectFilterHistory(Map<String, String> filterMap) {
+	public List<HistoryForStatsDTO> selectFilterHistory(Map<String, String> filterMap) {
 		return statsDAO.selectFilterHistory(filterMap);
 	}
+	//그래프에 들어갈 빈도 수치 출력
+ 	@Override
+	public List<FrequencyDTO> selectFrequency(Map<String, String> filterMap) {
+		System.out.println("----------------------서비스~~"+filterMap);
+		return statsDAO.selectFrequency(filterMap);
+	} 
 
 }

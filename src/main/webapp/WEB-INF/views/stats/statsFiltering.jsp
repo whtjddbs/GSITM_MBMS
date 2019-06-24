@@ -7,13 +7,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ChartJS
-        <small>Preview sample</small>
+        예약 통계
+        <small>Statistics</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Charts</a></li>
-        <li class="active">ChartJS</li>
+        <li><a href="#">예약 관리</a></li>
+        <li class="active">통계</li>
       </ol>
     </section>
 
@@ -27,18 +27,16 @@
           <!-- BAR CHART -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Bar Chart</h3>
-             
-			    <form id="availableRoomListForm" method="post" action="/stats/availableRoomList">           
+              <h3 class="box-title">그래프 시각화</h3><br>
+              <h3 class="box-title">　</h3>
+			    <form id="availableRoomListForm" method="get" action="/stats/statsFiltering">           
 			   
-			   
-			   <!-- 근무지명 부서명 회의실구분 name이랑 id 확인해봐 -->
 			
 				
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>근무지명</label> <select name="buildingSelect" class="form-control">
-								<option value="">전체</option>
+								<option value="전체" selected="selected">전체</option>
 								<c:forEach var="buildingDTO" items="${buildingList}">
 									<option value="${buildingDTO.buildName}">${buildingDTO.buildName}</option>
 								</c:forEach>
@@ -55,7 +53,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>부서명</label> <select name="deptSelect" class="form-control">
-								<option value="">전체</option>
+								<option value="전체" selected="selected">전체</option>
 								<c:forEach var="departmentDTO" items="${departmentList}">
 									<option value="${departmentDTO.deptName}">${departmentDTO.deptName}</option>
 								</c:forEach>
@@ -65,7 +63,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>회의실구분</label> <select name="roomTypeSelect" class="form-control">
-								<option value="">전체</option>
+								<option value="전체" selected="selected">전체</option>
 								<c:forEach var="roomtype" items="${roomTypes}">
 									<option value="${roomtype}">${roomtype}</option>
 								</c:forEach>
@@ -76,7 +74,7 @@
 				
 				
 					<div class="col-md-8">
-				
+						
 						<!-- Date and time range -->
 						<div class="form-group">
 							<label>검색 날짜 (시작 - 끝)</label>
@@ -85,7 +83,7 @@
 									<i class="fa fa-clock-o"></i>
 								</div>
 								<input type="text" class="form-control pull-right"
-									name="timeSelect" id="reservationtime">
+									name="timeSelect" id="reservationtime" value='전체'>
 							</div>
 							<!-- /.input group -->
 						</div>
@@ -101,17 +99,32 @@
 				
 </form>
 
-
-			
+	
               <div class="box-tools pull-right">
+             
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
+            
             <div class="box-body">
+            <div class="col-md-12">
+            <br>
+            	<table id="example1" class="table table-bordered table-striped">
+            	
+              		<tr>
+              			<td>
+              				<label> 검색 필터 - 근무지 : ${filterMap.buildingSelect}, 부서명: ${filterMap.deptSelect}, 회의실구분: ${filterMap.roomTypeSelect}, 날짜: ${filterMap.timeSelectStart} ~ ${filterMap.timeSelectEnd}</label> 
+  						<td>
+  						
+              		</tr>
+              		
+              	</table>
+              	<br>
               <div class="chart">
                 <canvas id="barChart" style="height:300px"></canvas>
+              </div>
               </div>
             </div>
             <!-- /.box-body -->
@@ -119,7 +132,7 @@
           <!-- /.box -->
           
           
-          
+        
 
 
 
@@ -132,26 +145,30 @@
 		<div class="row">
 			<div class="col-xs-12">
 					<!-- /.box-header -->
+					<h4 class="box-title">필터링된 데이터</h4>
 					<div class="box-body">
+					
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th class = "">예약번호</th>
-									<th class = "">회의실번호</th>
-									<th class = "">예약자</th>
-									<th class = "">startDate</th>
-									<th class = "">endDate</th>
-									<th class = "">category</th>
-									<th class = "">purpose</th>
+									<th class = "">근무지명</th>
+									<th class = "">신청부서</th>
+									<th class = "">회의실명</th>
+									<th class = "">예약자명</th>
+									<th class = "">회의시작</th>
+									<th class = "">회의끝</th>
+									<th class = "">회의종류</th>
+									<th class = "">상세보기</th>
 								</tr>
 							</thead>
 							<tbody>
 					              <c:forEach var="histDTO" items="${historyList}">
 										<tr>
 											
-												<td>${histDTO.reserveNo}</td>
-												<td>${histDTO.roomNo}</td>
-												<td>${histDTO.reserveEmpNo}</td>
+												<td>${histDTO.buildName}</td>
+												<td>${histDTO.deptName}</td>
+												<td>${histDTO.roomName}</td>
+												<td>${histDTO.empName} ${histDTO.empPosition}</td>
 												<td>${histDTO.startDate}</td>
 												<td>${histDTO.endDate}</td>
 												<td><a href='noticeDetail?noticeNo=${histDTO.category}'>${histDTO.category}</a></td>
@@ -162,15 +179,16 @@
 									</c:forEach>
 				                </tbody>
 				                <tfoot>
-				                <tr>
-									<th class = "">예약번호</th>
-									<th class = "">회의실</th>
-									<th class = "">예약자</th>
-									<th class = "">startDate</th>
-									<th class = "">endDate</th>
-									<th class = "">category</th>
-									<th class = "">purpose</th>
-				                </tr>
+				           <!--      <tr>
+									<th class = "">근무지명</th>
+									<th class = "">신청부서</th>
+									<th class = "">회의실명</th>
+									<th class = "">예약자명</th>
+									<th class = "">시작날짜</th>
+									<th class = "">끝날짜</th>
+									<th class = "">회의종류</th>
+									<th class = "">상세보기</th>
+				                </tr> -->
 				                </tfoot>
 						</table>
 					</div>
@@ -427,48 +445,62 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script> 
 <script type="text/javascript"> 
 
+var roomnamelist = new Array();
+<c:forEach var="frequencyDTO" items="${frequencyList}">
+	var str;
+	str="${frequencyDTO.roomName}";
+	roomnamelist.push(str);
+</c:forEach>
+console.log(roomnamelist)
+
+var countlist = new Array();
+<c:forEach var="frequencyDTO" items="${frequencyList}">
+	var str;
+	str="${frequencyDTO.countint}";
+	countlist.push(str);
+</c:forEach>
+console.log(countlist)
+
+var allcountlist = new Array();
+<c:forEach var="allfrequencyDTO" items="${allFrequencyList}">
+	var str;
+	str="${allfrequencyDTO.countint}";
+	allcountlist.push(str);
+</c:forEach>
+console.log(allcountlist)
+
+
+
 var barChartData = {        
-        labels: [
-        	"몰디브",
-        	"회의실1",
-        	"회의실2",
-        	"회의실3",
-        	"회의실4",
-        	"회의실5",
-        	"회의실6"
-        	],
+        labels: roomnamelist,
         datasets: [{
-            label: '3년간 평균 사용기록',
+            label: '같은 기간 중 전체부서 사용빈도 (사용기록이 있는 회의실만 나타납니다)',
             backgroundColor: "#dddddd",
-            data: [
-                Math.random()*100,
-                Math.random()*100,
-                Math.random()*100,
-                Math.random()*100,
-                Math.random()*100,
-                Math.random()*100
-           ]
+            data: allcountlist
         }, {
-            label: '올해 사용시간',
+            label: '선택한 부서의 사용빈도',
             backgroundColor: "#3c8dbc",
-            data: [
-                Math.random()*100,
-                Math.random()*100,
-                Math.random()*100,
-                Math.random()*100,
-                Math.random()*100,
-                Math.random()*100,
-                Math.random()*100
-            ]
+            data: countlist
         }]
     };
+    
+    
  window.onload = function() {
     var ctx = $('#barChart').get(0).getContext("2d"); 
     window.theChart = new Chart(ctx, {
          type: 'bar',
          data: barChartData,
          options: {
-             
+        	 
+             scales: { //X,Y축 옵션
+            	 scaleSteps : 1,
+                 yAxes: [{
+                     ticks: {
+                         beginAtZero:true,  //Y축의 값이 0부터 시작
+                         stepSize: 1
+                     }
+                 }]
+             }
          }
  });
 }
@@ -489,7 +521,11 @@ var barChartData = {
 		//Date range picker with time picker
 		$('#reservationtime').daterangepicker({
 			timePicker : false,
-			format : 'YYYY/MM/DD HH:mm'
+			format : 'YYYY/MM/DD',
+			locale: {format : 'YYYY/MM/DD'},
+	      	startDate: moment().add(-1, 'year'),
+	      	endDate: moment().add(0, 'year')
+	      	
 		})
 		
 
