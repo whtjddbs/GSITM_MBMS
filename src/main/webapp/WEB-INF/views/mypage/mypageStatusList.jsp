@@ -192,76 +192,117 @@
 	
 <script>
 	$(function() {
-		var employeeNo;
+		/* initialize the calendar
+		 -----------------------------------------------------------------*/
+		//Date for the calendar events (dummy data)
+		var date = new Date();
+		var d = date.getDate(), m = date.getMonth(), y = date.getFullYear();
 		var selectedStart;
 		var selectedEnd;
-		
-		var calendar = $('#calendar').fullCalendar({
-			select: function(startDate, endDate, jsEvent, view, resource) {
-				selectedStart = startDate.format('YYYY-MM-DD');
-				selectedEnd = endDate.format('YYYY-MM-DD');
-				$('#reservationtime').data('daterangepicker').setStartDate(selectedStart);
-				$('#reservationtime').data('daterangepicker').setEndDate(selectedEnd);
-			},
-			eventClick: function(event){
-				console.log(event);
-				$('#modal-reservationStartDate').val(moment(event.startDate).format("YYYY-MM-DD"));
-				$('#modal-reservationEndDate').val(moment(event.endDate).format("YYYY-MM-DD"));				
-			},
-			contentHeight: "auto",
-			googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE" // Google API KEY
-		});
-		
+
 		//회의실 예약 : 지사, 회의실구분별 예약목록 조회
 		function getReservationList() {
 			$.ajax({
-	            type : "POST",
-	            data : {"buildNo" : $('#buildingSelect').val(),
-	            		"roomType" : $('#roomTypeSelect').val()},
-	            dataType : "json",
+	            url : "/mypage/getReservationList",
+	            data : {"reserveNo" : reserveNo},
+	            type : "GET",
+	            
 	            success : function(data) {
-	            	var events = [];
+	            	//var events = [];
+	            	console.log(data);
+	            	
+	            	$("#startDate").val(data.startDate);
+	            	$("#purpose").val(data.purpose);
+	            },
+	            error : funtion(){
+	            	alert("예약 현황 조회 에러");
+	            }
+			});
+		}
 	            	
 	            	$.each(data.reservationList, function(index, item) {
 	            		var oneEvent = new Object();
+	            		oneEvent.id = item.RESERVENO;
+	            		oneEvent.title = item.PURPOSE;
 	            		oneEvent.start = new Date(item.STARTDATE);
 	            		oneEvent.end = new Date(item.ENDDATE);
-	 
+	            		oneEvent.backgroundColor = '#3c8dbc';
+	            		oneEvent.borderColor = '#3c8dbc';
+	            		//추가정보
+	            		oneEvent.roomName = item.ROOMNAME;
+	            		oneEvent.roomNo = item.ROOMNO;
+	            		oneEvent.networkYn = item.NETWORKYN;
+	            		oneEvent.buildNo = item.BUILDNO;
+	            		oneEvent.buildName = item.BUILDNAME;
+	            		oneEvent.reserveNo = item.RESERVENO;
+	            		oneEvent.startDate = item.STARTDATE;
+	            		oneEvent.endDate = item.ENDDATE;
+	            		oneEvent.purpose = item.PURPOSE;
+	            		oneEvent.category = item.CATEGORY;
+	            		oneEvent.empCount = item.EMPCOUNT;
+	            		oneEvent.snackYn = item.SNACKYN;
 	            		//이벤트 목록에 추가
 	            		events[index] = oneEvent;
 	            	});
+
+	            	var holiday = new Object();
+	            	holiday.googleCalendarId = "ko.south_korea#holiday@group.v.calendar.google.com";
+	            	holiday.className = "koHolidays";
+	            	holiday.color = "#FF0000";
+	            	holiday.textColor = "#FFFFFF";
+	            	
+	            	$('#calendar').fullCalendar('removeEvents');
+	            	$('#calendar').fullCalendar('removeEvents', 'koHolidays');
+        		    $('#calendar').fullCalendar('addEventSource', events);
+        		    $('#calendar').fullCalendar('addEventSource', holiday);
+        		    $('#calendar').fullCalendar('rerenderEvents');
 	            },
 	            error : function(data) {
 	               alert('roomSelect click error!');
 	            }
 	        });
 		}
-				
+		
 		//페이지로딩시 전체 예약현황 셋팅
 		getReservationList();
+		
+		/* 리스트 table 삽입 */
+		function makeTable(list, table){
+			$.each(list, function(i, item){
+				table += '<tr>'
+				table += '<td> ' +item.startDate + '</td> ';
+				table += '<td> ' +item.purpose + '</td> ';
+
+				if(item.approval)
+				else if()
+				
+				table += '</tr>';
+			});
+			return table;
+		}
 		
 		/** DatePicker **/
 		//좌측 회의실 검색부분
 		$('#reservationtime').daterangepicker({
 			timePicker : true,
 			timePickerIncrement : 30,
+			timePicker24Hour: true,
 			minDate : new Date(),
-			format : 'YYYY/MM/DD',
+			format : 'YYYY/MM/DD HH:mm',
 			locale : {
-				format : 'YYYY/MM/DD'
+				format : 'YYYY/MM/DD HH:mm'
 			}
 		})
-	    
+		
 	    //검색 버튼 클릭
-	    $('#availableMypageSearchBtn').click(function(){
+	    $('#availableRoomSearchBtn').click(function(){
 	    	let picker = $('#reservationtime').data('daterangepicker');
-	    	console.log(moment(picker.startDate).format('YYYY/MM/DD') + " - " + moment(picker.endDate).format('YYYY/MM/DD'));
-	    	$('#reseveStatusForm').submit();
+	    	console.log(moment(picker.startDate).format('YYYY/MM/DD HH:mm') + " - " + moment(picker.endDate).format('YYYY/MM/DD HH:mm'));
+	    	$('#availableRoomListForm').submit();
 	    });
 	    
 	})
 </script>
-		
 
 
 <script>
@@ -276,3 +317,4 @@
 		})
 	})
 </script>
+

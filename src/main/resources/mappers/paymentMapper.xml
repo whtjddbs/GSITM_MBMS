@@ -33,9 +33,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 회의실 비용 관련 조회 -->
 	<select id="selectAllPayment" resultMap="PaymentDTO">
-		SELECT Reserve_history.*, employee.emp_name, department.dept_name FROM RESERVE_HISTORY, EMPLOYEE, department
+		SELECT Reserve_history.*, employee.emp_name, department.dept_name 
+		FROM RESERVE_HISTORY, EMPLOYEE, department
 		WHERE reserve_history.reserve_emp_no=employee.emp_no
 		and employee.dept_no=department.dept_no
 	</select>
+	
+	<!-- 회의실 비용 관련 조회 -->
+	<select id="paymentDetail" resultMap="PaymentDTO">
+		SELECT *
+        from Reserve_history rh, employee e, meeting_member_list ml
+        where rh.reserve_emp_no = e.emp_no
+        and ml.reserve_no(+) = rh.reserve_no
+	</select>
+	
+	
+	
 	
 </mapper>

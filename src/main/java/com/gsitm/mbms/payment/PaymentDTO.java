@@ -2,6 +2,11 @@ package com.gsitm.mbms.payment;
 
 import java.sql.Date;
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Data
 public class PaymentDTO {
 	private int reserveNo;
 	private int roomNo;

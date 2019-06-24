@@ -59,6 +59,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete">
    		DELETE FROM RESERVE_HISTORY WHERE reserve_no = #{reserveNo}
    	</delete>
+   	
+   	<select id="getReservationList" parameterType="java.util.Map" resultType="map">
+		<![CDATA[
+			SELECT RESERVE_HISTORY.*
+				FROM RESERVE_HISTORY
+		]]>	
+	</select>
 	
 </mapper>
 

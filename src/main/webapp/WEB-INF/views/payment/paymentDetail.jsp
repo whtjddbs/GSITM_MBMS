@@ -29,33 +29,31 @@ figure img {max-width:600px; height:auto;}
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">결제 상세 정보</h3>
-
             </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body no-padding">
+ 
+             <div class="box-body no-padding">
               <div class="mailbox-read-info">
-                <h3>${noticeDTO.noticeSubject}</h3>
-                <h5>${PaymentDTO.paymentDate}
-                  <span class="mailbox-read-time pull-right">결제일 : ${PaymentDTO.paymentDate}</span>
+                <h3> </h3>
+                <h5>작성자: 
+                  <span class="mailbox-read-time pull-right">작성일 : </span>
                 </h5>
               </div>
               <!-- /.mailbox-read-info -->
 
               <div class="mailbox-read-message">
 
-                <p>${noticeDTO.noticeContent}</p>
+                <p> </p>
 
               </div>
               <!-- /.mailbox-read-message -->
             </div>
-
-            <!-- /.box-footer -->
-            <div class="box-footer">
+            
+             <div class="box-footer">
               <div class="pull-right">
-                  	
-              </div><!-- 
-            </div>
+              
+                          </div>
             <!-- /.box-footer -->
           </div>
           <!-- /. box -->
@@ -67,3 +65,4 @@ figure img {max-width:600px; height:auto;}
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+              

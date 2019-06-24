@@ -4,17 +4,17 @@ package com.gsitm.mbms.mypage;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @작성일 : 2019. 5. 28.
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/mypage")
 public class MypageController {
 	
-	@Inject
+	@Autowired
 	private MypageService mypageService;
 
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
@@ -73,18 +73,17 @@ public class MypageController {
 		return "redirect:/mypage/mypageStatusList";
 	}
 	
-//	/** 날짜 검색 */
-//	@RequestMapping("/mypageListResult")
-//	public String mypageListResult(@RequestParam Map<String,Object> map, Model model, HttpSession session) {
-//		System.out.println(map.toString());
-//		
-//		String dateRange = (String) map.get("reservationtime");
-//		String dates[] = dateRange.split("-");
-//		map.put("startDate", dates[0].trim());
-//		map.put("endDate", dates[1].trim());
-//		
-//		return "mypage/mypageListResult";
-//	}
+	/** 예약 현황 날짜 조건검색 */
+	@RequestMapping("/getStatusListResult")
+	public ModelAndView getStatusListResult(@RequestParam Map<String,Object> map) {
+
+		List<MypageDTO> statusListResult = mypageService.getStatusListResult(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("statusListResult", statusListResult);
+		mav.setViewName("jsonView");
+		return mav;
+	}
 	
 
 	

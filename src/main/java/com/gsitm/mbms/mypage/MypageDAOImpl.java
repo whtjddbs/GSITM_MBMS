@@ -1,11 +1,13 @@
 package com.gsitm.mbms.mypage;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
 
 
 
@@ -40,6 +42,11 @@ public class MypageDAOImpl implements MypageDAO{
 	//삭제
 	public void delete(int reserveNo) throws Exception {
 		session.delete(namespace + "delete", reserveNo);
+	}
+	
+	@Override
+	public List<MypageDTO> getStatusListResult(Map<String, Object> map) {
+		return session.selectList("mypageMapper.getStatusListResult", map);
 	}
 	
 }
