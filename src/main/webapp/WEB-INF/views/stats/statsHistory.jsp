@@ -7,13 +7,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        예약 통계
+        예약 현황 관리
         <small>Statistics</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">예약 관리</a></li>
-        <li class="active">통계</li>
+        <li class="active">현황 관리</li>
       </ol>
     </section>
 
@@ -27,9 +27,9 @@
           <!-- BAR CHART -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">그래프 시각화</h3><br>
+              <h3 class="box-title">데이터 필터링</h3><br>
               <h3 class="box-title">　</h3>
-			    <form id="availableRoomListForm" method="get" action="/stats/statsFiltering">           
+			    <form id="availableRoomListForm" method="get" action="/stats/statsHistory">           
 			   
 			
 				
@@ -100,33 +100,8 @@
 </form>
 
 	
-              <div class="box-tools pull-right">
-             
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
             </div>
             
-            <div class="box-body">
-            <div class="col-md-12">
-            <br>
-            	<table id="example1" class="table table-bordered table-striped">
-            	
-              		<tr>
-              			<td>
-              				<label> 검색 필터 - 근무지 : ${filterMap.buildingSelect}, 부서명: ${filterMap.deptSelect}, 회의실구분: ${filterMap.roomTypeSelect}, 날짜: ${filterMap.timeSelectStart} ~ ${filterMap.timeSelectEnd}</label> 
-  						<td>
-  						
-              		</tr>
-              		
-              	</table>
-              	<br>
-              <div class="chart">
-                <canvas id="barChart" style="height:300px"></canvas>
-              </div>
-              </div>
-            </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -147,7 +122,17 @@
 					<!-- /.box-header -->
 					<h4 class="box-title">필터링된 데이터</h4>
 					<div class="box-body">
-					
+					<table class="table table-bordered table-striped">
+            	
+              		<tr>
+              			<td>
+              				<label> 검색 필터 - 근무지 : ${filterMap.buildingSelect}, 부서명: ${filterMap.deptSelect}, 회의실구분: ${filterMap.roomTypeSelect}, 날짜: ${filterMap.timeSelectStart} ~ ${filterMap.timeSelectEnd}</label> 
+  						<td>
+  						
+              		</tr>
+              		
+              	</table>
+              	<br>
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
@@ -158,6 +143,7 @@
 									<th class = "">회의시작</th>
 									<th class = "">회의끝</th>
 									<th class = "">회의종류</th>
+									<th class = "">승인여부</th>
 									<th class = "">상세보기</th>
 								</tr>
 							</thead>
@@ -171,12 +157,159 @@
 												<td>${histDTO.empName} ${histDTO.empPosition}</td>
 												<td>${histDTO.startDate}</td>
 												<td>${histDTO.endDate}</td>
-												<td><a href='noticeDetail?noticeNo=${histDTO.category}'>${histDTO.category}</a></td>
-												<td>${histDTO.purpose}</td>
+												<td>${histDTO.category}</td>
+												<td>
+													<c:if test='${histDTO.approval2Yn==1}'>최종승인됨</c:if>
+													<c:if test='${histDTO.approval1Yn==1 && histDTO.approval2Yn==0}'>1차승인</c:if>
+													<c:if test='${histDTO.approval1Yn==0 && histDTO.reason==null}'>미승인</c:if>
+													<c:if test='${histDTO.reason!=null}'> 반려</c:if>
+												</td>
+												<td>
+													<a data-toggle="modal"  href="#modal-active_${histDTO.reserveNo}">${histDTO.title}</a>
+												
 											
 											
+											
+											
+											
+											
+											
+											
+											
+											<div class="modal modal-active fade" id="modal-active_${histDTO.reserveNo}">
+														<!-- 예약 상세보기 modal div -->
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+					
+																<h4 class="modal-title">상세 예약내역</h4>
+															</div>
+															
+															<div class="modal-body"><!-- 
+																<p><strong>예약정보</strong></p>	 -->		
+																<div class="col-md-12">											
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>예약번호</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reserveNo}' readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>회의실명</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.roomName}'readonly>
+																	
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>예약자</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reserveEmpNo} ${histDTO.empName} ${histDTO.empPosition}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>회의시작</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.startDate}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>회의종료</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.endDate} 'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>1차결재일</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.approval1Date}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>2차결재일</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.approval2Date}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>예약신청일</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reserveDate}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>회의목적</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.purpose}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>회의구분</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.category}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>중요도</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.priority}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>참석인원수</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.empCount}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>간식준비여부</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.snackYn}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>근무지명</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.buildName}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>신청부서명</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.deptName} 'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>회의실타입</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.roomType}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>회의비용</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reservePrice}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>반려사유(반려된 경우)</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reason}'readonly>
+																	</div>
+																	
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																		<label>회의제목</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.title}'readonly>
+																	</div>
+																</div>
+																<p>　</p>
+															</div>
+															
+													<div class="modal-footer">
+													<button type="button" class="btn  btn-info col-sm-12" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">확인</span>
+																</button>
+													</div>
+													
+													
+													</div>
+												<!-- /.modal-content -->
+												</div>
+												<!-- /.modal-dialog -->
+												</div>	
+					
+											
+											</td>
 										</tr>
 									</c:forEach>
+									
+									
+									
 				                </tbody>
 				                <tfoot>
 				           <!--      <tr>
@@ -228,287 +361,6 @@
   
   
 
-<%-- <!-- page script -->
-<script>
-  $(function () {
-    /* ChartJS
-     * -------
-     * Here we will create a few charts using ChartJS
-     */
-
-    //--------------
-    //- AREA CHART -
-    //--------------
-
-    // Get context with jQuery - using jQuery's .get() method.
-    var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
-    // This will get the first returned node in the jQuery collection.
-    var areaChart       = new Chart(areaChartCanvas)
-
-    var areaChartData = {
-      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label               : 'Electronics',
-          fillColor           : 'rgba(210, 214, 222, 1)',
-          strokeColor         : 'rgba(210, 214, 222, 1)',
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-          label               : 'Digital Goods',
-          fillColor           : 'rgba(60,141,188,0.9)',
-          strokeColor         : 'rgba(60,141,188,0.8)',
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [28, 48, 40, 19, 86, 27, 90]
-        }
-      ]
-    }
-
-    var areaChartOptions = {
-      //Boolean - If we should show the scale at all
-      showScale               : true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : false,
-      //String - Colour of the grid lines
-      scaleGridLineColor      : 'rgba(0,0,0,.05)',
-      //Number - Width of the grid lines
-      scaleGridLineWidth      : 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines  : true,
-      //Boolean - Whether the line is curved between points
-      bezierCurve             : true,
-      //Number - Tension of the bezier curve between points
-      bezierCurveTension      : 0.3,
-      //Boolean - Whether to show a dot for each point
-      pointDot                : false,
-      //Number - Radius of each point dot in pixels
-      pointDotRadius          : 4,
-      //Number - Pixel width of point dot stroke
-      pointDotStrokeWidth     : 1,
-      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-      pointHitDetectionRadius : 20,
-      //Boolean - Whether to show a stroke for datasets
-      datasetStroke           : true,
-      //Number - Pixel width of dataset stroke
-      datasetStrokeWidth      : 2,
-      //Boolean - Whether to fill the dataset with a color
-      datasetFill             : true,
-      //String - A legend template
-      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>', 
-      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio     : true,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive              : true
-    }
-
-    //Create the line chart
-    areaChart.Line(areaChartData, areaChartOptions)
-
-    //-------------
-    //- LINE CHART -
-    //--------------
-    var lineChartCanvas          = $('#lineChart').get(0).getContext('2d')
-    var lineChart                = new Chart(lineChartCanvas)
-    var lineChartOptions         = areaChartOptions
-    lineChartOptions.datasetFill = false
-    lineChart.Line(areaChartData, lineChartOptions)
-
-    //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieChart       = new Chart(pieChartCanvas)
-    var PieData        = [
-      {
-        value    : 700,
-        color    : '#f56954',
-        highlight: '#f56954',
-        label    : 'Chrome'
-      },
-      {
-        value    : 500,
-        color    : '#00a65a',
-        highlight: '#00a65a',
-        label    : 'IE'
-      },
-      {
-        value    : 400,
-        color    : '#f39c12',
-        highlight: '#f39c12',
-        label    : 'FireFox'
-      },
-      {
-        value    : 600,
-        color    : '#00c0ef',
-        highlight: '#00c0ef',
-        label    : 'Safari'
-      },
-      {
-        value    : 300,
-        color    : '#3c8dbc',
-        highlight: '#3c8dbc',
-        label    : 'Opera'
-      },
-      {
-        value    : 100,
-        color    : '#d2d6de',
-        highlight: '#d2d6de',
-        label    : 'Navigator'
-      }
-    ]
-    var pieOptions     = {
-      //Boolean - Whether we should show a stroke on each segment
-      segmentShowStroke    : true,
-      //String - The colour of each segment stroke
-      segmentStrokeColor   : '#fff',
-      //Number - The width of each segment stroke
-      segmentStrokeWidth   : 2,
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 50, // This is 0 for Pie charts
-      //Number - Amount of animation steps
-      animationSteps       : 100,
-      //String - Animation easing effect
-      animationEasing      : 'easeOutBounce',
-      //Boolean - Whether we animate the rotation of the Doughnut
-      animateRotate        : true,
-      //Boolean - Whether we animate scaling the Doughnut from the centre
-      animateScale         : false,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive           : true,
-      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio  : true ,
-      //String - A legend template
-      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
-     }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions)
-
-    //-------------
-    //- BAR CHART -
-    //-------------
-    var barChartCanvas                   = $('#barChart').get(0).getContext('2d')
-    var barChart                         = new Chart(barChartCanvas)
-    var barChartData                     = areaChartData
-    barChartData.datasets[1].fillColor   = '#00a65a'
-    barChartData.datasets[1].strokeColor = '#00a65a'
-    barChartData.datasets[1].pointColor  = '#00a65a'
-    var barChartOptions                  = {
-      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-      scaleBeginAtZero        : true,
-      //Boolean - Whether grid lines are shown across the chart
-      scaleShowGridLines      : true,
-      //String - Colour of the grid lines
-      scaleGridLineColor      : 'rgba(0,0,0,.05)',
-      //Number - Width of the grid lines
-      scaleGridLineWidth      : 1,
-      //Boolean - Whether to show horizontal lines (except X axis)
-      scaleShowHorizontalLines: true,
-      //Boolean - Whether to show vertical lines (except Y axis)
-      scaleShowVerticalLines  : true,
-      //Boolean - If there is a stroke on each bar
-      barShowStroke           : true,
-      //Number - Pixel width of the bar stroke
-      barStrokeWidth          : 2,
-      //Number - Spacing between each of the X value sets
-      barValueSpacing         : 5,
-      //Number - Spacing between data sets within X values
-      barDatasetSpacing       : 1,
-      //String - A legend template
-       legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-       //Boolean - whether to make the chart responsive
-      responsive              : true,
-      maintainAspectRatio     : true
-    }
-
-    barChartOptions.datasetFill = false
-    barChart.Bar(barChartData, barChartOptions)
-  })
-</script> --%>
-
-
-
-
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script> 
-<script type="text/javascript"> 
-
-var roomnamelist = new Array();
-<c:forEach var="frequencyDTO" items="${frequencyList}">
-	var str;
-	str="${frequencyDTO.roomName}";
-	roomnamelist.push(str);
-</c:forEach>
-console.log(roomnamelist)
-
-var countlist = new Array();
-<c:forEach var="frequencyDTO" items="${frequencyList}">
-	var str;
-	str="${frequencyDTO.countint}";
-	countlist.push(str);
-</c:forEach>
-console.log(countlist)
-
-var allcountlist = new Array();
-<c:forEach var="allfrequencyDTO" items="${allFrequencyList}">
-	var str;
-	str="${allfrequencyDTO.countint}";
-	allcountlist.push(str);
-</c:forEach>
-console.log(allcountlist)
-
-
-
-var barChartData = {        
-        labels: roomnamelist,
-        datasets: [{
-            label: '같은 기간 중 전체부서 사용빈도 (사용기록이 있는 회의실만 나타납니다)',
-            backgroundColor: "#dddddd",
-            data: allcountlist
-        }, {
-            label: '선택한 부서의 사용빈도',
-            backgroundColor: "#3c8dbc",
-            data: countlist
-        }]
-    };
-    
-    
- window.onload = function() {
-    var ctx = $('#barChart').get(0).getContext("2d"); 
-    window.theChart = new Chart(ctx, {
-         type: 'bar',
-         data: barChartData,
-         options: {
-        	 
-             scales: { //X,Y축 옵션
-            	 scaleSteps : 1,
-                 yAxes: [{
-                     ticks: {
-                         beginAtZero:true,  //Y축의 값이 0부터 시작
-                         stepSize: 1
-                     }
-                 }]
-             }
-         }
- });
-}
-</script>
-
-
-
-
 
 
 
@@ -531,3 +383,20 @@ var barChartData = {
 
 	})
 </script>
+
+
+<script>
+	$(function() {
+		/* $('#example1').DataTable()  */
+		$('#example1').DataTable({
+			'paging' : true,
+			'lengthChange' : true,
+			'searching' : true,
+			'ordering' : true,
+			'info' : true,
+			'autoWidth' : true,
+			"order": [[ 4, "desc" ]]
+		})
+	})
+</script>
+

@@ -35,6 +35,23 @@ public class RoomDAOImpl implements RoomDAO {
 		session.insert("roomMapper.insertRoom",dto);
 		
 	}
+	@Override
+	public List<RoomDTO> selectAllWithEquipments() {
+		// TODO Auto-generated method stub
+		return session.selectList("roomMapper.selectAllWithEquipments");
+	}
 
+	@Override
+	public void roomDelete(int roomNo) {
+		// TODO Auto-generated method stub
+		session.delete("roomMapper.deleteRoom",roomNo);
+	}
 
+	@Override
+	public void roomUpdate(RoomDTO dto) {
+		// TODO Auto-generated method stub
+		session.update("roomMapper.updateRoom",dto);
+	}
 }
+
+

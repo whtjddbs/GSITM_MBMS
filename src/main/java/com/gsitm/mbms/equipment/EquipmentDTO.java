@@ -10,7 +10,6 @@ import lombok.ToString;
  * @작성일 : 2019. 6. 19.
  * @작성자 : 김원빈
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

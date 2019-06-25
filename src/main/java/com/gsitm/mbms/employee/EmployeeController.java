@@ -1,5 +1,7 @@
 package com.gsitm.mbms.employee;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -11,13 +13,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.gsitm.mbms.employee.LoginService;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @주제 :
@@ -25,12 +31,16 @@ import com.gsitm.mbms.employee.LoginService;
  * @작성자 : 조성윤
  */
 @Controller
+@Slf4j
 public class EmployeeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private EmployeeService employeeService;
 
 	/** 로그인 화면 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -78,7 +88,7 @@ public class EmployeeController {
 		
 		Object obj = session.getAttribute("login");
 		if (obj != null) {
-			session.removeAttribute("login");
+			//session.removeAttribute("login");
 			session.invalidate(); // 세션 전체를 날려버림
 			
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
@@ -90,5 +100,15 @@ public class EmployeeController {
 		}
 
 		return "logout";
+	}
+	@GetMapping("/employee/getEmployee")
+	public ModelAndView getEmployee(@RequestParam String mgrEmpNo) {
+		ModelAndView mav = new ModelAndView();
+		log.info("GetEmployee Action");
+		EmployeeDTO dto = employeeService.getEmployee(mgrEmpNo);
+		mav.addObject("dto",dto);
+		mav.setViewName("jsonView");
+		System.out.println(mav);
+		return mav;
 	}
 }

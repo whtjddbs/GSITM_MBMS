@@ -6,6 +6,11 @@ figure img {max-width:600px; height:auto;}
 
 .btn_del_upd {display: inline-block;}
 
+.mailbox-read-message{
+
+	min-height:150px;
+}
+
 </style>
 
   <!-- Content Wrapper. Contains page content -->
@@ -43,7 +48,7 @@ figure img {max-width:600px; height:auto;}
             <div class="box-body no-padding">
               <div class="mailbox-read-info">
                 <h3>${noticeDTO.noticeSubject}</h3>
-                <h5>작성자: ${noticeDTO.writerEmpName} ( ${noticeDTO.writerEmpNo} )
+                <h5>작성자: ${noticeDTO.writerEmpName} ${noticeDTO.writerEmpPosition} ( ${noticeDTO.writerEmpNo} )
                   <span class="mailbox-read-time pull-right">작성일 : ${noticeDTO.noticeDate}</span>
                 </h5>
               </div>

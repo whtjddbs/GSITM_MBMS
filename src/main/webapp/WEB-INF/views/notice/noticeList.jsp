@@ -56,7 +56,7 @@
 	<section class="content">
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="box">
+				<div class="box box-primary">
 					
 					<div class="box-header">
 						<h3 class="box-title">MBMS 공지사항</h3>
@@ -111,7 +111,7 @@
 										
 											<td>${noticeDTO.noticeNo}</td>
 											<td>${noticeDTO.writerEmpNo}</td>
-											<td>${noticeDTO.writerEmpName}</td>
+											<td>${noticeDTO.writerEmpName} ${noticeDTO.writerEmpPosition}</td>
 											<td><a href='noticeDetail?noticeNo=${noticeDTO.noticeNo}'>${noticeDTO.noticeSubject}</a></td>
 											<td>${noticeDTO.noticeDate}</td>
 										

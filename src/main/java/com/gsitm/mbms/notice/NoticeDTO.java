@@ -23,8 +23,8 @@ public class NoticeDTO {
 	private String writerEmpNo;
 	private String noticeDate;
 	
-	private String writerEmpName;	
-
+	private String writerEmpName;
+	private String writerEmpPosition;
 
 	public NoticeDTO(String noticeNo, String noticeSubject, String noticeContent, String writerEmpNo,
 			String noticeDate) {

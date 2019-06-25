@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
 	<!-- sidebar: style can be found in sidebar.less -->
@@ -8,12 +8,16 @@
 		<!-- Sidebar user panel -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="/resources/dist/img/user2-160x160.jpg"
+				<img src="/resources/dist/img/GSprofile.png"
 					class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>소미닉</p>
-				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+				<p>${login.empName} ${login.empPosition} </p>
+				<a href="#"><i class="fa fa-circle text-success"></i>
+					${login.empNo}
+					<c:if test="${isAdmin}"> <span class="label label-danger"> 관리자</span></c:if>
+					<c:if test="${isApprover}"><span class="label label-success"> 결재자</span></c:if>
+				</a>
 			</div>
 		</div>
 
@@ -54,39 +58,45 @@
 							예약 이력</a></li>
 			</ul></li>
 			
-			<!-- 상위결재자 -->
-			<li class="header">DEPARTMENT HEAD</li>
-			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
-			<li><a href="/payment/paymentList"><i class="fa fa-circle-o text-yellow"></i> <span>결제 관리</span></a></li>
+			<c:if test="${isApprover}">
+				<!-- 상위결재자 -->
+				<li class="header">APPROVER</li>
+				<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
+				<li><a href="/payment/paymentList"><i class="fa fa-circle-o text-yellow"></i> <span>비용 관리</span></a></li>
+			</c:if>
 			
-			<!-- 관리자 -->
-			<li class="header">MANAGER</li>
-			<!-- 회의실 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
-					<span>회의실 관리</span> <span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-				</span>
-			</a>
-				<ul class="treeview-menu">
-					<li><a href="/building/buildingList"><i class="fa fa-circle-o"></i> 
-							근무지 관리</a></li>
-					<li><a href="/room/roomManageList"><i class="fa fa-circle-o"></i>
-							회의실 관리</a></li>
-					<li><a href="/equipment/equipmentList"><i class="fa fa-circle-o"></i>
-							비품 관리</a></li>
-				</ul></li>
-			<!-- 회의실 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
-					<span>예약 관리</span> <span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-				</span>
-			</a>
-				<ul class="treeview-menu">
-					<li><a href="/stats/statsHistory"><i class="fa fa-circle-o"></i> 
-							예약 현황 관리</a></li>
-					<li><a href="/stats/statsFiltering"><i class="fa fa-circle-o"></i>
-							예약 통계</a></li>
-				</ul></li>
+			
+			<c:if test="${isAdmin}">
+				<!-- 관리자 -->
+				<li class="header">MANAGER</li>
+				<!-- 회의실 -->
+				<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
+						<span>회의실 관리</span> <span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+					<ul class="treeview-menu">
+						<li><a href="/building/buildingList"><i class="fa fa-circle-o"></i> 
+								근무지 관리</a></li>
+						<li><a href="/room/roomManageList"><i class="fa fa-circle-o"></i>
+								회의실 관리</a></li>
+						<li><a href="/equipment/equipmentList"><i class="fa fa-circle-o"></i>
+								비품 관리</a></li>
+					</ul></li>
+				<!-- 회의실 -->
+				<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
+						<span>예약 관리</span> <span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+					<ul class="treeview-menu">
+						<li><a href="/stats/statsHistory"><i class="fa fa-circle-o"></i> 
+								예약 현황 관리</a></li>
+						<li><a href="/stats/statsFiltering"><i class="fa fa-circle-o"></i>
+								예약 통계</a></li>
+					</ul></li>
+			</c:if>
+				
 		</ul>
 		<!-- GSITM 로고 -->
 		<div class="sidebar-logo">

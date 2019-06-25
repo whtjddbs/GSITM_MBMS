@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<style>
+	.form-group{
+		display: inline-block;
+   		width: 100%;
+	}
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -21,6 +28,31 @@
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
+					<div class="row">
+							<div class="col-sm-3">
+								<label for="buildingSelect">지사</label> <select
+									name="buildingSelect" id="buildingSelect" class="form-control"  onchange="selectBuilding(this.options[this.selectedIndex].value)">
+									<option value="">전체</option>
+									<c:forEach var="building" items="${buildings }">
+									<c:if test="${room.roomNo!=0 }">
+										<option value="${building.buildName }">${building.buildName }</option>
+									</c:if>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="col-sm-3">
+							<label for="buildingSelect">회의실</label> 
+								<select name="roomSelect" id="roomSelect" class="form-control">
+								<option value="">전체</option>
+										<c:forEach var="building" items="${buildings }" varStatus="status">
+												<c:forEach var="room" items="${building.rooms }">
+														<option class="building${building.buildName }" value="${room.roomName }">${room.roomName }</option>
+												</c:forEach>
+										</c:forEach>
+									</select>
+							</div>
+							<div class="col-sm-6"></div>
+						</div>
 						<table id="equipmentListTable"
 							class="table table-bordered table-hover">
 							<thead>
@@ -41,16 +73,16 @@
 										<td>${equipment.BUILDNAME }</td>
 
 										<td><input type="button" class="btn btn-warning btn-sm"
-											value="수정하기" id="${building.buildNo }_updateBtn"
-											onclick="location.href='/building/buildingUpdateForm?buildNo=${building.buildNo}'">
+											data-toggle="modal"
+											data-target="#modal-warning_${equipment.EQNO}" value="수정하기">
 
 											<input type="button" class="btn btn-danger btn-sm"
 											data-toggle="modal"
-											data-target="#modal-danger_${building.buildNo}" value="삭제하기">
+											data-target="#modal-danger_${equipment.EQNO}" value="삭제하기">
 
 
 											<div class="modal modal-danger fade"
-												id="modal-danger_${building.buildNo}">
+												id="modal-danger_${equipment.EQNO}">
 												<!-- 삭제 modal div -->
 												<!-- Modal Div -->
 												<div class="modal-dialog">
@@ -60,16 +92,17 @@
 																aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>
-															<h4 class="modal-title">근무지 삭제하기</h4>
+															<h4 class="modal-title">비품삭제하기</h4>
 														</div>
 														<div class="modal-body">
-															<p>${building.buildName }을정말로삭제하시겠습니까?&hellip;</p>
+															<p> [${equipment.EQNAME }] 을 정말로 삭제하시겠습니까? 
+																<br> ${equipment.BUILDNAME }의  ${equipment.ROOMNAME } 회의실에 비치된 ${equipment.EQCOUNT }개의 ${equipment.EQNAME } 입니다.</p>
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-outline pull-left"
 																data-dismiss="modal">취소</button>
 															<button type="button" class="btn btn-outline"
-																onclick="location.href='/building/buildingDelete?buildNo=${building.buildNo}'">삭제하기</button>
+																onclick="location.href='/equipment/equipmentDelete?eqNo=${equipment.EQNO}'">삭제하기</button>
 														</div>
 													</div>
 													<!-- /.modal-content -->
@@ -78,9 +111,8 @@
 											</div> <!-- /.modal --></td>
 									</tr>
 
-									<div class="modal modal-info fade"
-										id="modal-info_${building.buildNo }">
-										<!-- 건물 상세보기 modal div -->
+									<div class="modal modal-default fade"
+										id="modal-warning_${equipment.EQNO}">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -88,16 +120,39 @@
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
-													<h4 class="modal-title">${building.buildName }회의실내역</h4>
+													<h4 class="modal-title">Warning Modal</h4>
 												</div>
 												<div class="modal-body">
-													<p>
-														준비중 <br>준비중<bR>준비중 <br>&hellip;
-													</p>
+													<form role="form" action="/equipment/equipmentUpdate"
+														method="post">
+														<input type="hidden" name="eqNo" value="${equipment.EQNO }"> 
+														<!-- text input -->
+														
+															<div class="col-xs-6">
+																<label>비품이름</label> 
+																	<input type="text" class="form-control" name="eqName"
+																	placeholder="${equipment.EQNAME }">
+															</div>
+														
+															<div class="col-xs-6">
+																<label>비품 갯수</label>
+																	<input type="number" class="form-control" name="eqCount" 
+																	placeholder="${equipment.EQCOUNT }">
+															</div>
+
+														<div class="form-group" align=center>
+														
+															<input type="submit" class='btn btn-success' value="수정완료">
+															<input type="reset" class='btn btn-danger' value="수정취소">
+															<input type="button" class='btn btn-default' value="닫기" data-dismiss="modal">
+														</div>
+													</form>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-outline pull-left"
-														data-dismiss="modal">닫기</button>
+														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-outline">Save
+														changes</button>
 												</div>
 											</div>
 											<!-- /.modal-content -->
@@ -113,11 +168,13 @@
 									<th>Browser</th>
 									<th>Browser</th>
 									<th>Platform(s)</th>
-									<th><input type="button" class="btn btn-info btn-sm"
+									<th><input type="button" class="btn btn-primary"
 										data-toggle="modal" data-target="#modal-default_eqInsert"
 										value="비품등록하기" /></th>
 								</tr>
 						</table>
+						<jsp:include page="../modal/Modal.jsp"></jsp:include>
+						
 						<div class="modal fade" id="modal-default_eqInsert">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -170,10 +227,11 @@
 									</div>
 
 									<div class="form-group" align=center>
+									<input type="button" class='btn btn-default' value="닫기"
+											data-dismiss="modal">
 										<input type="submit" class='btn btn-success' value="등록완료">
 										<input type="reset" class='btn btn-danger' value="등록취소">
-										<input type="button" class='btn btn-default' value="뒤로가기"
-											onClick="history.back();">
+										
 									</div>
 									</form>
 									<div class="modal-footer">
@@ -201,15 +259,25 @@
 <!-- page script -->
 <script>
 	$(document).ready(function() {
-		$('#example1').DataTable()
+	
 		$('#equipmentListTable').DataTable({
 			'paging' : true,
-			'lengthChange' : true,
+			'lengthChange' : false,
 			'searching' : true,
 			'ordering' : true,
 			'info' : true,
 			'autoWidth' : true
 		})
-
 	})
+	$(document).on('change', '#buildingSelect, #roomSelect', function(){
+	         $("input[type='search']").val($("#buildingSelect").val()+" "+$("#roomSelect").val());
+	         $("input[type='search']").trigger('keyup');
+	      });
+	
+	function selectBuilding(buildNo) {
+		$('#roomSelect option').hide();
+		$('#roomSelect').find('.building'+buildNo).show();
+		$('#roomSelect').val($('#roomSelect').find('.building'+buildNo).first().val());
+		$('#roomSelect').trigger('change');
+	}
 </script>

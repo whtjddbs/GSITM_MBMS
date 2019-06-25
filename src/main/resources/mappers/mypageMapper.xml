@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				AND ROOM.BUILD_NO = BUILDING.BUILD_NO
 				AND RESERVE_HISTORY.RESERVE_EMP_NO = #{empNo}
     </select>
-    
+     
     <!--  사용자 예약이력에서 전체 조회   -->
     <select id="selectAllHistory" resultMap="MypageDTO">
 		SELECT RESERVE_HISTORY.*, EMPLOYEE.EMP_NAME, ROOM.ROOM_NAME

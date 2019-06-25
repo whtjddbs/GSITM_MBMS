@@ -35,4 +35,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDAO.selectAllDepartmentTree();
 	}
 
+	/** 성윤: 상위결재자 사원번호 조회 **/
+	@Override
+	public EmployeeDTO getDeptManagerEmpNo(String empNo) {
+		return employeeDAO.getDeptManagerEmpNo(empNo);
+	}
+
+	/** 원빈 : 직원 한명 조회 **/
+	@Override
+	public EmployeeDTO getEmployee(String empNo) {
+		// TODO Auto-generated method stub
+		return employeeDAO.getEmployee(empNo);
+		
+	}
+
 }

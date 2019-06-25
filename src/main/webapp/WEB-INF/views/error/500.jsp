@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -28,14 +29,12 @@
 					search form.
 				</p>
 
-				<form class="search-form">
+				<form class="search-form" method=get action="https://www.google.co.kr/search" target="_blank">
 					<div class="input-group">
-						<input type="text" name="search" class="form-control"
-							placeholder="Search">
+						<input type="text" name="q" class="form-control" placeholder="Search">
 
 						<div class="input-group-btn">
-							<button type="submit" name="submit"
-								class="btn btn-danger btn-flat">
+							<button type="submit" name="submit" class="btn btn-danger btn-flat">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>

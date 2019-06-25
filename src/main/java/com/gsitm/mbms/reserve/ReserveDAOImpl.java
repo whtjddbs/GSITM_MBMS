@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.mbms.employee.EmployeeDTO;
 import com.gsitm.mbms.room.RoomDTO;
 
 /**
@@ -55,4 +56,36 @@ public class ReserveDAOImpl implements ReserveDAO {
 		return session.selectOne("reserveHistoryMapper.getNextReservation", map);
 	}
 
-} 
+	@Override
+	public int getNextReserveNo() {
+		return session.selectOne("reserveHistoryMapper.getNextReserveNo");
+	}
+	
+	@Override
+	public int insertReserveHistory(ReserveHistoryDTO reserveHistory) {
+		return session.insert("reserveHistoryMapper.insertReserveHistory", reserveHistory);
+	}
+
+	@Override
+	public int insertMeetingMemberList(List<MeetingMemberDTO> meetingMemberList) {
+		return session.insert("reserveHistoryMapper.insertMeetingMemberList", meetingMemberList);
+	}
+
+	@Override
+	public int insertMeetingEquipmentList(List<MeetingEquipmentDTO> meetingEquipmentList) {
+		return session.insert("reserveHistoryMapper.insertMeetingEquipmentList", meetingEquipmentList);
+	}
+
+	@Override
+	public int insertCompetentDepartmentList(List<CompetentDepartmentDTO> competentDepartmentList) {
+		return session.insert("reserveHistoryMapper.insertCompetentDepartmentList", competentDepartmentList);
+	}
+	
+	/**민기 : 해당 사용자가 결재자인지 판별-----------------------------*/
+	@Override
+	public List<ReserveHistoryDTO> getAllReservationList() {
+		return session.selectList("reserveHistoryMapper.getAllReservationList");
+	}
+
+
+}

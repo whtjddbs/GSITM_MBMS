@@ -19,8 +19,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	private SqlSession sqlSession;
 
 	@Override
-	public EmployeeDTO getEmployee(String emp_no) {
-		return sqlSession.selectOne("employeeMapper.getEmployee",emp_no);
+	public EmployeeDTO getEmployee(String empNo) {
+		return sqlSession.selectOne("employeeMapper.getEmployee",empNo);
 	}
 
 	@Override
@@ -40,8 +40,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return sqlSession.selectList("employeeMapper.getEmployeeList");
 	}
 
-	
-
 	/** 성윤: 모든 직원 정보 조회 **/
 	@Override
 	public List<EmployeeDTO> selectAllEmployee() {
@@ -52,6 +50,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public List<Map<String, String>> selectAllDepartmentTree() {
 		return sqlSession.selectList("departmentMapper.selectAllDepartmentTree");
+	}
+
+	/** 성윤: 상위결재자 사원번호 조회 **/
+	@Override
+	public EmployeeDTO getDeptManagerEmpNo(String empNo) {
+		return sqlSession.selectOne("employeeMapper.getDeptManagerEmpNo", empNo);
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.gsitm.mbms.room;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -14,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,11 +29,14 @@ import com.gsitm.mbms.employee.EmployeeDAO;
 import com.gsitm.mbms.equipment.EquipmentDTO;
 import com.gsitm.mbms.equipment.EquipmentService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @주제 : 
  * @작성일 : 2019. 6. 3.
  * @작성자 : 김원빈
  */
+@Slf4j
 @Controller
 @RequestMapping("/room")
 public class RoomController {
@@ -53,8 +59,8 @@ public class RoomController {
 	@RequestMapping(value="/roomManageList", method=RequestMethod.GET)
 	public String list(Model model) {
 		logger.info("Room ListPage!");
-		
-		List<RoomDTO> rooms = roomService.selectAllRoom();
+		List<RoomDTO> rooms = roomService.selectAllWithEquipments();
+		//List<RoomDTO> rooms = roomService.selectAllRoom();
 		List<BuildingDTO> buildings = buildingService.selectAll();
 		
 		model.addAttribute("rooms", rooms);
@@ -109,11 +115,49 @@ public class RoomController {
 		public ModelAndView getEmployeeList(Model model) {
 			
 			List<Map<String, Object>> employees = eDao.getEmployeeList();
-			System.out.println(employees.size());
-			System.out.println(employees.toString());
+
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("employees",employees);
 			mav.setViewName("jsonView");
 			return mav;
+		}
+		
+		@GetMapping(value="/roomUpdateForm")
+		public String roomUpdateForm(Model model, int roomNo) {
+			log.info("roomUpdateForm");
+			RoomDTO dto = roomService.selectOneRoomByRoomNo(roomNo);
+			List<BuildingDTO> buildings = buildingService.selectAll();
+			List<EquipmentDTO> equipments = equipmentService.equipmentDistinctSelect();
+			model.addAttribute("equipments",equipments);
+			model.addAttribute("buildings",buildings);
+			model.addAttribute("room", dto);
+			model.addAttribute("roomNo",roomNo);
+			return "/room/roomUpdateForm";
+		}
+		
+		@PostMapping(value="/roomUpdate")
+		public String roomUpdate(RoomDTO dto,MultipartFile file, HttpServletRequest request) throws IOException, Exception {
+			log.info("roomUpdate Action");
+			String imgpUploadPath = request.getSession().getServletContext().getRealPath("/resources/") + File.separator + "imgUpload";
+			String ymdPath = UploadFileUtils.calcPath(imgpUploadPath);
+			String fileName = null;
+			if(file !=null) {
+				fileName = UploadFileUtils.fileUpload(imgpUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+			}
+			else {
+				fileName=uploadPath+File.separator+"images"+File.separator+"non.png";
+			}
+			
+			dto.setRoomImg(File.separator +"imgUpload"+ymdPath+File.separator+fileName);
+			
+			roomService.roomUpdate(dto);
+			return "redirect:/room/roomManageList?type=update";
+		}
+		
+		@GetMapping(value="/roomDelete")
+		public String roomDelete(int roomNo) {
+			roomService.roomDelete(roomNo);
+			log.info("roomDelete Action");
+			return "redirect:/room/roomManageList?type=delete";
 		}
 }

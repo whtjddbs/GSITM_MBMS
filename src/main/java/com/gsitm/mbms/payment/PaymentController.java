@@ -38,7 +38,7 @@ public class PaymentController {
 		List<PaymentDTO> paymentList = paymentService.selectAllPayment();
 		model.addAttribute("paymentList", paymentList);
 		return "/payment/paymentList";
-	}	
+	}
 	
 	/** 총 결제 비용 */
 	@RequestMapping(value = "/sumPayment", method = RequestMethod.GET)
