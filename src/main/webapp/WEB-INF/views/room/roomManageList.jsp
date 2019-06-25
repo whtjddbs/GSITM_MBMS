@@ -64,7 +64,7 @@
 										<td>${room.roomName }</td>
 										
 										<td><span id="equipList">
-										<ul>
+											<ul>
 											<c:forEach items="${room.equipments }" var="equipment">
 												<c:if test="${equipment.eqName==null }">
 													현재 구비된 비품이 없습니다.
@@ -83,18 +83,18 @@
 										<td>
 											<input type="button" class="btn btn-info btn-sm infoBtn"
 												data-toggle="modal" id="roomView_${room.roomNo }"
-												data-target="#modal-info_${building.buildNo }" value="상세보기">
+												data-target="roomView_${room.roomNo }_modal" value="상세보기">
 											
 												
 											<input type="button" class="btn btn-warning btn-sm updateBtn"
 											value="수정하기" id="${room.roomNo }"
-											onclick="location.href='/building/buildingUpdateForm?buildNo=${building.buildNo}'">
+											onclick="location.href='/room/roomUpdateForm?roomNo=${room.roomNo}'">
 
 											<input type="button" class="btn btn-danger btn-sm deleteBtn"
 											data-toggle="modal"
-											data-target="#modal-danger_${building.buildNo}" value="삭제하기" id="roomDelete_${room.roomNo }" >
+											data-target="#modal-danger_${room.roomNo}" value="삭제하기" id="roomDelete_${room.roomNo }" >
 											
-										<div class="modal modal-info fade" id="roomView_${room.roomNo }_modal">
+										<div class="modal modal-default fade" id="roomView_${room.roomNo }_modal">
 										<!-- 건물 상세보기 modal div -->
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -103,10 +103,28 @@
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
-													<h4 class="modal-title">${building.buildName } 비품내역</h4>
+													<h4 class="modal-title">${room.roomName } ${room.roomType } 상세내용</h4>
 												</div>
 												<div class="modal-body">
-													<p>준비중 <br>준비중<bR>준비중 <br>&hellip;</p>
+													<ul>
+														<li> 이름 : ${room.roomName } </li>
+														<li> 크기(평) : ${room.roomSpace } 평</li>
+														<li> 최대 인원 : ${room.roomNumEmp } 명</li>
+														<li> 관리자 사번 : ${room.mgrEmpNo }
+															<input type="hidden" value="${room.mgrEmpNo }" id="${room.mgrEmpNo }_hidden">
+															<input type="button" value="자세히보기" class ="btn btn-info btn-sm viewBtn" id="${room.mgrEmpNo }">
+														</li>
+														<span id="empViewSpan_${room.mgrEmpNo }"></span>
+														<li> 이용가격 : 시간당 ${room.roomPrice } 원</li>
+														<c:if test="${ room.networkYn==y}">
+															<li> 네트워크 사용가능 여부 : 가능
+														</c:if>
+														<c:if test="${ room.networkYn!=y}">
+															<li>회의실 네트워크 사용가능 여부 : 불가능
+														</c:if>
+														<li> 위치(층) : ${room.roomFloor } 층</li>
+														<li> 분류 : ${room.roomType }</li>
+													</ul>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-outline pull-left"
@@ -134,13 +152,13 @@
 															<h4 class="modal-title">근무지 삭제하기</h4>
 														</div>
 														<div class="modal-body">
-															<p>${room.roomName }을정말로삭제하시겠습니까?&hellip;</p>
+															<p>[${room.roomName } ${room.roomType }] 을 정말로 삭제하시겠습니까?&hellip;</p>
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-outline pull-left"
 																data-dismiss="modal">취소</button>
 															<button type="button" class="btn btn-outline"
-																onclick="location.href='/building/buildingDelete?buildNo=${building.buildNo}'">삭제하기</button>
+																onclick="location.href='/room/roomDelete?roomNo=${room.roomNo}'">삭제하기</button>
 														</div>
 													</div>
 													<!-- /.modal-content -->
@@ -166,6 +184,7 @@
 								</tr>
 							</tfoot>
 						</table>
+						<jsp:include page="../modal/Modal.jsp"></jsp:include>
 					</div>
 					<!-- /.box-body -->
 				</div>
@@ -217,7 +236,6 @@
 	      });
 		
 		$('.content').on('click','.infoBtn',function(){
-			alert(this.id);
 			let id = "#"+this.id+"_modal";
 			$(id).modal();
 		})
@@ -225,6 +243,7 @@
 		$('.content').on('click','.updateBtn',function(){
 			alert("update");
 			let id ="#roomUpdate_"+this.id;
+			$(id).modal();
 		})
 		
 		$('.content').on('click','.deleteBtn',function(){
@@ -255,6 +274,28 @@
 	        }
 	    });
 	})	
+	$(".content").on('click','.viewBtn',function(){
+		
+		let id = "#"+this.id+"_hidden";
+		let mgrEmpNo = $(id).val();		
+		let span1 = $(this).parent().next();
+		
+		$.ajax({
+			url:"/employee/getEmployee",
+			type:"get",
+			data:{"mgrEmpNo":mgrEmpNo},
+			dataType:"json",
+			success: function(data){
+				let result =("이름 - "+data.dto.empName+" / 직급 - "+data.dto.empPosition+" / 전화번호 - "+data.dto.cellPhone);
+				span1.text("")
+				span1.append(result);
+			},
+			error:function(){
+				alert('서버에러');
+			}
+		
+		})
+	})
 })
 	
 </script>

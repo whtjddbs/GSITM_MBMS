@@ -40,5 +40,18 @@ public class RoomServiceImpl implements RoomService {
 		// TODO Auto-generated method stub
 		return roomDAO.selectAllWithEquipments();
 	}
+
+	@Override
+	public void roomDelete(int roomNo) {
+		// TODO Auto-generated method stub
+		roomDAO.roomDelete(roomNo);
+		
+	}
+
+	@Override
+	public void roomUpdate(RoomDTO dto) {
+		// TODO Auto-generated method stub
+		roomDAO.roomUpdate(dto);
+	}
 }
 

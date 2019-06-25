@@ -20,4 +20,7 @@ public interface EmployeeService {
 	
 	/** 성윤: 상위결재자 사원번호 조회 **/ 
 	public EmployeeDTO getDeptManagerEmpNo(String empNo);
+
+	/** 원빈 : 직원 한명 조회 **/
+	public EmployeeDTO getEmployee(String empNo);
 }

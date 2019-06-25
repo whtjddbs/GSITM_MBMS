@@ -37,7 +37,7 @@ public class EquipmentController {
 			System.out.println(roomList[i]);
 			service.equipmentInsert(new EquipmentDTO(Integer.parseInt(roomList[i]),0,dto.getEqName(),dto.getEqCount()));
 		}
-		return "redirect:/equipment/equipmentList";
+		return "redirect:/equipment/equipmentList?type=insert";
 	}
 	
 	//equipment 목록
@@ -59,7 +59,7 @@ public class EquipmentController {
 		public String equipmentDelete(int eqNo) {
 			log.info("Equipment DeleteAction");
 			service.equipmentDelete(eqNo);
-			return "redirect:/equipment/equipmentList";
+			return "redirect:/equipment/equipmentList?type=delete";
 		}
 		
 		//equipment 수정
@@ -67,6 +67,6 @@ public class EquipmentController {
 		public String equipmentUpdate(EquipmentDTO dto) {
 			log.info("EquipmentUpdate Action");
 			service.equipmentUpdate(dto);
-			return "redirect:/equipment/equipmentList";
+			return "redirect:/equipment/equipmentList?type=update";
 		}
 }
