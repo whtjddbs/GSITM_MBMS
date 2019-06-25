@@ -188,102 +188,105 @@
 																<h4 class="modal-title">상세 예약내역</h4>
 															</div>
 															
-															<div class="modal-body">
-																<p><strong>예약정보</strong></p>														
-																	<div class="col-md-6">
+															<div class="modal-body"><!-- 
+																<p><strong>예약정보</strong></p>	 -->		
+																<div class="col-md-12">											
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>예약번호</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.reserveNo}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reserveNo}' readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>회의실명</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.roomName}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.roomName}'readonly>
+																	
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>예약자</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.reserveEmpNo} ${histDTO.empName} ${histDTO.empPosition}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reserveEmpNo} ${histDTO.empName} ${histDTO.empPosition}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>회의시작</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.startDate}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.startDate}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>회의종료</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.endDate} '>
+																		<input type="text" class="form-control pull-right" value='${histDTO.endDate} 'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>1차결재일</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.approval1Date}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.approval1Date}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>2차결재일</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.approval2Date}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.approval2Date}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>예약신청일</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.reserveDate}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reserveDate}'readonly>
 																	</div>
 																	
-																	<div class="col-md-12">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>회의목적</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.purpose}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.purpose}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>회의구분</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.category}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.category}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>중요도</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.priority}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.priority}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>참석인원수</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.empCount}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.empCount}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>간식준비여부</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.snackYn}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.snackYn}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>근무지명</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.buildName}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.buildName}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>신청부서명</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.deptName} '>
+																		<input type="text" class="form-control pull-right" value='${histDTO.deptName} 'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>회의실타입</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.roomType}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.roomType}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>회의비용</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.reservePrice}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reservePrice}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>반려사유(반려된 경우)</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.reason}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reason}'readonly>
 																	</div>
 																	
-																	<div class="col-md-6">
+																	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 																		<label>회의제목</label>
-																		<input type="text" class="form-control pull-right" value='${histDTO.title}'>
+																		<input type="text" class="form-control pull-right" value='${histDTO.title}'readonly>
 																	</div>
+																</div>
 																<p>　</p>
 															</div>
 															

@@ -49,7 +49,7 @@
 						
 						<form action=noticeInsert method="post" enctype="multipart/form-data">
 							<div class="form-group">
-								<label for="noticetitle">제목<br></label> <input type="text" class="form-control" id="exampleInputEmail1" name ="noticeSubject"  placeholder="공지 제목을 입력하세요.">
+								<label for="noticetitle">제목<br></label> <input type="text" class="form-control" id="exampleInputEmail1" name ="noticeSubject"  placeholder="공지 제목을 입력하세요." required="required">
 							</div>
 							<!-- 제목 폼그룹 -->
 
@@ -75,7 +75,7 @@
 								<label for="noticetitle">내용</label>
 
 								<!-- 에디터 -->
-								<textarea id="editor1" name="noticeContent" rows="10" cols="80"
+								<textarea id="editor1" name="editor1" rows="10" cols="80"
 									placeholder="공지할 내용을 입력하세요."></textarea>
 
 							</div><!-- /. 에디터 폼그룹 -->
@@ -240,13 +240,13 @@
 <script
 	src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
-<!--  <script>
-  $(function () {
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    CKEDITOR.replace('editor1')
-    //bootstrap WYSIHTML5 - text editor
-    $('.textarea').wysihtml5()
-  })
-</script> 
- -->
+<script>
+        CKEDITOR.replace( 'editor1' );
+        $("form").submit( function(e) {
+            var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
+            if( !messageLength ) {
+                alert( 'Please enter a message' );
+                e.preventDefault();
+            }
+        });
+    </script>
