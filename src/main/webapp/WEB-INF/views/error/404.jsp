@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -17,23 +19,21 @@
 
 			<div class="error-content">
 				<h3>
-					<i class="fa fa-warning text-yellow"></i> Oops! Page not found.
+					<i class="fa fa-warning text-yellow"></i> 404 Page not found.
 				</h3>
 
 				<p>
-					We could not find the page you were looking for. Meanwhile, you may
-					<a href="../../index.html">return to dashboard</a> or try using the
-					search form.
+					페이지를 찾을 수 없습니다.<br>
+					올바른 페이지를 다시 입력하거나 관리자의 도움을 받으세요.
 				</p>
 
-				<form class="search-form">
+
+				<form class="search-form" method=get action="https://www.google.co.kr/search" target="_blank">
 					<div class="input-group">
-						<input type="text" name="search" class="form-control"
-							placeholder="Search">
+						<input type="text" name="q" class="form-control" placeholder="Search">
 
 						<div class="input-group-btn">
-							<button type="submit" name="submit"
-								class="btn btn-warning btn-flat">
+							<button type="submit" name="submit" class="btn btn-warning btn-flat">
 								<i class="fa fa-search"></i>
 							</button>
 						</div>

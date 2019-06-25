@@ -88,7 +88,7 @@ public class EmployeeController {
 		
 		Object obj = session.getAttribute("login");
 		if (obj != null) {
-			session.removeAttribute("login");
+			//session.removeAttribute("login");
 			session.invalidate(); // 세션 전체를 날려버림
 			
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");

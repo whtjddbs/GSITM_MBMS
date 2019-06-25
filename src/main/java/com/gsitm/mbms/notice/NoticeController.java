@@ -61,12 +61,11 @@ public class NoticeController {
 		List<NoticeDTO> noticeList = noticeService.selectAll();
 		model.addAttribute("noticeList", noticeList);
 
-		//세션정보 가져오기
+		//세션정보 가져와서 운영자인지 확인
 		EmployeeDTO employeeDTO = (EmployeeDTO)session.getAttribute("login");
 		boolean isAdminBool = loginService.isAdmin(employeeDTO.getEmpNo());
 		model.addAttribute("isAdmin", isAdminBool);
 		
-
 		
 		return "notice/noticeList";
 	}
@@ -228,14 +227,5 @@ public class NoticeController {
 		
 		return null;
 	}	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
 
 }
