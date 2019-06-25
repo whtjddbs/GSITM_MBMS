@@ -73,6 +73,8 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						
+						
 					</div>
 					<!-- /.box-body -->
 				</div>

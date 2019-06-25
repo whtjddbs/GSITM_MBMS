@@ -57,6 +57,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		
+		/*민기 운영자, 결재자 판단부분----------------------------------------------*/
+		EmployeeDTO employeeDTO = (EmployeeDTO) session.getAttribute("login");
+		
+		boolean isAdmin = loginService.isAdmin(employeeDTO.getEmpNo());
+		if (isAdmin==true) session.setAttribute("isAdmin", isAdmin);
+		
+		boolean isApprover = loginService.isApprover(employeeDTO.getEmpNo());
+		if (isApprover==true) session.setAttribute("isApprover", isApprover);
+		/*-------------------------------------------------------------------------*/
+		
+		
+		
 		return true;
 	}
 }

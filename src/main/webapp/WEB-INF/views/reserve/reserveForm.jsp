@@ -73,6 +73,13 @@
 									</select>
 								</div>
 							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-12  col-xs-12">
+									<label>회의명</label> 
+									<input type="text" name="title" id="title" class="form-control">
+								</div>
+							</div>
 								
 							<div class="form-group">
 								<div class="col-sm-12  col-xs-12">
@@ -539,6 +546,7 @@
 	            	category: $('#meetingCategory').val(),
 	            	empCount: $('#empCount').val(),
 	            	snackYn: $('#snackYn').val()=='Y' ? 'Y' : 'N',
+	            	title: $('#title').val(),
 	            	'meetingMemberList': meetingMemberList,
 	            	'competentDepartmentList': competentDepartment,
 	            	'meetingEquipmentList': eqList

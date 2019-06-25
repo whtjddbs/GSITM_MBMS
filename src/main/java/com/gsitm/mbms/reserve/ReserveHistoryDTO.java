@@ -37,6 +37,7 @@ public class ReserveHistoryDTO {
 	private int empCount;
 	private char snackYn;
 	private String reason;
+	private String title;
 	private List<MeetingMemberDTO> meetingMemberList;
 	private List<CompetentDepartmentDTO> competentDepartmentList;
 	private List<MeetingEquipmentDTO> meetingEquipmentList;

@@ -26,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="emp_count" property="empCount"/>
 		<result column="snack_yn" property="snackYn"/>
 		<result column="reason" property="reason"/>
+		<result column="title" property="title"/>
 	</resultMap>
 	
 	<resultMap type="meetingMember" id="MeetingMemberDTO">
@@ -80,7 +81,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    rh.purpose AS purpose,
 			    rh.category AS category,
 			    rh.emp_count AS empCount,
-			    rh.snack_yn AS snackYn
+			    rh.snack_yn AS snackYn,
+			    rh.reason AS reason,
+			    rh.title AS title
 			FROM reserve_history rh, room r, building b
 			WHERE rh.room_no = r.room_no
 			    AND r.build_no = b.build_no
@@ -144,7 +147,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO Reserve_history VALUES(
 			Reserve_history_seq.nextval, #{roomNo}, #{reserveEmpNo}, #{startDate}, #{endDate}, 
     		#{approval1Yn}, #{approval1EmpNo}, null, #{approval2Yn}, #{approval2EmpNo}, null, 0, null, SYSDATE, 
-    		#{reservePrice}, #{purpose}, #{category}, 5, #{empCount}, #{snackYn}, null)
+    		#{reservePrice}, #{purpose}, #{category}, 5, #{empCount}, #{snackYn}, null, #{title})
 	</insert>
 	<!-- 성윤: 회의실 참석자 명단 추가 -->
 	<insert id="insertMeetingMemberList" parameterType="meetingMember">
@@ -180,7 +183,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 민기 : 모든 예약내역 조회 -->
-	<select id="getAllReservationList" parameterType="String" resultMap="ReserveHistoryDTO">
+	<select id="getAllReservationList" resultMap="ReserveHistoryDTO">
 		SELECT * FROM Reserve_history
 	</select>
 	

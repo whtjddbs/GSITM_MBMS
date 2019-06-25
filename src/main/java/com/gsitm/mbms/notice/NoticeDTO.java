@@ -24,7 +24,7 @@ public class NoticeDTO {
 	private String noticeDate;
 	
 	private String writerEmpName;
-
+	private String writerEmpPosition;
 
 	public NoticeDTO(String noticeNo, String noticeSubject, String noticeContent, String writerEmpNo,
 			String noticeDate) {

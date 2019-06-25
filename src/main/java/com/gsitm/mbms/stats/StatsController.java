@@ -101,6 +101,7 @@ public class StatsController {
 		//선택부서 그래프 출력을 위한 빈도 리스트
 		List<FrequencyDTO> frequencyList = statsService.selectFrequency(filterMap);
 		model.addAttribute("frequencyList", frequencyList);
+		System.out.println(frequencyList+"------------------------------------------");
 		
 	
 		/**필터링 없는 모든 부서 선택 작업-------------------------------------------------------------------*/
