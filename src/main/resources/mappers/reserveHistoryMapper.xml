@@ -155,7 +155,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 민기 : 모든 예약내역 조회 -->
-	<select id="getAllReservationList" parameterType="String" resultMap="ReserveHistoryDTO">
+	<select id="getAllReservationList" resultMap="ReserveHistoryDTO">
 		SELECT * FROM Reserve_history
 	</select>
 </mapper>
