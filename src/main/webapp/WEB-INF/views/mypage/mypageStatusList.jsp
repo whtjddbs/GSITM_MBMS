@@ -83,13 +83,13 @@
 							        	</c:choose>
 							        </td>
 							        <td> 	
-													<button type="button" class="btn btn-info btn-sm" data-toggle="modal" 
-							          					data-target="#modal-info_${mypage.reserveNo}">상세 예약 정보</button>
+													<button type="button" class="btn btn-default btn-sm" data-toggle="modal" 
+							          					data-target="#modal-default_${mypage.reserveNo}">상세 예약 정보</button>
 							          					
 							          				<input type="button" class="btn btn-danger btn-sm" data-toggle="modal" 
 														data-target="#modal-danger_${mypage.reserveNo}" value="예약 취소 요청">
 							          					
-													<div class="modal modal-info fade" id="modal-info_${mypage.reserveNo}">
+													<div class="modal fade" id="modal-default_${mypage.reserveNo}">
 														<!-- 예약 상세보기 modal div -->
 													<div class="modal-dialog">
 														<div class="modal-content">
