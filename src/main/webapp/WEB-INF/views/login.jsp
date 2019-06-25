@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+<%--<!DOCTYPE html>
+<html> --%>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +28,20 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<style>
+
+/* 	.login-box{
+		margin : 0 auto;
+	}
+ */
+/*  .hold-transition login-page{
+ 	height:%;
+ } */
+ 
+ 
+ 
+</style>
+
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -133,4 +147,4 @@
   });
 </script>
 </body>
-</html>
+<!-- </html> -->

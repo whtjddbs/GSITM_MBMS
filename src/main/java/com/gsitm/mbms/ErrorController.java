@@ -21,4 +21,9 @@ public class ErrorController {
 	public String error500() {
 		return "error/500";
 	}
+	
+	@RequestMapping("/errorAuthority")
+	public String errorAuthority() {
+		return "error/authority";
+	}
 }

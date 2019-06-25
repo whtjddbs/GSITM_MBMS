@@ -44,73 +44,7 @@ public class StatsController {
 	
 	@Inject
 	private RoomService roomService;
-	
 
-/*	@RequestMapping(value = "/statsMain", method = RequestMethod.GET)
-	public String statsMain(Model model) throws Exception {
-		
-		//근무지(빌딩)리스트 가져오기
-		List<BuildingDTO> buildingList = buildingService.selectAll();
-		model.addAttribute("buildingList", buildingList);
-		
-		//부서 리스트 가져오기
-		List<DepartmentDTO> departmentList = statsService.selectAllDept();
-		model.addAttribute("departmentList", departmentList);
-		
-		//현재 있는 모든 Room의 타입(회의실, 교육실, 기타 등) 가져오기
-		List<RoomDTO> roomList = roomService.selectAllRoom();
-		List<String> roomTypes = new ArrayList<String>();
-		for (int i = 0; i < roomList.size(); i++) {
-			String thisType = roomList.get(i).getRoomType();
-			if (!roomTypes.contains(thisType)) {
-				roomTypes.add(thisType);
-			}
-		}
-		model.addAttribute("roomTypes", roomTypes);
-		return "stats/statsMain";
-	}
-	*/
-	
-	/*@RequestMapping(value = "/statsMain", method = RequestMethod.GET)
-	public String statsMain(Model model) throws Exception {
-		
-		//근무지(빌딩)리스트 가져오기
-		List<BuildingDTO> buildingList = buildingService.selectAll();
-		model.addAttribute("buildingList", buildingList);
-		
-		//부서 리스트 가져오기
-		List<DepartmentDTO> departmentList = statsService.selectAllDept();
-		model.addAttribute("departmentList", departmentList);
-		
-		//현재 있는 모든 Room의 타입(회의실, 교육실, 기타 등) 가져오기
-		List<RoomDTO> roomList = roomService.selectAllRoom();
-		List<String> roomTypes = new ArrayList<String>();
-		for (int i = 0; i < roomList.size(); i++) {
-			String thisType = roomList.get(i).getRoomType();
-			if (!roomTypes.contains(thisType)) {
-				roomTypes.add(thisType);
-			}
-		}
-		model.addAttribute("roomTypes", roomTypes);
-		
-		// 필터링할 정보 맵으로 모으기 :
-		Map<String, String> filterMap = new HashMap<String, String>();
-		filterMap.put("buildingSelect", "전체");
-		filterMap.put("deptSelect", "전체");
-		filterMap.put("roomTypeSelect", "전체");
-		filterMap.put("timeSelectStart", "전체");
-		filterMap.put("timeSelectEnd", "전체");
-		
-		//모델에도 필터링 담아서 뭐 선택했었는지 알려주기
-		model.addAttribute("filterMap", filterMap);
-				
-		//전체 기록 가져오기
-		 List<HistoryForStatsDTO> historyList= statsService.selectFilterHistory(filterMap);
-		 model.addAttribute("historyList", historyList);
-		 
-		
-		return "stats/statsMain";
-	}*/
 	
 	
 	@RequestMapping(value = "/statsFiltering", method = RequestMethod.GET)
