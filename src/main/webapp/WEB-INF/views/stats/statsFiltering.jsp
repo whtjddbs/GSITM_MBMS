@@ -110,11 +110,11 @@
             <div class="box-body">
             <div class="col-md-12">
             <br>
-            	<table id="example1" class="table table-bordered table-striped">
+            	<table class="table table-bordered table-striped">
             	
               		<tr>
               			<td>
-              				<label> 검색 필터 - 근무지 : ${filterMap.buildingSelect}, 부서명: ${filterMap.deptSelect}, 회의실구분: ${filterMap.roomTypeSelect}, 날짜: ${filterMap.timeSelectStart} ~ ${filterMap.timeSelectEnd} </label>　　 　최종 승인된 회의 데이터와, 해당되는 회의실만 그래프에 표시됩니다
+              				<label> 검색 필터 - 근무지 : ${filterMap.buildingSelect}, 부서명: ${filterMap.deptSelect}, 회의실구분: ${filterMap.roomTypeSelect}, 날짜: ${filterMap.timeSelectStart} ~ ${filterMap.timeSelectEnd} </label>　최종 승인된 회의 데이터와, 해당되는 회의실만 시각화됩니다. 빈도는 사용 일수로 카운팅합니다.
   						<td>
   						
               		</tr>
@@ -174,7 +174,8 @@
 												<td>
 													<c:if test='${histDTO.approval2Yn==1}'>최종승인됨</c:if>
 													<c:if test='${histDTO.approval1Yn==1 && histDTO.approval2Yn==0}'>1차승인</c:if>
-													<c:if test='${histDTO.approval1Yn==0}'>미승인</c:if>
+													<c:if test='${histDTO.approval1Yn==0 && histDTO.reason==null}'>미승인</c:if>
+													<c:if test='${histDTO.reason!=null}'> 반려</c:if>
 												</td>
 													
 					 
@@ -478,7 +479,7 @@ console.log(allcountlist)
 var barChartData = {        
         labels: roomnamelist,
         datasets: [{
-            label: '같은 기간 중 전체부서 사용빈도',
+            label: '같은 기간 중 전체부서 사용빈도 합',
             backgroundColor: "#dddddd",
             data: allcountlist
         }, {
@@ -501,7 +502,7 @@ var barChartData = {
                  yAxes: [{
                      ticks: {
                          beginAtZero:true,  //Y축의 값이 0부터 시작
-                         stepSize: 1
+                         /* stepSize: 1 */
                      }
                  }]
              }
@@ -535,3 +536,19 @@ var barChartData = {
 
 	})
 </script>
+
+<script>
+	$(function() {
+		$('#example1').DataTable({
+			'paging' : false,
+			'lengthChange' : false,
+			'searching' : false,
+			'ordering' : true,
+			'info' : false,
+			'autoWidth' : true,
+			"order": [[ 4, "desc" ]]
+		})
+	})
+</script>
+
+

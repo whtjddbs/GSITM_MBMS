@@ -85,12 +85,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <!--그래프에 넣을 빈도분석통계 뽑기 -->
     <select id="selectFrequency" parameterType="map" resultMap="FrequencyDTO">
-   	 	Select DISTINCT  Room_no, countint, alltable.Room_name  FROM
-		
-		(
-		SELECT room_name , Count(*) as countint
-		FROM (((Reserve_history INNER JOIN Room ON Reserve_history.room_no=room.room_no) INNER JOIN Building ON room.build_no = Building.build_no) INNER JOIN Employee ON Reserve_history.reserve_emp_no=Employee.emp_no) INNER JOIN department ON employee.dept_no = department.dept_no
-
+SELECT DISTINCT room_no,countint,alltable.room_name
+FROM   
+    (SELECT room_name,SUM(days) countint FROM
+        (SELECT room_name,reserve_history.reserve_no, ROUND(end_date-start_date+1) days
+        FROM   (((reserve_history
+                  inner join room ON reserve_history.room_no = room.room_no)
+                 inner join building ON room.build_no = building.build_no)
+                inner join employee ON reserve_history.reserve_emp_no = employee.emp_no)
+               inner join department ON employee.dept_no = department.dept_no
 		<trim prefix="where" prefixOverrides="AND | OR">
 			approval2_yn=1
 			<if test="buildingSelect!='전체'">
@@ -109,7 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </if>
             
         </trim>
-		GROUP BY room_name) counttable
+		)GROUP BY room_name) counttable
 			
 		RIGHT OUTER JOIN
 		

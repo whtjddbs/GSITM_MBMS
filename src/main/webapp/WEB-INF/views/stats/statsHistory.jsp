@@ -122,7 +122,7 @@
 					<!-- /.box-header -->
 					<h4 class="box-title">필터링된 데이터</h4>
 					<div class="box-body">
-					<table id="example1" class="table table-bordered table-striped">
+					<table class="table table-bordered table-striped">
             	
               		<tr>
               			<td>
@@ -143,6 +143,7 @@
 									<th class = "">회의시작</th>
 									<th class = "">회의끝</th>
 									<th class = "">회의종류</th>
+									<th class = "">승인여부</th>
 									<th class = "">상세보기</th>
 								</tr>
 							</thead>
@@ -158,7 +159,13 @@
 												<td>${histDTO.endDate}</td>
 												<td>${histDTO.category}</td>
 												<td>
-													<a data-toggle="modal"  href="#modal-active_${histDTO.reserveNo}">${histDTO.purpose}</a>
+													<c:if test='${histDTO.approval2Yn==1}'>최종승인됨</c:if>
+													<c:if test='${histDTO.approval1Yn==1 && histDTO.approval2Yn==0}'>1차승인</c:if>
+													<c:if test='${histDTO.approval1Yn==0 && histDTO.reason==null}'>미승인</c:if>
+													<c:if test='${histDTO.reason!=null}'> 반려</c:if>
+												</td>
+												<td>
+													<a data-toggle="modal"  href="#modal-active_${histDTO.reserveNo}">${histDTO.title}</a>
 												
 											
 											
@@ -267,6 +274,16 @@
 																		<label>회의비용</label>
 																		<input type="text" class="form-control pull-right" value='${histDTO.reservePrice}'>
 																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>반려사유(반려된 경우)</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.reason}'>
+																	</div>
+																	
+																	<div class="col-md-6">
+																		<label>회의제목</label>
+																		<input type="text" class="form-control pull-right" value='${histDTO.title}'>
+																	</div>
 																<p>　</p>
 															</div>
 															
@@ -363,3 +380,20 @@
 
 	})
 </script>
+
+
+<script>
+	$(function() {
+		/* $('#example1').DataTable()  */
+		$('#example1').DataTable({
+			'paging' : true,
+			'lengthChange' : true,
+			'searching' : true,
+			'ordering' : true,
+			'info' : true,
+			'autoWidth' : true,
+			"order": [[ 4, "desc" ]]
+		})
+	})
+</script>
+
