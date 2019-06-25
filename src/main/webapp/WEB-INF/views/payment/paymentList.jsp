@@ -23,6 +23,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">비용 결제 리스트</h3>
+              
                 <input type="button" onclick="tableToExcel('example2')" class="btn btn-primary" value="EXCEL로 내보내기" style="float: right;" /> 
             </div>
             <!-- /.box-header -->
@@ -113,7 +114,7 @@
 				<tfoot>
 				<tr>
 				<th>총 실결제금액</th>
-					<th></th><th></th><th></th><th></th>
+					<th></th><th></th><th></th><th></th><th></th>
 					<c:set var = "sum" value = "0" />
 					<c:forEach var="PaymentDTO" items="${paymentList}">
 					<c:if test="${PaymentDTO.paymentYn == 1 }">
