@@ -111,7 +111,7 @@
 										
 											<td>${noticeDTO.noticeNo}</td>
 											<td>${noticeDTO.writerEmpNo}</td>
-											<td>${noticeDTO.writerEmpName}</td>
+											<td>${noticeDTO.writerEmpName} ${noticeDTO.writerEmpPosition}</td>
 											<td><a href='noticeDetail?noticeNo=${noticeDTO.noticeNo}'>${noticeDTO.noticeSubject}</a></td>
 											<td>${noticeDTO.noticeDate}</td>
 										
