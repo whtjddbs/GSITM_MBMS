@@ -1,14 +1,21 @@
 package com.gsitm.mbms.approval;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.gsitm.mbms.employee.EmployeeDAO;
+import com.gsitm.mbms.employee.EmployeeDTO;
+import com.gsitm.mbms.equipment.EquipmentDTO;
 import com.gsitm.mbms.reserve.CompetentDepartmentDTO;
-import com.gsitm.mbms.reserve.MeetingEquipmentDTO;
-import com.gsitm.mbms.reserve.MeetingMemberDTO;
+import com.gsitm.mbms.reserve.ReserveDAO;
 import com.gsitm.mbms.reserve.ReserveHistoryDTO;
+import com.gsitm.mbms.room.RoomDAO;
+import com.gsitm.mbms.room.RoomDTO;
+import com.gsitm.mbms.util.MailService;
 
 /**
  * @주제 : 
@@ -19,6 +26,14 @@ import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 public class ApprovalServiceImpl implements ApprovalService {
 	@Autowired
 	private ApprovalDAO approvalDAO;
+	@Autowired
+	private MailService mailService;
+	@Autowired
+	private ReserveDAO reserveDAO;
+	@Autowired
+	private RoomDAO roomDAO;
+	@Autowired
+	private EmployeeDAO employeeDAO;
 
 	@Override
 	public ReserveHistoryDTO selectOneReserveInfo(int reserveNo) {
@@ -31,12 +46,57 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public List<MeetingEquipmentDTO> selectMeetingEquipmentList(int reserveNo) {
+	public List<EquipmentDTO> selectMeetingEquipmentList(int reserveNo) {
 		return approvalDAO.selectMeetingEquipmentList(reserveNo);
 	}
 
 	@Override
-	public List<MeetingMemberDTO> selectMeetingMemberList(int reserveNo) {
+	public List<EmployeeDTO> selectMeetingMemberList(int reserveNo) {
 		return approvalDAO.selectMeetingMemberList(reserveNo);
+	}
+
+	/** empNo 직원이 결재해야할 예약 목록 불러오기 **/
+	@Override
+	public List<ApprovalDTO> selectApprovalListByEmpNo(String empNo) {
+		return approvalDAO.selectApprovalListByEmpNo(empNo);
+	}
+
+	@Override
+	public ApprovalDTO selectOneApprovalInfo(int reserveNo) {
+		return approvalDAO.selectOneApprovalInfo(reserveNo);
+	}
+
+	@Transactional
+	@Override
+	public void refuse(Map<String, Object> map) {
+		approvalDAO.refuse(map);
+	}
+	
+	@Override
+	public void approval(Map<String, Object> map) {
+		approvalDAO.approval(map);
+
+		String colName = (String)map.get("colName");
+		int reserveNo = Integer.parseInt(map.get("reserveNo").toString());
+		ReserveHistoryDTO reserveHistory = reserveDAO.getReservationByReserveNo(reserveNo);
+		RoomDTO roomDTO = roomDAO.selectOneRoomByRoomNo(reserveHistory.getRoomNo());
+		EmployeeDTO reserveEmp = employeeDAO.getEmployee(reserveHistory.getReserveEmpNo());
+		String email = "";
+		
+		if(colName.equals("approval2")) {
+			List<EmployeeDTO> employees = approvalDAO.selectMeetingMemberList(reserveNo);
+			for(EmployeeDTO emp : employees) {
+				email += emp.getEmpEmail()+",";
+			}
+			email += reserveEmp.getEmpEmail();
+			
+			mailService.send("회의실 예약 완료 안내", email, reserveHistory, roomDTO, "예약이 완료되었습니다");
+		} else if (colName.equals("approval1")) {
+			EmployeeDTO nextApprovalEmp = employeeDAO.getEmployee(reserveHistory.getApproval2EmpNo());
+			
+			email = reserveEmp.getEmpEmail()+","+nextApprovalEmp.getEmpEmail();
+			
+			mailService.send("회의실 예약 1차 승인 완료 안내", email, reserveHistory, roomDTO, "예약이 1차 승인되었습니다");
+		}
 	}
 }

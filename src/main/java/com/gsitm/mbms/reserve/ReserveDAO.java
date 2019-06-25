@@ -43,4 +43,7 @@ public interface ReserveDAO {
 	
 	/** 민기: 모든 예약 내역 **/
 	public List<ReserveHistoryDTO> getAllReservationList();
+	
+	/** 성윤: 예약번호로 예약내역 조회 **/
+	public ReserveHistoryDTO getReservationByReserveNo(int reserveNo);
 }

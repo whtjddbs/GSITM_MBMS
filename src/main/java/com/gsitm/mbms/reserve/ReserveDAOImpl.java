@@ -87,5 +87,10 @@ public class ReserveDAOImpl implements ReserveDAO {
 		return session.selectList("reserveHistoryMapper.getAllReservationList");
 	}
 
+	@Override
+	public ReserveHistoryDTO getReservationByReserveNo(int reserveNo) {
+		return session.selectOne("reserveHistoryMapper.getReservationByReserveNo", reserveNo);
+	}
+
 
 }

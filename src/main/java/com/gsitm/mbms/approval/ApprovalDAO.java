@@ -1,10 +1,11 @@
 package com.gsitm.mbms.approval;
 
 import java.util.List;
+import java.util.Map;
 
+import com.gsitm.mbms.employee.EmployeeDTO;
+import com.gsitm.mbms.equipment.EquipmentDTO;
 import com.gsitm.mbms.reserve.CompetentDepartmentDTO;
-import com.gsitm.mbms.reserve.MeetingEquipmentDTO;
-import com.gsitm.mbms.reserve.MeetingMemberDTO;
 import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 
 /**
@@ -14,8 +15,14 @@ import com.gsitm.mbms.reserve.ReserveHistoryDTO;
  */
 public interface ApprovalDAO {
 	/** 성윤: 결재 관리 상세보기 관련 **/
+	public ApprovalDTO selectOneApprovalInfo(int reserveNo);
 	public ReserveHistoryDTO selectOneReserveInfo(int reserveNo);
 	public List<CompetentDepartmentDTO> selectCompetentDeptartmentList(int reserveNo);
-	public List<MeetingEquipmentDTO> selectMeetingEquipmentList(int reserveNo);
-	public List<MeetingMemberDTO> selectMeetingMemberList(int reserveNo);
+	public List<EquipmentDTO> selectMeetingEquipmentList(int reserveNo);
+	public List<EmployeeDTO> selectMeetingMemberList(int reserveNo);
+	
+	/** empNo 직원이 결재해야할 예약 목록 불러오기 **/
+	public List<ApprovalDTO> selectApprovalListByEmpNo(String empNo);
+	public void refuse(Map<String, Object> map);
+	public void approval(Map<String, Object> map);
 }

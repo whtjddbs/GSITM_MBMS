@@ -1,14 +1,15 @@
 package com.gsitm.mbms.approval;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.mbms.employee.EmployeeDTO;
+import com.gsitm.mbms.equipment.EquipmentDTO;
 import com.gsitm.mbms.reserve.CompetentDepartmentDTO;
-import com.gsitm.mbms.reserve.MeetingEquipmentDTO;
-import com.gsitm.mbms.reserve.MeetingMemberDTO;
 import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 
 /**
@@ -20,6 +21,11 @@ import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 public class ApprovalDAOImpl implements ApprovalDAO {
 	@Autowired
 	SqlSession session;
+	
+	@Override
+	public ApprovalDTO selectOneApprovalInfo(int reserveNo) {
+		return session.selectOne("approvalMapper.selectOneReserveInfo", reserveNo);
+	}
 
 	@Override
 	public ReserveHistoryDTO selectOneReserveInfo(int reserveNo) {
@@ -28,17 +34,33 @@ public class ApprovalDAOImpl implements ApprovalDAO {
 
 	@Override
 	public List<CompetentDepartmentDTO> selectCompetentDeptartmentList(int reserveNo) {
-		return session.selectList("reserveHistoryMapper.selectCompetentDeptartmentList", reserveNo);
+		return session.selectList("approvalMapper.selectCompetentDeptartmentList", reserveNo);
 	}
 
 	@Override
-	public List<MeetingEquipmentDTO> selectMeetingEquipmentList(int reserveNo) {
-		return session.selectList("reserveHistoryMapper.selectMeetingEquipmentList", reserveNo);
+	public List<EquipmentDTO> selectMeetingEquipmentList(int reserveNo) {
+		return session.selectList("approvalMapper.selectMeetingEquipmentList", reserveNo);
 	}
 
 	@Override
-	public List<MeetingMemberDTO> selectMeetingMemberList(int reserveNo) {
-		return session.selectList("reserveHistoryMapper.selectMeetingMemberList", reserveNo);
+	public List<EmployeeDTO> selectMeetingMemberList(int reserveNo) {
+		return session.selectList("approvalMapper.selectMeetingMemberList", reserveNo);
 	}
 	
+	/** empNo 직원이 결재해야할 예약 목록 불러오기 **/
+	@Override
+	public List<ApprovalDTO> selectApprovalListByEmpNo(String empNo) {
+		return session.selectList("approvalMapper.selectApprovalListByEmpNo", empNo);
+	}
+
+	@Override
+	public void refuse(Map<String, Object> map) {
+		session.update("approvalMapper.refuse", map);
+	}
+	
+	@Override
+	public void approval(Map<String, Object> map) {
+		session.update("approvalMapper.approval", map);
+	}
+
 }

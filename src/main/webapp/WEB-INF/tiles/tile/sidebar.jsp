@@ -38,7 +38,7 @@
 							회의실 소개</a></li>
 					<li><a href="/reserve/reserveSearchForm"><i class="fa fa-circle-o"></i>
 							회의실 검색</a></li>
-					<li><a href="/reserve/Calendar"><i class="fa fa-circle-o"></i>
+					<li><a href="/reserve/reserveForm"><i class="fa fa-circle-o"></i>
 							회의실 예약</a></li>
 				</ul></li>
 			<!-- 마이페이지 -->
@@ -56,7 +56,7 @@
 			
 			<!-- 상위결재자 -->
 			<li class="header">DEPARTMENT HEAD</li>
-			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
+			<li><a href="/approval/approvalList"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
 			<li><a href="/payment/paymentList"><i class="fa fa-circle-o text-yellow"></i> <span>결제 관리</span></a></li>
 			
 			<!-- 관리자 -->

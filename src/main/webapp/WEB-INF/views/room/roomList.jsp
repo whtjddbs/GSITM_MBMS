@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<style>
+	@media (max-width: 768px) { 
+		.mobileDisabled{display:none;}
+	}
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -46,7 +50,7 @@
 						<table id="roomListTable" class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th>회의실 사진</th>
+									<th class="mobileDisabled">회의실 사진</th>
 									<th>회의실명</th>
 									<th>주요시설</th>
 									<th>수용인원</th>
@@ -57,7 +61,7 @@
 							<tbody>
 								<c:forEach items="${rooms }" var="room" varStatus="status">
 									<tr role='row'>
-										<td><img src='${room.roomImg }' style="width: 300px;"></td>
+										<td class="mobileDisabled"><img src='${room.roomImg }' style="width: 300px;"></td>
 										<td>${room.roomName }</td>
 										<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기
 										</td>
@@ -120,6 +124,7 @@
 	               $.each(data.rooms, function(index,item){
 	                  $('<tr/>').append($('<td/>').append($('<img/>', {
 	                     src : item.roomImg,
+	                     class : 'mobileDisabled',
 	                     style : 'width: 300px'
 	                  }))).append($('<td/>', {
 	                     text : item.roomName
