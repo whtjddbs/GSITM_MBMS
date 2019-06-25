@@ -41,4 +41,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDAO.getDeptManagerEmpNo(empNo);
 	}
 
+	/** 원빈 : 직원 한명 조회 **/
+	@Override
+	public EmployeeDTO getEmployee(String empNo) {
+		// TODO Auto-generated method stub
+		return employeeDAO.getEmployee(empNo);
+		
+	}
+
 }

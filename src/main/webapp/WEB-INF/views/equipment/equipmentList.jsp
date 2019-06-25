@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <style>
 	.form-group{
 		display: inline-block;
@@ -172,6 +173,8 @@
 										value="비품등록하기" /></th>
 								</tr>
 						</table>
+						<jsp:include page="../modal/Modal.jsp"></jsp:include>
+						
 						<div class="modal fade" id="modal-default_eqInsert">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -256,7 +259,7 @@
 <!-- page script -->
 <script>
 	$(document).ready(function() {
-		
+	
 		$('#equipmentListTable').DataTable({
 			'paging' : true,
 			'lengthChange' : false,
@@ -275,7 +278,6 @@
 		$('#roomSelect option').hide();
 		$('#roomSelect').find('.building'+buildNo).show();
 		$('#roomSelect').val($('#roomSelect').find('.building'+buildNo).first().val());
-		//$('#roomSelect').val('');
 		$('#roomSelect').trigger('change');
 	}
 </script>
