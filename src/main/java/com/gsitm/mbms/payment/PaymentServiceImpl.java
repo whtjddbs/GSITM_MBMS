@@ -29,8 +29,8 @@ public class PaymentServiceImpl implements PaymentService {
 		return session.selectList("paymentMapper.sumPayment");
 	}
 	
-	public PaymentDTO paymentDetail(int reserveNo) throws Exception {
-		return dao.paymentDetail(reserveNo);
+	public PaymentDTO selectByReserveNo(int reserveNo) throws Exception {
+		return dao.selectByReserveNo(reserveNo);
 		//return session.selectOne("paymentMapper.paymentDetail");
 	}
 	

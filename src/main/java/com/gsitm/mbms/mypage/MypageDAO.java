@@ -27,6 +27,4 @@ public interface MypageDAO {
 	/** 사용자 예약이력에서 날짜 조건 검색 */
 	public List<MypageDTO> selectHistoryFiltering(Map<String, String> historyFilterMap);
 
-	//public List<MypageDTO> getStatusListResult(Map<String, Object> map);
-
 }

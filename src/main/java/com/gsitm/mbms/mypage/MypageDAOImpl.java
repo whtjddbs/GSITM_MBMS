@@ -47,9 +47,4 @@ public class MypageDAOImpl implements MypageDAO{
 		session.delete(namespace + "delete", reserveNo);
 	}
 	
-//	@Override
-//	public List<MypageDTO> getStatusListResult(Map<String, Object> map) {
-//		return session.selectList("mypageMapper.getStatusListResult", map);
-//	}
-	
 }

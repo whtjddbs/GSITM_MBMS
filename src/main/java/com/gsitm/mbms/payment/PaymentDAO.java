@@ -9,6 +9,6 @@ public interface PaymentDAO {
 	
 	public List<PaymentDTO> sumPayment();
 	
-	public PaymentDTO paymentDetail(int reserveNo) throws Exception;
+	public PaymentDTO selectByReserveNo(int reserveNo) throws Exception;
 
 }

@@ -25,8 +25,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 	}
 	
 	@Override
-	public PaymentDTO paymentDetail(int reserveNo) throws Exception {
-		return session.selectOne(namespace + "paymentDetail", reserveNo);
+	public PaymentDTO selectByReserveNo(int reserveNo) throws Exception {
+		return session.selectOne(namespace + "selectByReserveNo", reserveNo);
 	}
 
 

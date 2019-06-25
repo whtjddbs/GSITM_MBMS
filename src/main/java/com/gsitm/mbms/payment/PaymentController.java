@@ -54,13 +54,11 @@ public class PaymentController {
 	public void paymentDetail(@RequestParam("reserveNo") int reserveNo, Model model, HttpSession session) throws Exception {
 		
 		//해당 결제 정보 가져오기
-		PaymentDTO paymentDTO = paymentService.paymentDetail(reserveNo);
+		PaymentDTO paymentDTO = paymentService.selectByReserveNo(reserveNo);
 		model.addAttribute("paymentDTO", paymentDTO);
 		
-		//결제 전체 리스트 가져오기
 		//List<PaymentDTO> paymentList = paymentService.selectAllPayment();
 		
-		//return "/payment/paymentDetail";
 	}	
 	
 //	/** 비용 상세 정보 */

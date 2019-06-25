@@ -26,19 +26,10 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDAO.selectAllStatus(empNo);
 	}
 	
-//	public List<MypageDTO> selectMemberList() {
-//		return mypageDAO.selectMemberList();
-//	}
-	
 	public void delete(int reserveNo) throws Exception{
 		mypageDAO.delete(reserveNo);
 	}
-	
-//	@Override
-//	public List<MypageDTO> getStatusListResult(Map<String, Object> map) {
-//		return mypageDAO.getStatusListResult(map);
-//	}
-	
+
 	@Override
 	public List<MypageDTO> selectStatusFiltering(Map<String, String> filtermap) {
 		return mypageDAO.selectStatusFiltering(filtermap);

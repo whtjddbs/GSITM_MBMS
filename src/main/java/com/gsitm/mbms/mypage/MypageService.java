@@ -20,8 +20,6 @@ public interface MypageService {
 	/** 사용자 예약현황에서 예약 삭제 */
 	public void delete(int reserveNo) throws Exception;
 	 
-	//public List<MypageDTO> getStatusListResult(Map<String, Object> map);
-
 	/** 사용자 예약현황에서 날짜 조건 검색 */
 	public List<MypageDTO> selectStatusFiltering(Map<String, String> filtermap);
 	
