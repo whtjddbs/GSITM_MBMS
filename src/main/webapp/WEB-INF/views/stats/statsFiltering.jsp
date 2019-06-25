@@ -114,7 +114,7 @@
             	
               		<tr>
               			<td>
-              				<label> 검색 필터 - 근무지 : ${filterMap.buildingSelect}, 부서명: ${filterMap.deptSelect}, 회의실구분: ${filterMap.roomTypeSelect}, 날짜: ${filterMap.timeSelectStart} ~ ${filterMap.timeSelectEnd}</label> 
+              				<label> 검색 필터 - 근무지 : ${filterMap.buildingSelect}, 부서명: ${filterMap.deptSelect}, 회의실구분: ${filterMap.roomTypeSelect}, 날짜: ${filterMap.timeSelectStart} ~ ${filterMap.timeSelectEnd} </label>　　 　최종 승인된 회의 데이터와, 해당되는 회의실만 그래프에 표시됩니다
   						<td>
   						
               		</tr>
@@ -156,8 +156,8 @@
 									<th class = "">예약자명</th>
 									<th class = "">회의시작</th>
 									<th class = "">회의끝</th>
-									<th class = "">회의종류</th>
-									<th class = "">상세보기</th>
+									<th class = "">회의제목</th>
+									<th class = "">승인여부</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -170,9 +170,14 @@
 												<td>${histDTO.empName} ${histDTO.empPosition}</td>
 												<td>${histDTO.startDate}</td>
 												<td>${histDTO.endDate}</td>
-												<td>${histDTO.category}</td>
-												<td>${histDTO.purpose}</td>
-											
+												<td>${histDTO.title}</td>
+												<td>
+													<c:if test='${histDTO.approval2Yn==1}'>최종승인됨</c:if>
+													<c:if test='${histDTO.approval1Yn==1 && histDTO.approval2Yn==0}'>1차승인</c:if>
+													<c:if test='${histDTO.approval1Yn==0}'>미승인</c:if>
+												</td>
+													
+					 
 											
 										</tr>
 									</c:forEach>
@@ -473,7 +478,7 @@ console.log(allcountlist)
 var barChartData = {        
         labels: roomnamelist,
         datasets: [{
-            label: '같은 기간 중 전체부서 사용빈도 (사용기록이 있는 회의실만 나타납니다)',
+            label: '같은 기간 중 전체부서 사용빈도',
             backgroundColor: "#dddddd",
             data: allcountlist
         }, {

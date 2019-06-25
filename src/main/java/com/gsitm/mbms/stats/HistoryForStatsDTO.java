@@ -35,6 +35,8 @@ public class HistoryForStatsDTO {
 	private int priority;
 	private int empCount;
 	private char snackYn;
+	private String reason;
+	private String title;
 	
 	private String buildName;
 	private String deptName;
@@ -48,15 +50,5 @@ public class HistoryForStatsDTO {
 	
 	
 	
-	@Override
-	public String toString() {
-		return "ReserveHistoryDTO [reserveNo=" + reserveNo + ", roomNo=" + roomNo + ", reserveEmpNo=" + reserveEmpNo
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", approval1Yn=" + approval1Yn
-				+ ", approval1EmpNo=" + approval1EmpNo + ", approval1Date=" + approval1Date + ", approval2Yn="
-				+ approval2Yn + ", approval2EmpNo=" + approval2EmpNo + ", approval2Date=" + approval2Date
-				+ ", paymentYn=" + paymentYn + ", paymentDate=" + paymentDate + ", reserveDate=" + reserveDate
-				+ ", reservePrice=" + reservePrice + ", purpose=" + purpose + ", category=" + category + ", priority="
-				+ priority + ", empCount=" + empCount + ", snackYn=" + snackYn + "]";
-	}
 	
 }
