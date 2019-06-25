@@ -9,8 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 
-
-
 /**
  * @작성일 : 2019. 5. 28.
  * @작성자 : 이주현
@@ -25,18 +23,23 @@ public class MypageDAOImpl implements MypageDAO{
 
 	
 	@Override
-	public List<MypageDTO> selectAllHistory() {
-		return session.selectList("mypageMapper.selectAllHistory");
+	public List<MypageDTO> selectAllHistory(String empNo) {
+		return session.selectList("mypageMapper.selectAllHistory", empNo);
 	}
 	
 	@Override
-	public List<MypageDTO> selectAllStatus(){
-		return session.selectList("mypageMapper.selectAllStatus");
+	public List<MypageDTO> selectAllStatus(String empNo){
+		return session.selectList("mypageMapper.selectAllStatus", empNo);
 	}
 	
 	@Override
-	public List<MypageDTO> selectMemberList(){
-		return session.selectList("mypageMapper.selectMemberList");
+	public List<MypageDTO> selectStatusFiltering(Map<String, String> filtermap) {
+		return session.selectList("mypageMapper.selectStatusFiltering", filtermap);
+	}
+	
+	@Override
+	public List<MypageDTO> selectHistoryFiltering(Map<String, String> historyFilterMap) {
+		return session.selectList("mypageMapper.selectHistoryFiltering", historyFilterMap);
 	}
 	
 	//삭제
@@ -44,9 +47,9 @@ public class MypageDAOImpl implements MypageDAO{
 		session.delete(namespace + "delete", reserveNo);
 	}
 	
-	@Override
-	public List<MypageDTO> getStatusListResult(Map<String, Object> map) {
-		return session.selectList("mypageMapper.getStatusListResult", map);
-	}
+//	@Override
+//	public List<MypageDTO> getStatusListResult(Map<String, Object> map) {
+//		return session.selectList("mypageMapper.getStatusListResult", map);
+//	}
 	
 }
