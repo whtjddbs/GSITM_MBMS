@@ -11,6 +11,9 @@
 <title>GSITM MBMS 회의실 예약관리 시스템</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+<link rel="shortcut icon" href="/resources/img/DocumentEdit.ico" />
+
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet" href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
 <!-- Font Awesome -->
@@ -52,38 +55,12 @@
 <!-- Google Font -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-
 <!-- 푸른전남체 CDN -->
 <link href='//cdn.rawgit.com/young-ha/webfont-archive/master/css/PureunJeonnam.css' rel='stylesheet' type='text/css'>
 
-
 <!-- 사용자 정의 CSS -->
 <link rel="stylesheet" href="/resources/css/layout.css">
-<style type="text/css">
 
-    .example-modal .modal {
-      position: relative;
-      top: auto;
-      bottom: auto;
-      right: auto;
-      left: auto;
-      display: block;
-      z-index: 1;
-    }
-
-    .example-modal .modal {
-      background: transparent !important;
-    }
-    
-
-	/* 민기 폰트 */
-	body, div, h1, h2, h3, h4, h5, h6, a , b{
-	   font-family: 'PureunJeonnam', 'Sans-serif';
-	}
-
-    
-    
-</style>
 
 <!-- jQuery 3 -->
 <script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
@@ -115,7 +92,6 @@
 <script src="/resources/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- iCheck -->
 <script src="/resources/plugins/iCheck/icheck.min.js"></script>
-
 </head>
 
 
@@ -137,5 +113,25 @@
 	</div>
 	<!-- ./wrapper -->
 	
+	<!-- 로딩바 -->
+	<div id="Progress_Loading">
+		<div>
+			<img src="/resources/img/Progress_Loading.gif"/>
+		</div>
+	</div>
 </body>
+<!-- 로딩 -->
+<script>
+$(document).ready(function(){
+   $('#Progress_Loading').hide(); //첫 시작시 로딩바를 숨겨준다.
+})
+.ajaxStart(function(){
+	$('#Progress_Loading').show(); //ajax실행시 로딩바를 보여준다.
+})
+.ajaxStop(function(){
+	$('#Progress_Loading').hide(); //ajax종료시 로딩바를 숨겨준다.
+});
+</script>
 </html>
+
+

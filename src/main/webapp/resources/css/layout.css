@@ -10,3 +10,46 @@
 	max-width: 230px;
 	height: auto;
 }
+
+.example-modal .modal {
+	position: relative;
+	top: auto;
+	bottom: auto;
+	right: auto;
+	left: auto;
+	display: block;
+	z-index: 1;
+}
+
+.example-modal .modal {
+	background: transparent !important;
+}
+
+
+/* 민기 폰트 */
+body, div, h1, h2, h3, h4, h5, h6, a , b{
+   font-family: 'PureunJeonnam', 'Sans-serif';
+}
+
+/* 로딩 */
+#Progress_Loading
+{
+	 position: absolute;
+    left: 0;
+    top: 0;
+    background: #00000099;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+}
+#Progress_Loading > div {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    text-align: center;
+    padding: 32px 0px;
+    border-radius: 20px;
+}

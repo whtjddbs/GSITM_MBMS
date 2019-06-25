@@ -39,6 +39,7 @@ public class ApprovalDTO {
 	private int empCount;
 	private char snackYn;
 	private String reason;
+	private String title;
 	private EmployeeDTO employeeDTO;
 	private RoomDTO roomDTO;
 }

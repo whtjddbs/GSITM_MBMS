@@ -57,8 +57,8 @@ public class ReserveDAOImpl implements ReserveDAO {
 	}
 
 	@Override
-	public int getNextReserveNo() {
-		return session.selectOne("reserveHistoryMapper.getNextReserveNo");
+	public int getNowReserveNo() {
+		return session.selectOne("reserveHistoryMapper.getNowReserveNo");
 	}
 	
 	@Override

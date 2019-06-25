@@ -70,7 +70,7 @@ public class ReserveServiceImpl implements ReserveService {
 
 	@Override
 	@Transactional
-	public boolean doReserve(ReserveHistoryDTO reserveHistory) {
+	public int doReserve(ReserveHistoryDTO reserveHistory) {
 		// 단기/장기 구분, 회의실 총 이용시간 산출
 		Date startDate = reserveHistory.getStartDate();
 		Date endDate = reserveHistory.getEndDate();
@@ -116,7 +116,7 @@ public class ReserveServiceImpl implements ReserveService {
 			String to = approval1Emp.getEmpEmail()+","+reserveEmp.getEmpEmail();
 			mailService.send("회의실 예약 완료", to, reserveHistory, roomDTO, "회의실 예약이 완료되었습니다.");
 		}
-		return true;
+		return reserveDAO.getNowReserveNo();
 	}
 	
 	// 예약시간 계산

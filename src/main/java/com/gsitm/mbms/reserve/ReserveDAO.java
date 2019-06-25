@@ -34,7 +34,7 @@ public interface ReserveDAO {
 	public Map<String, String> getNextReservation(Map<String, Object> map);
 
 	/** 성윤: 회의실 예약 **/
-	public int getNextReserveNo();
+	public int getNowReserveNo();
 	public int insertReserveHistory(ReserveHistoryDTO reserveHistory);
 	public int insertMeetingMemberList(List<MeetingMemberDTO> meetingMemberList);
 	public int insertMeetingEquipmentList(List<MeetingEquipmentDTO> meetingEquipmentList);

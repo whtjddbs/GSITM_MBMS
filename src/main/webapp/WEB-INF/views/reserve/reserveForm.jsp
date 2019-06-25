@@ -234,6 +234,7 @@
 	.dropdown-menu > li:hover {cursor: pointer;}
 	.dropdown-menu > li.disabled {color: #999; text-decoration: line-through;}
 </style>
+
 <script>
 	var setEndDate;
 	var setStartDate;
@@ -555,6 +556,7 @@
 	            dataType : "json",
 	            success : function(data) {
 	            	alert('success');
+	            	location.href='/approval/approvalDetail/'+data.reserveNo;
 	            },
 	            error: function(request,status,error){
 	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

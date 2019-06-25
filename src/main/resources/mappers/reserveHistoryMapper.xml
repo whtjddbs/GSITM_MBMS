@@ -138,10 +138,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
-	<!-- 성윤: 다음 회의실 예약 번호 조회 -->
-	<select id="getNextReserveNo" resultType="int">
-		SELECT RESERVE_HISTORY_SEQ.NEXTVAL FROM DUAL
-	</select>
 	<!-- 성윤: 회의실 예약 추가 -->
 	<insert id="insertReserveHistory" parameterType="reserveHistory">
 		INSERT INTO Reserve_history VALUES(
@@ -181,6 +177,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	           )
 		</foreach>
 	</insert>
+	<!-- 성윤: 예약 -->
+	<select id="getNowReserveNo" resultType="int">
+		SELECT RESERVE_HISTORY_SEQ.CURRVAL FROM DUAL
+	</select>
 	
 	<!-- 민기 : 모든 예약내역 조회 -->
 	<select id="getAllReservationList" resultMap="ReserveHistoryDTO">
