@@ -338,8 +338,8 @@
 				console.log(event);
 				console.log(view);
 			},
-			contentHeight: "auto",
-			googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE" // Google API KEY
+			contentHeight: "auto"
+// 			,googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE" // Google API KEY
 
 			//Random default events
 			/* 
@@ -388,16 +388,16 @@
 	            		events[index] = oneEvent;
 	            	});
 
-	            	var holiday = new Object();
-	            	holiday.googleCalendarId = "ko.south_korea#holiday@group.v.calendar.google.com";
-	            	holiday.className = "koHolidays";
-	            	holiday.color = "#FF0000";
-	            	holiday.textColor = "#FFFFFF";
+// 	            	var holiday = new Object();
+// 	            	holiday.googleCalendarId = "ko.south_korea#holiday@group.v.calendar.google.com";
+// 	            	holiday.className = "koHolidays";
+// 	            	holiday.color = "#FF0000";
+// 	            	holiday.textColor = "#FFFFFF";
 	            	
 	            	$('#calendar').fullCalendar('removeEvents');
 	            	$('#calendar').fullCalendar('removeEvents', 'koHolidays');
         		    $('#calendar').fullCalendar('addEventSource', events);
-        		    $('#calendar').fullCalendar('addEventSource', holiday);
+//         		    $('#calendar').fullCalendar('addEventSource', holiday);
         		    $('#calendar').fullCalendar('rerenderEvents');
 	            },
 	            error : function(data) {

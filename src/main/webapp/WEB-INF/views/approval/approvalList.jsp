@@ -62,7 +62,7 @@
 										<td>${approval.roomDTO.buildingDTO.buildName } ${approval.roomDTO.roomFloor }층 ${approval.roomDTO.roomName }</td>
 										<td>${approval.startDate }</td>
 										<td>${approval.endDate }</td>
-										<td class="mobileDisabled">${approval.reserveEmpNo }</td>
+										<td class="mobileDisabled">${approval.employeeDTO.empName }</td>
 										<td>
 											<c:if test="${approval.approval1Yn == 0 }">1차 승인 대기</c:if>
 											<c:if test="${approval.approval1Yn == 1 && approval.approval2Yn == 0 }">2차 승인 대기</c:if>

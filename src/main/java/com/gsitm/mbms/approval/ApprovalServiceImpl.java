@@ -70,8 +70,17 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Override
 	public void refuse(Map<String, Object> map) {
 		approvalDAO.refuse(map);
+		
+		int reserveNo = Integer.parseInt(map.get("reserveNo").toString());
+		ReserveHistoryDTO reserveHistory = reserveDAO.getReservationByReserveNo(reserveNo);
+		RoomDTO roomDTO = roomDAO.selectOneRoomByRoomNo(reserveHistory.getRoomNo());
+		EmployeeDTO reserveEmp = employeeDAO.getEmployee(reserveHistory.getReserveEmpNo());
+		String email = reserveEmp.getEmpEmail();
+		
+		mailService.send("회의실 예약 반려 처리 안내", email, reserveHistory, roomDTO, "예약이 아래의 사유로 반려되었습니다");
 	}
 	
+	@Transactional
 	@Override
 	public void approval(Map<String, Object> map) {
 		approvalDAO.approval(map);
