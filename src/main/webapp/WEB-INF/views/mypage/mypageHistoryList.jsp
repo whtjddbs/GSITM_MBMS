@@ -26,6 +26,7 @@
 						<h3 class="box-title">조건 검색</h3>
 						<br>
 					</div>
+					<form id="availableHistoryList" method="get" action="/mypage/mypageHistoryDetail">
 					<div class="box-body">
 						<!-- Date and time range -->
 						<div class="form-group">
@@ -34,12 +35,13 @@
 								<div class="input-group-addon">
 									<i class="fa fa-clock-o"></i>
 								</div>
-								<input type="text" class="form-control pull-right" id="reservationtime">
+								<input type="text" class="form-control pull-right" id="reservationtime" name="timeSelect">
 							</div>
 							<!-- /.input group -->
 						</div> 
-			            <br><input type="button" class="btn  btn-info col-sm-12" id="availableRoomSearchBtn" value="검색">
+			            <br><input type="submit" class="btn  btn-info col-sm-12" id="availableRoomSearchBtn" value="검색">
 					</div><br>
+					</form>
 					<!-- /.box-body -->
 				</div>
 				<!-- /.box -->
@@ -92,92 +94,16 @@
 		</div>
 		<!-- /.row -->
 
-
 <script>
 	$(function() {
-
-		/* initialize the external events
-		 -----------------------------------------------------------------*/
-		function init_events(ele) {
-			ele.each(function() {
-
-				// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-				// it doesn't need to have a start or end
-				var eventObject = {
-					title : $.trim($(this).text())
-				// use the element's text as the event title
-				}
-				
-				// store the Event Object in the DOM element so we can get to it later
-				$(this).data('eventObject', eventObject)
-
-				// make the event draggable using jQuery UI
-				$(this).draggable({
-					zIndex : 1070,
-					revert : true, // will cause the event to go back to its
-					revertDuration : 0
-				//  original position after the drag
-				})
-
-			})
-		}
-
-		init_events($('#external-events div.external-event'))
-
-		/* ADDING EVENTS */
-		var currColor = '#3c8dbc' //Red by default
-		//Color chooser button
-		var colorChooser = $('#color-chooser-btn')
-		$('#color-chooser > li > a').click(function(e) {
-			e.preventDefault()
-			//Save color
-			currColor = $(this).css('color')
-			//Add color effect to button
-			$('#add-new-event').css({
-				'background-color' : currColor,
-				'border-color' : currColor
-			})
-		})
-		$('#add-new-event').click(function(e) {
-			e.preventDefault()
-			//Get value and make sure it is not null
-			var val = $('#new-event').val()
-			if (val.length == 0) {
-				return
-			}
-
-			//Create events
-			var event = $('<div />')
-			event.css({
-				'background-color' : currColor,
-				'border-color' : currColor,
-				'color' : '#fff'
-			}).addClass('external-event')
-			event.html(val)
-			$('#external-events').prepend(event)
-
-			//Add draggable funtionality
-			init_events(event)
-
-			//Remove event from text input
-			$('#new-event').val('')
-		});
-
 		/** DatePicker **/
-		//Date range picker with time picker
 		$('#reservationtime').daterangepicker({
-			timePicker : true,
-			timePickerIncrement : 30,
-			format : 'MM/DD/YYYY h:mm A'
+			timePicker : false,
+			format : 'YYYY/MM/DD',
+			locale: {format : 'YYYY/MM/DD'},
+	      	startDate: moment().add(0, 'year'),
+	      	endDate: moment().add(0, 'year')     	
 		})
-		
-	    //검색 버튼 클릭
-	    $('#availableRoomSearchBtn').click(function(){
-	    	let picker = $('#reservationtime').data('daterangepicker');
-	    	console.log(moment(picker.startDate).format('YYYY/MM/DD HH:mm') + " - " + moment(picker.endDate).format('YYYY/MM/DD HH:mm'));
-	    	$('#availableRoomListForm').submit();
-	    });
-		
 	})
 </script>
 
