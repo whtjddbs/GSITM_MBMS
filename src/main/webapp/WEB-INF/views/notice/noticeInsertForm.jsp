@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<!-- plugin 참조-->
+<script type="text/javascript" src="js/plugins/validation/jquery.validate.min.js"></script>
+ <!-- <script type="text/javascript">
+                   
+      $(document).ready(function () {          
+
+        $('#valform').validate(); //유효성 검사를 적용
+   
+      }); //end ready()
+ 
+    </script> -->
+
+
+
+
 <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
 <script src="https://example.com/ckfinder/ckfinder.js"></script>
 <!-- <script type='text/javascript'>
@@ -75,7 +90,7 @@
 								<label for="noticetitle">내용</label>
 
 								<!-- 에디터 -->
-								<textarea id="editor1" name="editor1" rows="10" cols="80"
+								<textarea id="editor1" name="noticeContent" rows="10" cols="80"
 									placeholder="공지할 내용을 입력하세요."></textarea>
 
 							</div><!-- /. 에디터 폼그룹 -->
@@ -188,6 +203,7 @@
              } */
              
          }
+     
      } )
      /* .catch( error => {
             console.error( error )
@@ -240,13 +256,5 @@
 <script
 	src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
-<script>
-        CKEDITOR.replace( 'editor1' );
-        $("form").submit( function(e) {
-            var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
-            if( !messageLength ) {
-                alert( 'Please enter a message' );
-                e.preventDefault();
-            }
-        });
-    </script>
+
+

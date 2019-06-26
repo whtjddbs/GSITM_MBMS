@@ -2,6 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+	@media (max-width: 768px) { 
+		.mobileDisabled{display:none;}
+	}
+
+	
+</style>
+
+
+
+
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -25,7 +36,7 @@
         <div class="col-md-12">
 
           <!-- BAR CHART -->
-          <div class="box box-primary">
+          <div class="box box-success">
             <div class="box-header with-border">
               <h3 class="box-title">데이터 필터링</h3><br>
               <h3 class="box-title">　</h3>
@@ -93,7 +104,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>검색하기</label> <input type="submit"
-								class="btn  btn-info col-sm-12" value="검색">
+								class="btn  btn-success col-sm-12" value="검색">
 						</div>
 					</div>
 				
@@ -136,13 +147,13 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th class = "">근무지명</th>
+									<th class = "mobileDisabled">근무지명</th>
 									<th class = "">신청부서</th>
 									<th class = "">회의실명</th>
-									<th class = "">예약자명</th>
-									<th class = "">회의시작</th>
-									<th class = "">회의끝</th>
-									<th class = "">회의종류</th>
+									<th class = "mobileDisabled">예약자명</th>
+									<th class = "mobileDisabled">회의시작</th>
+									<th class = "mobileDisabled">회의끝</th>
+									<th class = "mobileDisabled">회의종류</th>
 									<th class = "">승인여부</th>
 									<th class = "">상세보기</th>
 								</tr>
@@ -151,14 +162,14 @@
 					              <c:forEach var="histDTO" items="${historyList}">
 										<tr>
 											
-												<td>${histDTO.buildName}</td>
+												<td class = "mobileDisabled" >${histDTO.buildName}</td>
 												<td>${histDTO.deptName}</td>
-												<td>${histDTO.roomName}</td>
-												<td>${histDTO.empName} ${histDTO.empPosition}</td>
-												<td>${histDTO.startDate}</td>
-												<td>${histDTO.endDate}</td>
-												<td>${histDTO.category}</td>
-												<td>
+												<td >${histDTO.roomName}</td>
+												<td class = "mobileDisabled">${histDTO.empName} ${histDTO.empPosition}</td>
+												<td class = "mobileDisabled">${histDTO.startDate}</td>
+												<td class = "mobileDisabled">${histDTO.endDate}</td>
+												<td class = "mobileDisabled">${histDTO.category}</td>
+												<td >
 													<c:if test='${histDTO.approval2Yn==1}'>최종승인됨</c:if>
 													<c:if test='${histDTO.approval1Yn==1 && histDTO.approval2Yn==0}'>1차승인</c:if>
 													<c:if test='${histDTO.approval1Yn==0 && histDTO.reason==null}'>미승인</c:if>
@@ -396,6 +407,7 @@
 			'info' : true,
 			'autoWidth' : true,
 			"order": [[ 4, "desc" ]]
+
 		})
 	})
 </script>

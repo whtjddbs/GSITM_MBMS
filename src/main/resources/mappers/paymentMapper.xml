@@ -36,21 +36,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 전체 결제 비용 조회 -->
 	<select id="selectAllPayment" resultMap="PaymentDTO">
 		SELECT Reserve_history.*, department.dept_name
-			FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM
-			WHERE reserve_history.reserve_emp_no=employee.emp_no
-				and employee.dept_no = department.dept_no
-				and reserve_history.room_no = room.room_no
-				and room.mgr_emp_no = #{empNo}
+	        FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM
+	        WHERE reserve_history.reserve_emp_no=employee.emp_no
+	            and employee.dept_no = department.dept_no
+	            and reserve_history.room_no = room.room_no
+	            and reserve_history.approval2_yn = 1
+	            and room.mgr_emp_no = #{empNo}
 	</select>
 	
 	<!-- 결재자 결제 비용 조회 -->
 	<select id="selectApproverPayment" resultMap="PaymentDTO">
-	  SELECT Reserve_history.*, department.dept_name
-			FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM
-			WHERE reserve_history.reserve_emp_no=employee.emp_no
-				and employee.dept_no = department.dept_no
-				and reserve_history.room_no = room.room_no
-                and department.boss_no =  #{empNo}
+	SELECT Reserve_history.*, department.dept_name
+		FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM
+		WHERE reserve_history.reserve_emp_no=employee.emp_no
+			and employee.dept_no = department.dept_no
+			and reserve_history.room_no = room.room_no
+		    and reserve_history.approval2_yn = 1
+		    and department.boss_no = #{empNo}
 	</select>
 	
 </mapper>
