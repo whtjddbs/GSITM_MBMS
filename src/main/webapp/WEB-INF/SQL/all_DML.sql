@@ -209,5 +209,5 @@ INSERT INTO Competent_department VALUES(1034,13,2);
 INSERT INTO Competent_department VALUES(1035,12,2);
 INSERT INTO Competent_department VALUES(1036,11,2);
 INSERT INTO Competent_department VALUES(1037,12,2);
-
+ 
 commit;
