@@ -2,6 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+	@media (max-width: 768px) { 
+		.mobileDisabled{display:none;}
+	}
+	.chart{
+	min-height:200px;
+	}
+	
+</style>
+
+
+
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -110,11 +122,11 @@
             <div class="box-body">
             <div class="col-md-12">
             <br>
-            	<table id="example1" class="table table-bordered table-striped">
+            	<table class="table table-bordered table-striped">
             	
               		<tr>
               			<td>
-              				<label> 검색 필터 - 근무지 : ${filterMap.buildingSelect}, 부서명: ${filterMap.deptSelect}, 회의실구분: ${filterMap.roomTypeSelect}, 날짜: ${filterMap.timeSelectStart} ~ ${filterMap.timeSelectEnd}</label> 
+              				<label> 검색 필터 - 근무지 : ${filterMap.buildingSelect}, 부서명: ${filterMap.deptSelect}, 회의실구분: ${filterMap.roomTypeSelect}, 날짜: ${filterMap.timeSelectStart} ~ ${filterMap.timeSelectEnd} </label>　최종 승인된 회의 데이터와, 해당되는 회의실만 시각화됩니다. 빈도는 사용 일수로 카운팅합니다.
   						<td>
   						
               		</tr>
@@ -138,7 +150,7 @@
 
 
 
-<div class="box box-success">
+<div class="box box-primary">
 <!-- /.content-wrapper -->	
 	<section class="content">
 		<div class="row">
@@ -150,29 +162,33 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th class = "">근무지명</th>
+									<th class = "mobileDisabled">근무지명</th>
 									<th class = "">신청부서</th>
 									<th class = "">회의실명</th>
-									<th class = "">예약자명</th>
-									<th class = "">회의시작</th>
-									<th class = "">회의끝</th>
-									<th class = "">회의종류</th>
-									<th class = "">상세보기</th>
+									<th class = "mobileDisabled">예약자명</th>
+									<th  class = "mobileDisabled">회의시작</th>
+									<th  class = "mobileDisabled">회의끝</th>
+									<th class = "">회의제목</th>
+									<th class = "">승인여부</th>
 								</tr>
 							</thead>
 							<tbody>
 					              <c:forEach var="histDTO" items="${historyList}">
 										<tr>
 											
-												<td>${histDTO.buildName}</td>
+												<td class = "mobileDisabled">${histDTO.buildName}</td>
 												<td>${histDTO.deptName}</td>
 												<td>${histDTO.roomName}</td>
-												<td>${histDTO.empName} ${histDTO.empPosition}</td>
-												<td>${histDTO.startDate}</td>
-												<td>${histDTO.endDate}</td>
-												<td>${histDTO.category}</td>
-												<td>${histDTO.purpose}</td>
-											
+												<td class = "mobileDisabled">${histDTO.empName} ${histDTO.empPosition}</td>
+												<td class = "mobileDisabled">${histDTO.startDate}</td>
+												<td class = "mobileDisabled">${histDTO.endDate}</td>
+												<td>${histDTO.title}</td>
+												<td>
+													<c:if test='${histDTO.approval2Yn==1}'>최종승인됨</c:if>
+													<c:if test='${histDTO.approval1Yn==1 && histDTO.approval2Yn==0}'>1차승인</c:if>
+													<c:if test='${histDTO.approval1Yn==0 && histDTO.reason==null}'>미승인</c:if>
+													<c:if test='${histDTO.reason!=null}'> 반려</c:if>
+												</td>
 											
 										</tr>
 									</c:forEach>
@@ -473,7 +489,7 @@ console.log(allcountlist)
 var barChartData = {        
         labels: roomnamelist,
         datasets: [{
-            label: '같은 기간 중 전체부서 사용빈도 (사용기록이 있는 회의실만 나타납니다)',
+            label: '같은 기간 중 전체부서 사용빈도 합',
             backgroundColor: "#dddddd",
             data: allcountlist
         }, {
@@ -496,7 +512,7 @@ var barChartData = {
                  yAxes: [{
                      ticks: {
                          beginAtZero:true,  //Y축의 값이 0부터 시작
-                         stepSize: 1
+                         /* stepSize: 1 */
                      }
                  }]
              }
@@ -530,3 +546,19 @@ var barChartData = {
 
 	})
 </script>
+
+<script>
+	$(function() {
+		$('#example1').DataTable({
+			'paging' : false,
+			'lengthChange' : false,
+			'searching' : false,
+			'ordering' : true,
+			'info' : false,
+			'autoWidth' : true,
+			"order": [[ 4, "desc" ]]
+		})
+	})
+</script>
+
+

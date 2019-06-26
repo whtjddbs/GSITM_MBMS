@@ -3,6 +3,7 @@ package com.gsitm.mbms.reserve;
 import java.util.List;
 import java.util.Map;
 
+import com.gsitm.mbms.employee.DepartmentDTO;
 import com.gsitm.mbms.employee.EmployeeDTO;
 import com.gsitm.mbms.room.RoomDTO;
 
@@ -34,7 +35,7 @@ public interface ReserveDAO {
 	public Map<String, String> getNextReservation(Map<String, Object> map);
 
 	/** 성윤: 회의실 예약 **/
-	public int getNextReserveNo();
+	public int getNowReserveNo();
 	public int insertReserveHistory(ReserveHistoryDTO reserveHistory);
 	public int insertMeetingMemberList(List<MeetingMemberDTO> meetingMemberList);
 	public int insertMeetingEquipmentList(List<MeetingEquipmentDTO> meetingEquipmentList);
@@ -43,4 +44,11 @@ public interface ReserveDAO {
 	
 	/** 민기: 모든 예약 내역 **/
 	public List<ReserveHistoryDTO> getAllReservationList();
+	
+	/** 성윤: 예약번호로 예약내역 조회 **/
+	public ReserveHistoryDTO getReservationByReserveNo(int reserveNo);
+
+	/** 민기: 해당 사람이 승인자인 예약 조회 **/
+	public List<ReserveHistoryDTO> selectReserveByApproverNo(String empNo);
+
 }

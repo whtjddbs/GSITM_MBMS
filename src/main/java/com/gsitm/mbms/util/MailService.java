@@ -1,8 +1,9 @@
 package com.gsitm.mbms.util;
 
-import javax.mail.internet.InternetAddress;
+import com.gsitm.mbms.reserve.ReserveHistoryDTO;
+import com.gsitm.mbms.room.RoomDTO;
 
 public interface MailService {
-	boolean send(String subject, String text, String from, String to);
-	public boolean multiSend(String subject, String text, String from, InternetAddress[] addArray);
+	public boolean send(String subject, String to, ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment);
+	public String getMailTemplate(ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment);
 }

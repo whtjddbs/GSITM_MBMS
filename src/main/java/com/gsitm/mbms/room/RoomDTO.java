@@ -2,7 +2,7 @@ package com.gsitm.mbms.room;
 
 import java.util.List;
 
-
+import com.gsitm.mbms.building.BuildingDTO;
 import com.gsitm.mbms.equipment.EquipmentDTO;
 
 import lombok.AllArgsConstructor;
@@ -32,4 +32,5 @@ public class RoomDTO {
 	private int roomFloor;
 	private String roomType;
 	private List<EquipmentDTO> equipments;
+	private BuildingDTO buildingDTO;
 }

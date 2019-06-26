@@ -32,7 +32,7 @@
 				</span>
 			</a></li>
 			<!-- 회의실 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
+			<li class="treeview"><a href="#"> <i class="fa fa-calendar"></i>
 					<span>회의실</span> <span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -42,11 +42,11 @@
 							회의실 소개</a></li>
 					<li><a href="/reserve/reserveSearchForm"><i class="fa fa-circle-o"></i>
 							회의실 검색</a></li>
-					<li><a href="/reserve/Calendar"><i class="fa fa-circle-o"></i>
+					<li><a href="/reserve/reserveForm"><i class="fa fa-circle-o"></i>
 							회의실 예약</a></li>
 				</ul></li>
 			<!-- 마이페이지 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-pie-chart"></i>
+			<li class="treeview"><a href="#"> <i class="fa fa-user"></i>
 					<span>마이페이지</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -58,19 +58,26 @@
 							예약 이력</a></li>
 			</ul></li>
 			
-			<c:if test="${isApprover}">
+			<c:if test="${isApprover || isAdmin}"> 
 				<!-- 상위결재자 -->
 				<li class="header">APPROVER</li>
 				<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
-				<li><a href="/payment/paymentList"><i class="fa fa-circle-o text-yellow"></i> <span>비용 관리</span></a></li>
+				
+				
+				<c:if test="${isAdmin}">
+				<li><a href="/payment/paymentList"><i class="fa fa-circle-o text-yellow"></i> <span>관리자 비용 관리</span></a></li>
+				</c:if>
+				
+				<c:if test="${isApprover}">
+				<li><a href="/payment/approverPaymentList"><i class="fa fa-circle-o text-green"></i> <span>결재자 비용 관리</span></a></li>
+				</c:if>
 			</c:if>
-			
 			
 			<c:if test="${isAdmin}">
 				<!-- 관리자 -->
 				<li class="header">MANAGER</li>
 				<!-- 회의실 -->
-				<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
+				<li class="treeview"><a href="#"> <i class="fa fa-gears"></i>
 						<span>회의실 관리</span> <span class="pull-right-container">
 							<i class="fa fa-angle-left pull-right"></i>
 					</span>
@@ -84,7 +91,7 @@
 								비품 관리</a></li>
 					</ul></li>
 				<!-- 회의실 -->
-				<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
+				<li class="treeview"><a href="#"> <i class="fa fa-bar-chart"></i>
 						<span>예약 관리</span> <span class="pull-right-container">
 							<i class="fa fa-angle-left pull-right"></i>
 					</span>

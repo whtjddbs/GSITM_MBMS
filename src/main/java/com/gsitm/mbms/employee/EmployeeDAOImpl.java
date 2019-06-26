@@ -58,4 +58,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return sqlSession.selectOne("employeeMapper.getDeptManagerEmpNo", empNo);
 	}
 	
+	/** 민기: 해당 사용자가 보스인 부서를 조회 **/
+	@Override
+	public List<DepartmentDTO> selectDeptByBossNo(String empNo) {
+		return sqlSession.selectList("departmentMapper.selectDeptByBossNo", empNo);
+	}
+	
 }

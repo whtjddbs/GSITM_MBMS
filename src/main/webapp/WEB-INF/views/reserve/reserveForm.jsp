@@ -73,6 +73,13 @@
 									</select>
 								</div>
 							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-12  col-xs-12">
+									<label>회의명</label> 
+									<input type="text" name="title" id="title" class="form-control">
+								</div>
+							</div>
 								
 							<div class="form-group">
 								<div class="col-sm-12  col-xs-12">
@@ -227,6 +234,7 @@
 	.dropdown-menu > li:hover {cursor: pointer;}
 	.dropdown-menu > li.disabled {color: #999; text-decoration: line-through;}
 </style>
+
 <script>
 	var setEndDate;
 	var setStartDate;
@@ -539,6 +547,7 @@
 	            	category: $('#meetingCategory').val(),
 	            	empCount: $('#empCount').val(),
 	            	snackYn: $('#snackYn').val()=='Y' ? 'Y' : 'N',
+	            	title: $('#title').val(),
 	            	'meetingMemberList': meetingMemberList,
 	            	'competentDepartmentList': competentDepartment,
 	            	'meetingEquipmentList': eqList
@@ -547,6 +556,7 @@
 	            dataType : "json",
 	            success : function(data) {
 	            	alert('success');
+	            	location.href='/approval/approvalDetail/'+data.reserveNo;
 	            },
 	            error: function(request,status,error){
 	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

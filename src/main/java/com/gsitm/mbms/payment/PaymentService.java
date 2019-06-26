@@ -4,10 +4,9 @@ import java.util.List;
 
 
 public interface PaymentService {
-	public List<PaymentDTO> selectAllPayment() throws Exception;
 	
-	public List<PaymentDTO> sumPayment() throws Exception;
-
-	public PaymentDTO paymentDetail(int reserveNo) throws Exception;
+	public List<PaymentDTO> selectAllPayment(String empNo) throws Exception;
+	
+	public List<PaymentDTO> selectApproverPayment(String empNo) throws Exception;
 
 }

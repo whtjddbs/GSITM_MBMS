@@ -34,7 +34,10 @@ public class MypageDTO {
 	public String buildName;
 	public String empPosition;
 	public String deptName;
-
+	private String empNo; 
+	
+	private String title;
+	private String reason;
 
 	public MypageDTO() {
 		super();
@@ -44,7 +47,7 @@ public class MypageDTO {
 			int approval1Yn, String approval1EmpNo, Date approval1Date, int approval2Yn, String approval2EmpNo,
 			Date approval2Date, int paymentYn, Date paymentDate, Date reserveDate, int reservePrice, String purpose,
 			String category, int priority, int empCount, char snackYn, String empName, String roomName, String buildName
-			, String empPosition, String deptName) {
+			, String empPosition, String deptName, String empNo, String title, String reason) {
 		
 		super();
 		this.reserveNo = reserveNo;
@@ -72,6 +75,9 @@ public class MypageDTO {
 		this.buildName=buildName;
 		this.empPosition=empPosition;
 		this.deptName=deptName;
+		this.empNo=empNo;
+		this.title=title;
+		this.reason=reason;
 	}
 
 	public int getReserveNo() {
@@ -230,6 +236,27 @@ public class MypageDTO {
 		this.deptName = deptName;
 	}
 	
+	public String getEmpNo() {
+		return empNo;
+	}
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	
 	@Override
 	public String toString() {
@@ -240,8 +267,10 @@ public class MypageDTO {
 				+ ", paymentYn=" + paymentYn + ", paymentDate=" + paymentDate + ", reserveDate=" + reserveDate
 				+ ", reservePrice=" + reservePrice + ", purpose=" + purpose + ", category=" + category + ", priority="
 				+ priority + ", empCount=" + empCount + ", snackYn=" + snackYn + ", empName=" + empName +  ", roomName=" 
-				+ roomName + ", buildName=" + buildName + ", empPosition=" + empPosition + ", deptName=" + deptName + "]";
+				+ roomName + ", buildName=" + buildName + ", empPosition=" + empPosition + ", deptName=" + deptName +
+				", empNo=" + empNo + ", title=" + title + ", reason=" + reason + "]";
 	}
+	
 }
 
 
