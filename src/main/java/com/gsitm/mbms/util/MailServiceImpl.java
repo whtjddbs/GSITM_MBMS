@@ -243,13 +243,13 @@ public class MailServiceImpl implements MailService {
 	@Scheduled(cron="0 0/30 9-18 * * *")
 	@Override
 	public boolean reservedMailSend() {
-		System.out.println("=================");
+		System.out.println("========= START =========");
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		cal.add(Calendar.MINUTE, 30);
 		String nextTime = format.format(cal.getTime());
-		System.out.println("========="+nextTime+"========");
+		System.out.println("========="+nextTime+"=========");
 		
 		// 30분 후 시작하는 예약 목록 조회
 		List<ApprovalDTO> approvalList = approvalDAO.selectImminentReserveList(nextTime);
@@ -267,6 +267,7 @@ public class MailServiceImpl implements MailService {
 				this.send("예약된 회의 임박 알림", email, approval, "잊지말고 참석부탁드립니다.");
 			}
 		}
+		System.out.println("========= END =========");
 		return false;
 	}
 
