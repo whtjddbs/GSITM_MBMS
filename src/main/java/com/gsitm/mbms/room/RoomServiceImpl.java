@@ -1,9 +1,12 @@
 package com.gsitm.mbms.room;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.gsitm.mbms.building.BuildingDTO;
 
 /**
  * @주제 : 
@@ -52,6 +55,12 @@ public class RoomServiceImpl implements RoomService {
 	public void roomUpdate(RoomDTO dto) {
 		// TODO Auto-generated method stub
 		roomDAO.roomUpdate(dto);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllWithEquipmentsWithBuildings() {
+		// TODO Auto-generated method stub
+		return roomDAO.selectAllWithEquipmentsWithBuildings();
 	}
 }
 

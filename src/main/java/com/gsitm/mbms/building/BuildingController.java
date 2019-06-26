@@ -49,7 +49,7 @@ public class BuildingController {
 		System.out.println(dto.toString());
 		logger.info("Building InsertAction");
 		service.buildingInsert(dto);
-		return "redirect:/building/buildingList";
+		return "redirect:/building/buildingList?type=insert";
 	}
 	
 	//Building 삭제
@@ -57,7 +57,7 @@ public class BuildingController {
 	public String buildingDelete(int buildNo) {
 		logger.info("Building DeleteAction");
 		service.buildingDelete(buildNo);
-		return "redirect:/building/buildingList";
+		return "redirect:/building/buildingList?type=delete";
 	}
 	
 	//Building 수정화면으로 이동
@@ -75,7 +75,7 @@ public class BuildingController {
 		logger.info("Building UpdateAction");
 		System.out.println(dto.toString());
 		service.buildingUpdate(dto);
-		return "redirect:/building/buildingList";
+		return "redirect:/building/buildingList?type=update";
 	}
 	
 	
