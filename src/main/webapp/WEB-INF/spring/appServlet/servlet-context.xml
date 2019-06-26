@@ -59,6 +59,7 @@
     		<exclude-mapping path="/logincheck"/>
     		<exclude-mapping path="/resources/**"/>
     		<exclude-mapping path="/bower_components/**"/>
+    		<exclude-mapping path="/favicon.ico"/>
     		<beans:bean id="loginInterceptor" class="com.gsitm.mbms.interceptor.LoginInterceptor"/>
     	</interceptor>
     	
