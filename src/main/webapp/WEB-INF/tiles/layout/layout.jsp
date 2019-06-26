@@ -115,9 +115,7 @@
 	
 	<!-- 로딩바 -->
 	<div id="Progress_Loading">
-		<div>
-			<img src="/resources/img/Progress_Loading.gif"/>
-		</div>
+		<img src="/resources/img/loading.gif"/>
 	</div>
 </body>
 <!-- 로딩 -->

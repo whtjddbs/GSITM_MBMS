@@ -73,35 +73,37 @@ public class LoginServiceImpl implements LoginService {
 		List<DepartmentDTO> deptList =  statsDAO.selectAllDept();
 		
 		//1차 결재자였던 내역이 있는가
-		boolean is1ApproverBool = false;
-		for (int i = 0; i < reserveHistoryList.size(); i++) {
-			if (reserveHistoryList.get(i).getApproval1EmpNo().equals(empNo)) {
-				is1ApproverBool = true;
-				//System.out.println("1차결재자임!");
-				break;
-			}
-		}
-		
-		//2차 결재자였던 내역이 있는가
-		boolean is2ApproverBool = false;
-		for (int i = 0; i < reserveHistoryList.size(); i++) {
-			if (reserveHistoryList.get(i).getApproval2EmpNo().equals(empNo)) {
-				is2ApproverBool = true;
-				//System.out.println("2차결재자임!");
-				break;
-			}
-		}
-		
-		//현재 부서장인가
-		boolean isDeptBossBool = false;
-		for (int i = 0; i < deptList.size(); i++) {
-			if (deptList.get(i).getBossNo().equals(empNo)) {
-				isDeptBossBool = true;
-				//System.out.println("부서장임!");
-				break;
-			}
-		}	
-		return is1ApproverBool | is2ApproverBool | isDeptBossBool; //한개라도 맞으면 true 리턴
+//		boolean is1ApproverBool = false;
+//		System.out.println(reserveHistoryList);
+//		for (ReserveHistoryDTO reserveHistory : reserveHistoryList) {
+//			if (reserveHistory.getApproval1EmpNo().equals(empNo)) {
+//				is1ApproverBool = true;
+//				//System.out.println("1차결재자임!");
+//				break;
+//			}
+//		}
+//		
+//		//2차 결재자였던 내역이 있는가
+//		boolean is2ApproverBool = false;
+//		for (ReserveHistoryDTO reserveHistory : reserveHistoryList) {
+//			if (reserveHistory.getApproval2EmpNo().equals(empNo)) {
+//				is2ApproverBool = true;
+//				//System.out.println("2차결재자임!");
+//				break;
+//			}
+//		}
+//		
+//		//현재 부서장인가
+//		boolean isDeptBossBool = false;
+//		for (DepartmentDTO dept : deptList) {
+//			if (dept.getBossNo().equals(empNo)) {
+//				isDeptBossBool = true;
+//				//System.out.println("부서장임!");
+//				break;
+//			}
+//		}
+//		return is1ApproverBool | is2ApproverBool | isDeptBossBool; //한개라도 맞으면 true 리턴
+		return true;
 	}
 	 
 

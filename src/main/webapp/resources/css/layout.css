@@ -42,14 +42,22 @@ body, div, h1, h2, h3, h4, h5, h6, a , b{
     height: 100%;
     z-index: 1001;
 }
-#Progress_Loading > div {
+#Progress_Loading > img {
     position: fixed;
-    left: 50%;
-    top: 50%;
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    text-align: center;
-    padding: 32px 0px;
+    left: 47%;
+    top: 44%;
     border-radius: 20px;
+    width: 125px;
+}
+@media (max-width: 768px) {
+	#Progress_Loading > img {
+		left: 44%;
+	}
+	.mobileDisabled{display:none;}
+}
+@media (max-width: 415px) {
+	#Progress_Loading > img {
+	    left: 40%;
+    	width: 80px;
+	}
 }
