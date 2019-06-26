@@ -90,7 +90,7 @@
 								<label for="noticetitle">내용</label>
 
 								<!-- 에디터 -->
-								<textarea id="editor1"  rows="10" cols="80"
+								<textarea id="editor1" name="noticeContent" rows="10" cols="80"
 									placeholder="공지할 내용을 입력하세요."></textarea>
 
 							</div><!-- /. 에디터 폼그룹 -->
