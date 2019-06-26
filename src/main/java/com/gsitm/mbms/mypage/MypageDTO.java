@@ -256,7 +256,7 @@ public class MypageDTO {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	
+
 	
 	@Override
 	public String toString() {

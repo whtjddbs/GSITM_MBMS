@@ -2,32 +2,25 @@ package com.gsitm.mbms.payment;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class PaymentDAOImpl implements PaymentDAO {
 	
-	@Autowired
+	@Inject
 	private SqlSession session;
 	
-	private static String namespace = "paymentMapper.";
-	
 	@Override
-	public List<PaymentDTO> selectAllPayment() {
-		return session.selectList("paymentMapper.selectAllPayment");
+	public List<PaymentDTO> selectAllPayment(String empNo) {
+		return session.selectList("paymentMapper.selectAllPayment", empNo);
 	}
 	
 	@Override
-	public List<PaymentDTO> sumPayment() {
-		return session.selectList("paymentMapper.sumPayment");
+	public List<PaymentDTO> selectApproverPayment(String empNo) {
+		return session.selectList("paymentMapper.selectApproverPayment", empNo);
 	}
 	
-	@Override
-	public PaymentDTO selectByReserveNo(int reserveNo) throws Exception {
-		return session.selectOne(namespace + "selectByReserveNo", reserveNo);
-	}
-
-
 }
