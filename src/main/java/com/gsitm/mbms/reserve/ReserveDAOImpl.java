@@ -57,8 +57,8 @@ public class ReserveDAOImpl implements ReserveDAO {
 	}
 
 	@Override
-	public int getNextReserveNo() {
-		return session.selectOne("reserveHistoryMapper.getNextReserveNo");
+	public int getNowReserveNo() {
+		return session.selectOne("reserveHistoryMapper.getNowReserveNo");
 	}
 	
 	@Override
@@ -85,6 +85,11 @@ public class ReserveDAOImpl implements ReserveDAO {
 	@Override
 	public List<ReserveHistoryDTO> getAllReservationList() {
 		return session.selectList("reserveHistoryMapper.getAllReservationList");
+	}
+
+	@Override
+	public ReserveHistoryDTO getReservationByReserveNo(int reserveNo) {
+		return session.selectOne("reserveHistoryMapper.getReservationByReserveNo", reserveNo);
 	}
 
 

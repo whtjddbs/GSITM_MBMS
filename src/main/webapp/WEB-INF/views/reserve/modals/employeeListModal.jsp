@@ -17,7 +17,12 @@
 	/* 참석 명단 */
     #attendants-list {list-style: none; padding-left: 0px;}
     #attendants-list > li {cursor: pointer;}
-    #attendants-list-title > * {display: inline-block;}
+    #attendants-list-title > * {display: inline-block; wi}
+    
+    @media (max-width: 768px) {
+    	.scrollbar {height: 200px;}
+    	.force-overflow {min-height: 200px;}
+    }
 </style>
 
 <!-- modal -->
@@ -32,7 +37,7 @@
 	    <div class="modal-body">
 	    	<!-- 모달 내용 -->
 	    	<div class="row employeeList-body">
-		    	<div class="col-lg-3 employeeList-left">
+		    	<div class="col-md-3 employeeList-left">
 		    		<h4>조직도</h4>
 		    		<div class="scrollbar" id="style-1">
 						<div class="force-overflow">
@@ -40,7 +45,7 @@
 						</div>
 				    </div>
 		    	</div>
-		    	<div class="col-lg-6 employeeList-md">
+		    	<div class="col-md-6 employeeList-md">
 		    		<table id="employeeListTable" class="table table-bordered table-hover">
 						<thead>
 							<tr>
@@ -64,7 +69,7 @@
 						</tbody>
 					</table>
 		    	</div>
-		    	<div class="col-lg-3 employeeList-right">
+		    	<div class="col-md-3 employeeList-right">
 		    		<div id="attendants-list-title">
 		    			<h4>참석자 명단</h4>
 		    			( <span id="attendants-count">0</span> 명)
@@ -251,6 +256,12 @@
 		
 		$('#employeeList-modal-reset').click(function(){
 			$('#attendants-list > li').trigger('click');
+		});
+		
+		$('.employeeList-left > h4').click(function(){
+			// 검색창 초기화
+			$('input[type=search]').val('');
+			$('input[type=search]').trigger('keyup');
 		});
 		
 	});

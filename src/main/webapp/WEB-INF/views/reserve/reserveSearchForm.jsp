@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<style>
+	.fc-past:hover, .fc-sun:hover, .fc-sat:hover{cursor: not-allowed;}
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -157,6 +159,11 @@
 					</div>
 					
 					<div class="col-sm-12">
+						<label>회의명</label> 
+						<input type="text" id="modal-meetingTitle" class="form-control" disabled>
+					</div>
+					
+					<div class="col-sm-12">
 						<label>시작일</label>
 						<div class="input-group">
 							<div class="input-group-addon">
@@ -309,8 +316,8 @@
 				return true;				
 			},
 			select: function(startDate, endDate, jsEvent, view, resource) {
-				selectedStart = startDate.format('YYYY-MM-DD HH:mm');
-				selectedEnd = endDate.format('YYYY-MM-DD HH:mm');
+				selectedStart = startDate.format('YYYY-MM-DD 09:00');
+				selectedEnd = endDate.add(-1,'d').format('YYYY-MM-DD 18:00');
 				$('#reservationtime').data('daterangepicker').setStartDate(selectedStart);
 				$('#reservationtime').data('daterangepicker').setEndDate(selectedEnd);
 			},
@@ -320,6 +327,7 @@
 				$('#modal-buildName').val(event.buildName);
 				$('#modal-roomName').val(event.roomName);
 				$('#modal-meetingCategory').val(event.category);
+				$('#modal-meetingTitle').val(event.title);
 				$('#modal-reservationStartDate').val(moment(event.startDate).format("YYYY-MM-DD"));
 				$('#modal-reservationEndDate').val(moment(event.endDate).format("YYYY-MM-DD"));
 				$('#modal-reservationStartTime').val(moment(event.startDate).format("HH:mm"));
@@ -337,7 +345,7 @@
 				console.log(view);
 			},
 			contentHeight: "auto",
-			googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE" // Google API KEY
+			timeFormat: 'HH:mm'
 
 			//Random default events
 			/* 
@@ -364,7 +372,7 @@
 	            	$.each(data.reservationList, function(index, item) {
 	            		var oneEvent = new Object();
 	            		oneEvent.id = item.RESERVENO;
-	            		oneEvent.title = item.PURPOSE;
+	            		oneEvent.title = item.TITLE;
 	            		oneEvent.start = new Date(item.STARTDATE);
 	            		oneEvent.end = new Date(item.ENDDATE);
 	            		oneEvent.backgroundColor = '#3c8dbc';
@@ -385,17 +393,10 @@
 	            		//이벤트 목록에 추가
 	            		events[index] = oneEvent;
 	            	});
-
-	            	var holiday = new Object();
-	            	holiday.googleCalendarId = "ko.south_korea#holiday@group.v.calendar.google.com";
-	            	holiday.className = "koHolidays";
-	            	holiday.color = "#FF0000";
-	            	holiday.textColor = "#FFFFFF";
 	            	
 	            	$('#calendar').fullCalendar('removeEvents');
 	            	$('#calendar').fullCalendar('removeEvents', 'koHolidays');
         		    $('#calendar').fullCalendar('addEventSource', events);
-        		    $('#calendar').fullCalendar('addEventSource', holiday);
         		    $('#calendar').fullCalendar('rerenderEvents');
 	            },
 	            error : function(data) {
@@ -419,6 +420,8 @@
 			timePickerIncrement : 30,
 			timePicker24Hour: true,
 			minDate : new Date(),
+			startDate: moment().format('YYYY-MM-DD 09:00'),
+			endDate: moment().format('YYYY-MM-DD 18:00'),
 			format : 'YYYY/MM/DD HH:mm',
 			locale : {
 				format : 'YYYY/MM/DD HH:mm'
