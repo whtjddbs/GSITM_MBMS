@@ -164,6 +164,50 @@ INSERT INTO room_equipment VALUES (102, 107, '노트북', 1);
 
 
 --Competent_department 더미----------------------------------------------------------------------------------------------------
---더미 없음(예약시 자동으로 채워짐)
+INSERT INTO Competent_department VALUES(1003,14,3);
+INSERT INTO Competent_department VALUES(1004,15,3);
+INSERT INTO Competent_department VALUES(1005,14,3);
+INSERT INTO Competent_department VALUES(1006,13,3);
+INSERT INTO Competent_department VALUES(1007,13,3);
+INSERT INTO Competent_department VALUES(1019,10,4);
+INSERT INTO Competent_department VALUES(1020,10,4);
+INSERT INTO Competent_department VALUES(1021,10,4);
+INSERT INTO Competent_department VALUES(1022,15,3);
+INSERT INTO Competent_department VALUES(1023,15,3);
+INSERT INTO Competent_department VALUES(1024,14,3);
+INSERT INTO Competent_department VALUES(1025,13,3);
+INSERT INTO Competent_department VALUES(1027,15,3);
+INSERT INTO Competent_department VALUES(1028,15,3);
+INSERT INTO Competent_department VALUES(1029,14,3);
+INSERT INTO Competent_department VALUES(1030,13,3);
+INSERT INTO Competent_department VALUES(1032,15,2);
+INSERT INTO Competent_department VALUES(1033,14,2);
+INSERT INTO Competent_department VALUES(1034,14,2);
+INSERT INTO Competent_department VALUES(1035,13,2);
+INSERT INTO Competent_department VALUES(1036,12,2);
+INSERT INTO Competent_department VALUES(1037,11,2);
+
+INSERT INTO Competent_department VALUES(1003,14,2);
+INSERT INTO Competent_department VALUES(1004,14,2);
+INSERT INTO Competent_department VALUES(1005,13,2);
+INSERT INTO Competent_department VALUES(1006,12,2);
+INSERT INTO Competent_department VALUES(1007,12,2);
+INSERT INTO Competent_department VALUES(1019,11,3);
+INSERT INTO Competent_department VALUES(1020,11,3);
+INSERT INTO Competent_department VALUES(1021,12,3);
+INSERT INTO Competent_department VALUES(1022,14,2);
+INSERT INTO Competent_department VALUES(1023,14,2);
+INSERT INTO Competent_department VALUES(1024,13,2);
+INSERT INTO Competent_department VALUES(1025,12,2);
+INSERT INTO Competent_department VALUES(1027,14,3);
+INSERT INTO Competent_department VALUES(1028,14,3);
+INSERT INTO Competent_department VALUES(1029,13,3);
+INSERT INTO Competent_department VALUES(1030,12,3);
+INSERT INTO Competent_department VALUES(1032,14,2);
+INSERT INTO Competent_department VALUES(1033,13,2);
+INSERT INTO Competent_department VALUES(1034,13,2);
+INSERT INTO Competent_department VALUES(1035,12,2);
+INSERT INTO Competent_department VALUES(1036,11,2);
+INSERT INTO Competent_department VALUES(1037,12,2);
 
 commit;
