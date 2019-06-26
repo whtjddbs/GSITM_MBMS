@@ -63,5 +63,9 @@ public class ApprovalDAOImpl implements ApprovalDAO {
 	public List<ApprovalDTO> selectImminentReserveList(String nowTime) {
 		return session.selectList("approvalMapper.selectImminentReserveList", nowTime);
 	}
+	@Override
+	public List<Integer> selectImminentReserveList2(String nowTime) {
+		return session.selectList("approvalMapper.selectImminentReserveList2", nowTime);
+	}
 
 }

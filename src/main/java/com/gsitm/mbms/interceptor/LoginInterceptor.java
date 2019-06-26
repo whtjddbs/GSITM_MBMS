@@ -48,7 +48,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 			
-			session.setAttribute("prevUrl", request.getServletPath());
+			if(!request.getServletPath().equals("/error/error404"))
+				session.setAttribute("prevUrl", request.getServletPath());
 			//로그인이 안되어 있는 상태 - 로그인 폼으로 돌려 보냄
 			response.sendRedirect("/login");
 			return false;

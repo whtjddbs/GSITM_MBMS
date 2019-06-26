@@ -528,6 +528,10 @@
 		   	$('#reservationEndTime').val(endDate.format('HH:mm'));
 	   	}
 		
+		function validate() {
+			
+		}
+		
 		$('#availableRoomSearchBtn').click(function(){
 			// 주관부서
 			var competentDepartment = new Array();

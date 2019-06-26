@@ -252,21 +252,36 @@ public class MailServiceImpl implements MailService {
 		System.out.println("========="+nextTime+"=========");
 		
 		// 30분 후 시작하는 예약 목록 조회
-		List<ApprovalDTO> approvalList = approvalDAO.selectImminentReserveList(nextTime);
-		System.out.println(approvalList);
-		for(ApprovalDTO approval : approvalList) {
-			System.out.println(approval);
+		List<Integer> reserveNoList = approvalDAO.selectImminentReserveList2(nextTime);
+		System.out.println(reserveNoList);
+		for(Integer reserveNo : reserveNoList) {
+			System.out.println(reserveNo);
 			String email = "";
-			List<EmployeeDTO> attendants = approvalDAO.selectMeetingMemberList(approval.getReserveNo());
+			List<EmployeeDTO> attendants = approvalDAO.selectMeetingMemberList(reserveNo);
 			for (EmployeeDTO employeeDTO : attendants) {
 				email += employeeDTO.getEmpEmail()+",";
 			}
 			
 			if(email.length() > 0) {
 				email = email.substring(0, email.length()-1);
-				this.send("예약된 회의 임박 알림", email, approval, "잊지말고 참석부탁드립니다.");
+				this.send("예약된 회의 임박 알림", email, approvalDAO.selectOneApprovalInfo(reserveNo), "잊지말고 참석부탁드립니다.");
 			}
 		}
+//		List<ApprovalDTO> approvalList = approvalDAO.selectImminentReserveList(nextTime);
+//		System.out.println(approvalList);
+//		for(ApprovalDTO approval : approvalList) {
+//			System.out.println(approval);
+//			String email = "";
+//			List<EmployeeDTO> attendants = approvalDAO.selectMeetingMemberList(approval.getReserveNo());
+//			for (EmployeeDTO employeeDTO : attendants) {
+//				email += employeeDTO.getEmpEmail()+",";
+//			}
+//			
+//			if(email.length() > 0) {
+//				email = email.substring(0, email.length()-1);
+//				this.send("예약된 회의 임박 알림", email, approval, "잊지말고 참석부탁드립니다.");
+//			}
+//		}
 		System.out.println("========= END =========");
 		return false;
 	}

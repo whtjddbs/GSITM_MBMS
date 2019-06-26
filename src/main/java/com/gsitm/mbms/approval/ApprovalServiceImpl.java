@@ -11,10 +11,7 @@ import com.gsitm.mbms.employee.EmployeeDAO;
 import com.gsitm.mbms.employee.EmployeeDTO;
 import com.gsitm.mbms.equipment.EquipmentDTO;
 import com.gsitm.mbms.reserve.CompetentDepartmentDTO;
-import com.gsitm.mbms.reserve.ReserveDAO;
 import com.gsitm.mbms.reserve.ReserveHistoryDTO;
-import com.gsitm.mbms.room.RoomDAO;
-import com.gsitm.mbms.room.RoomDTO;
 import com.gsitm.mbms.util.MailService;
 
 /**
@@ -28,10 +25,6 @@ public class ApprovalServiceImpl implements ApprovalService {
 	private ApprovalDAO approvalDAO;
 	@Autowired
 	private MailService mailService;
-	@Autowired
-	private ReserveDAO reserveDAO;
-	@Autowired
-	private RoomDAO roomDAO;
 	@Autowired
 	private EmployeeDAO employeeDAO;
 

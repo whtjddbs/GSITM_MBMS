@@ -1,17 +1,11 @@
 package com.gsitm.mbms.interceptor;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.springframework.web.util.WebUtils;
-
-import com.gsitm.mbms.employee.EmployeeDTO;
-import com.gsitm.mbms.employee.LoginService;
 
 /**
  * @주제 :
@@ -20,8 +14,6 @@ import com.gsitm.mbms.employee.LoginService;
  */
 @Component
 public class AuthorityInterceptor extends HandlerInterceptorAdapter {
-	@Autowired
-	private LoginService loginService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
