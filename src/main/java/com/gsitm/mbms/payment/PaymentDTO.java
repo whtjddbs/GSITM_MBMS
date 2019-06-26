@@ -33,7 +33,7 @@ public class PaymentDTO {
 	private String empNo; 
 	
 	private String mgrEmpNo;
-
+	public int cost;
 
 
 	public PaymentDTO() {
@@ -44,7 +44,7 @@ public class PaymentDTO {
 			int approval1Yn, String approval1EmpNo, Date approval1Date, int approval2Yn, String approval2EmpNo,
 			Date approval2Date, int paymentYn, Date paymentDate, Date reserveDate, int reservePrice, String purpose,
 			String category, int priority, int empCount, char snackYn, String empName, String deptName, String empNo,
-			String mgrEmpNo) {
+			String mgrEmpNo, int cost) {
 		super();
 		this.reserveNo = reserveNo;
 		this.roomNo = roomNo;
@@ -70,6 +70,7 @@ public class PaymentDTO {
 		this.deptName = deptName;
 		this.empNo = empNo;
 		this.mgrEmpNo = mgrEmpNo;
+		this.cost = cost;
 	}
 
 	public int getReserveNo() {
@@ -219,6 +220,13 @@ public class PaymentDTO {
 		this.mgrEmpNo = mgrEmpNo;
 	}
 	
+	public int getCost() {
+		return cost;
+	}
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+	
 	@Override
 	public String toString() {
 		return "ReserveHistoryDTO [reserveNo=" + reserveNo + ", roomNo=" + roomNo + ", reserveEmpNo=" + reserveEmpNo
@@ -228,7 +236,7 @@ public class PaymentDTO {
 				+ ", paymentYn=" + paymentYn + ", paymentDate=" + paymentDate + ", reserveDate=" + reserveDate
 				+ ", reservePrice=" + reservePrice + ", purpose=" + purpose + ", category=" + category + ", priority="
 				+ priority + ", empCount=" + empCount + ", snackYn=" + snackYn + ", empName=" + empName + ", deptName=" + deptName + 
-				", mgrEmpNo=" + mgrEmpNo + "]";
+				", mgrEmpNo=" + mgrEmpNo + ", cost=" + cost + "]";
 	}
 	
 }
