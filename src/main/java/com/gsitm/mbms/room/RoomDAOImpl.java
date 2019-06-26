@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.mbms.employee.EmployeeDTO;
+
 /**
  * @주제 : 
  * @작성일 : 2019. 5. 31.
@@ -51,6 +53,12 @@ public class RoomDAOImpl implements RoomDAO {
 	public void roomUpdate(RoomDTO dto) {
 		// TODO Auto-generated method stub
 		session.update("roomMapper.updateRoom",dto);
+	}
+	
+	//민기 관리자 사번으로 방 찾기
+	@Override
+	public List<RoomDTO> selectRoomByMgrEmpNo(String empNo) {
+		return session.selectList("roomMapper.selectRoomByMgrEmpNo",empNo);
 	}
 }
 

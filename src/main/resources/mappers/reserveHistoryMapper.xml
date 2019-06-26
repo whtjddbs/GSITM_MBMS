@@ -212,4 +212,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM Reserve_history 
 		WHERE reserve_no = #{reserveNo}
 	</select>
+	
+	<!--민기: 해당 사람이 승인자인 예약 조회 -->
+	<select id="selectReserveByApproverNo" resultMap="ReserveHistoryDTO">
+		SELECT * FROM Reserve_history where APPROVAL1_EMP_NO = #{empNo} OR APPROVAL2_EMP_NO = #{empNo}
+	</select>
 </mapper>

@@ -26,4 +26,7 @@ public interface EmployeeDAO {
 
 	/** 성윤: 상위결재자 사원번호 조회 **/
 	public EmployeeDTO getDeptManagerEmpNo(String empNo);
+	
+	/** 민기: 해당 사용자가 보스인 부서를 조회 **/
+	public List<DepartmentDTO> selectDeptByBossNo(String empNo);
 }

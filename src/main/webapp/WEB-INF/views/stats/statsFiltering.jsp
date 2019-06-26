@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
+
+
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -147,17 +151,17 @@
 					<h4 class="box-title">필터링된 데이터</h4>
 					<div class="box-body">
 					
-						<table id="example1" class="table table-bordered table-striped">
+						<table id="example1" class="responstable">
 							<thead>
 								<tr>
-									<th class = "">근무지명</th>
-									<th class = "">신청부서</th>
-									<th class = "">회의실명</th>
-									<th class = "">예약자명</th>
-									<th class = "">회의시작</th>
-									<th class = "">회의끝</th>
-									<th class = "">회의제목</th>
-									<th class = "">승인여부</th>
+									<th class = "all">근무지명</th>
+									<th class = "all">신청부서</th>
+									<th class = "none">회의실명</th>
+									<th class = "none">예약자명</th>
+									<th class = "none">회의시작</th>
+									<th class = "none">회의끝</th>
+									<th class = "none">회의제목</th>
+									<th class = "none">승인여부</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -177,8 +181,6 @@
 													<c:if test='${histDTO.approval1Yn==0 && histDTO.reason==null}'>미승인</c:if>
 													<c:if test='${histDTO.reason!=null}'> 반려</c:if>
 												</td>
-													
-					 
 											
 										</tr>
 									</c:forEach>
@@ -546,7 +548,18 @@ var barChartData = {
 			'ordering' : true,
 			'info' : false,
 			'autoWidth' : true,
-			"order": [[ 4, "desc" ]]
+			"order": [[ 4, "desc" ]],
+			responsive: {
+		        details: {
+		            type: 'column',
+		            target: 'tr'
+		        }
+		    },
+			columnDefs: [ {
+		        className: 'control',
+		        orderable: false,
+		        targets: -1
+		    } ]
 		})
 	})
 </script>
