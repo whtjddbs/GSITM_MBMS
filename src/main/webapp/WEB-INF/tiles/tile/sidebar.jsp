@@ -58,13 +58,20 @@
 							예약 이력</a></li>
 			</ul></li>
 			
-			<c:if test="${isApprover}">
+			<c:if test="${isApprover || isAdmin}"> 
 				<!-- 상위결재자 -->
 				<li class="header">APPROVER</li>
-				<li><a href="/approval/approvalList"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
-				<li><a href="/payment/paymentList"><i class="fa fa-circle-o text-yellow"></i> <span>비용 관리</span></a></li>
+				<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
+				
+				
+				<c:if test="${isAdmin}">
+				<li><a href="/payment/paymentList"><i class="fa fa-circle-o text-yellow"></i> <span>관리자 비용 관리</span></a></li>
+				</c:if>
+				
+				<c:if test="${isApprover}">
+				<li><a href="/payment/approverPaymentList"><i class="fa fa-circle-o text-green"></i> <span>결재자 비용 관리</span></a></li>
+				</c:if>
 			</c:if>
-			
 			
 			<c:if test="${isAdmin}">
 				<!-- 관리자 -->

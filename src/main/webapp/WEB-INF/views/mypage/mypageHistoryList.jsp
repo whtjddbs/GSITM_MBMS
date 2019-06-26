@@ -62,6 +62,8 @@
 									<th class = "">예약 종료일</th>
 									<th class = "">회의 구분</th>
 									<th class = "">회의명</th>
+									<th class = "">비고</th>
+									
 								</tr>
 							</thead>
 			               <tbody>
@@ -70,7 +72,77 @@
 									<td>${MypageDTO.startDate}</td>
 									<td>${MypageDTO.endDate}</td>
 									<td>${MypageDTO.category}</td>
-									<td>${MypageDTO.purpose}</td>
+									<td>${MypageDTO.title}</td>
+									<td>
+										<button type="button" class="btn btn-default btn-sm" data-toggle="modal" 
+							          	data-target="#modal-default_${MypageDTO.reserveNo}">상세 예약 정보</button>
+									
+										<div class="modal fade" id="modal-default_${MypageDTO.reserveNo}">
+														<!-- 예약 상세보기 modal div -->
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+					
+																<h4 class="modal-title">상세 예약내역</h4>
+															</div>
+													<div class="modal-body">
+														<p><strong>예약 신청 내역</strong></p>
+														<p>회의 일정 : ${MypageDTO.startDate} ~ ${MypageDTO.endDate} (예약 신청일 : ${MypageDTO.reserveDate})</p>
+														<p>회의 장소 : ${MypageDTO.buildName} ${MypageDTO.roomName}</p>
+														<p>회의명 및 목적 : ${MypageDTO.title} / ${MypageDTO.purpose}</p>
+														<p>참석자 : ${MypageDTO.empName} 외 ${MypageDTO.empCount-1}명</p>
+														<p>간식 신청 여부 : ${MypageDTO.snackYn} </p>
+														
+														<br><p><strong>예약 승인 내역</strong></p>
+															<p>1차 결재 : 
+														        <c:if test="${MypageDTO.approval1Yn == 0 }">
+																	<span>미승인</span>
+																</c:if>
+																<c:if test="${MypageDTO.approval1Yn == 1 }">
+																	<span style = "color:blue">승인 완료</span> (${MypageDTO.approval1Date})
+																</c:if>
+																<c:if test="${MypageDTO.approval1Yn == 2 }">
+																	<span>반려 (반려 사유 : ${MypageDTO.reason})</span>
+																</c:if>
+										        			</p>        
+									        
+													        <p>2차 결재 : 
+															    <c:if test="${MypageDTO.approval2Yn == 0 }">
+																	<span>미승인</span>
+																</c:if>
+																<c:if test="${MypageDTO.approval2Yn == 1 }">
+																	<span style = "color:blue">승인 완료</span> (${MypageDTO.approval1Date})
+																</c:if>
+																<c:if test="${MypageDTO.approval2Yn == 2 }">
+																	<span>반려 (반려 사유 : ${MypageDTO.reason})</span>
+																</c:if>
+															</p>
+															
+															<p>비용 결제 : 
+														        <c:if test="${MypageDTO.paymentYn == 0 }">
+																	<span>미결제</span>
+																</c:if>
+																<c:if test="${MypageDTO.paymentYn == 1 }">
+																	<span>결제 완료</span>
+																</c:if>
+																(${MypageDTO.reservePrice} 원)
+									        				</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default pull-right"
+															data-dismiss="modal">닫기</button>
+													</div>
+													</div>
+												<!-- /.modal-content -->
+												</div>
+												<!-- /.modal-dialog -->
+												</div>
+									
+									</td>
 								</tr>
 							</c:forEach>
 							</tbody>			               		       

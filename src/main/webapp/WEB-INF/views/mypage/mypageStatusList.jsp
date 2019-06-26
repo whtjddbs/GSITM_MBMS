@@ -74,7 +74,7 @@
 							
 								<tr>
 									<td>${mypage.startDate}</td>
-									<td>${mypage.purpose}</td>
+									<td>${mypage.title}</td>
 									<td>
 										<c:choose>
 									        <c:when test="${mypage.approval1Yn == 0 }">1차 승인 대기중</c:when>
@@ -86,7 +86,7 @@
 													<button type="button" class="btn btn-default btn-sm" data-toggle="modal" 
 							          					data-target="#modal-default_${mypage.reserveNo}">상세 예약 정보</button>
 							          					
-							          				<input type="button" class="btn btn-danger btn-sm" data-toggle="modal" 
+							          				<input type="button" class="btn btn-default btn-sm" data-toggle="modal" 
 														data-target="#modal-danger_${mypage.reserveNo}" value="예약 취소 요청">
 							          					
 													<div class="modal fade" id="modal-default_${mypage.reserveNo}">
@@ -105,9 +105,9 @@
 														<p><strong>예약 신청 정보</strong></p>
 														<p>회의 일정 : ${mypage.startDate} ~ ${mypage.endDate} (예약 신청일 : ${mypage.reserveDate})</p>
 														<p>회의 장소 : ${mypage.buildName} ${mypage.roomName}</p>
-														<p>회의 구분 및 목적 : ${mypage.category} / ${mypage.purpose}</p>
-														<p>간식 신청 여부 : ${mypage.snackYn}</p>
+														<p>회의명 및 목적 : ${mypage.title} / ${mypage.purpose}</p>
 														<p>참석자 : ${mypage.empCount}명</p>
+														<p>간식 신청 여부 : ${mypage.snackYn}</p>
 														
 														<br><p><strong>예약 승인 현황</strong></p>
 															<p>1차 결재 : 
@@ -117,6 +117,9 @@
 																<c:if test="${mypage.approval1Yn == 1 }">
 																	<span style = "color:blue">승인 완료</span> (${mypage.approval1Date})
 																</c:if>
+																<c:if test="${mypage.approval1Yn == 2 }">
+																	<span>반려 (반려 사유 : ${mypage.reason})</span>
+																</c:if>
 										        			</p>        
 									        
 													        <p>2차 결재 : 
@@ -125,6 +128,9 @@
 																</c:if>
 																<c:if test="${mypage.approval2Yn == 1 }">
 																	<span style = "color:blue">승인 완료</span> (${mypage.approval1Date})
+																</c:if>
+																<c:if test="${mypage.approval2Yn == 2 }">
+																	<span>반려 (반려 사유 : ${mypage.reason})</span>
 																</c:if>
 															</p>
 															
@@ -139,7 +145,7 @@
 									        				</p>
 													</div>
 													<div class="modal-footer">
-														<button type="button" class="btn btn-outline"
+														<button type="button" class="btn btn-default pull-right"
 															data-dismiss="modal">닫기</button>
 													</div>
 													</div>

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,24 +13,16 @@ import org.springframework.stereotype.Service;
 public class PaymentServiceImpl implements PaymentService {
 	
 	@Autowired
-	private SqlSession session;
-	
-	@Inject
-	private PaymentDAO dao;
+	private PaymentDAO paymentDAO;
 	
 	@Override
-	public List<PaymentDTO> selectAllPayment() {
-		return session.selectList("paymentMapper.selectAllPayment");
+	public List<PaymentDTO> selectAllPayment(String empNo) {
+		return paymentDAO.selectAllPayment(empNo);
 	}
 	
 	@Override
-	public List<PaymentDTO> sumPayment() {
-		return session.selectList("paymentMapper.sumPayment");
-	}
-	
-	public PaymentDTO selectByReserveNo(int reserveNo) throws Exception {
-		return dao.selectByReserveNo(reserveNo);
-		//return session.selectOne("paymentMapper.paymentDetail");
+	public List<PaymentDTO> selectApproverPayment(String empNo) {
+		return paymentDAO.selectApproverPayment(empNo);
 	}
 	
 }
