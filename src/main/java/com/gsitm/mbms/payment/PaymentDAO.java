@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface PaymentDAO {
 	
-	public List<PaymentDTO> selectAllPayment();
+	/** 관리자 비용 결제 조회 */
+	public List<PaymentDTO> selectAllPayment(String empNo);
 	
-	public List<PaymentDTO> sumPayment();
-	
-	public PaymentDTO selectByReserveNo(int reserveNo) throws Exception;
+	/** 결제자 비용 결제 조회 */
+	public List<PaymentDTO> selectApproverPayment(String empNo);
 
 }

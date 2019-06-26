@@ -15,15 +15,15 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Default Modal</h4>
+					<h4 class="modal-title">등록성공!</h4>
 				</div>
 				<div class="modal-body">
 					<p>등록완료!</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default pull-left"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-default pull-right"
+						data-dismiss="modal">닫기</button>
+					
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -40,15 +40,14 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Default Modal</h4>
+					<h4 class="modal-title">수정성공!</h4>
 				</div>
 				<div class="modal-body">
 					<p>수정완료!</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default pull-left"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-default pull-right"
+						data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -65,15 +64,14 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Default Modal</h4>
+					<h4 class="modal-title">삭제 성공!</h4>
 				</div>
 				<div class="modal-body">
 					<p>삭제완료!</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default pull-left"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-default pull-right"
+						data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -90,7 +88,7 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Default Modal</h4>
+					<h4 class="modal-title">근무지 등록하기</h4>
 				</div>
 				<div class="modal-body">
 					<form role="form" action="/building/buildingInsert" method="post">
@@ -124,9 +122,9 @@
 
 						<div class="form-group" align=center>
 							<input type="button" class="btn btn-default" data-dismiss="modal"
-								value="닫기" /> <input type="submit" class='btn btn-success'
-								value="등록완료"> <input type="reset" class='btn btn-danger'
-								value="등록취소">
+								value="닫기" /> <input type="reset" class='btn btn-danger'
+								value="등록취소"> <input type="submit"
+								class='btn btn-success' value="등록완료">
 						</div>
 					</form>
 
@@ -137,6 +135,8 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+	
+	
 
 	</body>
 <script>

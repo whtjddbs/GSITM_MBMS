@@ -26,31 +26,75 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="priority" property="priority"/>
 		<result column="emp_count" property="empCount"/>
 		<result column="snack_yn" property="snackYn"/>
+		
 		<result column="emp_name" property="empName"/>
 		<result column="dept_name" property="deptName"/>
+		<result column="mgr_emp_no" property="mgrEmpNo"/>
+		
+		<result column="cost" property="cost"/>
+	
 		
 	</resultMap>
 	
-	<!-- 회의실 비용 관련 조회 -->
+	<!-- 전체 결제 비용 조회 -->
 	<select id="selectAllPayment" resultMap="PaymentDTO">
-		SELECT Reserve_history.*, employee.emp_name, department.dept_name 
-		FROM RESERVE_HISTORY, EMPLOYEE, department
-		WHERE reserve_history.reserve_emp_no=employee.emp_no
-		and employee.dept_no=department.dept_no
+		SELECT Reserve_history.*, department.dept_name, ROUND(Reserve_history.RESERVE_PRICE/tmp.emp_sum*COMPETENT_DEPARTMENT.EMP_COUNT, -1) AS cost
+	        FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM, COMPETENT_DEPARTMENT
+                ,(SELECT reserve_no, SUM(emp_count) as emp_sum FROM competent_department GROUP BY reserve_no) tmp
+	        WHERE reserve_history.reserve_emp_no=employee.emp_no
+	            AND competent_department.dept_no = department.dept_no
+	            AND reserve_history.room_no = room.room_no
+                AND reserve_history.reserve_no = competent_department.reserve_no
+                AND reserve_history.reserve_no = tmp.reserve_no
+	            AND reserve_history.approval2_yn = 1
+	            AND room.mgr_emp_no = #{empNo}
+    	ORDER BY Reserve_history.RESERVE_NO
 	</select>
 	
-	<!-- 회의실 비용 관련 조회 -->
-	<select id="paymentDetail" resultMap="PaymentDTO">
-		SELECT *
-        from Reserve_history rh, employee e, meeting_member_list ml
-        where rh.reserve_emp_no = e.emp_no
-        and ml.reserve_no(+) = rh.reserve_no
-	</select>
-	
-	
-	<select id="selectByReserveNo" resultMap="PaymentDTO">
-		SELECT *
-        from Reserve_history
+	<!-- 결재자 결제 비용 조회 -->
+	<select id="selectApproverPayment" resultMap="PaymentDTO">
+    SELECT Reserve_history.*, department.dept_name, ROUND(Reserve_history.RESERVE_PRICE/tmp.emp_sum*COMPETENT_DEPARTMENT.EMP_COUNT,-1) AS cost
+	        FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM, COMPETENT_DEPARTMENT
+                ,(SELECT reserve_no, SUM(emp_count) as emp_sum FROM competent_department GROUP BY reserve_no) tmp
+	        WHERE reserve_history.reserve_emp_no=employee.emp_no
+	            AND competent_department.dept_no = department.dept_no
+	            AND reserve_history.room_no = room.room_no
+                AND reserve_history.reserve_no = competent_department.reserve_no
+                AND reserve_history.reserve_no = tmp.reserve_no
+	            AND reserve_history.approval2_yn = 1
+	            AND department.boss_no = #{empNo}
+    	ORDER BY Reserve_history.RESERVE_NO
 	</select>
 	
 </mapper>
+
+	<!--
+		SELECT Reserve_history.*, department.dept_name
+	        FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM
+	        WHERE reserve_history.reserve_emp_no=employee.emp_no
+	            and employee.dept_no = department.dept_no
+	            and reserve_history.room_no = room.room_no
+	            and reserve_history.approval2_yn = 1
+	            and room.mgr_emp_no = #{empNo}
+	  -->	
+	  
+	  <!--  
+	  	SELECT Reserve_history.*, department.dept_name
+			FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM
+			WHERE reserve_history.reserve_emp_no=employee.emp_no
+				and employee.dept_no = department.dept_no
+				and reserve_history.room_no = room.room_no
+			    and reserve_history.approval2_yn = 1
+			    and department.boss_no = #{empNo}
+	   -->
+	   
+	   <!--  
+	 SELECT RH.START_DATE, RH.CATEGORY, RH.PAYMENT_DATE, RH.RESERVE_PRICE, RH.payment_Yn, D.DEPT_NAME, 
+		(RH.RESERVE_PRICE/RH.EMP_COUNT*CD.EMP_COUNT) AS cost
+				FROM RESERVE_HISTORY RH, DEPARTMENT D, COMPETENT_DEPARTMENT CD
+				WHERE RH.RESERVE_NO = CD.RESERVE_NO
+				AND CD.DEPT_NO = D.DEPT_NO
+				AND RH.APPROVAL2_YN = 1
+	            AND D.BOSS_NO = #{empNo}
+	    ORDER BY RH.RESERVE_NO
+	    -->

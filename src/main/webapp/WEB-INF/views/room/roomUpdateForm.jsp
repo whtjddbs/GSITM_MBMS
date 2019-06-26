@@ -37,24 +37,24 @@
 									
 									<div class="col-sm-6">
 										<label>회의실이름</label> <input type="text" class="form-control"
-											name="roomName" placeholder="${room.roomName }">
+											name="roomName" placeholder="${room.roomName }" required>
 									</div>
 
 									<div class="col-sm-6">
 										<label>RoomSpace</label> <input type="number"
-											class="form-control" name="roomSpace" placeholder="${room.roomSpace }">
+											class="form-control" name="roomSpace" placeholder="${room.roomSpace }" required>
 									</div>
 
 									<div class="col-xs-6">
 										<label>수용 인원</label> <input type="number" class="form-control"
-											name="roomNumEmp" placeholder="${room.roomNumEmp }">
+											name="roomNumEmp" placeholder="${room.roomNumEmp }" required>
 									</div>
 
 									<label>회의실 담당자</label>
 									<div class="col-xs-6">
 										<div class="col-xs-8">
 											<input type="text" class="form-control" name="mgrEmpNo"
-												id="mgrEmpNo" placeholder="${room.mgrEmpNo }">
+												id="mgrEmpNo" placeholder="${room.mgrEmpNo }" required>
 										</div>
 
 										<div class="col-xs-1">
@@ -64,7 +64,7 @@
 									</div>
 									<div class="col-sm-6">
 										<label for="buildingSelect">지사</label> <select name="buildNo"
-											id="buildingSelect" class="form-control">
+											id="buildingSelect" class="form-control" required>
 											
 											<c:forEach var="building" items="${buildings }">
 												<option value="${building.buildNo }">${building.buildName }</option>
@@ -93,7 +93,7 @@
 									</div>
 
 									<div class="col-sm-6">
-										<label>roomFloor</label> <input type="number"
+										<label>roomFloor</label> <input type="number" required
 											class="form-control" name="roomFloor" placeholder="${room.roomFloor }">
 									</div>
 
@@ -127,10 +127,10 @@
 									</div>
 
 									<div class="col-xs-12" align=center>
-										<input type="submit" class='btn btn-success' value="등록완료">
-										<input type="reset" class='btn btn-danger' value="등록취소">
 										<input type="button" class='btn btn-default' value="뒤로가기"
-											onClick="history.back();">
+											onClick="history.back();"> <input type="reset"
+											class='btn btn-danger' value="등록취소"> <input
+											type="submit" class='btn btn-success' value="등록완료">
 									</div>
 								</form>
 							</div>
