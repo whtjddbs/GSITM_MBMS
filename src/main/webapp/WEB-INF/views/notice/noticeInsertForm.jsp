@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<!-- plugin 참조-->
+<script type="text/javascript" src="js/plugins/validation/jquery.validate.min.js"></script>
+ <script type="text/javascript">
+                   
+      $(document).ready(function () {          
+
+        $('#valform').validate(); //유효성 검사를 적용
+   
+      }); //end ready()
+ 
+    </script>
+
+
+
+
 <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
 <script src="https://example.com/ckfinder/ckfinder.js"></script>
 <!-- <script type='text/javascript'>
@@ -47,7 +62,7 @@
 						<h3 class="box-title">공지사항 작성 <small>새로운 공지사항 내용을 작성하세요.<br /></small><br>
 						</h3>
 						
-						<form action=noticeInsert method="post" enctype="multipart/form-data">
+						<form action=noticeInsert id="valform" method="post" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="noticetitle">제목<br></label> <input type="text" class="form-control" id="exampleInputEmail1" name ="noticeSubject"  placeholder="공지 제목을 입력하세요." required="required">
 							</div>
@@ -76,7 +91,7 @@
 
 								<!-- 에디터 -->
 								<textarea id="editor1" name="editor1" rows="10" cols="80"
-									placeholder="공지할 내용을 입력하세요."></textarea>
+									placeholder="공지할 내용을 입력하세요." class="required"></textarea>
 
 							</div><!-- /. 에디터 폼그룹 -->
 
@@ -188,7 +203,9 @@
              } */
              
          }
+     
      } )
+     .validate()
      /* .catch( error => {
             console.error( error )
             ; */
@@ -240,13 +257,5 @@
 <script
 	src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
-<script>
-        CKEDITOR.replace( 'editor1' );
-        $("form").submit( function(e) {
-            var messageLength = CKEDITOR.instances['editor1'].getData().replace(/<[^>]*>/gi, '').length;
-            if( !messageLength ) {
-                alert( 'Please enter a message' );
-                e.preventDefault();
-            }
-        });
-    </script>
+
+

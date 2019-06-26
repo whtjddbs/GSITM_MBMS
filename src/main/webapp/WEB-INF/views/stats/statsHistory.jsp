@@ -395,7 +395,18 @@
 			'ordering' : true,
 			'info' : true,
 			'autoWidth' : true,
-			"order": [[ 4, "desc" ]]
+			"order": [[ 4, "desc" ]],
+			'responsive': {
+		        details: {
+		            type: 'column',
+		            target: 'tr'
+		        }
+		    },
+			'columnDefs': [ {
+		        className: 'control',
+		        orderable: false,
+		        targets: -1
+		    } ]
 		})
 	})
 </script>
