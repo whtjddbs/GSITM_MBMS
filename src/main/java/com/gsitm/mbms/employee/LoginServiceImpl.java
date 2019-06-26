@@ -55,8 +55,8 @@ public class LoginServiceImpl implements LoginService {
 		List<RoomDTO> roomList = roomDAO.selectRoomByMgrEmpNo(empNo);
 
 		//관리자인가
-			boolean isAdmin = false;
-			if(roomList.size()!=0) {isAdmin = true;}
+		boolean isAdmin = false;
+		if(roomList.size()!=0) {isAdmin = true;}
 		
 		return isAdmin; //운영자면 true 리턴
 	}

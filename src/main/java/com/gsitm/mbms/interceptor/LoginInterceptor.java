@@ -29,6 +29,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		Object login = session.getAttribute("login");
 		
+		
+
+		
+		
 		//로그인 세션 없을 때
 		if(login == null) {
 			System.out.println("LoginInterceptor : "+request.getServletPath());
@@ -50,14 +54,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		
-		if(session.getAttribute("prevUrl")!=null) {
-			String target = (String)session.getAttribute("prevUrl");
-			session.removeAttribute("prevUrl");
-			response.sendRedirect(target);
-			return false;
-		}
 		
-		/*민기 운영자, 결재자 판단부분----------------------------------------------*/
+		//민기 운영자, 결재자 판단부분----------------------------------------------
 		EmployeeDTO employeeDTO = (EmployeeDTO) session.getAttribute("login");
 		
 		boolean isAdmin = loginService.isAdmin(employeeDTO.getEmpNo());
@@ -65,8 +63,19 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		boolean isApprover = loginService.isApprover(employeeDTO.getEmpNo());
 		if (isApprover==true) session.setAttribute("isApprover", isApprover);
-		/*-------------------------------------------------------------------------*/
+		//-------------------------------------------------------------------------
+
 		
+		
+		
+		if(session.getAttribute("prevUrl")!=null) {
+			System.out.println(session.getAttribute("prevUrl"));
+			String target = (String)session.getAttribute("prevUrl");
+			session.removeAttribute("prevUrl");
+			response.sendRedirect(target);
+			return false;
+		}
+
 		
 		
 		return true;

@@ -2,7 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
+<style>
+	@media (max-width: 768px) { 
+		.mobileDisabled{display:none;}
+	}
+	.chart{
+	min-height:200px;
+	}
+	
+</style>
 
 
 
@@ -142,7 +150,7 @@
 
 
 
-<div class="box box-success">
+<div class="box box-primary">
 <!-- /.content-wrapper -->	
 	<section class="content">
 		<div class="row">
@@ -151,29 +159,29 @@
 					<h4 class="box-title">필터링된 데이터</h4>
 					<div class="box-body">
 					
-						<table id="example1" class="responstable">
+						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th class = "all">근무지명</th>
-									<th class = "all">신청부서</th>
-									<th class = "none">회의실명</th>
-									<th class = "none">예약자명</th>
-									<th class = "none">회의시작</th>
-									<th class = "none">회의끝</th>
-									<th class = "none">회의제목</th>
-									<th class = "none">승인여부</th>
+									<th class = "mobileDisabled">근무지명</th>
+									<th class = "">신청부서</th>
+									<th class = "">회의실명</th>
+									<th class = "mobileDisabled">예약자명</th>
+									<th  class = "mobileDisabled">회의시작</th>
+									<th  class = "mobileDisabled">회의끝</th>
+									<th class = "">회의제목</th>
+									<th class = "">승인여부</th>
 								</tr>
 							</thead>
 							<tbody>
 					              <c:forEach var="histDTO" items="${historyList}">
 										<tr>
 											
-												<td>${histDTO.buildName}</td>
+												<td class = "mobileDisabled">${histDTO.buildName}</td>
 												<td>${histDTO.deptName}</td>
 												<td>${histDTO.roomName}</td>
-												<td>${histDTO.empName} ${histDTO.empPosition}</td>
-												<td>${histDTO.startDate}</td>
-												<td>${histDTO.endDate}</td>
+												<td class = "mobileDisabled">${histDTO.empName} ${histDTO.empPosition}</td>
+												<td class = "mobileDisabled">${histDTO.startDate}</td>
+												<td class = "mobileDisabled">${histDTO.endDate}</td>
 												<td>${histDTO.title}</td>
 												<td>
 													<c:if test='${histDTO.approval2Yn==1}'>최종승인됨</c:if>
@@ -548,18 +556,7 @@ var barChartData = {
 			'ordering' : true,
 			'info' : false,
 			'autoWidth' : true,
-			"order": [[ 4, "desc" ]],
-			responsive: {
-		        details: {
-		            type: 'column',
-		            target: 'tr'
-		        }
-		    },
-			columnDefs: [ {
-		        className: 'control',
-		        orderable: false,
-		        targets: -1
-		    } ]
+			"order": [[ 4, "desc" ]]
 		})
 	})
 </script>
