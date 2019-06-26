@@ -26,28 +26,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="priority" property="priority"/>
 		<result column="emp_count" property="empCount"/>
 		<result column="snack_yn" property="snackYn"/>
+		
 		<result column="emp_name" property="empName"/>
 		<result column="dept_name" property="deptName"/>
+		<result column="mgr_emp_no" property="mgrEmpNo"/>
 		
 	</resultMap>
 	
-	<!-- 회의실 비용 관련 조회 -->
+	<!-- 전체 결제 비용 조회 -->
 	<select id="selectAllPayment" resultMap="PaymentDTO">
-		SELECT Reserve_history.*, employee.emp_name, department.dept_name 
-		FROM RESERVE_HISTORY, EMPLOYEE, department
+		SELECT Reserve_history.*, department.dept_name
+	        FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM
+	        WHERE reserve_history.reserve_emp_no=employee.emp_no
+	            and employee.dept_no = department.dept_no
+	            and reserve_history.room_no = room.room_no
+	            and reserve_history.approval2_yn = 1
+	            and room.mgr_emp_no = #{empNo}
+	</select>
+	
+	<!-- 결재자 결제 비용 조회 -->
+	<select id="selectApproverPayment" resultMap="PaymentDTO">
+	SELECT Reserve_history.*, department.dept_name
+		FROM RESERVE_HISTORY, EMPLOYEE, department, ROOM
 		WHERE reserve_history.reserve_emp_no=employee.emp_no
-		and employee.dept_no=department.dept_no
+			and employee.dept_no = department.dept_no
+			and reserve_history.room_no = room.room_no
+		    and reserve_history.approval2_yn = 1
+		    and department.boss_no = #{empNo}
 	</select>
-	
-	<!-- 회의실 비용 관련 조회 -->
-	<select id="paymentDetail" resultMap="PaymentDTO">
-		SELECT *
-        from Reserve_history rh, employee e, meeting_member_list ml
-        where rh.reserve_emp_no = e.emp_no
-        and ml.reserve_no(+) = rh.reserve_no
-	</select>
-	
-	
-
 	
 </mapper>
+
+	<!--
+		SELECT Reserve_history.reserve_no, department.dept_name 
+			FROM RESERVE_HISTORY, EMPLOYEE, department, competent_department
+			WHERE reserve_history.reserve_emp_no=employee.emp_no
+				and employee.dept_no = department.dept_no
+				and reserve_history.reserve_no = competent_department.reserve_no(+)
+		        and Reserve_history.approval1_emp_no = #{empNo}
+	  -->	

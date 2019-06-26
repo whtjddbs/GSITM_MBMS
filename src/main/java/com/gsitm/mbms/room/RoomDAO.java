@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.gsitm.mbms.building.BuildingDTO;
 
+import com.gsitm.mbms.employee.EmployeeDTO;
+
 /**
  * @주제 : 
  * @작성일 : 2019. 5. 31.
@@ -26,8 +28,12 @@ public interface RoomDAO {
 
 	public void roomUpdate(RoomDTO dto);
 
+
 	public List<Map<String, Object>> selectAllWithEquipmentsWithBuildings();
 
-	}
+	//민기 관리자 사번으로 방 찾기
+	public List<RoomDTO> selectRoomByMgrEmpNo(String empNo);
+
+}
 
 

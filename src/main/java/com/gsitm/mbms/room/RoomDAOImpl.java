@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gsitm.mbms.employee.EmployeeDTO;
 
 /**
  * @주제 : 
@@ -59,6 +60,11 @@ public class RoomDAOImpl implements RoomDAO {
 	public List<Map<String, Object>> selectAllWithEquipmentsWithBuildings() {
 		// TODO Auto-generated method stub
 		return session.selectList("roomMapper.selectAllWithEquipmentsWithBuildings");
+	
+	//민기 관리자 사번으로 방 찾기
+	@Override
+	public List<RoomDTO> selectRoomByMgrEmpNo(String empNo) {
+		return session.selectList("roomMapper.selectRoomByMgrEmpNo",empNo);
 	}
 }
 

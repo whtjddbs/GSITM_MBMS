@@ -3,9 +3,6 @@ package com.gsitm.mbms.mypage;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,31 +16,29 @@ import org.springframework.stereotype.Service;
 public class MypageServiceImpl implements MypageService{
 
 	@Autowired
-	private SqlSession session;
-	
-	@Inject
 	private MypageDAO mypageDAO;
 		
-	public List<MypageDTO> selectAllHistory() {
-		return session.selectList("mypageMapper.selectAllHistory");
+	public List<MypageDTO> selectAllHistory(String empNo) {
+		return mypageDAO.selectAllHistory(empNo);
 	}
 		
-	public List<MypageDTO> selectAllStatus() {
-		return session.selectList("mypageMapper.selectAllStatus");
+	public List<MypageDTO> selectAllStatus(String empNo) {
+		return mypageDAO.selectAllStatus(empNo);
 	}
 	
-	public List<MypageDTO> selectMemberList() {
-		return session.selectList("mypageMapper.selectMemberList");
-	}
-	
-	//삭제
 	public void delete(int reserveNo) throws Exception{
 		mypageDAO.delete(reserveNo);
 	}
+
+	@Override
+	public List<MypageDTO> selectStatusFiltering(Map<String, String> filtermap) {
+		return mypageDAO.selectStatusFiltering(filtermap);
+	}
 	
 	@Override
-	public List<MypageDTO> getStatusListResult(Map<String, Object> map) {
-		return mypageDAO.getStatusListResult(map);
+	public List<MypageDTO> selectHistoryFiltering(Map<String, String> historyFilterMap) {
+		return mypageDAO.selectHistoryFiltering(historyFilterMap);
 	}
+	
 	
 }

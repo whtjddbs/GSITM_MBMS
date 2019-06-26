@@ -22,6 +22,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <resultMap type="room" id="roomWithEquipments" extends="RoomDTO">
 		<collection property="equipments" ofType="equipment" resultMap="equipmentMapper.Equipment"></collection>
    </resultMap>
+   
+   <!-- RoomDTO와 BuildingDTO 조인 -->
+   <resultMap type="room" id="roomWithDepartment" extends="RoomDTO">
+   		<association property="buildingDTO" column="build_no" javaType="building"  resultMap="buildingMapper.Building"></association>
+   </resultMap>
 	
 	
 	<insert id="insertRoom" parameterType="Room">
@@ -99,4 +104,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    					, room_type=#{roomType}
    					where room_no = #{roomNo}
    </update>
+   
+   <!-- 민기 관리자사번으로 방 찾기  -->
+   <select id="selectRoomByMgrEmpNo" resultMap="RoomDTO">
+		select * from room where MGR_EMP_NO =#{empNo}
+	</select>
 </mapper>

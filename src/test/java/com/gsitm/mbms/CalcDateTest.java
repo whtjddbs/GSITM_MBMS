@@ -55,7 +55,7 @@ public class CalcDateTest {
 		
 		String subject = "테스트 메일입니다.";
 		String content = "?????????????호호호";
-		String email = "blackrnfk@gmail.com";
+		String email = "syjo@gsitm.com";
 		String email2 = "jsy_1201@naver.com";
 		
 		InternetAddress[] addArray = new InternetAddress[2];
@@ -66,8 +66,8 @@ public class CalcDateTest {
 
 		long start = System.nanoTime();
 //		boolean result = mailService.send(subject, content, "jayjoy77@naver.com", email+","+email2);
-		boolean result = mailService.multiSend(subject, content, "jayjoy77@naver.com", addArray);
-		assertThat(result, is(true));
+//		boolean result = mailService.multiSend(subject, content, "jayjoy77@naver.com", addArray);
+//		assertThat(result, is(true));
 		long end = System.nanoTime();
 		log.info("rrrrrrrrrr: {}",end-start);
 	}

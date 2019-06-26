@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<!-- plugin 참조-->
+<script type="text/javascript" src="js/plugins/validation/jquery.validate.min.js"></script>
+ <!-- <script type="text/javascript">
+                   
+      $(document).ready(function () {          
+
+        $('#valform').validate(); //유효성 검사를 적용
+   
+      }); //end ready()
+ 
+    </script> -->
+
+
+
+
 <script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/classic/ckeditor.js"></script>
 <script src="https://example.com/ckfinder/ckfinder.js"></script>
 <!-- <script type='text/javascript'>
@@ -49,7 +64,7 @@
 						
 						<form action=noticeInsert method="post" enctype="multipart/form-data">
 							<div class="form-group">
-								<label for="noticetitle">제목<br></label> <input type="text" class="form-control" id="exampleInputEmail1" name ="noticeSubject"  placeholder="공지 제목을 입력하세요.">
+								<label for="noticetitle">제목<br></label> <input type="text" class="form-control" id="exampleInputEmail1" name ="noticeSubject"  placeholder="공지 제목을 입력하세요." required="required">
 							</div>
 							<!-- 제목 폼그룹 -->
 
@@ -188,6 +203,7 @@
              } */
              
          }
+     
      } )
      /* .catch( error => {
             console.error( error )
@@ -240,13 +256,5 @@
 <script
 	src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
-<!--  <script>
-  $(function () {
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    CKEDITOR.replace('editor1')
-    //bootstrap WYSIHTML5 - text editor
-    $('.textarea').wysihtml5()
-  })
-</script> 
- -->
+
+

@@ -85,7 +85,7 @@ CREATE TABLE Building
     build_post    VARCHAR2(50)     NOT NULL, 
     CONSTRAINT BUILDING_PK PRIMARY KEY (build_no)
 );
-CREATE SEQUENCE Building_SEQ START WITH 100 INCREMENT BY 1;
+CREATE SEQUENCE Building_SEQ START WITH 101 INCREMENT BY 1;
 
 COMMENT ON TABLE Building IS '건물';
 COMMENT ON COLUMN Building.build_no IS '건물번호';
@@ -110,7 +110,7 @@ CREATE TABLE Room
     CONSTRAINT ROOM_PK PRIMARY KEY (room_no)
 );
 
-CREATE SEQUENCE Room_SEQ START WITH 100 INCREMENT BY 1;
+CREATE SEQUENCE Room_SEQ START WITH 101 INCREMENT BY 1;
 ALTER TABLE Room
     ADD CONSTRAINT FK_Room_build_no_Building_buil FOREIGN KEY (build_no)
         REFERENCES Building (build_no) ON DELETE CASCADE ENABLE;--
@@ -221,7 +221,7 @@ CREATE TABLE Notice
 (
     notice_no         NUMBER           NOT NULL, 
     notice_subject    VARCHAR2(100)    NOT NULL, 
-    notice_content    VARCHAR2(500)    NOT NULL, 
+    notice_content    VARCHAR2(3000)    NOT NULL, 
     writer_emp_no     VARCHAR2(50)     NOT NULL, 
     notice_date       DATE             NOT NULL, 
     CONSTRAINT NOTICE_PK PRIMARY KEY (notice_no)

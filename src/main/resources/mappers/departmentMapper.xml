@@ -28,5 +28,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAllDept" resultMap="DepartmentDTO">
         SELECT * FROM Department
 	</select>
+	
+	<!-- 민기: 해당 사용자가 보스인 부서를 조회 -->
+	<select id="selectDeptByBossNo" resultMap="DepartmentDTO">
+        SELECT * FROM department where BOSS_NO = #{empNo}
+	</select>
 	 
 </mapper>

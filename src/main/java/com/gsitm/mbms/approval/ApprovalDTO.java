@@ -1,7 +1,9 @@
-package com.gsitm.mbms.reserve;
+package com.gsitm.mbms.approval;
 
 import java.sql.Date;
-import java.util.List;
+
+import com.gsitm.mbms.employee.EmployeeDTO;
+import com.gsitm.mbms.room.RoomDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReserveHistoryDTO {
+public class ApprovalDTO {
 	private int reserveNo;
 	private int roomNo;
 	private String reserveEmpNo;
@@ -38,7 +40,6 @@ public class ReserveHistoryDTO {
 	private char snackYn;
 	private String reason;
 	private String title;
-	private List<MeetingMemberDTO> meetingMemberList;
-	private List<CompetentDepartmentDTO> competentDepartmentList;
-	private List<MeetingEquipmentDTO> meetingEquipmentList;
+	private EmployeeDTO employeeDTO;
+	private RoomDTO roomDTO;
 }
