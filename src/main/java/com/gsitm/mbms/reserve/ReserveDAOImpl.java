@@ -92,5 +92,11 @@ public class ReserveDAOImpl implements ReserveDAO {
 		return session.selectOne("reserveHistoryMapper.getReservationByReserveNo", reserveNo);
 	}
 
+	/** 민기: 해당 사람이 승인자인 예약 조회 **/
+	@Override
+	public List<ReserveHistoryDTO> selectReserveByApproverNo(String empNo) {
+		return session.selectList("reserveHistoryMapper.selectReserveByApproverNo", empNo);
+	}
+
 
 }

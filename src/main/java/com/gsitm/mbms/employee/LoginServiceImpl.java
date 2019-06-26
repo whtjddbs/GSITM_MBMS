@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.gsitm.mbms.reserve.ReserveDAO;
 import com.gsitm.mbms.reserve.ReserveHistoryDTO;
+import com.gsitm.mbms.room.RoomDAO;
+import com.gsitm.mbms.room.RoomDTO;
 import com.gsitm.mbms.stats.StatsDAO;
 
 /**
@@ -25,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
 	private ReserveDAO reserveDAO;
 	
 	@Autowired
-	private StatsDAO statsDAO;
+	private RoomDAO roomDAO;
 	
 	@Override
 	public EmployeeDTO login(Map<String,String> map) {
@@ -48,19 +50,15 @@ public class LoginServiceImpl implements LoginService {
 	/**민기 : 해당 사용자가 관리자인지 판별-----------------------------*/
 	@Override
 	public boolean isAdmin(String empNo) {
-		//회의실 관리자 명단 뽑기
-		List<EmployeeDTO> adminList = employeeDAO.selectAllAdmin();
-
-		// 운영자인지 판별
-		boolean isAdminBool = false;
-		for (int i = 0; i < adminList.size(); i++) {
-			if (adminList.get(i).getEmpNo().equals(empNo)) {
-				isAdminBool = true;
-				break;
-			}
-		}
 		
-		return isAdminBool; //운영자면 true 리턴
+		//회의실 관리자 명단 뽑기
+		List<RoomDTO> roomList = roomDAO.selectRoomByMgrEmpNo(empNo);
+
+		//관리자인가
+			boolean isAdmin = false;
+			if(roomList.size()!=0) {isAdmin = true;}
+		
+		return isAdmin; //운영자면 true 리턴
 	}
 	
 	/**민기 : 해당 사용자가 결재자인지 판별-----------------------------*/
@@ -68,42 +66,22 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public boolean isApprover(String empNo) {
 		
-		//모든 예약 명단 뽑기 (1, 2차 결재자인지 판별 위해), 모든 부서 명단 뽑기 (부서장 판별 위해)
-		List<ReserveHistoryDTO> reserveHistoryList = reserveDAO.getAllReservationList();
-		List<DepartmentDTO> deptList =  statsDAO.selectAllDept();
+		//이 사람이 결재자인 예약내역리스트과, 이 사람이 부서장인 부서 리스트 뽑기
+		List<ReserveHistoryDTO> ReserveList = reserveDAO.selectReserveByApproverNo(empNo);
+		List<DepartmentDTO> DeptList =  employeeDAO.selectDeptByBossNo(empNo);
 		
-		//1차 결재자였던 내역이 있는가
-//		boolean is1ApproverBool = false;
-//		System.out.println(reserveHistoryList);
-//		for (ReserveHistoryDTO reserveHistory : reserveHistoryList) {
-//			if (reserveHistory.getApproval1EmpNo().equals(empNo)) {
-//				is1ApproverBool = true;
-//				//System.out.println("1차결재자임!");
-//				break;
-//			}
-//		}
-//		
-//		//2차 결재자였던 내역이 있는가
-//		boolean is2ApproverBool = false;
-//		for (ReserveHistoryDTO reserveHistory : reserveHistoryList) {
-//			if (reserveHistory.getApproval2EmpNo().equals(empNo)) {
-//				is2ApproverBool = true;
-//				//System.out.println("2차결재자임!");
-//				break;
-//			}
-//		}
-//		
-//		//현재 부서장인가
-//		boolean isDeptBossBool = false;
-//		for (DepartmentDTO dept : deptList) {
-//			if (dept.getBossNo().equals(empNo)) {
-//				isDeptBossBool = true;
-//				//System.out.println("부서장임!");
-//				break;
-//			}
-//		}
-//		return is1ApproverBool | is2ApproverBool | isDeptBossBool; //한개라도 맞으면 true 리턴
-		return true;
+		//결재자인가
+		boolean isApprover = false;
+		if(ReserveList.size()!=0) {isApprover = true;}
+		
+		//부서장인가
+		boolean isDeptBoss = false;
+		if(DeptList.size()!=0) {isDeptBoss = true;}
+		
+		
+
+		return isApprover | isDeptBoss; //한개라도 맞으면 true 리턴
+
 	}
 	 
 
