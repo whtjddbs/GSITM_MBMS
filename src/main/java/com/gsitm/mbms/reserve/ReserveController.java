@@ -196,9 +196,10 @@ public class ReserveController {
 	@PostMapping("/doReserve")
 	public ModelAndView doReserve(@RequestBody ReserveHistoryDTO reserveHistory) {
 		System.out.println(reserveHistory);
-		reserveService.doReserve(reserveHistory);
+		int reserveNo = reserveService.doReserve(reserveHistory);
 		
 		ModelAndView mav = new ModelAndView("jsonView");
+		mav.addObject("reserveNo", reserveNo);
 		return mav;
 	}
 	
