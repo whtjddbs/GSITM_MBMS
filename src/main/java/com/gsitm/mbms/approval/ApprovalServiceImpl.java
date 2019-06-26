@@ -72,12 +72,11 @@ public class ApprovalServiceImpl implements ApprovalService {
 		approvalDAO.refuse(map);
 		
 		int reserveNo = Integer.parseInt(map.get("reserveNo").toString());
-		ReserveHistoryDTO reserveHistory = reserveDAO.getReservationByReserveNo(reserveNo);
-		RoomDTO roomDTO = roomDAO.selectOneRoomByRoomNo(reserveHistory.getRoomNo());
+		ApprovalDTO reserveHistory = approvalDAO.selectOneApprovalInfo(reserveNo);
 		EmployeeDTO reserveEmp = employeeDAO.getEmployee(reserveHistory.getReserveEmpNo());
 		String email = reserveEmp.getEmpEmail();
 		
-		mailService.send("회의실 예약 반려 처리 안내", email, reserveHistory, roomDTO, "예약이 아래의 사유로 반려되었습니다");
+		mailService.send("회의실 예약 반려 처리 안내", email, reserveHistory, "예약이 아래의 사유로 반려되었습니다");
 	}
 	
 	@Transactional
@@ -87,8 +86,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 		String colName = (String)map.get("colName");
 		int reserveNo = Integer.parseInt(map.get("reserveNo").toString());
-		ReserveHistoryDTO reserveHistory = reserveDAO.getReservationByReserveNo(reserveNo);
-		RoomDTO roomDTO = roomDAO.selectOneRoomByRoomNo(reserveHistory.getRoomNo());
+		ApprovalDTO reserveHistory = approvalDAO.selectOneApprovalInfo(reserveNo);
 		EmployeeDTO reserveEmp = employeeDAO.getEmployee(reserveHistory.getReserveEmpNo());
 		String email = "";
 		
@@ -99,13 +97,13 @@ public class ApprovalServiceImpl implements ApprovalService {
 			}
 			email += reserveEmp.getEmpEmail();
 			
-			mailService.send("회의실 예약 완료 안내", email, reserveHistory, roomDTO, "예약이 완료되었습니다");
+			mailService.send("회의실 예약 완료 안내", email, reserveHistory, "예약이 완료되었습니다");
 		} else if (colName.equals("approval1")) {
 			EmployeeDTO nextApprovalEmp = employeeDAO.getEmployee(reserveHistory.getApproval2EmpNo());
 			
 			email = reserveEmp.getEmpEmail()+","+nextApprovalEmp.getEmpEmail();
 			
-			mailService.send("회의실 예약 1차 승인 완료 안내", email, reserveHistory, roomDTO, "예약이 1차 승인되었습니다");
+			mailService.send("회의실 예약 1차 승인 완료 안내", email, reserveHistory, "예약이 1차 승인되었습니다");
 		}
 	}
 }
