@@ -71,17 +71,17 @@
 										<td>${equipment.EQCOUNT }</td>
 										<td>${equipment.ROOMNAME }</td>
 										<td>${equipment.BUILDNAME }</td>
-
-										<td><input type="button" class="btn btn-warning btn-sm"
+										
+										<td><input type="button" class="btn btn-default btn-sm"
 											data-toggle="modal"
 											data-target="#modal-warning_${equipment.EQNO}" value="수정하기">
 
-											<input type="button" class="btn btn-danger btn-sm"
+											<input type="button" class="btn btn-default btn-sm"
 											data-toggle="modal"
 											data-target="#modal-danger_${equipment.EQNO}" value="삭제하기">
 
 
-											<div class="modal modal-danger fade"
+											<div class="modal modal-default fade"
 												id="modal-danger_${equipment.EQNO}">
 												<!-- 삭제 modal div -->
 												<!-- Modal Div -->
@@ -99,9 +99,9 @@
 																<br> ${equipment.BUILDNAME }의  ${equipment.ROOMNAME } 회의실에 비치된 ${equipment.EQCOUNT }개의 ${equipment.EQNAME } 입니다.</p>
 														</div>
 														<div class="modal-footer">
-															<button type="button" class="btn btn-outline pull-left"
+															<button type="button" class="btn btn-default"
 																data-dismiss="modal">취소</button>
-															<button type="button" class="btn btn-outline"
+															<button type="button" class="btn btn-danger"
 																onclick="location.href='/equipment/equipmentDelete?eqNo=${equipment.EQNO}'">삭제하기</button>
 														</div>
 													</div>
@@ -131,20 +131,20 @@
 															<div class="col-xs-6">
 																<label>비품이름</label> 
 																	<input type="text" class="form-control" name="eqName"
-																	placeholder="${equipment.EQNAME }">
+																	 required placeholder="${equipment.EQNAME }">
 															</div>
 														
 															<div class="col-xs-6">
 																<label>비품 갯수</label>
 																	<input type="number" class="form-control" name="eqCount" 
-																	placeholder="${equipment.EQCOUNT }">
+																	 required placeholder="${equipment.EQCOUNT }">
 															</div>
 
 														<div class="form-group" align=center>
-														
-															<input type="submit" class='btn btn-success' value="수정완료">
-															<input type="reset" class='btn btn-danger' value="수정취소">
-															<input type="button" class='btn btn-default' value="닫기" data-dismiss="modal">
+															<input type="button" class='btn btn-default' value="닫기"
+																data-dismiss="modal"> <input type="reset"
+																class='btn btn-danger' value="수정취소"> <input
+																type="submit" class='btn btn-success' value="수정완료">
 														</div>
 													</form>
 												</div>
@@ -164,10 +164,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>Rendering engine</th>
-									<th>Browser</th>
-									<th>Browser</th>
-									<th>Platform(s)</th>
+									<th colspan=4></th>
 									<th><input type="button" class="btn btn-primary"
 										data-toggle="modal" data-target="#modal-default_eqInsert"
 										value="비품등록하기" /></th>
@@ -183,7 +180,7 @@
 											aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
-										<h4 class="modal-title">Default Modal</h4>
+										<h4 class="modal-title">비품 등록하기</h4>
 									</div>
 									<div class="modal-body">
 										<form role="form" action="/equipment/equipmentInsert"
@@ -198,12 +195,11 @@
 												<label>비품갯수</label>
 											</div>
 											<div class="col-xs-6">
-												<input type="text" class="form-control" name="eqName"
-													placeholder="Enter ...">
+												<input type="text" class="form-control" name="eqName" required>
 											</div>
 
 											<div class="col-xs-6">
-												<input type="number" class="form-control" name="eqCount">
+												<input type="number" class="form-control" name="eqCount" required>
 											</div>
 										</div>
 										
@@ -229,8 +225,9 @@
 									<div class="form-group" align=center>
 									<input type="button" class='btn btn-default' value="닫기"
 											data-dismiss="modal">
+											<input type="reset" class='btn btn-danger' value="등록취소">
 										<input type="submit" class='btn btn-success' value="등록완료">
-										<input type="reset" class='btn btn-danger' value="등록취소">
+										
 										
 									</div>
 									</form>

@@ -221,7 +221,7 @@ CREATE TABLE Notice
 (
     notice_no         NUMBER           NOT NULL, 
     notice_subject    VARCHAR2(100)    NOT NULL, 
-    notice_content    VARCHAR2(500)    NOT NULL, 
+    notice_content    VARCHAR2(3000)    NOT NULL, 
     writer_emp_no     VARCHAR2(50)     NOT NULL, 
     notice_date       DATE             NOT NULL, 
     CONSTRAINT NOTICE_PK PRIMARY KEY (notice_no)

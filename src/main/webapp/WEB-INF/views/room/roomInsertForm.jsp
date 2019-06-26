@@ -35,24 +35,24 @@
 									<!-- text input -->
 									<div class="col-sm-6">
 										<label>회의실이름</label> <input type="text" class="form-control"
-											name="roomName" placeholder="Enter ...">
+											name="roomName" required>
 									</div>
 
 									<div class="col-sm-6">
 										<label>RoomSpace</label> <input type="number"
-											class="form-control" name="roomSpace">
+											class="form-control" name="roomSpace" required>
 									</div>
 
 									<div class="col-xs-6">
 										<label>수용 인원</label> <input type="number" class="form-control"
-											name="roomNumEmp">
+											name="roomNumEmp" required>
 									</div>
 
 									<label>회의실 담당자</label>
 									<div class="col-xs-6">
 										<div class="col-xs-8">
 											<input type="text" class="form-control" name="mgrEmpNo"
-												id="mgrEmpNo">
+												id="mgrEmpNo" required>
 										</div>
 
 										<div class="col-xs-1">
@@ -62,10 +62,10 @@
 									</div>
 									<div class="col-sm-6">
 										<label for="buildingSelect">지사</label> <select name="buildNo"
-											id="buildingSelect" class="form-control">
+											id="buildingSelect" class="form-control" required>
 											
 											<c:forEach var="building" items="${buildings }">
-												<option value="${building.buildNo }">${building.buildName }</option>
+												<option value="${building.buildNo }" required>${building.buildName }</option>
 											</c:forEach>
 										</select>
 										
@@ -73,7 +73,7 @@
 									
 									<div class="col-sm-6">
 										<label>비품목록</label> 
-										<input type="text" class="form-control" name="eqList"  id="eqList" >
+										<input type="text" class="form-control" readonly name="eqList"  id="eqList" required >
 									</div>
 									
 									<div class="col-sm-6">
@@ -87,13 +87,13 @@
 									</div>
 
 									<div class="col-sm-6">
-										<div class="col-sm-8">
-										<label>비품갯수</label>
-											<input type="number" class="form-control" name="eqCount" id="eqCount">
+											<label>비품갯수</label>
+										<div class="input-group">
+											<input type="number" class="form-control" name="eqCount" id="eqCount" >
 											<input type="hidden" name="eqCountList" id="eqCountList">
-										</div>
-										<div class="col-sm-1">
-											<input type="button" class='btn btn-default' value ="추가" id="eqAddBtn" >
+						                    <span class="input-group-btn">
+						                      <button type="button" class="btn btn-default" id="eqAddBtn">추가</button>
+						                    </span>
 										</div>
 									</div>
 
@@ -117,7 +117,7 @@
 
 									<div class="col-sm-6">
 										<label>roomFloor</label> <input type="number"
-											class="form-control" name="roomFloor">
+											class="form-control" name="roomFloor" required>
 									</div>
 
 									<!-- 네트워크 사용가능 유무 -->
@@ -138,7 +138,7 @@
 										<div class="col-sm-12">
 											<div class="col-sm-6">
 												<label><input type="radio"
-													class="custom-control-input" name="roomType" value="회의실">
+													class="custom-control-input" name="roomType" checked value="회의실">
 													회의실</label>
 											</div>
 											<div class="col-sm-6">
@@ -150,10 +150,10 @@
 									</div>
 
 									<div class="col-xs-12" align=center>
-										<input type="submit" class='btn btn-success' value="등록완료">
-										<input type="reset" class='btn btn-danger' value="등록취소">
 										<input type="button" class='btn btn-default' value="뒤로가기"
 											onClick="history.back();">
+										<input type="reset" class='btn btn-danger' value="등록취소">
+										<input type="submit" class='btn btn-success' value="등록완료">
 									</div>
 								</form>
 							</div>
@@ -237,6 +237,9 @@ $(document).ready(function(){
 		reader.readAsDataURL(this.files[0]);
 	})
 	
+	$("#mgrEmpNo").click(function(){
+		$("#findEmpBtn").click();
+	})
 	$("#findEmpBtn").click(function(){
 		$.ajax({
 			type:"POST",
@@ -287,14 +290,21 @@ $(document).ready(function(){
 		$('#findEmpModal').modal('hide');
 	})
 	$("#eqAddBtn").on("click",function(){
-		let eqList = $("#eqName").val()+","+$("#eqCount").val();
-		alert(eqList);
-		$("#eqList").val($("#eqList").val()+eqList+",");
 		
-		$("#eqNameList").val($("#eqNameList").val()+$("#eqName").val()+",")
-		alert($("#eqNameList").val())
-		$("#eqCountList").val($("#eqCountList").val()+$("#eqCount").val()+",")
-		alert($("#eqCountList").val())
+		if($("#eqCount").val()<0 || $("#eqCount").val()==""){
+			alert("비품의 갯수를 올바르게 선택하세요.");
+		}
+		else{
+			let eqList = "[ "+$("#eqName").val()+" "+$("#eqCount").val()+"개 ] ";
+			alert(eqList+"가 추가 되었습니다.");
+			$("#eqList").val($("#eqList").val()+eqList+",");
+			
+			$("#eqNameList").val($("#eqNameList").val()+$("#eqName").val()+",")
+			
+			$("#eqCountList").val($("#eqCountList").val()+$("#eqCount").val()+",")	
+		}
+		
+	
 	})
 })
 		

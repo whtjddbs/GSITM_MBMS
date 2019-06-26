@@ -32,7 +32,7 @@
 				</span>
 			</a></li>
 			<!-- 회의실 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
+			<li class="treeview"><a href="#"> <i class="fa fa-calendar"></i>
 					<span>회의실</span> <span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -46,7 +46,7 @@
 							회의실 예약</a></li>
 				</ul></li>
 			<!-- 마이페이지 -->
-			<li class="treeview"><a href="#"> <i class="fa fa-pie-chart"></i>
+			<li class="treeview"><a href="#"> <i class="fa fa-user"></i>
 					<span>마이페이지</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -77,7 +77,7 @@
 				<!-- 관리자 -->
 				<li class="header">MANAGER</li>
 				<!-- 회의실 -->
-				<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
+				<li class="treeview"><a href="#"> <i class="fa fa-gears"></i>
 						<span>회의실 관리</span> <span class="pull-right-container">
 							<i class="fa fa-angle-left pull-right"></i>
 					</span>
@@ -91,7 +91,7 @@
 								비품 관리</a></li>
 					</ul></li>
 				<!-- 회의실 -->
-				<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
+				<li class="treeview"><a href="#"> <i class="fa fa-bar-chart"></i>
 						<span>예약 관리</span> <span class="pull-right-container">
 							<i class="fa fa-angle-left pull-right"></i>
 					</span>

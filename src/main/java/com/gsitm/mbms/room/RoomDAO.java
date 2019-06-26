@@ -1,6 +1,9 @@
 package com.gsitm.mbms.room;
 
 import java.util.List;
+import java.util.Map;
+
+import com.gsitm.mbms.building.BuildingDTO;
 
 import com.gsitm.mbms.employee.EmployeeDTO;
 
@@ -24,6 +27,9 @@ public interface RoomDAO {
 	public void roomDelete(int roomNo);
 
 	public void roomUpdate(RoomDTO dto);
+
+
+	public List<Map<String, Object>> selectAllWithEquipmentsWithBuildings();
 
 	//민기 관리자 사번으로 방 찾기
 	public List<RoomDTO> selectRoomByMgrEmpNo(String empNo);
