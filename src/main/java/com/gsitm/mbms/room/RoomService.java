@@ -1,6 +1,9 @@
 package com.gsitm.mbms.room;
 
 import java.util.List;
+import java.util.Map;
+
+import com.gsitm.mbms.building.BuildingDTO;
 
 /**
  * @주제 : 
@@ -21,6 +24,8 @@ public interface RoomService {
 	public void roomDelete(int roomNo);
 
 	public void roomUpdate(RoomDTO dto);
+
+	public List<Map<String, Object>> selectAllWithEquipmentsWithBuildings();
 	}
 
 

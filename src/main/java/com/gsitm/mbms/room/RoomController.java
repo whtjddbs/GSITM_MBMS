@@ -60,8 +60,9 @@ public class RoomController {
 	public String list(Model model) {
 		logger.info("Room ListPage!");
 		List<RoomDTO> rooms = roomService.selectAllWithEquipments();
-		//List<RoomDTO> rooms = roomService.selectAllRoom();
-		List<BuildingDTO> buildings = buildingService.selectAll();
+		System.out.println("룸즈" + rooms);
+		List<BuildingDTO> buildings = buildingService.selectAllWithRooms();
+		System.out.println("빌딩즈" + buildings);
 		
 		model.addAttribute("rooms", rooms);
 		model.addAttribute("buildings", buildings);
@@ -108,7 +109,7 @@ public class RoomController {
 				 equipmentService.equipmentInsert(equipmentDTO);
 			 }
 		
-			return "redirect:/room/roomManageList";	
+			return "redirect:/room/roomManageList?type=insert";	
 		}
 		
 		@RequestMapping(value="/getEmployeeSearch",method=RequestMethod.POST)

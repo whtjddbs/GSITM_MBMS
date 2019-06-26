@@ -1,10 +1,12 @@
 package com.gsitm.mbms.room;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 
 /**
  * @주제 : 
@@ -51,6 +53,12 @@ public class RoomDAOImpl implements RoomDAO {
 	public void roomUpdate(RoomDTO dto) {
 		// TODO Auto-generated method stub
 		session.update("roomMapper.updateRoom",dto);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllWithEquipmentsWithBuildings() {
+		// TODO Auto-generated method stub
+		return session.selectList("roomMapper.selectAllWithEquipmentsWithBuildings");
 	}
 }
 
