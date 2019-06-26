@@ -1,5 +1,7 @@
 package com.gsitm.mbms.util;
 
+import java.text.SimpleDateFormat;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -10,25 +12,30 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.gsitm.mbms.reserve.ReserveHistoryDTO;
+import com.gsitm.mbms.room.RoomDTO;
+
 @Service
 public class MailServiceImpl implements MailService {
 	private final JavaMailSender javaMailSender;
-	
+
 	@Autowired
 	public MailServiceImpl(JavaMailSender javaMailSender) {
 		this.javaMailSender = javaMailSender;
 	}
 
-	public boolean send(String subject, String text, String from, String to) {
+	public boolean send(String subject, String to, ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment) {
 		MimeMessage msg = javaMailSender.createMimeMessage();
+		String text = getMailTemplate(reserveHistory,roomDTO,comment);
+		
 		try {
 			msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 			
-			MimeMessageHelper helper = new MimeMessageHelper(msg,true,"UTF-8");
+			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
 			helper.setSubject(subject);
-			helper.setText(text);
-			helper.setFrom(from);
-			
+			helper.setText(text, true);
+			helper.setFrom("jayjoy77@naver.com");
+
 			javaMailSender.send(msg);
 			return true;
 		} catch (MessagingException e) {
@@ -37,22 +44,85 @@ public class MailServiceImpl implements MailService {
 		return false;
 	}
 	
-	public boolean multiSend(String subject, String text, String from, InternetAddress[] addArray) {
-		MimeMessage msg = javaMailSender.createMimeMessage();
-		
-		try {
-			msg.addRecipients(Message.RecipientType.TO, addArray);
-			
-			MimeMessageHelper helper = new MimeMessageHelper(msg,true,"UTF-8");
-			helper.setSubject(subject);
-			helper.setText(text);
-			helper.setFrom(from);
-			
-			javaMailSender.send(msg);
-			return true;
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		return false;
-	} 
+	public String getMailTemplate(ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment) {
+	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String template =
+			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + 
+			"<html xmlns=\"http://www.w3.org/1999/xhtml\">" + 
+			"<head>" + 
+			"    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" + 
+			"    <title></title>" + 
+			"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>" + 
+			"</head>" + 
+			"<body style=\"margin:0; padding:10px 0 0 0;\" bgcolor=\"#F8F8F8\">" + 
+			"<table align=\"center\" cellpadding=\"0\" cellspacing=\"0\">" + 
+			"    <tr>" + 
+			"        <td align=\"center\">" + 
+			"            <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\"" + 
+			"                   style=\"border-collapse: separate; border-spacing: 2px 5px; box-shadow: 1px 0 1px 1px #B8B8B8;\"" + 
+			"                   bgcolor=\"#FFFFFF\">" + 
+			"                   <tr>" + 
+			"                    <td align=\"center\">" + 
+			"                        <!-- Initial relevant banner image goes here under src-->" + 
+			"                        MBMS" + 
+			"                    </td>" + 
+			"                </tr>" + 
+			"                <tr>" + 
+			"                    <td bgcolor=\"#ffffff\" style=\"padding: 40px 30px 40px 30px;\">" + 
+			"                        <table border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"border: 1px #cccccc;\">" + 
+			"                           <tr>" + 
+			"                              <td>회의 내용</td>" + 
+			"                              <td>"+ reserveHistory.getPurpose() +"</td>" + 
+			"                           </tr>" + 
+			"                           <tr>" + 
+			"                              <td>회의 장소</td>" + 
+			"                              <td>"+ roomDTO.getRoomFloor() +"층 "+ roomDTO.getRoomName() +"</td>" + 
+			"                           </tr>" + 
+			"                           <tr>" + 
+			"                              <td>일자</td>" + 
+			"                              <td>"+ format.format(reserveHistory.getStartDate()) +" ~ " + format.format(reserveHistory.getEndDate()) +"</td>" + 
+			"                           </tr>" + 
+			"                           <tr>" + 
+			"                              <td style=\"padding: 10px 0 10px 0; font-family: Avenir, sans-serif; font-size: 16px; text-align: center\" colspan=\"2\">" + 
+			"                                 "+ comment + 
+			"                              </td>" + 
+			"                           </tr>" + 
+			"                            <tr>" + 
+			"                                <td style=\"padding: 30px 0 30px 0; font-family: Avenir, sans-serif; font-size: 16px;\" colspan=\"2\">" + 
+			"                                    "+ (reserveHistory.getReason()==null? "" : reserveHistory.getReason()) + 
+			"                                </td>" + 
+			"                            </tr>" + 
+			"                        </table>" + 
+			"                    </td>" + 
+			"                </tr>" + 
+			"                <tr>" + 
+			"                    <td style=\"padding: 10px 0 10px 0; text-align: center\">" + 
+			"                  <img src=\"https://postfiles.pstatic.net/MjAxOTA2MjRfMTEw/MDAxNTYxMzUzNjUwOTI2.Dz6ANEJb9Eaur2bxgpp0jRaMhhRhB7B0TMTpCgZRDoEg.eDpg0k169TWXUmKaGxfzZDUvajZnqB_QVIAJ9NPKkC0g.PNG.a_spree/check2.png?type=w773\" " + 
+			"                      width=\"200\"/>" + 
+			"                 <a href=\"#\"> > 내역 조회 < </a>" + 
+			"                    </td>" + 
+			"                </tr>" + 
+			"                <tr>" + 
+			"					<hr>" +	
+			"                    <td style=\"font-size: 10pt; padding: 5px 5px 5px 5px;\">" + 
+			"                        <a href=\"#\" target=\"_blank\">" + 
+			"                            <img src=\"https://postfiles.pstatic.net/MjAxOTA2MjRfMTQz/MDAxNTYxMzY0NjQ5NDE3.YLu0nhr7FjyrHcImGGZp7Ere0ktUI1yu35J2uodnaxkg.nYQPEQpREjCSjiQyxRADZm4lr20EJigEXkWsSVjmi-Ag.JPEG.a_spree/%EA%B7%B8%EB%A6%BC1.jpg?type=w773\" " + 
+			"                                alt=\"Logo\" style=\"width:186px;border:0;\"/>" + 
+			"                        </a>" + 
+			"						<div style=\"float:left; width:300px;\">조성윤"
+			+ "							<div style=\"float:left; width:300px;\">인사지원실 인턴사원</div>"
+			+ "							<div style=\"float:left; width:300px;\">Tel: 010-1111-1111</div>"
+			+ "							<div style=\"float:left; width:300px;\">Email: whtjddbs@gsitm.com</div>"
+			+ "						</div>" +
+			"                    </td>" + 
+			"                </tr>" + 
+			"            </table>" + 
+			"        </td>" + 
+			"    </tr>" + 
+			"</table>" + 
+			"</body>" + 
+			"</html>";
+		return template;
+   }
+
 }

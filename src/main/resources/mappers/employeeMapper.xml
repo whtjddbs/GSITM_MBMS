@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- EmployeeDTO와 DepartmentDTO 조인 -->
    <resultMap type="employee" id="employeeWithDepartment" extends="EmployeeDTO">
-		<association property="dept" column="dept_no" javaType="building" resultMap="buildingMapper.Building"></association>
+		<association property="dept" column="dept_no" javaType="department" resultMap="departmentMapper.DepartmentDTO"></association>
    </resultMap>
 	
 	<!-- 한명의 사원정보 조회 -->
