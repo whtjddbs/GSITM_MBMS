@@ -86,7 +86,7 @@
 							        	</c:choose>
 							        </td>
 							        <td> 	
-													<button type="button" class="btn btn-default btn-sm" data-toggle="modal" 
+													<button type="button" class="btn btn-default btn-sm" onclick="location.href='/approval/approvalDetail/${mypage.reserveNo}'"
 							          					data-target="#modal-default_${mypage.reserveNo}">상세 예약 정보</button>
 							          					
 							          				<input type="button" class="btn btn-default btn-sm" data-toggle="modal" 
