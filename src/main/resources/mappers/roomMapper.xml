@@ -47,13 +47,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 
-	<select id="selectAllRoom" resultMap="RoomDTO">
-		select * from room
+	<select id="selectAllRoom" resultMap="roomWithEquipments">
+		SELECT r.*, e.* FROM room r, room_equipment e
+		WHERE r.room_no = e.room_no (+)
 	</select>
 	
-	<select id="selectRoomBySearch" parameterType="java.util.Map" resultMap="RoomDTO">
-		select * from room 
-		where build_no like '%${buildNo}%' and room_type like '%${roomType}%'
+	<select id="selectRoomBySearch" parameterType="java.util.Map" resultMap="roomWithEquipments">
+		select r.*, e.* from room r, room_equipment e 
+		where r.room_no = e.room_no (+)
+			AND build_no like '%${buildNo}%' and room_type like '%${roomType}%'
 	</select>
 	
 	<select id="selectOneRoomByRoomNo" parameterType="int" resultMap="RoomDTO">
@@ -61,9 +63,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where room_no = #{roomNo}
 	</select>
 	
-	<select id="selectAvailableRoom" parameterType="java.util.Map" resultMap="RoomDTO">
-		SELECT r.* FROM room r, building b
+	<select id="selectAvailableRoom" parameterType="java.util.Map" resultMap="roomWithEquipments">
+		SELECT r.*, e.* FROM room r, building b, room_equipment e
 			WHERE r.build_no = b.build_no
+				AND r.room_no = e.room_no (+)
 			    AND r.network_yn = 'Y'
 			    AND r.room_type like '%${roomTypeSelect}%'
 			    <if test="!buildingSelect.equals('')">

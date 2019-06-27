@@ -550,7 +550,7 @@
 				$('#validate-modal').on('hide.bs.modal', function(){
 					$('#reservationStartDate').datepicker('show');
 				});
-			} else if(empCount=='') {
+			} else if(empCount=='' || empCount=='0') {
 				$validate.text('참석인원을 선택해주세요');
 				$('#validate-modal').off('hide.bs.modal');
 				$('#validate-modal').on('hide.bs.modal', function(){
@@ -580,6 +580,13 @@
 			});
 			
 			validate();
+		});
+		
+		$('#empCount, #empList').click(function(){
+			$('#employeeList-modal').modal('show');
+		});
+		$('#eqList').click(function(){
+			$('#equipmentList-modal').modal('show');
 		});
 		
 		function doReserve() {

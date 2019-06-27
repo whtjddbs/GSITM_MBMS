@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 	.fc-past:hover, .fc-sun:hover, .fc-sat:hover{cursor: not-allowed;}
+	#reservationtime {font-size:8pt;}
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -82,23 +83,6 @@
 					              	</div>
 				              	</div>
 				            </div>
-							
-							<!-- 네트워크 사용 유무 -->
-							<!-- <div class="form-group">
-								<div class="input-group">
-									<label class="control-label">다과준비 유/무</label>
-									<div class="col-sm-12">
-					            	<label class="col-sm-6">
-					                	<input type="radio" name="snackYn" class="minimal" checked>
-					                 	Yes
-					                </label>
-					                <label class="col-sm-6">
-					                	<input type="radio" name="snackYn" class="minimal">
-					                	No
-					              	</label>
-					              	</div>
-				              	</div>
-				            </div> -->
 				            
 				            <input type="button" class="btn  btn-info col-sm-12" id="availableRoomSearchBtn" value="검색">
 	
@@ -107,6 +91,22 @@
 					</form>
 				</div>
 				<!-- /.box -->
+				
+				<div class="box box-primary">
+		            <div class="box-header with-border">
+		              <h4 class="box-title">예약 상태</h4>
+		            </div>
+		            <div class="box-body">
+		              <!-- the events -->
+		              <div id="external-events">
+		                <div class="external-event bg-yellow" style="cursor: auto;">미승인</div>
+		                <div class="external-event bg-green" style="cursor: auto;">1차 승인</div>
+		                <div class="external-event bg-light-blue" style="cursor: auto;">최종 승인</div>
+		                <div class="external-event bg-red" style="cursor: auto;">반려</div>
+		              </div>
+		            </div>
+		            <!-- /.box-body -->
+		          </div>
 			</div>
 			<!-- /.col(left:col-md-3) -->
 
@@ -193,34 +193,6 @@
 					</div>
 		             
 				</div>
-
-				<!-- 참석인원 -->
-				<div class="col-sm-12">
-					<label>참석인원 및 명단</label>
-					<div class="input-group">
-						<span class="input-group-addon">참석인원</span> 
-						<input type="number" placeholder="최대인원 (명)" class="form-control" id="modal-empCount" disabled>
-						<span class="input-group-addon"><i class="fa fa-users"></i></span>
-						<input type="text" class="form-control" placeholder="참석자 명단" disabled>
-						<div class="input-group-btn">
-							<button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
-						</div>
-					</div>
-				</div>
-				
-				<!-- 비품 신청 -->
-				<div class="col-sm-12">
-					<label>비품신청</label>
-					<div class="input-group">
-						<span class="input-group-addon">비품명</span> 
-						<input type="text" placeholder="비품명" class="form-control" disabled>
-						<span class="input-group-addon">수량</span>
-						<input type="number" class="form-control" placeholder="수량" disabled>
-						<div class="input-group-btn">
-							<button class="btn btn-outline-secondary" type="button"><i class="fa fa-plus"></i></button>
-						</div>
-					</div>
-				</div>
 				
 				<!-- 네트워크 사용 유무 -->
 				<div class="col-sm-12">
@@ -278,6 +250,14 @@
 <!-- Page specific script -->
 <script>
 	$(function() {
+		
+		var colorMap = new Map();
+		colorMap.set('00', '#f39c12'); // 미승인
+		colorMap.set('10', '#00a65a'); // 1차 승인
+		colorMap.set('11', '#3c8dbc'); // 최종 승인
+		colorMap.set('20', '#dd4b39'); // 반려
+		colorMap.set('12', '#dd4b39'); // 반려
+		
 		/* initialize the calendar
 		 -----------------------------------------------------------------*/
 		//Date for the calendar events (dummy data)
@@ -346,16 +326,12 @@
 			},
 			contentHeight: "auto",
 			timeFormat: 'HH:mm'
-
-			//Random default events
-			/* 
-				backgroundColor : '#f56954', //red
-				backgroundColor : '#f39c12', //yellow
-				backgroundColor : '#0073b7', //Blue
-				backgroundColor : '#00c0ef', //Info (aqua)
-				backgroundColor : '#00a65a', //Success (green)
-				backgroundColor : '#3c8dbc', //Primary (light-blue)
-			*/
+// 			,eventLimit: true, // for all non-TimeGrid views
+// 			views: {
+// 		    	timeGrid: {
+// 					eventLimit: 6 // adjust to 6 only for timeGridWeek/timeGridDay
+// 		    	}
+// 			}
 		});
 		
 		//회의실 예약 : 지사, 회의실구분별 예약목록 조회
@@ -368,15 +344,14 @@
 	            dataType : "json",
 	            success : function(data) {
 	            	var events = [];
-	            	
 	            	$.each(data.reservationList, function(index, item) {
 	            		var oneEvent = new Object();
 	            		oneEvent.id = item.RESERVENO;
 	            		oneEvent.title = item.TITLE;
 	            		oneEvent.start = new Date(item.STARTDATE);
 	            		oneEvent.end = new Date(item.ENDDATE);
-	            		oneEvent.backgroundColor = '#3c8dbc';
-	            		oneEvent.borderColor = '#3c8dbc';
+	            		oneEvent.backgroundColor = colorMap.get(''+item.APPROVAL1YN+item.APPROVAL2YN);
+	            		oneEvent.borderColor = colorMap.get(''+item.APPROVAL1YN+item.APPROVAL2YN);
 	            		//추가정보
 	            		oneEvent.roomName = item.ROOMNAME;
 	            		oneEvent.roomNo = item.ROOMNO;
@@ -419,7 +394,7 @@
 			timePicker : true,
 			timePickerIncrement : 30,
 			timePicker24Hour: true,
-			minDate : new Date(),
+			minDate : moment().format('YYYY-MM-DD 09:00'),
 			startDate: moment().format('YYYY-MM-DD 09:00'),
 			endDate: moment().format('YYYY-MM-DD 18:00'),
 			format : 'YYYY/MM/DD HH:mm',

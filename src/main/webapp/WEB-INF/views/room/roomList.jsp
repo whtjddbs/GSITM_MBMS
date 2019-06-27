@@ -23,14 +23,18 @@
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
-						<h3 class="box-title">전체</h3>
+						<h3 class="box-title">
+						<c:if test="${param.buildingSelect eq null }">전체</c:if>
+						<c:if test="${param.buildingSelect ne null }">검색 결과</c:if>
+						</h3>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="buildingSelect">지사</label>
-								<select name="buildingSelect" id="buildingSelect" class="form-control">
+								<select name="buildingSelect" id="buildingSelect" class="form-control"
+								 ${param.buildingSelect ne null || param.roomTypeSelect ne null ? 'disabled' : '' }>
 									<option value="">전체</option>
 									<c:forEach var="building" items="${buildings }">
 										<option value="${building.buildNo }">${building.buildName }</option>
@@ -39,7 +43,8 @@
 							</div>
 							<div class="col-sm-3">
 								<label for="roomTypeSelect">구분</label>
-								 <select name="buildingTypeSelect" id="roomTypeSelect" class="form-control">
+								 <select name="buildingTypeSelect" id="roomTypeSelect" class="form-control"
+								  ${param.buildingSelect ne null || param.roomTypeSelect ne null ? 'disabled' : '' }>
 									<option value="">전체</option>
 									<option value="회의실">회의실</option>
 									<option value="교육실">교육실</option>
@@ -63,7 +68,12 @@
 									<tr role='row'>
 										<td class="mobileDisabled"><img src='${room.roomImg }' style="width: 300px;"></td>
 										<td>${room.roomName }</td>
-										<td>1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기
+										<td>
+											<c:forEach items="${room.equipments }" var="equip">
+												<c:if test="${equip.eqCount ne 0}">
+												${equip.eqName } (${equip.eqCount })<br>
+												</c:if>
+											</c:forEach>
 										</td>
 										<td>${room.roomNumEmp }명</td>
 										<td>시간당 ${room.roomPrice }원</td>
@@ -97,6 +107,8 @@
 <script>
 	$(function() {
 		var table;
+		$('#buildingSelect').val('${param.buildingSelect}');
+		$('#roomTypeSelect').val('${param.roomTypeSelect}');
 		
 		table = $('#roomListTable').DataTable({
 			'paging' : true,
@@ -125,6 +137,15 @@
 					table.clear().destroy();
 	               
 	               $.each(data.rooms, function(index,item){
+	            	   console.log(item);
+	            	   let eqStr = "";
+	            	   $.each(item.equipments, function(i, d){
+	            		   if(d.eqCount!=0)
+	            		   	eqStr += d.eqName+" ("+d.eqCount+")<br>";
+	            	   });
+	            	   
+	            	   console.log(eqStr);
+	            	   
 	                  $('<tr/>').append($('<td/>').append($('<img/>', {
 	                     src : item.roomImg,
 	                     class : 'mobileDisabled',
@@ -132,7 +153,7 @@
 	                  }))).append($('<td/>', {
 	                     text : item.roomName
 	                  })).append($('<td/>', {
-	                     html : '1. 강의용 책상, 의자<br>2. 빔프로젝터<br>3. 음향기기</td>'
+	                     html : eqStr
 	                  })).append($('<td/>', {
 	                     text : item.roomNumEmp+"명"
 	                  })).append($('<td/>', {

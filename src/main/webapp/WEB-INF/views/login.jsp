@@ -79,8 +79,6 @@
       </div>
     </form>
 
-    <a href="#">비밀번호 찾기</a><br>
-
   </div>
   <!-- /.login-box-body -->
   <div class="clear-both"></div>

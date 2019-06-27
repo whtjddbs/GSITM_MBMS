@@ -61,7 +61,7 @@
 			<c:if test="${isApprover || isAdmin}"> 
 				<!-- 상위결재자 -->
 				<li class="header">APPROVER</li>
-				<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
+				<li><a href="/approval/approvalList"><i class="fa fa-circle-o text-red"></i> <span>결재 관리</span></a></li>
 				
 				
 				<c:if test="${isAdmin}">
