@@ -120,7 +120,7 @@
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
-													<h4 class="modal-title">Warning Modal</h4>
+													<h4 class="modal-title">비품 수정하기</h4>
 												</div>
 												<div class="modal-body">
 													<form role="form" action="/equipment/equipmentUpdate"
@@ -130,21 +130,23 @@
 														
 															<div class="col-xs-6">
 																<label>비품이름</label> 
-																	<input type="text" class="form-control" name="eqName"
-																	 required placeholder="${equipment.EQNAME }">
+																	<input type="text" class="form-control eqeq" name="eqName"
+																	 required placeholder="${equipment.EQNAME }"
+																	 value="${equipment.EQNAME }">
 															</div>
 														
 															<div class="col-xs-6">
 																<label>비품 갯수</label>
-																	<input type="number" class="form-control" name="eqCount" 
-																	 required placeholder="${equipment.EQCOUNT }">
+																	<input type="number" class="form-control eqeq" name="eqCount" 
+																	 required placeholder="${equipment.EQCOUNT }"
+																	 value="${equipment.EQCOUNT }">
 															</div>
 
 														<div class="form-group" align=center>
 															<input type="button" class='btn btn-default' value="닫기"
 																data-dismiss="modal"> <input type="reset"
-																class='btn btn-danger' value="수정취소"> <input
-																type="submit" class='btn btn-success' value="수정완료">
+																class='btn btn-danger' value="다시쓰기"> <input
+																type="submit" class='btn btn-success' value="완료">
 														</div>
 													</form>
 												</div>
@@ -212,7 +214,8 @@
 													<br><label>${building.buildName }</label><br>													
 												<c:forEach var="room" items="${building.rooms }">
 													<c:if test="${room.roomNo!=0 }">
-														<input type="checkbox" class="building${building.buildNo }" value="${room.roomNo }" name="roomList" >${room.roomName }
+														<input type="checkbox" class="building${building.buildNo }" value="${room.roomNo }" name="roomList" id="${room.roomNo }">
+														<label for="${room.roomNo	}" }>${room.roomName }</label>
 													</c:if>	
 												</c:forEach>
 										</c:forEach>
@@ -225,8 +228,8 @@
 									<div class="form-group" align=center>
 									<input type="button" class='btn btn-default' value="닫기"
 											data-dismiss="modal">
-											<input type="reset" class='btn btn-danger' value="등록취소">
-										<input type="submit" class='btn btn-success' value="등록완료">
+											<input type="reset" class='btn btn-danger' value="다시쓰기">
+										<input type="submit" class='btn btn-success' value="완료">
 										
 										
 									</div>
@@ -265,16 +268,28 @@
 			'info' : true,
 			'autoWidth' : true
 		})
-	})
-	$(document).on('change', '#buildingSelect, #roomSelect', function(){
-	         $("input[type='search']").val($("#buildingSelect").val()+" "+$("#roomSelect").val());
-	         $("input[type='search']").trigger('keyup');
-	      });
 	
+
+		$(".eqeq").click(function() {
+			$(this).val("");
+			
+		})
+	})
+	$(document).on(
+			'change',
+			'#buildingSelect, #roomSelect',
+			function() {
+				$("input[type='search']").val(
+						$("#buildingSelect").val() + " "
+								+ $("#roomSelect").val());
+				$("input[type='search']").trigger('keyup');
+			});
+
 	function selectBuilding(buildNo) {
 		$('#roomSelect option').hide();
-		$('#roomSelect').find('.building'+buildNo).show();
-		$('#roomSelect').val($('#roomSelect').find('.building'+buildNo).first().val());
+		$('#roomSelect').find('.building' + buildNo).show();
+		$('#roomSelect').val(
+				$('#roomSelect').find('.building' + buildNo).first().val());
 		$('#roomSelect').trigger('change');
 	}
 </script>

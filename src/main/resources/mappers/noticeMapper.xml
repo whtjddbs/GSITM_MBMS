@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectAll" resultMap="NoticeResult">
         <!-- SELECT * FROM Notice ORDER BY notice_no DESC -->
-          SELECT Notice.*,employee.emp_name writer_emp_name, employee.emp_position writer_emp_position FROM Notice,Employee WHERE Notice.writer_emp_no=employee.emp_no ORDER BY notice_no DESC
+          SELECT TO_CHAR(notice_date, 'YYYY/MM/DD HH24:MI:SS') notice_date ,Notice.*,employee.emp_name writer_emp_name, employee.emp_position writer_emp_position FROM Notice,Employee WHERE Notice.writer_emp_no=employee.emp_no ORDER BY notice_no DESC
 	</select>
 
  	<insert id="insert">
