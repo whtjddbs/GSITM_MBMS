@@ -5,6 +5,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
 	src="../../../resources/dist/js/postSearch.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -52,12 +53,12 @@
 									<div class="col-xs-6">
 										<div class="col-xs-8">
 											<input type="text" class="form-control" name="mgrEmpNo"
-												id="mgrEmpNo" required>
+												id="mgrEmpNo" required readonly>
 										</div>
 
 										<div class="col-xs-1">
 											<input type="button" class='btn btn-default' value="담당자 찾기"
-												id="findEmpBtn">
+												id="findEmpBtn" >
 										</div>
 									</div>
 									<div class="col-sm-6">
@@ -83,7 +84,7 @@
 												<option value="${equipment.eqName }" >${equipment.eqName }</option>
 											</c:forEach>
 										</select>
-										<input type="hidden" name="eqNameList" id="eqNameList">	
+										<input type="hidden" name="eqNameList" id="eqNameList" value="0">	
 									</div>
 
 									<div class="col-sm-6">
@@ -108,7 +109,6 @@
 									<div class="col-sm-6">
 										<label>시간 당 가격</label> <select name="roomPrice"
 											class="form-control">
-											<option value="">시간당 비용</option>
 											<option value="5000">5,000원 / 1시간</option>
 											<option value="10000">10,000원 / 1시간</option>
 											<option value="20000">20,000원 / 1시간</option>
@@ -152,8 +152,8 @@
 									<div class="col-xs-12" align=center>
 										<input type="button" class='btn btn-default' value="뒤로가기"
 											onClick="history.back();">
-										<input type="reset" class='btn btn-danger' value="등록취소">
-										<input type="submit" class='btn btn-success' value="등록완료">
+										<input type="reset" class='btn btn-danger' value="다시쓰기">
+										<input type="submit" class='btn btn-success' value="등록">
 									</div>
 								</form>
 							</div>
@@ -191,7 +191,7 @@
 							<th>부서번호</th>
 						</tr>
 					</thead>
-					<tbody>
+					<%-- <tbody>
 						<c:forEach items="${employees }" var="emp" varStatus="status">
 							<tr role='row'>
 								<td><img src='${emp.empNo }' style="width: 300px;"></td>
@@ -205,7 +205,7 @@
 									value="예약 하기"></td>
 							</tr>
 						</c:forEach>
-					</tbody>
+					</tbody> --%>
 				</table>
 			</div>
 			<div class="modal-footer">
@@ -292,7 +292,9 @@ $(document).ready(function(){
 	$("#eqAddBtn").on("click",function(){
 		
 		if($("#eqCount").val()<0 || $("#eqCount").val()==""){
-			alert("비품의 갯수를 올바르게 선택하세요.");
+			swal("비품의 갯수를 올바르게 선택하세요.");
+			$("#eqCount").focus();
+			$("#eqCount").val("");
 		}
 		else{
 			let eqList = "[ "+$("#eqName").val()+" "+$("#eqCount").val()+"개 ] ";
@@ -301,10 +303,32 @@ $(document).ready(function(){
 			
 			$("#eqNameList").val($("#eqNameList").val()+$("#eqName").val()+",")
 			
-			$("#eqCountList").val($("#eqCountList").val()+$("#eqCount").val()+",")	
+			$("#eqCountList").val($("#eqCountList").val()+$("#eqCount").val()+",")
+			$("#eqCount").val("");
 		}
+	})
+	$("input[type='submit']").click(function(){
 		
-	
+		if($("input[name='roomNumEmp']").val() < 0 || $("input[name='roomNumEmp']").val() ==0){
+			swal("올바른 수용인원을 입력하시오.");
+			this.focus();
+			return false;
+		}
+		if($("input[name='roomSpace']").val() < 0 || $("input[name='roomSpace']").val() ==0){
+			swal("올바른 회의실 크기를 입력하시오.");
+			this.focus();
+			return false;
+		}
+		if($("input[name='roomFloor']").val() < 0 || $("input[name='roomFloor']").val() ==0){
+			swal("올바른 층을 입력하시오.");
+			this.focus();
+			return false;
+		}
+	/* 	if($("#eqNameList").val()=="0"){
+			swal("비품을 입력하세요");
+			$("input[name='eqCount']").focus();
+			return false;
+		} */
 	})
 })
 		

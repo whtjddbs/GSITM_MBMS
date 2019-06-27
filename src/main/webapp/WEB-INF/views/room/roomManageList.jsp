@@ -115,7 +115,7 @@
 															<input type="hidden" value="${room.mgrEmpNo }" id="${room.mgrEmpNo }_hidden">
 															<input type="button" value="자세히보기" class ="btn btn-default btn-sm viewBtn" id="${room.mgrEmpNo }">
 														</li>
-														<span id="empViewSpan_${room.mgrEmpNo }"></span>
+														<span id="empViewSpan_${room.mgrEmpNo }" style="font-size:10pt; "></span>
 														<li> 이용가격 : 시간당 ${room.roomPrice } 원</li>
 														<c:if test="${ room.networkYn==y}">
 															<li> 네트워크 사용가능 여부 : 가능
@@ -240,11 +240,17 @@
 									+ $("#roomTypeSelect").val());
 					$("input[type='search']").trigger('keyup');
 				});
+		$('.modal').on('hidden.bs.modal', function (e) { 
+		    $(this).find('form')[0].reset() 
+		});
 
 		$('.content').on('click', '.infoBtn', function() {
 			let id = "#" + this.id + "_modal";
 			$(id).modal();
 		})
+		$('.modal').on('hidden.bs.modal', function(e) {
+			$(this).find('form')[0].reset()
+		});
 
 		$('.content').on('click', '.updateBtn', function() {
 			let id = "#roomUpdate_" + this.id;
@@ -279,7 +285,8 @@
 				}
 			});
 		})
-		$(".content").on(
+		
+	$(".content").on(
 				'click',
 				'.viewBtn',
 				function() {

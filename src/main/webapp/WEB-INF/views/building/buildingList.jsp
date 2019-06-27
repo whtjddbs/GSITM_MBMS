@@ -145,8 +145,8 @@
 														<div class="form-group">
 															<input type="hidden" name="buildNo"
 																value="${building.buildNo }"> <label>근무지이름</label>
-															<input type="text" class="form-control" name="buildName"
-																placeholder="${building.buildName }" required>
+															<input type="text" class="form-control" name="buildName" 
+																value="${building.buildName }" placeholder="${building.buildName }" required>
 														</div>
 
 														<label>우편 번호</label>
@@ -154,7 +154,8 @@
 															<div class="col-xs-3">
 																<input type="text" class="form-control" name="buildPost"
 																	placeholder="${building.buildPost }"
-																	onclick="execPostCode();" required>
+																	onclick="execPostCode();" required
+																	value="${building.buildPost }">
 															</div>
 															<div class="col-xs-4">
 																<input type="button" class="btn btn-default"
@@ -168,7 +169,8 @@
 																<div class="col-xs-7">
 																	<input type="text" class="form-control"
 																		name="buildAddr" required placeholder="${building.buildAddr }"
-																		onclick="execPostCode();">
+																		onclick="execPostCode();"
+																		value="${building.buildAddr }">
 																</div>
 															</div>
 														</div>
@@ -177,8 +179,8 @@
 															<button type="button" class="btn btn-default"
 															data-dismiss="modal">닫기</button>
 															 <input type="reset"
-																class='btn btn-danger' value="수정취소"> <input
-																type="submit" class='btn btn-success' value="수정완료">
+																class='btn btn-danger' value="다시쓰기"> <input
+																type="submit" class='btn btn-success' value="완료">
 
 														</div>
 													</form>
@@ -226,5 +228,12 @@
 			'info' : true,
 			'autoWidth' : false
 		})
+		$("input[name='buildName']").on("click",function(){
+			//alert($("#buildName").val())
+			$("input[name='buildName']").val("");
+		})
+		$('.modal').on('hidden.bs.modal', function (e) { 
+		    $(this).find('form')[0].reset() 
+		});
 	})
 </script>
