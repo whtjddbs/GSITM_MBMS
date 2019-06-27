@@ -130,9 +130,10 @@ public class MailServiceImpl implements MailService {
 			"                </tr>" + 
 			"                <tr>" + 
 			"                    <td style=\"padding: 10px 0 10px 0; text-align: center\">" + 
+			"					<a href='http://localhost:8000/approval/approvalDetail/"+reserveHistory.getReserveNo()+"'>"+				
 			"                  <img src=\"https://postfiles.pstatic.net/MjAxOTA2MjRfMTEw/MDAxNTYxMzUzNjUwOTI2.Dz6ANEJb9Eaur2bxgpp0jRaMhhRhB7B0TMTpCgZRDoEg.eDpg0k169TWXUmKaGxfzZDUvajZnqB_QVIAJ9NPKkC0g.PNG.a_spree/check2.png?type=w773\" " + 
-			"                      width=\"200\"/>" + 
-			"                 <a href=\"#\"> > 내역 조회 < </a>" + 
+			"                      width=\"200\" />" +
+			"					</a>"+
 			"                    </td>" + 
 			"                </tr>" + 
 			"                <tr>" + 
@@ -211,9 +212,10 @@ public class MailServiceImpl implements MailService {
 			"                </tr>" + 
 			"                <tr>" + 
 			"                    <td style=\"padding: 10px 0 10px 0; text-align: center\">" + 
+			"					<a href='http://localhost:8000/approval/approvalDetail/"+reserve.getReserveNo()+"'>"+				
 			"                  <img src=\"https://postfiles.pstatic.net/MjAxOTA2MjRfMTEw/MDAxNTYxMzUzNjUwOTI2.Dz6ANEJb9Eaur2bxgpp0jRaMhhRhB7B0TMTpCgZRDoEg.eDpg0k169TWXUmKaGxfzZDUvajZnqB_QVIAJ9NPKkC0g.PNG.a_spree/check2.png?type=w773\" " + 
-			"                      width=\"200\"/>" + 
-			"                 <a href=\"#\"> > 내역 조회 < </a>" + 
+			"                      width=\"200\" />" +
+			"					</a>"+
 			"                    </td>" + 
 			"                </tr>" + 
 			"                <tr>" + 

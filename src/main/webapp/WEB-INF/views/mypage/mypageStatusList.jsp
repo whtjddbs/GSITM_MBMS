@@ -84,14 +84,16 @@
 									        <c:when test="${mypage.approval1Yn == 0 }">1차 승인 대기중</c:when>
 									        <c:when test="${mypage.approval1Yn == 1 && mypage.approval2Yn == 0}">2차 승인 대기중</c:when>
 									        <c:when test="${mypage.approval1Yn == 1 && mypage.approval2Yn == 1}"><span style = "color:blue">예약 완료 (확정)</span></c:when>
+									        <c:when test="${mypage.approval1Yn == 2 || mypage.approval2Yn == 2}"><span style = "color:red">반려</span></c:when>
 							        	</c:choose>
 							        </td>
 							        <td> 	
 													<button type="button" class="btn btn-default btn-sm" onclick="location.href='/approval/approvalDetail/${mypage.reserveNo}'"
 							          					data-target="#modal-default_${mypage.reserveNo}">상세 예약 정보</button>
-							          					
+							          				<c:if test="${mypage.approval1Yn != 2 && mypage.approval2Yn != 2}">
 							          				<input type="button" class="btn btn-default btn-sm" data-toggle="modal" 
 														data-target="#modal-danger_${mypage.reserveNo}" value="예약 취소 요청">
+													</c:if>
 							          					
 													<div class="modal fade" id="modal-default_${mypage.reserveNo}">
 														<!-- 예약 상세보기 modal div -->
