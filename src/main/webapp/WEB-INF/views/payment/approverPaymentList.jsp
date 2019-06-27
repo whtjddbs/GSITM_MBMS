@@ -39,7 +39,6 @@
                   <th>주관 부서</th>
                   <th>결제 날짜</th> 
                   <th>비용(원)</th>  
-                  <!-- <th>비고</th> -->
                 </tr>
                 </thead>
                                 
@@ -48,19 +47,9 @@
 					<tr>
 						<td>${PaymentDTO.startDate}</td>
 						<td>${PaymentDTO.category}</td>
-						<td>${PaymentDTO.deptName}</td>
-						
-						<!-- 
-						<c:if test="${PaymentDTO.paymentYn == 0 }">
-							<td>미결제</td>
-						</c:if>
-						<c:if test="${PaymentDTO.paymentYn == 1 }">
-							<td>결제완료</td>
-						</c:if>
-						 -->
-						 
+						<td>${PaymentDTO.deptName}</td>		 
 						<td>${PaymentDTO.paymentDate}</td>
-						<td>${PaymentDTO.reservePrice}</td>
+						<td>${PaymentDTO.cost}</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -72,7 +61,7 @@
 					<c:set var = "sum" value = "0" />
 					<c:forEach var="PaymentDTO" items="${approverPaymentList}">
 					<c:if test="${PaymentDTO.paymentYn == 1 }">
-					<c:set var= "sum" value="${sum + PaymentDTO.reservePrice}"/>
+					<c:set var= "sum" value="${sum + PaymentDTO.cost}"/>
 					</c:if>
 					</c:forEach>
 					<th> <c:out value="${sum}"/> </th>
@@ -104,13 +93,6 @@
 		})
 	})
 </script>
-
-
-<script type="text/javascript" src="libs/FileSaver/FileSaver.min.js"></script>
-<script type="text/javascript" src="libs/js-xlsx/xlsx.core.min.js"></script>
-<script type="text/javascript" src="libs/es6-promise/es6-promise.auto.min.js"></script>
-<script type="text/javascript" src="libs/html2canvas/html2canvas.min.js"></script>
-<script type="text/javascript" src="tableExport.min.js"></script>
 
 <script>
 // 	$('#example2').tableExport({

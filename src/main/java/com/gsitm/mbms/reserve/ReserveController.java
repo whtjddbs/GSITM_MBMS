@@ -80,7 +80,6 @@ public class ReserveController {
 	@RequestMapping("/availableRoomList")
 	public String availableRoomList(@RequestParam Map<String,Object> map, Model model, HttpSession session) {
 		System.out.println(map.toString());
-		
 		String dateRange = (String) map.get("reservationtime");
 		String dates[] = dateRange.split("-");
 		map.put("startDate", dates[0].trim());
@@ -101,7 +100,9 @@ public class ReserveController {
 	
 	/** 회의실 예약 양식 페이지 **/
 	@RequestMapping("/reserveForm")
-	public String reserveForm(ReserveHistoryDTO reserveHistoryDTO, Model model, HttpSession session) {
+	public String reserveForm(ReserveHistoryDTO reserveHistoryDTO,@RequestParam(required=false) String type, Model model, HttpSession session) {
+		if(type==null || (type!=null && type.equals("remove"))) session.removeAttribute("reservationInfo");
+		
 		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String,Object>)session.getAttribute("reservationInfo");
 		System.out.println("reserveForm -> map : "+map);

@@ -227,6 +227,7 @@
 
 <jsp:include page="modals/employeeListModal.jsp"></jsp:include>
 <jsp:include page="modals/equipmentListModal.jsp"></jsp:include>
+<jsp:include page="modals/validateModal.jsp"></jsp:include>
 
 </form>
 
@@ -528,13 +529,60 @@
 		   	$('#reservationEndTime').val(endDate.format('HH:mm'));
 	   	}
 		
+		function validate() {
+			let title = $('#title').val();
+			let reservationStartDate = $('#reservationStartDate').val();
+			let reservationStartTime = $('#reservationStartTime').val();
+			let reservationEndDate = $('#reservationEndDate').val();
+			let reservationEndTime = $('#reservationEndTime').val();
+			let empCount = $('#empCount').val();
+			let purpose = $('#purpose').val();
+			let $validate = $('#validate-message');
+			if(title=='') {
+				$validate.text('회의명을 입력해주세요');
+				$('#validate-modal').off('hide.bs.modal');
+				$('#validate-modal').on('hide.bs.modal', function(){
+					$('#title').focus();
+				});
+			} else if(reservationStartDate=='' || reservationStartTime=='' || reservationEndDate=='' || reservationEndTime=='') {
+				$validate.text('예약일을 설정해주세요.');
+				$('#validate-modal').off('hide.bs.modal');
+				$('#validate-modal').on('hide.bs.modal', function(){
+					$('#reservationStartDate').datepicker('show');
+				});
+			} else if(empCount=='') {
+				$validate.text('참석인원을 선택해주세요');
+				$('#validate-modal').off('hide.bs.modal');
+				$('#validate-modal').on('hide.bs.modal', function(){
+					$('#employeeList-modal').modal('show');
+				});
+			} else if(purpose=='') {
+				$validate.text('사용목적을 입력해주세요.');
+				$('#validate-modal').off('hide.bs.modal');
+				$('#validate-modal').on('hide.bs.modal', function(){
+					$('#purpose').focus();
+				});
+			} else {
+				// 실행
+				doReserve();
+				return false;
+			}
+			$('#validate-modal').modal('show');
+		}
+		
+		var competentDepartment;
+		
 		$('#availableRoomSearchBtn').click(function(){
 			// 주관부서
-			var competentDepartment = new Array();
+			competentDepartment = new Array();
 			$('#mainDeptList option:selected').each(function(index, item){
 				competentDepartment.push({deptNo: $(item).val(), empCount: competentDepts.get($(item).text())});
 			});
 			
+			validate();
+		});
+		
+		function doReserve() {
 			$.ajax({
 	            type : "POST",
 	            url : "/reserve/doReserve",
@@ -562,7 +610,7 @@
 	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	            }
 			});
-		});
+		}
 	});
 	
 </script>

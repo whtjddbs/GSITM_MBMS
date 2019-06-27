@@ -90,6 +90,7 @@
 
 <form action="/reserve/reserveForm" method="post" id="reserveListForm">
 	<input type="hidden" id="selectedRoomNo" name="roomNo">
+	<input type="hidden" id="type" name="type">
 </form>
 
 <!-- page script -->
@@ -166,6 +167,7 @@
 		
 		//예약하기 버튼 클릭
 		$('.content').on('click', '.reserveBtn', function(){
+			if(location.pathname=='/reserve/roomList') $('#type').val('remove');
 			$('#selectedRoomNo').val(this.id);
 			$('#reserveListForm').submit();
 		});
