@@ -8,6 +8,7 @@
 <style>
 	@media (max-width: 768px) { 
 		.mobileDisabled{display:none;}
+		.bt_col { width: 20%; }
 	}
 </style>
 
@@ -45,7 +46,7 @@
 									<th>건물이름</th>
 									<th>주소</th>
 									<th class="mobileDisabled">우편번호</th>
-									<th>비고</th>
+									<th class="bt_col">비고</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -55,7 +56,7 @@
 										<td>${building.buildName }</td>
 										<td>${building.buildAddr }</td>
 										<td class="mobileDisabled">${building.buildPost }</td>
-										<td>
+										<td class="bt_col">
 											<button type="button" class="btn btn-default btn-sm"
 												data-toggle="modal"
 												data-target="#modal-info_${building.buildNo }">
