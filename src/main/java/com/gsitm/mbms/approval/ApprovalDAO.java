@@ -25,4 +25,8 @@ public interface ApprovalDAO {
 	public List<ApprovalDTO> selectApprovalListByEmpNo(String empNo);
 	public void refuse(Map<String, Object> map);
 	public void approval(Map<String, Object> map);
+	
+	/** 30분 후 시작하는 예약 알람 **/
+	public List<ApprovalDTO> selectImminentReserveList(String nowTime);
+	public List<Integer> selectImminentReserveList2(String nowTime);
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gsitm.mbms.approval.ApprovalDAO;
 import com.gsitm.mbms.employee.EmployeeDAO;
 import com.gsitm.mbms.employee.EmployeeDTO;
 import com.gsitm.mbms.room.RoomDAO;
@@ -32,6 +33,8 @@ public class ReserveServiceImpl implements ReserveService {
 	private EmployeeDAO employeeDAO;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private ApprovalDAO approvalDAO;
 	
 	@Override
 	public List<RoomDTO> selectAllRoom() {

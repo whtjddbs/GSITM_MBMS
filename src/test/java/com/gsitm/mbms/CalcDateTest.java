@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.gsitm.mbms.approval.ApprovalDAO;
 import com.gsitm.mbms.reserve.ReserveService;
 import com.gsitm.mbms.util.MailService;
 
@@ -36,6 +38,8 @@ public class CalcDateTest {
 	ReserveService rService;
 	@Autowired
 	MailService mailService;
+	@Autowired
+	ApprovalDAO approvalDAO;
 	
 	@Test
 	public void test() throws ParseException {
@@ -70,6 +74,14 @@ public class CalcDateTest {
 //		assertThat(result, is(true));
 		long end = System.nanoTime();
 		log.info("rrrrrrrrrr: {}",end-start);
+	}
+	
+	@Test
+	public void testTest() {
+		assertThat(approvalDAO, is(notNullValue()));
+		
+		List<Integer> list = approvalDAO.selectImminentReserveList2("2019/06/26 14:00");
+		log.info("time : {}", list);
 	}
 
 }

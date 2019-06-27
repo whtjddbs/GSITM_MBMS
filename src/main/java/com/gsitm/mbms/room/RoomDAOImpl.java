@@ -59,13 +59,14 @@ public class RoomDAOImpl implements RoomDAO {
 	@Override
 	public List<Map<String, Object>> selectAllWithEquipmentsWithBuildings() {
 		// TODO Auto-generated method stub
-		return session.selectList("roomMapper.selectAllWithEquipmentsWithBuildings");}
+		return session.selectList("roomMapper.selectAllWithEquipmentsWithBuildings");
+	}
 	
 	//민기 관리자 사번으로 방 찾기
 	@Override
 	public List<RoomDTO> selectRoomByMgrEmpNo(String empNo) {
 		return session.selectList("roomMapper.selectRoomByMgrEmpNo",empNo);
-	}
+	}  
 }
 
 
