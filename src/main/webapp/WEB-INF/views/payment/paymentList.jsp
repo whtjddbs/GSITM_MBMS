@@ -61,9 +61,7 @@
 					<th></th><th></th>
 					<c:set var = "sum" value = "0" />
 					<c:forEach var="PaymentDTO" items="${paymentList}">
-					<c:if test="${PaymentDTO.paymentYn == 1 }">
 					<c:set var= "sum" value="${sum + PaymentDTO.cost}"/>
-					</c:if>
 					</c:forEach>
 					<th> <c:out value="${sum}"/> </th>
 				</tfoot>  
