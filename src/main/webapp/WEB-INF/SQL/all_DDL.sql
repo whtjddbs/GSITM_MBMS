@@ -311,3 +311,31 @@ CREATE TABLE Competent_department (
     emp_count NUMBER NOT NULL
 );
 
+
+
+-- 06월 27일 14시 RESERVE_HISTORY 참조 테이블 제약 조건 변경
+ALTER TABLE Meeting_member_list DROP CONSTRAINT FK_Meeting_member_list_reserve ;
+
+ALTER TABLE Meeting_member_list
+    ADD CONSTRAINT FK_Meeting_member_list_reserve FOREIGN KEY (reserve_no)
+        REFERENCES Reserve_history (reserve_no) ON DELETE CASCADE;
+        
+ALTER TABLE Meeting_Equipment_list DROP CONSTRAINT FK_Meeting_Equipment_list_rese ;
+
+ALTER TABLE Meeting_Equipment_list
+    ADD CONSTRAINT FK_Meeting_Equipment_list_rese FOREIGN KEY (reserve_no)
+        REFERENCES Reserve_history (reserve_no) ON DELETE CASCADE;
+        
+ALTER TABLE Dept_payment DROP CONSTRAINT FK_Dept_payment_reserve_no_Res;
+        
+ALTER TABLE Dept_payment
+    ADD CONSTRAINT FK_Dept_payment_reserve_no_Res FOREIGN KEY (reserve_no)
+        REFERENCES Reserve_history (reserve_no) ON DELETE CASCADE ;
+        
+DROP TABLE Competent_department  CASCADE CONSTRAINTS;
+
+CREATE TABLE Competent_department (
+    reserve_no NUMBER REFERENCES reserve_history(reserve_no) ON DELETE CASCADE,
+    dept_no NUMBER REFERENCES department(dept_no),
+    emp_count NUMBER NOT NULL
+);

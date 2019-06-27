@@ -235,7 +235,7 @@
 	
 	$(function(){
 		$('#approvalBtn').on('click', function(){
-			
+			$('#approval-modal').modal('hide');
 			$.ajax({
                 url : "/approval/approval",
                 type : "POST",
@@ -250,7 +250,7 @@
 		});
 		
 		$('#refuseBtn').on('click', function(){
-			
+			$('#refuse-modal').modal('hide');
 			$.ajax({
                 url : "/approval/refuse",
                 type : "POST",

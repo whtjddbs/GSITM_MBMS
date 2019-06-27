@@ -30,14 +30,13 @@
             <div class="box-body">
              
              
-              <table id="example2" class="table table-bordered table-striped">
+              <table id="example2" class="table table-bordered table-hover">
                 
                 <thead>
                 <tr>
                   <th>예약 일자</th>
-                  <th>회의 구분</th>
+                  <th>회의명</th>
                   <th>주관 부서</th>
-                  <th>결제 날짜</th> 
                   <th>비용(원)</th>  
                 </tr>
                 </thead>
@@ -46,9 +45,8 @@
 				<c:forEach var="PaymentDTO" items="${approverPaymentList}">
 					<tr>
 						<td>${PaymentDTO.startDate}</td>
-						<td>${PaymentDTO.category}</td>
+						<td>${PaymentDTO.title}</td>
 						<td>${PaymentDTO.deptName}</td>		 
-						<td>${PaymentDTO.paymentDate}</td>
 						<td>${PaymentDTO.cost}</td>
 					</tr>
 				</c:forEach>
@@ -57,12 +55,10 @@
 				<tfoot>
 				<tr>
 				<th>총 실결제금액</th>
-					<th></th><th></th><th></th>
+					<th></th><th></th>
 					<c:set var = "sum" value = "0" />
 					<c:forEach var="PaymentDTO" items="${approverPaymentList}">
-					<c:if test="${PaymentDTO.paymentYn == 1 }">
 					<c:set var= "sum" value="${sum + PaymentDTO.cost}"/>
-					</c:if>
 					</c:forEach>
 					<th> <c:out value="${sum}"/> </th>
 				</tfoot>  

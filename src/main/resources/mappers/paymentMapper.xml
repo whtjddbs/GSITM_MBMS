@@ -32,6 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="mgr_emp_no" property="mgrEmpNo"/>
 		
 		<result column="cost" property="cost"/>
+		<result column="title" property="title"/>
 	
 		
 	</resultMap>
