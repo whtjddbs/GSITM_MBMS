@@ -84,7 +84,7 @@
 												<option value="${equipment.eqName }" >${equipment.eqName }</option>
 											</c:forEach>
 										</select>
-										<input type="hidden" name="eqNameList" id="eqNameList" value="0">	
+										<input type="hidden" name="eqNameList" id="eqNameList">	
 									</div>
 
 									<div class="col-sm-6">
@@ -191,7 +191,7 @@
 							<th>부서번호</th>
 						</tr>
 					</thead>
-					<%-- <tbody>
+					 <tbody>
 						<c:forEach items="${employees }" var="emp" varStatus="status">
 							<tr role='row'>
 								<td><img src='${emp.empNo }' style="width: 300px;"></td>
@@ -205,7 +205,7 @@
 									value="예약 하기"></td>
 							</tr>
 						</c:forEach>
-					</tbody> --%>
+					</tbody> 
 				</table>
 			</div>
 			<div class="modal-footer">
