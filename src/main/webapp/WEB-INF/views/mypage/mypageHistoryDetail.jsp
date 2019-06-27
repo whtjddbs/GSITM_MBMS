@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -58,11 +60,12 @@
 			<div class="col-xs-12">
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table id="example1" class="table table-bordered table-striped">
+					<input type="button" onClick="location.href='/mypage/mypageHistoryList'"
+							class="btn btn-primary" value="검색 초기화" style="float: right;" />
+						<table id="example1" class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th class = "">예약 시작일</th>
-									<th class = "">예약 종료일</th>
+									<th class = "">예약일</th>
 									<th class = "">회의 구분</th>
 									<th class = "">회의명</th>
 									<th class = "">비고</th>
@@ -72,7 +75,6 @@
 							<c:forEach var="mypage" items="${historyFilteringList}">
 								<tr>
 									<td>${mypage.startDate}</td>
-									<td>${mypage.endDate}</td>
 									<td>${mypage.category}</td>
 									<td>${mypage.title}</td>
 									<td>
@@ -93,7 +95,8 @@
 															</div>
 													<div class="modal-body">
 														<p><strong>예약 신청 내역</strong></p>
-														<p>회의 일정 : ${mypage.startDate} ~ ${mypage.endDate} (예약 신청일 : ${mypage.reserveDate})</p>
+														<p>예약 신청일 : ${mypage.reserveDate}</p>
+														<p>회의 일정 : <fmt:formatDate value="${mypage.startDate }" pattern="yyyy-MM-dd HH:mm"/> ~ <fmt:formatDate value="${mypage.endDate }" pattern="yyyy-MM-dd HH:mm"/> 
 														<p>회의 장소 : ${mypage.buildName} ${mypage.roomName}</p>
 														<p>회의명 및 목적 : ${mypage.title} / ${mypage.purpose}</p>
 														<p>참석자 : ${mypage.empName} 외 ${mypage.empCount-1}명</p>
@@ -170,15 +173,28 @@
 
 <script>
 	$(function() {
-		/** DatePicker **/
-		$('#reservationtime').daterangepicker({
-			timePicker : false,
-			format : 'YYYY/MM/DD',
-			locale: {format : 'YYYY/MM/DD'},
-	      	startDate: moment().add(0, 'year'),
-	      	endDate: moment().add(0, 'year')     	
+		
+	      //파라미터로 전에 선택한 필터링 날짜 가져오기
+	      var timeSelectParam = "${param.timeSelect}";
+	      timeSelectParam = timeSelectParam.replace(/(\s*)/g,"");
+	      var startDateStr = timeSelectParam.split('-')[0];
+	      var endDateStr = timeSelectParam.split('-')[1];
+
+	      //파라미터 없으면 기본 날짜
+	      if(timeSelectParam=="") {
+	         startDateStr= moment().startOf('day').format('YYYY-MM-DD');
+	         endDateStr= moment().endOf('day').format('YYYY-MM-DD');
+	      };
+	      
+			/** DatePicker **/
+			$('#reservationtime').daterangepicker({
+				timePicker : false,
+				format : 'YYYY/MM/DD',
+				locale: {format : 'YYYY/MM/DD'},
+		      	startDate: startDateStr,
+		      	endDate: endDateStr
+			});
 		})
-	})
 </script>
 
 <script>

@@ -86,6 +86,8 @@ public class RoomController {
 	//Room 등록
 		@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
 		public String roomInsert(RoomDTO dto, String eqNameList,String eqCountList,MultipartFile file, HttpServletRequest request) throws Exception {
+			
+			System.out.println(dto+"---------------------------");
 			logger.info("Room Insert Action!");
 			String imgpUploadPath = request.getSession().getServletContext().getRealPath("/resources/") + File.separator + "imgUpload";
 			String ymdPath = UploadFileUtils.calcPath(imgpUploadPath);
@@ -101,14 +103,16 @@ public class RoomController {
 			System.out.println(dto.getRoomImg());
 			roomService.roomInsert(dto);
 			
-			StringTokenizer nameToken = new StringTokenizer(eqNameList, ",");
-			StringTokenizer countToken = new StringTokenizer(eqCountList, ",");
+			if(eqNameList!=null) {
+				StringTokenizer nameToken = new StringTokenizer(eqNameList, ",");
+				StringTokenizer countToken = new StringTokenizer(eqCountList, ",");
+				
+				 while(nameToken.hasMoreTokens()) {	 
+					 EquipmentDTO equipmentDTO = new EquipmentDTO(dto.getRoomNo(),0, nameToken.nextToken(),Integer.parseInt(countToken.nextToken()));
+					 equipmentService.equipmentInsert(equipmentDTO);
+				 }
+			}
 			
-			 while(nameToken.hasMoreTokens()) {	 
-				 EquipmentDTO equipmentDTO = new EquipmentDTO(dto.getRoomNo(),0, nameToken.nextToken(),Integer.parseInt(countToken.nextToken()));
-				 equipmentService.equipmentInsert(equipmentDTO);
-			 }
-		
 			return "redirect:/room/roomManageList?type=insert";	
 		}
 		
@@ -116,7 +120,7 @@ public class RoomController {
 		public ModelAndView getEmployeeList(Model model) {
 			
 			List<Map<String, Object>> employees = eDao.getEmployeeList();
-
+			System.out.println(employees);
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("employees",employees);
 			mav.setViewName("jsonView");

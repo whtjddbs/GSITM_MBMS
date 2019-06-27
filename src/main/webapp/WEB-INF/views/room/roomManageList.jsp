@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+	@media (max-width: 768px) { 
+		.mobileDisabled{display:none;}
+		.bt_col { width: 20%; }
+	}
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -18,6 +24,11 @@
 				<div class="box">
 					<div class="box-header">
 						<h3 class="box-title">전체</h3>
+						<div class="pull-right box-tools">
+						<input type="button" class="btn btn-primary"
+							value="회의실 등록하기" id="roomInsertBtn"
+							onclick="location.href='/room/roomInsertForm'">
+							</div>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
@@ -46,11 +57,11 @@
 							<thead>
 								<tr>
 									<th>회의실명</th>
-									<th>주요시설</th>
+									<th class="mobileDisabled">주요시설</th>
 									<th>수용인원</th>
-									<th>지사</th>
+									<th class="mobileDisabled">지사</th>
 									<th>구분</th>
-									<th>비고</th>
+									<th class="bt_col">비고</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -59,7 +70,7 @@
 									<tr role='row'>
 										<td>${room.roomName }</td>
 
-										<td><span id="equipList">
+										<td class="mobileDisabled"><span id="equipList">
 												
 													<c:forEach items="${room.equipments }" var="equipment">
 														<c:if test="${equipment.eqName==null }">
@@ -72,13 +83,13 @@
 													</c:forEach>
 										</span></td>
 										<td>${room.roomNumEmp }명</td>
-										<td><c:forEach items="${buildings }" var="building">
+										<td class="mobileDisabled"><c:forEach items="${buildings }" var="building">
 												<c:if test="${building.buildNo==room.buildNo }">
 													${building.buildName }
 												</c:if>
 											</c:forEach></td>
 										<td>${room.roomType}</td>
-										<td><input type="button"
+										<td class="bt_col"><input type="button"
 											class="btn btn-default btn-sm infoBtn" data-toggle="modal"
 											id="roomView_${room.roomNo }"
 											data-target="roomView_${room.roomNo }_modal" value="상세보기">
@@ -115,7 +126,7 @@
 															<input type="hidden" value="${room.mgrEmpNo }" id="${room.mgrEmpNo }_hidden">
 															<input type="button" value="자세히보기" class ="btn btn-default btn-sm viewBtn" id="${room.mgrEmpNo }">
 														</li>
-														<span id="empViewSpan_${room.mgrEmpNo }"></span>
+														<span id="empViewSpan_${room.mgrEmpNo }" style="font-size:10pt; "></span>
 														<li> 이용가격 : 시간당 ${room.roomPrice } 원</li>
 														<c:if test="${ room.networkYn==y}">
 															<li> 네트워크 사용가능 여부 : 가능
@@ -132,6 +143,15 @@
 																	${building.buildAddr } ${building.buildName } ${room.roomFloor }층
 																</c:if>
 															</c:forEach> </li>
+														<c:forEach items="${room.equipments }" var="equipment">
+														<c:if test="${equipment.eqName==null }">
+															<li>비품 : [현재 구비된 비품이 없습니다.]</li>
+														</c:if>
+
+														<c:if test="${equipment.eqName!=null }">
+															<li>비품 : [${equipment.eqName }] </li>
+														</c:if>
+													</c:forEach>
 													</ul>
 												</div>
 												<!-- /.modal-dialog -->
@@ -175,15 +195,8 @@
 									</div>
 									<!-- /.modal -->
 								</c:forEach>
-							</tbody>
-							<tfoot>
-								<tr>
-									<th colspan=5></th>
-									<th><input type="button" class="btn btn-primary"
-										value="회의실 등록하기" id="roomInsertBtn"
-										onclick="location.href='/room/roomInsertForm'"></th>
-								</tr>
-							</tfoot>
+								</tbody>
+							
 						</table>
 						<jsp:include page="../modal/Modal.jsp"></jsp:include>
 					</div>
@@ -240,11 +253,17 @@
 									+ $("#roomTypeSelect").val());
 					$("input[type='search']").trigger('keyup');
 				});
+		$('.modal').on('hidden.bs.modal', function (e) { 
+		    $(this).find('form')[0].reset() 
+		});
 
 		$('.content').on('click', '.infoBtn', function() {
 			let id = "#" + this.id + "_modal";
 			$(id).modal();
 		})
+		$('.modal').on('hidden.bs.modal', function(e) {
+			$(this).find('form')[0].reset()
+		});
 
 		$('.content').on('click', '.updateBtn', function() {
 			let id = "#roomUpdate_" + this.id;
@@ -279,7 +298,8 @@
 				}
 			});
 		})
-		$(".content").on(
+		
+	$(".content").on(
 				'click',
 				'.viewBtn',
 				function() {

@@ -36,12 +36,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="title" property="title"/>
 		<result column="reason" property="reason"/>
 		
-
 	</resultMap>
    
 	<!--  사용자 예약현황에서 전체 조회   -->
 	<select id="selectAllStatus" resultMap="MypageDTO">        
-		SELECT RESERVE_HISTORY.*, ROOM.ROOM_NAME, BUILDING.BUILD_NAME 
+		SELECT RESERVE_HISTORY.*, ROOM.ROOM_NAME, BUILDING.BUILD_NAME
 			FROM RESERVE_HISTORY, ROOM, BUILDING
 			WHERE TO_CHAR(START_DATE, 'YYYYMMDD') >= (SELECT TO_CHAR(SYSDATE, 'YYYYMMDD') FROM DUAL) 
 				AND RESERVE_HISTORY.ROOM_NO = ROOM.ROOM_NO

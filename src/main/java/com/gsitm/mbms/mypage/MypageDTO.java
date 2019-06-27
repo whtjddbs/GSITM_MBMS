@@ -78,6 +78,7 @@ public class MypageDTO {
 		this.empNo=empNo;
 		this.title=title;
 		this.reason=reason;
+
 	}
 
 	public int getReserveNo() {
@@ -256,7 +257,7 @@ public class MypageDTO {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-
+	
 	
 	@Override
 	public String toString() {

@@ -5,6 +5,11 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
 	src="../../../resources/dist/js/postSearch.js"></script>
+<style>
+	@media (max-width: 768px) { 
+		.mobileDisabled{display:none;}
+	}
+</style>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -24,6 +29,11 @@
 				<div class="box">
 					<div class="box-header">
 						<h3 class="box-title">근무지 목록</h3>
+						<div class="pull-right box-tools">
+	                 		<input type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#modal-default_buildInsert"
+										value="근무지등록하기" />
+	                	</div>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
@@ -31,20 +41,20 @@
 							class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th>건물번호</th>
+									<th class="mobileDisabled">건물번호</th>
 									<th>건물이름</th>
 									<th>주소</th>
-									<th>우편번호</th>
+									<th class="mobileDisabled">우편번호</th>
 									<th>비고</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${list }" var="building">
 									<tr>
-										<td>${building.buildNo }</td>
+										<td class="mobileDisabled">${building.buildNo }</td>
 										<td>${building.buildName }</td>
 										<td>${building.buildAddr }</td>
-										<td>${building.buildPost }</td>
+										<td class="mobileDisabled">${building.buildPost }</td>
 										<td>
 											<button type="button" class="btn btn-default btn-sm"
 												data-toggle="modal"
@@ -145,8 +155,8 @@
 														<div class="form-group">
 															<input type="hidden" name="buildNo"
 																value="${building.buildNo }"> <label>근무지이름</label>
-															<input type="text" class="form-control" name="buildName"
-																placeholder="${building.buildName }" required>
+															<input type="text" class="form-control" name="buildName" 
+																value="${building.buildName }" placeholder="${building.buildName }" required>
 														</div>
 
 														<label>우편 번호</label>
@@ -154,7 +164,8 @@
 															<div class="col-xs-3">
 																<input type="text" class="form-control" name="buildPost"
 																	placeholder="${building.buildPost }"
-																	onclick="execPostCode();" required>
+																	onclick="execPostCode();" required
+																	value="${building.buildPost }">
 															</div>
 															<div class="col-xs-4">
 																<input type="button" class="btn btn-default"
@@ -168,7 +179,8 @@
 																<div class="col-xs-7">
 																	<input type="text" class="form-control"
 																		name="buildAddr" required placeholder="${building.buildAddr }"
-																		onclick="execPostCode();">
+																		onclick="execPostCode();"
+																		value="${building.buildAddr }">
 																</div>
 															</div>
 														</div>
@@ -177,8 +189,8 @@
 															<button type="button" class="btn btn-default"
 															data-dismiss="modal">닫기</button>
 															 <input type="reset"
-																class='btn btn-danger' value="수정취소"> <input
-																type="submit" class='btn btn-success' value="수정완료">
+																class='btn btn-danger' value="다시쓰기"> <input
+																type="submit" class='btn btn-success' value="완료">
 
 														</div>
 													</form>
@@ -191,14 +203,7 @@
 									<!-- /.modal -->
 								</c:forEach>
 							</tbody>
-							<tfoot>
-								<tr>
-									<th colspan=4></th>
-									<th><input type="button" class="btn btn-primary"
-										data-toggle="modal" data-target="#modal-default_buildInsert"
-										value="근무지등록하기" /></th>
-								</tr>
-							</tfoot>
+							
 						</table>
 						<jsp:include page="../modal/Modal.jsp"></jsp:include>
 					</div>
@@ -220,11 +225,18 @@
 		$('#example1').DataTable()
 		$('#buildingListTable').DataTable({
 			'paging' : true,
-			'lengthChange' : false,
+			'lengthChange' : true,
 			'searching' : true,
 			'ordering' : true,
 			'info' : true,
 			'autoWidth' : false
 		})
+		$("input[name='buildName']").on("click",function(){
+			//alert($("#buildName").val())
+			$("input[name='buildName']").val("");
+		})
+		$('.modal').on('hidden.bs.modal', function (e) { 
+		    $(this).find('form')[0].reset() 
+		});
 	})
 </script>

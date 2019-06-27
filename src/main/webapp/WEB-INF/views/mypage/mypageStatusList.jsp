@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
     
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -23,7 +25,7 @@
 			<div class="col-md-3">
 				<div class="box box-primary">
 					<div class="box-header">
-						<h3 class="box-title">조건 검색</h3>
+						<h3 class="box-title">조건 검색</h3>						
 						<br>
 					</div>
 						<form id="availableStatusList" method="get" action="/mypage/mypageStatusDetail">
@@ -57,7 +59,9 @@
 			<div class="col-xs-12">
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table id="example1" class="table table-bordered table-striped">
+					<input type="button" onClick="location.href='/mypage/mypageStatusList'"
+							class="btn btn-primary" value="검색 초기화" style="float: right;" /> 
+						<table id="example1" class="table table-bordered table-hover">
 							
 							<thead>
 								<tr>
@@ -103,7 +107,8 @@
 															</div>
 													<div class="modal-body">
 														<p><strong>예약 신청 정보</strong></p>
-														<p>회의 일정 : ${mypage.startDate} ~ ${mypage.endDate} (예약 신청일 : ${mypage.reserveDate})</p>
+														<p>예약 신청일 : ${mypage.reserveDate}</p>
+														<p>회의 일정 : <fmt:formatDate value="${mypage.startDate }" pattern="yyyy-MM-dd HH:mm"/> ~ <fmt:formatDate value="${mypage.endDate }" pattern="yyyy-MM-dd HH:mm"/>  
 														<p>회의 장소 : ${mypage.buildName} ${mypage.roomName}</p>
 														<p>회의명 및 목적 : ${mypage.title} / ${mypage.purpose}</p>
 														<p>참석자 : ${mypage.empCount}명</p>
@@ -201,18 +206,34 @@
 				</section>
 			</div>
  
-
 <script>
+
 	$(function() {
 		/** DatePicker **/
 		$('#reservationtime').daterangepicker({
 			timePicker : false,
 			format : 'YYYY/MM/DD',
 			locale: {format : 'YYYY/MM/DD'},
-	      	startDate: moment().add(0, 'year'),
-	      	endDate: moment().add(0, 'year')     	
-		})
+	      	startDate: moment().startOf('day').format('YYYY-MM-DD'),
+	      	endDate: moment().endOf('day').format('YYYY-MM-DD')
+		});
 	})
+
+</script>
+
+<script>
+<!-- 
+	$(function() {
+		/** DatePicker **/
+		$('#reservationtime').daterangepicker({
+			timePicker : false,
+			format : 'YYYY/MM/DD',
+			locale: {format : 'YYYY/MM/DD'},
+	      	startDate: moment().add(0, 'day'),
+	      	endDate: moment().add(0, 'day')     	
+		});
+	})
+	-->
 </script>
 
 <script>

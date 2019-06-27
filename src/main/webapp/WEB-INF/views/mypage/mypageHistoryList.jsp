@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -55,11 +57,12 @@
 			<div class="col-xs-12">
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table id="example1" class="table table-bordered table-striped">
+					<input type="button" onClick="location.href='/mypage/mypageHistoryList'"
+							class="btn btn-primary" value="검색 초기화" style="float: right;" />
+						<table id="example1" class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th class = "">예약 시작일</th>
-									<th class = "">예약 종료일</th>
+									<th class = "">예약일</th>
 									<th class = "">회의 구분</th>
 									<th class = "">회의명</th>
 									<th class = "">비고</th>
@@ -70,7 +73,6 @@
 							<c:forEach var="MypageDTO" items="${mypageHistoryList}">
 								<tr>
 									<td>${MypageDTO.startDate}</td>
-									<td>${MypageDTO.endDate}</td>
 									<td>${MypageDTO.category}</td>
 									<td>${MypageDTO.title}</td>
 									<td>
@@ -91,7 +93,8 @@
 															</div>
 													<div class="modal-body">
 														<p><strong>예약 신청 내역</strong></p>
-														<p>회의 일정 : ${MypageDTO.startDate} ~ ${MypageDTO.endDate} (예약 신청일 : ${MypageDTO.reserveDate})</p>
+														<p>예약 신청일 : ${MypageDTO.reserveDate}</p>
+														<p>회의 일정 : <fmt:formatDate value="${MypageDTO.startDate }" pattern="yyyy-MM-dd HH:mm"/> ~ <fmt:formatDate value="${MypageDTO.endDate }" pattern="yyyy-MM-dd HH:mm"/>
 														<p>회의 장소 : ${MypageDTO.buildName} ${MypageDTO.roomName}</p>
 														<p>회의명 및 목적 : ${MypageDTO.title} / ${MypageDTO.purpose}</p>
 														<p>참석자 : ${MypageDTO.empName} 외 ${MypageDTO.empCount-1}명</p>
