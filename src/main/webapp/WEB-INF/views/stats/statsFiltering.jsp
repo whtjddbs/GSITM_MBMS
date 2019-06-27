@@ -48,9 +48,10 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>근무지명</label> <select name="buildingSelect" class="form-control">
-								<option value="전체" selected="selected">전체</option>
+								<option value="전체">전체</option>
 								<c:forEach var="buildingDTO" items="${buildingList}">
-									<option value="${buildingDTO.buildName}">${buildingDTO.buildName}</option>
+									<option value="${buildingDTO.buildName}"   ${buildingDTO.buildName == param.buildingSelect ? 'selected="selected"'  :   '' }>${buildingDTO.buildName}</option>
+
 								</c:forEach>
 							</select>
 						</div>
@@ -65,9 +66,9 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>부서명</label> <select name="deptSelect" class="form-control">
-								<option value="전체" selected="selected">전체</option>
+								<option value="전체" >전체</option>
 								<c:forEach var="departmentDTO" items="${departmentList}">
-									<option value="${departmentDTO.deptName}">${departmentDTO.deptName}</option>
+									<option value="${departmentDTO.deptName}"   ${departmentDTO.deptName == param.deptSelect ? 'selected="selected"'  :   '' } >${departmentDTO.deptName}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -75,9 +76,9 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>회의실구분</label> <select name="roomTypeSelect" class="form-control">
-								<option value="전체" selected="selected">전체</option>
+								<option value="전체">전체</option>
 								<c:forEach var="roomtype" items="${roomTypes}">
-									<option value="${roomtype}">${roomtype}</option>
+									<option value="${roomtype}"  ${roomtype == param.roomTypeSelect ? 'selected="selected"'  :   '' } >${roomtype}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -89,7 +90,7 @@
 						
 						<!-- Date and time range -->
 						<div class="form-group">
-							<label>검색 날짜 (시작 - 끝)</label>
+							<label>검색 범위 (하루라도 포함되면 리스트로 출력)</label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-clock-o"></i>
@@ -184,10 +185,10 @@
 												<td class = "mobileDisabled">${histDTO.endDate}</td>
 												<td>${histDTO.title}</td>
 												<td>
-													<c:if test='${histDTO.approval2Yn==1}'>최종승인됨</c:if>
-													<c:if test='${histDTO.approval1Yn==1 && histDTO.approval2Yn==0}'>1차승인</c:if>
-													<c:if test='${histDTO.approval1Yn==0 && histDTO.reason==null}'>미승인</c:if>
-													<c:if test='${histDTO.reason!=null}'> 반려</c:if>
+													<c:if test='${histDTO.approval2Yn==1}'><span style="color: #00a7d0;">최종승인</span></c:if>
+													<c:if test='${histDTO.approval1Yn==1 && histDTO.approval2Yn==0}'><span style="color: #008d4c  ;">1차승인</span></c:if>
+													<c:if test='${histDTO.approval1Yn==0 && histDTO.reason==null}'><span style="color: #db8b0b ;">미승인</span></c:if>
+													<c:if test='${histDTO.reason!=null}'><span style="color: #d33724;">반려</span></c:if>
 												</td>
 											
 										</tr>
@@ -532,14 +533,28 @@ var barChartData = {
 <script>
 	$(function() {
 
+
+		//파라미터로 전에 선택한 필터링 날짜 가져오기
+		var timeSelectParam = "${param.timeSelect}";
+		timeSelectParam = timeSelectParam.replace(/(\s*)/g,"");
+		var startDateStr = timeSelectParam.split('-')[0];
+		var endDateStr = timeSelectParam.split('-')[1];
+
+		//파라미터 없으면 1년전~오늘
+		if(timeSelectParam=="") {
+			startDateStr= moment().add(-1, 'year');
+			endDateStr= moment().add(0, 'year');
+		};
+		
+		
 		/** DatePicker **/
 		//Date range picker with time picker
 		$('#reservationtime').daterangepicker({
 			timePicker : false,
 			format : 'YYYY/MM/DD',
 			locale: {format : 'YYYY/MM/DD'},
-	      	startDate: moment().add(-1, 'year'),
-	      	endDate: moment().add(0, 'year')
+			startDate: startDateStr,
+	      	endDate: endDateStr
 	      	
 		})
 		
@@ -550,11 +565,11 @@ var barChartData = {
 <script>
 	$(function() {
 		$('#example1').DataTable({
-			'paging' : false,
-			'lengthChange' : false,
-			'searching' : false,
+			'paging' : true,
+			'lengthChange' : true,
+			'searching' : true,
 			'ordering' : true,
-			'info' : false,
+			'info' : true,
 			'autoWidth' : true,
 			"order": [[ 4, "desc" ]]
 		})
