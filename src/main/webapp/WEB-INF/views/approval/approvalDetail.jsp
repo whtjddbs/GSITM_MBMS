@@ -161,10 +161,16 @@
 							<button type="button" data-toggle="modal" data-target="#approval-modal" class="btn btn-primary">승인</button>
 							<button type="button" data-toggle="modal" data-target="#refuse-modal" class="btn btn-danger">반려</button>
 						</c:if>
-						<a type="button" class="btn btn-default" href="/approval/approvalList">
-							<c:if test="${isAdmin || isApprover}">목록</c:if>
-							<c:if test="${!(isAdmin || isApprover)}">확인</c:if>
-						</a>
+						<c:if test="${isAdmin || isApprover}">
+							<a type="button" class="btn btn-default" href="/approval/approvalList">
+								목록
+							</a>
+						</c:if>
+						<c:if test="${!(isAdmin || isApprover)}">
+							<a type="button" class="btn btn-default" href="/mypage/mypageStatusList">
+								확인
+							</a>
+						</c:if>
 					</div>
                     </div>
                   </div>

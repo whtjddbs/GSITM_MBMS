@@ -76,7 +76,7 @@
 									<td>${MypageDTO.category}</td>
 									<td>${MypageDTO.title}</td>
 									<td>
-										<button type="button" class="btn btn-default btn-sm" data-toggle="modal" 
+										<button type="button" class="btn btn-default btn-sm" onclick="location.href='/approval/approvalDetail/${MypageDTO.reserveNo}'"
 							          	data-target="#modal-default_${MypageDTO.reserveNo}">상세 예약 정보</button>
 									
 										<div class="modal fade" id="modal-default_${MypageDTO.reserveNo}">
