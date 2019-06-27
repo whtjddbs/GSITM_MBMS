@@ -101,14 +101,16 @@ public class RoomController {
 			System.out.println(dto.getRoomImg());
 			roomService.roomInsert(dto);
 			
-			StringTokenizer nameToken = new StringTokenizer(eqNameList, ",");
-			StringTokenizer countToken = new StringTokenizer(eqCountList, ",");
+			if(eqNameList!=null) {
+				StringTokenizer nameToken = new StringTokenizer(eqNameList, ",");
+				StringTokenizer countToken = new StringTokenizer(eqCountList, ",");
+				
+				 while(nameToken.hasMoreTokens()) {	 
+					 EquipmentDTO equipmentDTO = new EquipmentDTO(dto.getRoomNo(),0, nameToken.nextToken(),Integer.parseInt(countToken.nextToken()));
+					 equipmentService.equipmentInsert(equipmentDTO);
+				 }
+			}
 			
-			 while(nameToken.hasMoreTokens()) {	 
-				 EquipmentDTO equipmentDTO = new EquipmentDTO(dto.getRoomNo(),0, nameToken.nextToken(),Integer.parseInt(countToken.nextToken()));
-				 equipmentService.equipmentInsert(equipmentDTO);
-			 }
-		
 			return "redirect:/room/roomManageList?type=insert";	
 		}
 		

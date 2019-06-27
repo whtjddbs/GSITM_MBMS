@@ -123,8 +123,8 @@
 						<div class="form-group" align=center>
 							<input type="button" class="btn btn-default" data-dismiss="modal"
 								value="닫기" /> <input type="reset" class='btn btn-danger'
-								value="등록취소"> <input type="submit"
-								class='btn btn-success' value="등록완료">
+								value="다시쓰기"> <input type="submit"
+								class='btn btn-success' value="완료">
 						</div>
 					</form>
 
