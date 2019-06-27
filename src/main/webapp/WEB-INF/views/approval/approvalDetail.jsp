@@ -18,7 +18,10 @@
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="content-header">
-      <h1>회의실 예약 결재</h1>
+      <h1>회의실 예약 
+      <c:if test="${isAdmin || isApprover}">결재</c:if>
+      <c:if test="${!isAdmin && !isApprover}">확인</c:if>
+      </h1>
       <ol class="breadcrumb">
          <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
          <li><a href="#">DEPARTMENT HEAD</a></li>
@@ -158,7 +161,10 @@
 							<button type="button" data-toggle="modal" data-target="#approval-modal" class="btn btn-primary">승인</button>
 							<button type="button" data-toggle="modal" data-target="#refuse-modal" class="btn btn-danger">반려</button>
 						</c:if>
-						<a type="button" class="btn btn-default" href="/approval/approvalList">취소</a>
+						<a type="button" class="btn btn-default" href="/approval/approvalList">
+							<c:if test="${isAdmin || isApprover}">목록</c:if>
+							<c:if test="${!(isAdmin || isApprover)}">확인</c:if>
+						</a>
 					</div>
                     </div>
                   </div>
@@ -235,7 +241,7 @@
 	
 	$(function(){
 		$('#approvalBtn').on('click', function(){
-			
+			$('#approval-modal').modal('hide');
 			$.ajax({
                 url : "/approval/approval",
                 type : "POST",
@@ -250,7 +256,7 @@
 		});
 		
 		$('#refuseBtn').on('click', function(){
-			
+			$('#refuse-modal').modal('hide');
 			$.ajax({
                 url : "/approval/refuse",
                 type : "POST",

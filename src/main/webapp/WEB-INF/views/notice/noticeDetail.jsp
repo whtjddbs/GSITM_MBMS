@@ -4,12 +4,13 @@
 <style>
 figure img {max-width:600px; height:auto;}
 
-.btn_del_upd {display: inline-block;}
+	.btn_del_upd {display: inline-block;}
+	
+	.mailbox-read-message{
+		min-height:150px;
+	}
 
-.mailbox-read-message{
 
-	min-height:150px;
-}
 
 </style>
 
@@ -146,6 +147,7 @@ figure img {max-width:600px; height:auto;}
               </div><!-- 
                 <button type="button" class="btn btn-default"><i class="fa fa-reply"></i> 답글 달기(구현?)</button>
                 <button type="button" class="btn btn-default"><i class="fa fa-share"></i> 공유(구현?)</button> -->
+            <button type="button"onclick="location.href='noticeList' " class="btn btn-default"><i class="fa fa-bars"></i> 목록</button>
             </div>
             <!-- /.box-footer -->
           </div>

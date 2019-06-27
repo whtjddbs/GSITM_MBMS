@@ -16,7 +16,7 @@ public class UploadFileUtils {
 			throws Exception {
 
 		UUID uid = UUID.randomUUID();
-
+		
 		String newFileName = uid + "_" + fileName;
 		String imgPath = uploadPath + ymdPath;
 
@@ -44,7 +44,13 @@ public class UploadFileUtils {
 	}
 
 	private static void makeDir(String uploadPath, String... paths) {
-
+		// 폴더 유무 체크
+		File folder = new File(uploadPath);
+		if (!folder.exists()) {
+			folder.mkdir(); //폴더 생성합니다.
+		    System.out.println("폴더가 생성되었습니다.");
+		}
+		
 		if (new File(paths[paths.length - 1]).exists()) {
 			return;
 		}

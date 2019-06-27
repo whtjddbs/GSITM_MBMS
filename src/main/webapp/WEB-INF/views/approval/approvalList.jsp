@@ -99,7 +99,7 @@
 			'ordering' : true,
 			'info' : true,
 			'autoWidth' : true,
-			'order' : [ [ 1, "desc" ] ],
+			'order' : [ [ 0, "desc" ] ],
 			"destroy": true,
 			"pagingType" : "full_numbers"
 		};

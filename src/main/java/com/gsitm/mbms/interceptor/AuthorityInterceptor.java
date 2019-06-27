@@ -19,15 +19,13 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		boolean isAdmin = (boolean) session.getAttribute("isAdmin");
+		boolean isAdmin = session.getAttribute("isAdmin")==null ? false : (boolean)session.getAttribute("isAdmin");
 		
-
 		// 운영자 아닐때 권한에러 출력
-		if (isAdmin == false) {     
+		if (!isAdmin) {     
 			response.sendRedirect("/error/errorAuthority");
 			return false;
 		}
-		
 
 		return true;
 	}

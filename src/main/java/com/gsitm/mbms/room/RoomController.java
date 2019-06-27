@@ -86,6 +86,8 @@ public class RoomController {
 	//Room 등록
 		@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
 		public String roomInsert(RoomDTO dto, String eqNameList,String eqCountList,MultipartFile file, HttpServletRequest request) throws Exception {
+			
+			System.out.println(dto+"---------------------------");
 			logger.info("Room Insert Action!");
 			String imgpUploadPath = request.getSession().getServletContext().getRealPath("/resources/") + File.separator + "imgUpload";
 			String ymdPath = UploadFileUtils.calcPath(imgpUploadPath);
