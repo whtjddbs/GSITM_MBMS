@@ -120,7 +120,7 @@ public class RoomController {
 		public ModelAndView getEmployeeList(Model model) {
 			
 			List<Map<String, Object>> employees = eDao.getEmployeeList();
-
+			System.out.println(employees);
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("employees",employees);
 			mav.setViewName("jsonView");
