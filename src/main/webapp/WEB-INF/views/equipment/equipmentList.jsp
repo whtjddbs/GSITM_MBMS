@@ -7,6 +7,10 @@
 		display: inline-block;
    		width: 100%;
 	}
+	@media (max-width: 768px) { 
+		.mobileDisabled{display:none;}
+		.bt_col { width: 20%; }
+	}
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -25,6 +29,11 @@
 				<div class="box">
 					<div class="box-header">
 						<h3 class="box-title">비품 목록</h3>
+						<div class="pull-right box-tools">
+						<input type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#modal-default_eqInsert"
+										value="비품등록하기" />
+							</div>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
@@ -60,8 +69,8 @@
 									<th>비품이름</th>
 									<th>갯수</th>
 									<th>회의실이름</th>
-									<th>지사이름</th>
-									<th>비고</th>
+									<th class="mobileDisabled">지사이름</th>
+									<th class="bt_col">비고</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -70,9 +79,9 @@
 										<td>${equipment.EQNAME }</td>
 										<td>${equipment.EQCOUNT }</td>
 										<td>${equipment.ROOMNAME }</td>
-										<td>${equipment.BUILDNAME }</td>
+										<td class="mobileDisabled">${equipment.BUILDNAME }</td>
 										
-										<td><input type="button" class="btn btn-default btn-sm"
+										<td class="bt_col"><input type="button" class="btn btn-default btn-sm"
 											data-toggle="modal"
 											data-target="#modal-warning_${equipment.EQNO}" value="수정하기">
 
@@ -163,14 +172,9 @@
 									</div>
 									<!-- /.modal -->
 								</c:forEach>
+								
 							</tbody>
-							<tfoot>
-								<tr>
-									<th colspan=4></th>
-									<th><input type="button" class="btn btn-primary"
-										data-toggle="modal" data-target="#modal-default_eqInsert"
-										value="비품등록하기" /></th>
-								</tr>
+							
 						</table>
 						<jsp:include page="../modal/Modal.jsp"></jsp:include>
 						

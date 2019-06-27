@@ -49,16 +49,19 @@
 											name="roomNumEmp" required>
 									</div>
 
-									<label>회의실 담당자</label>
 									<div class="col-xs-6">
-										<div class="col-xs-8">
+										<label>회의실 담당자</label>
+									<div class="input-group">
+										
 											<input type="text" class="form-control" name="mgrEmpNo"
 												id="mgrEmpNo" required readonly>
-										</div>
-
-										<div class="col-xs-1">
-											<input type="button" class='btn btn-default' value="담당자 찾기"
+												<span class="input-group-btn">
+											<input type="button" class='btn btn-default' value="찾기"
 												id="findEmpBtn" >
+												</span>
+										</div>
+										<div class="col-xs-1">
+											
 										</div>
 									</div>
 									<div class="col-sm-6">

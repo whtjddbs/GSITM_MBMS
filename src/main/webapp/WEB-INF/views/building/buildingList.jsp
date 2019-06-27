@@ -5,6 +5,11 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
 	src="../../../resources/dist/js/postSearch.js"></script>
+<style>
+	@media (max-width: 768px) { 
+		.mobileDisabled{display:none;}
+	}
+</style>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -24,6 +29,11 @@
 				<div class="box">
 					<div class="box-header">
 						<h3 class="box-title">근무지 목록</h3>
+						<div class="pull-right box-tools">
+	                 		<input type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#modal-default_buildInsert"
+										value="근무지등록하기" />
+	                	</div>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
@@ -31,20 +41,20 @@
 							class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th>건물번호</th>
+									<th class="mobileDisabled">건물번호</th>
 									<th>건물이름</th>
 									<th>주소</th>
-									<th>우편번호</th>
+									<th class="mobileDisabled">우편번호</th>
 									<th>비고</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${list }" var="building">
 									<tr>
-										<td>${building.buildNo }</td>
+										<td class="mobileDisabled">${building.buildNo }</td>
 										<td>${building.buildName }</td>
 										<td>${building.buildAddr }</td>
-										<td>${building.buildPost }</td>
+										<td class="mobileDisabled">${building.buildPost }</td>
 										<td>
 											<button type="button" class="btn btn-default btn-sm"
 												data-toggle="modal"
@@ -193,14 +203,7 @@
 									<!-- /.modal -->
 								</c:forEach>
 							</tbody>
-							<tfoot>
-								<tr>
-									<th colspan=4></th>
-									<th><input type="button" class="btn btn-primary"
-										data-toggle="modal" data-target="#modal-default_buildInsert"
-										value="근무지등록하기" /></th>
-								</tr>
-							</tfoot>
+							
 						</table>
 						<jsp:include page="../modal/Modal.jsp"></jsp:include>
 					</div>
@@ -222,7 +225,7 @@
 		$('#example1').DataTable()
 		$('#buildingListTable').DataTable({
 			'paging' : true,
-			'lengthChange' : false,
+			'lengthChange' : true,
 			'searching' : true,
 			'ordering' : true,
 			'info' : true,
