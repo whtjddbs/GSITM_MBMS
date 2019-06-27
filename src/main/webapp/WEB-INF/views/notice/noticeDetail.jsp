@@ -4,12 +4,13 @@
 <style>
 figure img {max-width:600px; height:auto;}
 
-.btn_del_upd {display: inline-block;}
+	.btn_del_upd {display: inline-block;}
+	
+	.mailbox-read-message{
+		min-height:150px;
+	}
 
-.mailbox-read-message{
 
-	min-height:150px;
-}
 
 </style>
 

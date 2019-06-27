@@ -3,13 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-	.notice_col1 { width: 8%; }
+	/* .notice_col1 { width: 10%; }
 	.notice_col2 { width: 10%; }
-	.notice_col3 { width: 10%; }
-	.notice_col4 { width: 50%; }
-	.notice_col5 { width: 20%; }
+	.notice_col3 { width: 10%; } 
+	.notice_col4 { width: 50%; } 
+	.notice_col5 { width: 10%; } */
 
-
+	@media (max-width: 768px) { 
+		.mobileDisabled{
+			display:none;
+		}
+	}
 </style>
 
 <!-- 아래 테이블 내림차순 정렬하는 자바스크립트 -->
@@ -96,8 +100,8 @@
 							<thead>
 							
 								<tr>
-									<th class = "notice_col1">번호</th>
-									<th class = "notice_col2">사번</th>
+									<th class = "notice_col1 mobileDisabled">번호</th>
+									<th class = "notice_col2 mobileDisabled">사번</th>
 									<th class = "notice_col3">작성자</th>
 									<th class = "notice_col4">제목</th>
 									<th class = "notice_col5">작성일</th>
@@ -109,8 +113,8 @@
 									<tr>
 										
 										
-											<td>${noticeDTO.noticeNo}</td>
-											<td>${noticeDTO.writerEmpNo}</td>
+											<td class="mobileDisabled">${noticeDTO.noticeNo}</td>
+											<td class="mobileDisabled">${noticeDTO.writerEmpNo}</td>
 											<td>${noticeDTO.writerEmpName} ${noticeDTO.writerEmpPosition}</td>
 											<td><a href='noticeDetail?noticeNo=${noticeDTO.noticeNo}'>${noticeDTO.noticeSubject}</a></td>
 											<td>${noticeDTO.noticeDate}</td>
