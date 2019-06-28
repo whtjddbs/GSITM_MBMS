@@ -90,7 +90,7 @@
                      <table id="approvalDetailTable" class="table table-bordered text-center">
                         <tr>
                            <th>회의실명</th>
-                           <td>${approvalDTO.roomDTO.buildingDTO.buildName } ${approvalDTO.roomDTO.roomFloor } ${approvalDTO.roomDTO.roomName }</td>
+                           <td>${approvalDTO.roomDTO.buildingDTO.buildName } ${approvalDTO.roomDTO.roomFloor }층 ${approvalDTO.roomDTO.roomName }</td>
                         </tr>
                         <tr>
                            <th>회의 구분</th>

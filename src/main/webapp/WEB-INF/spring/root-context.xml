@@ -59,28 +59,21 @@
 	<!-- Task 어노테이션 사용을 위한 설정 -->
 	<task:annotation-driven/>
 	
-	<!-- 첨부파일용(민기) -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	</bean>
-	<bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	    <property name="maxUploadSize" value="10000000"/>
-	</bean>
-	
 	<!-- 성윤: email -->
-	<bean id="javaMailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
-      <property name="host" value="smtp.naver.com" />
-      <property name="port" value="587" />
-      <property name="username" value="jayjoy77@naver.com" />
-      <property name="password" value="whtjddbs1" />
-      <property name="javaMailProperties">
-         <props>
-               <prop key="mail.transport.protocol">smtp</prop>
-               <prop key="mail.smtp.auth">true</prop>
-               <prop key="mail.smtp.starttls.enable">true</prop>
-               <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
-               <prop key="mail.debug">true</prop>
-         </props>
-      </property> 
-   </bean>
+<!-- 	<bean id="javaMailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl"> -->
+<!--       <property name="host" value="smtp.naver.com" /> -->
+<!--       <property name="port" value="587" /> -->
+<!--       <property name="username" value="jayjoy77@naver.com" /> -->
+<!--       <property name="password" value="whtjddbs1" /> -->
+<!--       <property name="javaMailProperties"> -->
+<!--          <props> -->
+<!--                <prop key="mail.transport.protocol">smtp</prop> -->
+<!--                <prop key="mail.smtp.auth">true</prop> -->
+<!--                <prop key="mail.smtp.starttls.enable">true</prop> -->
+<!--                <prop key="mail.smtp.ssl.trust">smtp.naver.com</prop> -->
+<!--                <prop key="mail.debug">true</prop> -->
+<!--          </props> -->
+<!--       </property>  -->
+<!--    </bean> -->
 		
 </beans>

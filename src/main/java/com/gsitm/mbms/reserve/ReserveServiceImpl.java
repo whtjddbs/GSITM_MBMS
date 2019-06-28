@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gsitm.mbms.approval.ApprovalDAO;
+import com.gsitm.mbms.approval.ApprovalDTO;
 import com.gsitm.mbms.employee.EmployeeDAO;
 import com.gsitm.mbms.employee.EmployeeDTO;
 import com.gsitm.mbms.room.RoomDAO;
@@ -32,6 +34,8 @@ public class ReserveServiceImpl implements ReserveService {
 	private EmployeeDAO employeeDAO;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private ApprovalDAO approvalDAO;
 	
 	@Override
 	public List<RoomDTO> selectAllRoom() {
@@ -108,15 +112,21 @@ public class ReserveServiceImpl implements ReserveService {
 		if(reserveHistory.getCompetentDepartmentList()!=null && reserveHistory.getCompetentDepartmentList().size() > 0)
 			reserveDAO.insertCompetentDepartmentList(reserveHistory.getCompetentDepartmentList());
 		
+		int reserveNo = reserveDAO.getNowReserveNo();
+		reserveHistory.setReserveNo(reserveNo);
 		
 		// 메일 전송
 		if(reserveType.isLongTerm()) {
 			mailService.send("회의실 예약 승인 요청", approval1Emp.getEmpEmail(), reserveHistory, roomDTO, "위 회의실 예약건에 대한 승인을 요청합니다.");
 		} else {
 			String to = approval1Emp.getEmpEmail()+","+reserveEmp.getEmpEmail();
+			List<EmployeeDTO> members = approvalDAO.selectMeetingMemberList(reserveNo);
+			for(EmployeeDTO member : members) {
+				to += ","+member.getEmpEmail();
+			}
 			mailService.send("회의실 예약 완료", to, reserveHistory, roomDTO, "회의실 예약이 완료되었습니다.");
 		}
-		return reserveDAO.getNowReserveNo();
+		return reserveNo;
 	}
 	
 	// 예약시간 계산

@@ -285,8 +285,8 @@ public class MailServiceImpl implements MailService {
 
 	      String host = "smtp.naver.com";
 	      int port = 587;
-	      final String username = "a_spree@naver.com";
-	      final String password = "dhwlddj23";
+	      final String username = "jayjoy77@naver.com";
+	      final String password = "whtjddbs1";
 	      
 	      // String recipient = empNo;
 	      String content = getMailTemplate(reserveHistory,roomDTO,comment);
@@ -334,8 +334,8 @@ public class MailServiceImpl implements MailService {
 
 	      String host = "smtp.naver.com";
 	      int port = 587;
-	      final String username = "a_spree@naver.com";
-	      final String password = "dhwlddj23";
+	      final String username = "jayjoy77@naver.com";
+	      final String password = "whtjddbs1";
 	      
 	      // String recipient = empNo;
 	      String content = getMailTemplate(reserve, comment);
