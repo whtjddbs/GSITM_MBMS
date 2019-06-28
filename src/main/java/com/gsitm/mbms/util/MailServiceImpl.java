@@ -1,14 +1,21 @@
 package com.gsitm.mbms.util;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -25,57 +32,57 @@ import com.gsitm.mbms.room.RoomDTO;
 @Service
 public class MailServiceImpl implements MailService {
 	
-	private final JavaMailSender javaMailSender;
+//	private final JavaMailSender javaMailSender;
 	
 	@Autowired
 	private ApprovalDAO approvalDAO;
 
-	@Autowired
-	public MailServiceImpl(JavaMailSender javaMailSender) {
-		this.javaMailSender = javaMailSender;
-	}
+//	@Autowired
+//	public MailServiceImpl(JavaMailSender javaMailSender) {
+//		this.javaMailSender = javaMailSender;
+//	}
 
-	@Override
-	public boolean send(String subject, String to, ApprovalDTO reserve, String comment) {
-		MimeMessage msg = javaMailSender.createMimeMessage();
-		String text = getMailTemplate(reserve, comment);
-		
-		try {
-			msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-			
-			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
-			helper.setSubject(subject);
-			helper.setText(text, true);
-			helper.setFrom("jayjoy77@naver.com");
-
-			javaMailSender.send(msg);
-			return true;
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
-	@Override
-	public boolean send(String subject, String to, ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment) {
-		MimeMessage msg = javaMailSender.createMimeMessage();
-		String text = getMailTemplate(reserveHistory,roomDTO,comment);
-		
-		try {
-			msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-			
-			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
-			helper.setSubject(subject);
-			helper.setText(text, true);
-			helper.setFrom("jayjoy77@naver.com");
-
-			javaMailSender.send(msg);
-			return true;
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+//	@Override
+//	public boolean send(String subject, String to, ApprovalDTO reserve, String comment) {
+//		MimeMessage msg = javaMailSender.createMimeMessage();
+//		String text = getMailTemplate(reserve, comment);
+//		
+//		try {
+//			msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+//			
+//			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
+//			helper.setSubject(subject);
+//			helper.setText(text, true);
+//			helper.setFrom("jayjoy77@naver.com");
+//
+//			javaMailSender.send(msg);
+//			return true;
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//		}
+//		return false;
+//	}
+//	
+//	@Override
+//	public boolean send(String subject, String to, ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment) {
+//		MimeMessage msg = javaMailSender.createMimeMessage();
+//		String text = getMailTemplate(reserveHistory,roomDTO,comment);
+//		
+//		try {
+//			msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+//			
+//			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
+//			helper.setSubject(subject);
+//			helper.setText(text, true);
+//			helper.setFrom("jayjoy77@naver.com");
+//
+//			javaMailSender.send(msg);
+//			return true;
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//		}
+//		return false;
+//	}
 	
 	public String getMailTemplate(ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment) {
 	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -269,23 +276,107 @@ public class MailServiceImpl implements MailService {
 				this.send("예약된 회의 임박 알림", email, approvalDAO.selectOneApprovalInfo(reserveNo), "잊지말고 참석부탁드립니다.");
 			}
 		}
-//		List<ApprovalDTO> approvalList = approvalDAO.selectImminentReserveList(nextTime);
-//		System.out.println(approvalList);
-//		for(ApprovalDTO approval : approvalList) {
-//			System.out.println(approval);
-//			String email = "";
-//			List<EmployeeDTO> attendants = approvalDAO.selectMeetingMemberList(approval.getReserveNo());
-//			for (EmployeeDTO employeeDTO : attendants) {
-//				email += employeeDTO.getEmpEmail()+",";
-//			}
-//			
-//			if(email.length() > 0) {
-//				email = email.substring(0, email.length()-1);
-//				this.send("예약된 회의 임박 알림", email, approval, "잊지말고 참석부탁드립니다.");
-//			}
-//		}
+
 		System.out.println("========= END =========");
 		return false;
+	}
+	
+	public boolean send(String title, String email, ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment) {
+
+	      String host = "smtp.naver.com";
+	      int port = 587;
+	      final String username = "a_spree@naver.com";
+	      final String password = "dhwlddj23";
+	      
+	      // String recipient = empNo;
+	      String content = getMailTemplate(reserveHistory,roomDTO,comment);
+	      
+	      // 정보를 담기 위한 객체 생성
+	      Properties props = System.getProperties();
+	      
+	      // SMTP 서버 정보 설정
+	      props.put("mail.smtp.host", host);
+	      props.put("mail.smtp.port", port);
+	      props.put("mail.transport.protocol", "smtp");
+	      props.put("mail.smtp.auth", "true");
+	      props.put("mail.smtp.starttls.enable", "true");
+	      props.put("mail.smtp.ssl.trust", host);
+	      
+	      Session session = Session.getDefaultInstance(props, new Authenticator() {
+	         String un = username;
+	         String pw = password;
+	
+	         protected PasswordAuthentication getPasswordAuthentication() {
+	            return new javax.mail.PasswordAuthentication(un, pw);
+	         }
+	      });
+	
+	      session.setDebug(true);
+	      
+	      Message mimeMessage = new MimeMessage(session);
+	      
+	      try {
+	         mimeMessage.setFrom(new InternetAddress(username));      
+	         mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+	         mimeMessage.setSubject(MimeUtility.encodeText(title, "UTF-8", "B"));
+	         mimeMessage.setContent(content, "text/html; charset=utf-8");
+	         Transport.send(mimeMessage);
+	      } catch (MessagingException e) {
+	         e.printStackTrace();
+	      } catch (UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      }
+	
+	      return true;
+   }
+	
+	public boolean send(String title, String email, ApprovalDTO reserve, String comment) {
+
+	      String host = "smtp.naver.com";
+	      int port = 587;
+	      final String username = "a_spree@naver.com";
+	      final String password = "dhwlddj23";
+	      
+	      // String recipient = empNo;
+	      String content = getMailTemplate(reserve, comment);
+	      
+	      // 정보를 담기 위한 객체 생성
+	      Properties props = System.getProperties();
+	      
+	      // SMTP 서버 정보 설정
+	      props.put("mail.smtp.host", host);
+	      props.put("mail.smtp.port", port);
+	      props.put("mail.transport.protocol", "smtp");
+	      props.put("mail.smtp.auth", "true");
+	      props.put("mail.smtp.starttls.enable", "true");
+	      props.put("mail.smtp.ssl.trust", host);
+	      
+	      Session session = Session.getDefaultInstance(props, new Authenticator() {
+	         String un = username;
+	         String pw = password;
+	
+	         protected PasswordAuthentication getPasswordAuthentication() {
+	            return new javax.mail.PasswordAuthentication(un, pw);
+	         }
+	      });
+	
+	      session.setDebug(true);
+	      
+	      Message mimeMessage = new MimeMessage(session);
+	      
+	      try {
+	         mimeMessage.setFrom(new InternetAddress(username));      
+	         mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+	         mimeMessage.setSubject(MimeUtility.encodeText(title, "UTF-8", "B"));
+	         mimeMessage.setContent(content, "text/html; charset=utf-8");
+	         Transport.send(mimeMessage);
+	      } catch (MessagingException e) {
+	         e.printStackTrace();
+	      } catch (UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      }
+	
+	      return true;
 	}
 
 }

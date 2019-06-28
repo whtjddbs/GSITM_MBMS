@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gsitm.mbms.employee.EmployeeDTO;
-import com.gsitm.mbms.employee.LoginService;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @작성일 : 2019. 5. 28.
@@ -28,14 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/mypage")
-@Slf4j
 public class MypageController {
 	
 	@Inject
 	private MypageService mypageService;
 	
-	@Inject
-	private LoginService loginService;
 
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	

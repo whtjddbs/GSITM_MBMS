@@ -75,5 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectImminentReserveList2" parameterType="string" resultType="int">
 		SELECT reserve_no FROM reserve_history
 		WHERE TO_CHAR(start_date, 'yyyy/mm/dd hh24:mi') = #{nowTime}
+			AND approval1_yn = 1
+			AND approval2_yn = 1
 	</select>
 </mapper>

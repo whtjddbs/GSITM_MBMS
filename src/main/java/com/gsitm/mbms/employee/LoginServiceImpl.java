@@ -10,7 +10,6 @@ import com.gsitm.mbms.reserve.ReserveDAO;
 import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 import com.gsitm.mbms.room.RoomDAO;
 import com.gsitm.mbms.room.RoomDTO;
-import com.gsitm.mbms.stats.StatsDAO;
 
 /**
  * @주제 : 

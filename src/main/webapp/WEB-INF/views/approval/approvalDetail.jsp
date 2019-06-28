@@ -153,6 +153,10 @@
                            		</c:choose>
 							</td>
                         </tr>
+                        <tr>
+                        	<th>총 비용</th>
+                        	<td><fmt:formatNumber value="${approvalDTO.reservePrice }" pattern="#,### 원"></fmt:formatNumber></td>
+                        </tr>
 
                      </table>
 					<!-- 버튼 부분 -->

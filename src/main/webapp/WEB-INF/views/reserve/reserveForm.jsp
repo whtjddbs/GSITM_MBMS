@@ -611,7 +611,7 @@
 	            dataType : "json",
 	            success : function(data) {
 	            	swal("회의실 예약 요청이 완료되었습니다.").then((result) => {
-	        			location.href='/approval/approvalList';
+	        			location.href='/approval/approvalDetail/'+data.reserveNo;
 	        		});
 	            },
 	            error: function(request,status,error){
