@@ -20,6 +20,7 @@ import javax.mail.internet.MimeUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -281,7 +282,8 @@ public class MailServiceImpl implements MailService {
 		return false;
 	}
 	
-	public boolean send(String title, String email, ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment) {
+	@Async
+	public void send(String title, String email, ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment) {
 
 	      String host = "smtp.naver.com";
 	      int port = 587;
@@ -327,10 +329,10 @@ public class MailServiceImpl implements MailService {
 	         e.printStackTrace();
 	      }
 	
-	      return true;
    }
 	
-	public boolean send(String title, String email, ApprovalDTO reserve, String comment) {
+	@Async
+	public void send(String title, String email, ApprovalDTO reserve, String comment) {
 
 	      String host = "smtp.naver.com";
 	      int port = 587;
@@ -376,7 +378,6 @@ public class MailServiceImpl implements MailService {
 	         e.printStackTrace();
 	      }
 	
-	      return true;
 	}
 
 }

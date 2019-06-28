@@ -14,6 +14,7 @@
 	
 	th {background-color: #f9f9f9}
 </style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -260,7 +261,9 @@
                    reserveNo : '${approvalDTO.reserveNo}',
                    colName : '${approvalDTO.approval1Yn}'=='0' ? 'approval1' : 'approval2'
                 }, success : function(data) {
-                   location.href='/approval/approvalDetail/${approvalDTO.reserveNo}';
+                	swal("회의실 예약 요청이 승인되었습니다.").then((result) => {
+                		location.href='/approval/approvalDetail/${approvalDTO.reserveNo}';
+	        		});
                 }
              });
 		});
@@ -276,7 +279,9 @@
                    reason : $("#reason").val(),
                    colName : '${approvalDTO.approval1Yn}'=='0' ? 'approval1' : 'approval2'
                 }, success : function(data) {
-                   location.href='/approval/approvalDetail/${approvalDTO.reserveNo}';
+                	swal("회의실 예약 요청이 반려되었습니다.").then((result) => {
+	                   location.href='/approval/approvalDetail/${approvalDTO.reserveNo}';
+	        		});
                 }
              });
 		});
