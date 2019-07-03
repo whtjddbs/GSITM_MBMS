@@ -1,7 +1,5 @@
 package com.gsitm.mbms.employee;
 
-import com.gsitm.mbms.notice.NoticeDTO;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

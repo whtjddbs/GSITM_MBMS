@@ -1,7 +1,5 @@
 package com.gsitm.mbms.employee;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import java.util.Map;
 
 import javax.servlet.http.Cookie;

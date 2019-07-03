@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	.form-group {display: -webkit-box; height: auto;}
 	.form-control[readonly] {background: white;}
@@ -610,8 +610,9 @@
 	            contentType:'application/json;charset=utf-8',
 	            dataType : "json",
 	            success : function(data) {
-	            	alert('success');
-	            	location.href='/approval/approvalDetail/'+data.reserveNo;
+	            	swal("회의실 예약 요청이 완료되었습니다.").then((result) => {
+	        			location.href='/approval/approvalDetail/'+data.reserveNo;
+	        		});
 	            },
 	            error: function(request,status,error){
 	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

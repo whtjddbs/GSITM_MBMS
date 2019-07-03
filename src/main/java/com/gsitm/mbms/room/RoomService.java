@@ -3,8 +3,6 @@ package com.gsitm.mbms.room;
 import java.util.List;
 import java.util.Map;
 
-import com.gsitm.mbms.building.BuildingDTO;
-
 /**
  * @주제 : 
  * @작성일 : 2019. 5. 31.

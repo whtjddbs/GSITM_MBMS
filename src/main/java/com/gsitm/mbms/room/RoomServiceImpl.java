@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gsitm.mbms.building.BuildingDTO;
-
 /**
  * @주제 : 
  * @작성일 : 2019. 5. 31.

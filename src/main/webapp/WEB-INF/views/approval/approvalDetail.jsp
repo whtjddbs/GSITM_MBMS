@@ -14,6 +14,7 @@
 	
 	th {background-color: #f9f9f9}
 </style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -90,7 +91,7 @@
                      <table id="approvalDetailTable" class="table table-bordered text-center">
                         <tr>
                            <th>회의실명</th>
-                           <td>${approvalDTO.roomDTO.buildingDTO.buildName } ${approvalDTO.roomDTO.roomFloor } ${approvalDTO.roomDTO.roomName }</td>
+                           <td>${approvalDTO.roomDTO.buildingDTO.buildName } ${approvalDTO.roomDTO.roomFloor }층 ${approvalDTO.roomDTO.roomName }</td>
                         </tr>
                         <tr>
                            <th>회의 구분</th>
@@ -152,6 +153,10 @@
 									</c:otherwise>
                            		</c:choose>
 							</td>
+                        </tr>
+                        <tr>
+                        	<th>총 비용</th>
+                        	<td><fmt:formatNumber value="${approvalDTO.reservePrice }" pattern="#,### 원"></fmt:formatNumber></td>
                         </tr>
 
                      </table>
@@ -256,7 +261,9 @@
                    reserveNo : '${approvalDTO.reserveNo}',
                    colName : '${approvalDTO.approval1Yn}'=='0' ? 'approval1' : 'approval2'
                 }, success : function(data) {
-                   location.href='/approval/approvalDetail/${approvalDTO.reserveNo}';
+                	swal("회의실 예약 요청이 승인되었습니다.").then((result) => {
+                		location.href='/approval/approvalDetail/${approvalDTO.reserveNo}';
+	        		});
                 }
              });
 		});
@@ -272,7 +279,9 @@
                    reason : $("#reason").val(),
                    colName : '${approvalDTO.approval1Yn}'=='0' ? 'approval1' : 'approval2'
                 }, success : function(data) {
-                   location.href='/approval/approvalDetail/${approvalDTO.reserveNo}';
+                	swal("회의실 예약 요청이 반려되었습니다.").then((result) => {
+	                   location.href='/approval/approvalDetail/${approvalDTO.reserveNo}';
+	        		});
                 }
              });
 		});

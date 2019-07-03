@@ -3,7 +3,6 @@ package com.gsitm.mbms.notice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @주제 :
@@ -11,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
  * @작성자 : 송민기
  */
 
-@Slf4j
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

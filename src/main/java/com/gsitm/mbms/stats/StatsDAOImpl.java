@@ -9,7 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.gsitm.mbms.employee.DepartmentDTO;
-import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 
 /**
  * @주제 : 

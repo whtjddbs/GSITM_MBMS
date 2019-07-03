@@ -2,10 +2,6 @@ package com.gsitm.mbms.notice;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import org.springframework.stereotype.Service;
-
 /**
  * @주제 : 
  * @작성일 : 2019. 5. 16.

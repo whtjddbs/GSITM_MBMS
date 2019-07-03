@@ -5,8 +5,8 @@ import com.gsitm.mbms.reserve.ReserveHistoryDTO;
 import com.gsitm.mbms.room.RoomDTO;
 
 public interface MailService {
-	public boolean send(String subject, String to, ApprovalDTO reserve, String comment);
-	public boolean send(String subject, String to, ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment);
+	public void send(String subject, String to, ApprovalDTO reserve, String comment);
+	public void send(String subject, String to, ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment);
 	public String getMailTemplate(ReserveHistoryDTO reserveHistory, RoomDTO roomDTO, String comment);
 	public String getMailTemplate(ApprovalDTO reserve, String comment);
 	
