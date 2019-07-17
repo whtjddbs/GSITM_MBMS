@@ -24,6 +24,9 @@ public interface RoomService {
 	public void roomUpdate(RoomDTO dto);
 
 	public List<Map<String, Object>> selectAllWithEquipmentsWithBuildings();
+	
+	
+	public int selectGetMaxId();
 	}
 
 

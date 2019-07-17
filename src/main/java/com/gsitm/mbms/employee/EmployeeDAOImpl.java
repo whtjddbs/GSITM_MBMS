@@ -47,10 +47,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	/** 성윤 : 부서 전체조회 (트리) **/
+	
 	@Override
 	public List<Map<String, String>> selectAllDepartmentTree() {
 		return sqlSession.selectList("departmentMapper.selectAllDepartmentTree");
 	}
+	
 
 	/** 성윤: 상위결재자 사원번호 조회 **/
 	@Override

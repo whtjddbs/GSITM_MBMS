@@ -86,20 +86,23 @@ public class RoomController {
 	//Room 등록
 		@RequestMapping(value="/roomInsert",method=RequestMethod.POST)
 		public String roomInsert(RoomDTO dto, String eqNameList,String eqCountList,MultipartFile file, HttpServletRequest request) throws Exception {
-			
+			String fileUrl="";
 			System.out.println(dto+"---------------------------");
 			logger.info("Room Insert Action!");
-			String imgpUploadPath = request.getSession().getServletContext().getRealPath("/resources/") + File.separator + "imgUpload";
-			String ymdPath = UploadFileUtils.calcPath(imgpUploadPath);
-			String fileName = null;
+			//String imgpUploadPath = request.getSession().getServletContext().getRealPath("/resources/") + File.separator + "imgUpload";
+			//String ymdPath = UploadFileUtils.calcPath(imgpUploadPath);
+			
 			if(file !=null) {
-				fileName = UploadFileUtils.fileUpload(imgpUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+				//fileName = UploadFileUtils.fileUpload(imgpUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+				ObjectStorageUpload ob = new ObjectStorageUpload(file, roomService.selectGetMaxId());
+				fileUrl = ob.sendRequest();
+				
 			}
 			else {
-				fileName=uploadPath+File.separator+"images"+File.separator+"non.png";
+				//파일이 null일때 거르는 것을 홈페이지 단에서 원레 해야함!
 			}
 			
-			dto.setRoomImg(File.separator +"imgUpload"+ymdPath+File.separator+fileName);
+			dto.setRoomImg(fileUrl);
 			System.out.println(dto.getRoomImg());
 			roomService.roomInsert(dto);
 			

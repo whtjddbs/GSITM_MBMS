@@ -118,35 +118,8 @@
 									<!-- /.input group -->
 								</div>
 					        </div>
-								
-							<div class="form-group">
-							<!-- 참석인원 -->
-							<div class="col-sm-12  col-xs-12">
-								<label>참석인원 및 명단</label>
-								<div class="input-group">
-									<span class="input-group-addon">참석인원</span> 
-									<input type="number" name="empCount" id="empCount" placeholder="최대인원 (명)" class="form-control" readonly>
-									<span class="input-group-addon"><i class="fa fa-users"></i></span>
-									<input type="text" id="empList" class="form-control" placeholder="참석자 명단" readonly>
-									<div class="input-group-btn">
-										<button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#employeeList-modal" type="button"><i class="fa fa-plus"></i></button>
-									</div>
-								</div>
-							</div>
-							</div>
-							
-							<div class="form-group">
-							<!-- 주관 / 협조 부서 -->
-							<div class="col-sm-12  col-xs-12">
-								<label>주관부서</label>
-								<div class="input-group">
-									<span class="input-group-addon">주관부서</span> 
-									<select name="competentDepartment" id="mainDeptList" class="form-control" multiple="multiple" style="display: none;">
-										
-									</select>
-								</div>
-							</div>
-							</div>
+
+							<!--  참석자 정보 및 주관 부서 삭제 -->
 								
 							<div class="form-group">
 							<!-- 비품 신청 -->

@@ -21,12 +21,23 @@
 	</context:component-scan>
 
 	<!-- Database 연동을 위한 DataSource 설정 -->
+	<!-- 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="mbms" />
 		<property name="password" value="mbms" />
 	</bean>
+	 -->
+	
+	<!-- MySQL Database 연동을 위한 DataSource 설정 -->
+	 <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"> 
+	<!--  <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/javadb?characterEncoding=utf8&amp;useSSL=false"  />   -->
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
+        <property name="url" value="jdbc:mysql://1.255.54.78:3306/mbms"/> 
+        <property name="username" value="dbmaster"/> 
+        <property name="password" value="dbmaster"/>
+    </bean>
 	
 	<!-- Connection을 생성하고, 처리하는 SqlSessionFactory 등록 -->	
 	<!-- 데이터베이스와의 연결과 SQL의 실행에 대한 모든 것을 가진 객체 -->

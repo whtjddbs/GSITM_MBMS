@@ -29,6 +29,8 @@ public interface RoomDAO {
 
 	//민기 관리자 사번으로 방 찾기
 	public List<RoomDTO> selectRoomByMgrEmpNo(String empNo);
+	
+	public int selectGetMaxId();
 
 }
 

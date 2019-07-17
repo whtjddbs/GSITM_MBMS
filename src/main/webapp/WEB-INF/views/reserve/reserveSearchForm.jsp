@@ -92,21 +92,8 @@
 				</div>
 				<!-- /.box -->
 				
-				<div class="box box-primary">
-		            <div class="box-header with-border">
-		              <h4 class="box-title">예약 상태</h4>
-		            </div>
-		            <div class="box-body">
-		              <!-- the events -->
-		              <div id="external-events">
-		                <div class="external-event bg-yellow" style="cursor: auto;">미승인</div>
-		                <div class="external-event bg-green" style="cursor: auto;">1차 승인</div>
-		                <div class="external-event bg-light-blue" style="cursor: auto;">최종 승인</div>
-		                <div class="external-event bg-red" style="cursor: auto;">반려</div>
-		              </div>
-		            </div>
-		            <!-- /.box-body -->
-		          </div>
+			<!--  예약 상태 삭제 -->
+			
 			</div>
 			<!-- /.col(left:col-md-3) -->
 

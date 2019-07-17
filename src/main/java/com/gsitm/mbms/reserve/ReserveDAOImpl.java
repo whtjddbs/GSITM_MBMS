@@ -65,20 +65,26 @@ public class ReserveDAOImpl implements ReserveDAO {
 		return session.insert("reserveHistoryMapper.insertReserveHistory", reserveHistory);
 	}
 
+	/**
 	@Override
 	public int insertMeetingMemberList(List<MeetingMemberDTO> meetingMemberList) {
 		return session.insert("reserveHistoryMapper.insertMeetingMemberList", meetingMemberList);
 	}
-
+	*/
+	
+	
 	@Override
 	public int insertMeetingEquipmentList(List<MeetingEquipmentDTO> meetingEquipmentList) {
 		return session.insert("reserveHistoryMapper.insertMeetingEquipmentList", meetingEquipmentList);
 	}
+	
 
+	
 	@Override
 	public int insertCompetentDepartmentList(List<CompetentDepartmentDTO> competentDepartmentList) {
 		return session.insert("reserveHistoryMapper.insertCompetentDepartmentList", competentDepartmentList);
 	}
+	
 	
 	/**민기 : 해당 사용자가 결재자인지 판별-----------------------------*/
 	@Override

@@ -51,31 +51,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 성윤: 반려 -->
 	<update id="refuse" parameterType="map">
+	<!--
 		UPDATE reserve_history SET ${colName}_yn = 2, ${colName}_date = sysdate, reason = #{reason}
+		WHERE reserve_no = #{reserveNo}
+	  -->
+	   	UPDATE reserve_history SET ${colName}_yn = 2, ${colName}_date = DATE_FORMAT(NOW(), '%Y%m%d'), reason = #{reason}
 		WHERE reserve_no = #{reserveNo}
 	</update>
 	
 	<!-- 성윤: 승인 -->
 	<update id="approval" parameterType="map">
+	<!-- 
 		UPDATE reserve_history SET ${colName}_yn = 1, ${colName}_date = sysdate
+		WHERE reserve_no = #{reserveNo}
+	  -->
+	  	UPDATE reserve_history SET ${colName}_yn = 1, ${colName}_date = DATE_FORMAT(NOW(), '%Y%m%d')
 		WHERE reserve_no = #{reserveNo}
 	</update>
 	
 	<!-- 성윤: 30분 후 시작하는 예약 목록 확인 -->
 	<select id="selectImminentReserveList" parameterType="string" resultMap="approvalBase">
+	<!-- 
 		SELECT rh.reserve_no  FROM reserve_history rh 
 		    JOIN employee e ON rh.reserve_emp_no = e.emp_no
 		    JOIN department d ON e.dept_no = d.dept_no
 		    JOIN room r ON rh.room_no = r.room_no
 		    JOIN building b ON r.build_no = b.build_no
 		WHERE TO_CHAR(rh.start_date, 'yyyy/mm/dd hh24:mi') = #{nowTime}
+	 -->
+	 
+	 	SELECT rh.reserve_no  FROM reserve_history rh 
+		    JOIN employee e ON rh.reserve_emp_no = e.emp_no
+		    JOIN department d ON e.dept_no = d.dept_no
+		    JOIN room r ON rh.room_no = r.room_no
+		    JOIN building b ON r.build_no = b.build_no
+		WHERE DATE_FORMAT(rh.start_date) = #{nowTime}
 	</select>
 	
 	<!-- 성윤: 30분 후 시작하는 예약번호 목록 확인 -->
 	<select id="selectImminentReserveList2" parameterType="string" resultType="int">
+	<!--
 		SELECT reserve_no FROM reserve_history
 		WHERE TO_CHAR(start_date, 'yyyy/mm/dd hh24:mi') = #{nowTime}
 			AND approval1_yn = 1
 			AND approval2_yn = 1
+	   -->
+	   SELECT reserve_no FROM reserve_history
+		WHERE DATE_FORMAT(start_date) = #{nowTime}
+			AND approval1_yn = 1
+			AND approval2_yn = 1	
+	
 	</select>
 </mapper>

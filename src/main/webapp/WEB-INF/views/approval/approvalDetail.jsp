@@ -49,7 +49,7 @@
                            <tr>
                               <td>
                               	${approvalDTO.employeeDTO.empName }<br>
-                              	<fmt:formatDate value="${approvalDTO.reserveDate }" pattern="yyyy-MM-dd HH:mm"/>
+                              	<fmt:formatDate value="${approvalDTO.reserveDate }" pattern="yyyy-MM-dd"/>
                               </td>
                               <td>
                               	${approval1Emp.empName }<br>
@@ -58,7 +58,7 @@
 										-
 									</c:when>
 									<c:when test = "${approvalDTO.approval1Yn eq 1}">
-										<fmt:formatDate value="${approvalDTO.approval1Date }" pattern="yyyy-MM-dd HH:mm"/>
+										<fmt:formatDate value="${approvalDTO.approval1Date }" pattern="yyyy-MM-dd"/>
 									</c:when>
 									<c:when test = "${approvalDTO.approval1Yn eq 2}">
 										반려
@@ -72,7 +72,7 @@
 										-
 									</c:when>
 									<c:when test = "${approvalDTO.approval2Yn eq 1}">
-										<fmt:formatDate value="${approvalDTO.approval2Date }" pattern="yyyy-MM-dd HH:mm"/>
+										<fmt:formatDate value="${approvalDTO.approval2Date }" pattern="yyyy-MM-dd"/>
 									</c:when>
 									<c:when test = "${approvalDTO.approval2Yn eq 2}">
 										반려
@@ -104,43 +104,20 @@
                         </tr>
                         <tr>
                            <th>이용 시간</th>
-							<td><fmt:formatDate value="${approvalDTO.startDate }" pattern="yyyy-MM-dd HH:mm"/> ~
-								<fmt:formatDate value="${approvalDTO.endDate }" pattern="yyyy-MM-dd HH:mm"/> 
+							<td><fmt:formatDate value="${approvalDTO.startDate }" pattern="yyyy-MM-dd"/> ~
+								<fmt:formatDate value="${approvalDTO.endDate }" pattern="yyyy-MM-dd"/> 
 							</td>
                         </tr>
-                        <tr>
-                           <th>참석 인원</th>
-                           <td>
-								<div class="btn-group">
-									<a class="dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
-										<i class="fa fa-user"></i> <span class="caret"></span>
-										<!-- 참여 사원 수 -->
-										<span class="badge bg-red badge-counter" id="participationCount"> ${fn:length(meetingMembers)}  </span>
-									</a>
-									<ul class="dropdown-menu participation-list" role="menu">
-										<li> <a> 참여 인원 </a> </li>
-										<li class="divider"></li>
-										<c:forEach items="${meetingMembers}" var="empList">
-											<li> <a>${empList.empName } (${empList.dept.deptName}) </a></li>
-										</c:forEach>
-									</ul>
-								</div>
-                           </td>
-                        </tr>
+ 
+ 				<!--  참석 인원 삭제  -->
+ 				
                         <tr>
                            <th>사용 목적</th>
                            <td>${approvalDTO.purpose}</td>
                         </tr>
-                        <tr>
-                           <th>비품 신청 목록</th>
-                           <td>
-								<c:forEach items="${meetingEquipments }" var="equip">
-									<c:if test="${equip.eqCount ne 0}">
-										${equip.eqName } (${equip.eqCount })
-									</c:if>
-								</c:forEach>
-							</td>
-                        </tr>
+
+ 				<!--  비품 목록 삭제  -->
+
                         <tr>
                            <th>다과 준비 여부</th>
                            <td>

@@ -49,21 +49,8 @@
 											name="roomNumEmp" required>
 									</div>
 
-									<div class="col-xs-6">
-										<label>회의실 담당자</label>
-									<div class="input-group">
-										
-											<input type="text" class="form-control" name="mgrEmpNo"
-												id="mgrEmpNo" required readonly>
-												<span class="input-group-btn">
-											<input type="button" class='btn btn-default' value="찾기"
-												id="findEmpBtn" >
-												</span>
-										</div>
-										<div class="col-xs-1">
-											
-										</div>
-									</div>
+				<!--  회의실 담당자 삭제 -->
+
 									<div class="col-sm-6">
 										<label for="buildingSelect">지사</label> <select name="buildNo"
 											id="buildingSelect" class="form-control" required>

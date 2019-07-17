@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -50,7 +52,7 @@
 						<td>${PaymentDTO.startDate}</td>
 						<td>${PaymentDTO.title}</td>
 						<td>${PaymentDTO.deptName}</td>						
-						<td>${PaymentDTO.cost}</td>
+						<td><fmt:formatNumber value="${PaymentDTO.cost}" pattern="#,###원"></fmt:formatNumber></td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -63,7 +65,8 @@
 					<c:forEach var="PaymentDTO" items="${paymentList}">
 					<c:set var= "sum" value="${sum + PaymentDTO.cost}"/>
 					</c:forEach>
-					<th> <c:out value="${sum}"/> </th>
+					<th> <fmt:formatNumber value="${sum}" pattern="#,###원"></fmt:formatNumber></th>		
+					
 				</tfoot>  
 				      
               </table>

@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="departmentMapper">
 
 	<!-- 테이블 매핑 -->
-	<resultMap type="department" id="DepartmentDTO">
+	<resultMap type="department" id="departmentDTO">
 		<result column="dept_no" property="deptNo"/>
 		<result column="dept_name" property="deptName"/>
 		<result column="boss_no" property="bossNo"/>
@@ -14,7 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<!-- 성윤 : 부서 전체조회 (트리) -->
-	<select id="selectAllDepartmentTree" resultType="map">
+	
+	<select id="selectAllDepartmentTree" resultType="map">  
+	<!-- 
 		SELECT 
 			LEVEL,
 		    dept_name,
@@ -22,15 +24,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM department
 		START WITH mgr_dept_no IS NULL
 		CONNECT BY PRIOR dept_no = mgr_dept_no
-	</select>
+	-->
+		SELECT
+			department.*, employee.*
+			FROM department, employee
+	 </select>   
 
 	<!-- 민기 : 부서 명단 뽑아오기 -->
-	<select id="selectAllDept" resultMap="DepartmentDTO">
-        SELECT * FROM Department
+	<select id="selectAllDept" resultMap="departmentDTO">
+        SELECT * FROM department
 	</select>
 	
 	<!-- 민기: 해당 사용자가 보스인 부서를 조회 -->
-	<select id="selectDeptByBossNo" resultMap="DepartmentDTO">
+	<select id="selectDeptByBossNo" resultMap="departmentDTO">
         SELECT * FROM department where BOSS_NO = #{empNo}
 	</select>
 	 

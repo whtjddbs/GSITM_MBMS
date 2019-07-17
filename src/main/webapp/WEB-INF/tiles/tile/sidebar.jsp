@@ -41,9 +41,12 @@
 					<li><a href="/reserve/roomList"><i class="fa fa-circle-o"></i> 
 							회의실 소개</a></li>
 					<li><a href="/reserve/reserveSearchForm"><i class="fa fa-circle-o"></i>
-							회의실 검색</a></li>
+							회의실 예약</a></li>
+					<!--  
 					<li><a href="/reserve/reserveForm"><i class="fa fa-circle-o"></i>
 							회의실 예약</a></li>
+					 -->
+					 
 				</ul></li>
 			<!-- 마이페이지 -->
 			<li class="treeview"><a href="#"> <i class="fa fa-user"></i>
@@ -87,8 +90,10 @@
 								근무지 관리</a></li>
 						<li><a href="/room/roomManageList"><i class="fa fa-circle-o"></i>
 								회의실 관리</a></li>
+						<!--
 						<li><a href="/equipment/equipmentList"><i class="fa fa-circle-o"></i>
 								비품 관리</a></li>
+						-->
 					</ul></li>
 				<!-- 회의실 -->
 				<li class="treeview"><a href="#"> <i class="fa fa-bar-chart"></i>

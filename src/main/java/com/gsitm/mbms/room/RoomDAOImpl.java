@@ -64,6 +64,11 @@ public class RoomDAOImpl implements RoomDAO {
 	@Override
 	public List<RoomDTO> selectRoomByMgrEmpNo(String empNo) {
 		return session.selectList("roomMapper.selectRoomByMgrEmpNo",empNo);
+	}
+
+	@Override
+	public int selectGetMaxId() {
+		return session.selectOne("roomMapper.selectGetMaxId");
 	}  
 }
 

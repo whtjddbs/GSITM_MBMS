@@ -60,5 +60,10 @@ public class RoomServiceImpl implements RoomService {
 		// TODO Auto-generated method stub
 		return roomDAO.selectAllWithEquipmentsWithBuildings();
 	}
+
+	@Override
+	public int selectGetMaxId() {
+		return roomDAO.selectGetMaxId();
+	}
 }
 

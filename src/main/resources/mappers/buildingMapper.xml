@@ -22,7 +22,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    
    <insert  id="buildingInsert"  parameterType="Building">
-   		insert into building values(building_seq.nextval,#{buildName},#{buildAddr},#{buildPost}) 
+   		<!-- insert into building values (building_seq.nextval, #{buildName}, #{buildAddr}, #{buildPost})   -->
+   		Insert into building values ((select *from (select max(build_no)+1 from building) next),
+   		#{buildName}, #{buildAddr}, #{buildPost})
    </insert>
    
    <delete id="buildingDelete" parameterType="int">

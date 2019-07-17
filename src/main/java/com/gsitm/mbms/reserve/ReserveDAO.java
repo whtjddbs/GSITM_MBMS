@@ -35,7 +35,7 @@ public interface ReserveDAO {
 	/** 성윤: 회의실 예약 **/
 	public int getNowReserveNo();
 	public int insertReserveHistory(ReserveHistoryDTO reserveHistory);
-	public int insertMeetingMemberList(List<MeetingMemberDTO> meetingMemberList);
+	//public int insertMeetingMemberList(List<MeetingMemberDTO> meetingMemberList);
 	public int insertMeetingEquipmentList(List<MeetingEquipmentDTO> meetingEquipmentList);
 	public int insertCompetentDepartmentList(List<CompetentDepartmentDTO> competentDepartmentList);
 	// 회의실 예약 끝
